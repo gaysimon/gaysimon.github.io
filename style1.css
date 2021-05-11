@@ -1,0 +1,134 @@
+p{
+    text-align: justify;
+}
+
+body{
+   	 background-color: rgba(200, 250, 200, 1);
+}
+
+
+nav{
+	background-color: rgba(100, 100, 100, 1);
+	border-radius: 15px;
+   	float: left;
+   	width: 125px;
+   	border: 4px black outset;
+list-style-type: none;
+padding: 15px;
+}
+
+
+
+nav ul{
+	list-style-type: none;
+	margin-left: -20px;
+}
+
+
+section{
+	padding: 10px;
+	margin-left: 170px;
+}
+
+
+figure{
+text-align:center
+
+
+}
+
+
+.subsection{
+	background-color: rgba(230, 230, 230, 1);
+	border-radius: 15px;
+	margin-bottom: 10px;
+}
+
+.footsection{
+display: inline-block;
+height: 150px;
+width: 278px;
+vertical-align: top;
+margin: 5px;
+	background-color: rgba(230, 230, 230, 1);
+	border-radius: 15px;
+
+}
+
+
+.listsection{
+	background-color: rgba(200, 200, 200, 1);
+	margin: 10px;
+	border-radius: 15px;
+	text-align: justify;
+}
+
+
+
+footer{
+
+	padding: 10px;
+	background-color: rgba(255, 255, 245, 1);
+	width: 880px;
+	margin: auto;
+
+	margin-top: 10px;
+
+	border-radius: 15px;
+	box-shadow: 0px 4px 4px #1c1a19;
+}
+
+
+
+.main{
+	padding: 10px;
+	
+	background-color: rgba(255, 255, 245, 1);
+	width: 880px;
+    	margin: auto;
+	margin-top: 10px;
+	border-radius: 15px;
+	box-shadow: 0px 4px 4px #1c1a19;
+}
+
+.imageflottante{
+    	float: left;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	border: 2px blue solid;
+}
+
+.imageflottante2{
+
+    	float: left;
+margin: auto;
+margin-top: -10px;
+margin-right: 20px;
+margin-left: 20px;
+}
+
+.underfloat{
+	clear: both;
+	text-align: justify;
+}
+
+.miniature{
+	min-height: 120px;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+#banniere_image{
+    	margin-top: 5px;
+    	height: 150px;
+
+	width: 900px;
+	margin: auto;
+
+
+    	border-radius: 15px;
+    	background: url('img/banniere.png') no-repeat;
+    	position: relative;
+   	box-shadow: 0px 4px 4px #1c1a19;
+
+}
