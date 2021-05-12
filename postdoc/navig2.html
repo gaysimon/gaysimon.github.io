@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/postdoc/navig2.html"><img src="img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/navig2_en.html"><img src="img/en.png" alt="en" /> </a>
+		</nav>
+
+<section class="subsection">
+	<p>
+		<center style="text-align: center;font-size: xx-large;">Un système de navigation bio-inspiré</center><br /><br />
+			<p>
+				Prochainement...
+
+				<br/>
+				<br/>
+				Ce système de navigation utilise des modèles de <a href="https://fr.wikipedia.org/wiki/Cellule_de_lieu">cellules de lieux<a/> et de <a href="https://fr.wikipedia.org/wiki/Cellule_de_grille">cellules de grille<a/> pour assurer le suivi dans l'espace tout en fournissant des informations de navigation fiables. Les cellules de lieu sont utilisées pour assurer le suivi sur de longues distances et pour reconnaître les lieux déjà visités, les cellules de grilles sont utilisés pour permettre une odométrie visuelle. Ce modèle étant en cours de publication, la description détaillée de son fonctionnement et les résultats seront disponibles prochainement. 
+			</p>
+
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/postdoc/gridcells.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Construction du graphe de navigation (guidage manuel). En haut à droite, les cellules de grille et les cellules d'orientation. En bas à droite, les cellules de lieu.
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+					<source src="videos/navig_sequence.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br/>
+				Suivi d'une séquence de cellules de lieu (navigation autonome). L'agent se guide uniquement à l'aide de son système visuel (pas de mesure des déplacements).
+			</p>
+			<br/>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/sequence.png" alt="comparaison" width="550" />
+			</figure>
+			<p style="text-align: center">
+				Comparaison du trajet effectué avec le guidage manuel pour construire une séquence de cellules de lieu (trait noir), et du trajet effectué automatiquement en suivant cette séquence (trait rouge).
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/postdoc/navig_homing.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br/>
+				Retour au point de départ, en suivant la séquence inversée de cellules de lieu (trait bleu). Comme l'agent ne voit pas derrière lui, il ne peut compter, pour le retour, que sur la distance estimée entre les cellules de lieu et la mesure visuelle de ses déplacement à l'aide de nouvelles cellules. Le système de guidage permet une intégration de chemin relativement fiable.
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+				<video width="640" controls >
+					<source src="/postdoc/navig_robust.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br/>
+				Tolérance aux changements : même en modifiant l'environnement, le système de guidage parvient à trouver des repères pour suivre la séquence de cellule de lieu définie dans l'environnement initial.
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+				<video width="640" controls >
+					<source src="/postdoc/navig_shortcut.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br/>
+				Détection de raccourcis (trait vert) : l'agent peut estimer la position des cellules de lieu autour de lui et se dirige vers la cellule atteignable en ligne droite (sans obstacle entre lui et la position estimée) la plus proche de la dernière cellule de la séquence.
+			</p>
+
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
