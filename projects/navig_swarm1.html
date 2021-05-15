@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/projects/navig_swarm1.html"><img src="img/fr.png" alt="fr" /> </a>
+			<a href="/projects/navig_swarm1_en.html"><img src="img/en.png" alt="en" /> </a>
+		</nav>
+
+<section class="subsection">
+	<p>
+		<center style="text-align: center;font-size: xx-large;">Un système de navigation distribué pour la robotique en essaim</center><br /><br />
+			<p>
+				Prochainement...
+
+				<br/>
+				<br/>
+				Ce système de navigation est une version modifiée du modèle de  <a href="/postdoc/navig2.html">navigation bio-inspiré<a/> pouvant être distribué sur et exploité par un groupe d'agents ou de robots. Ici, un seul agent guide le groupe, chaque agent pouvant prendre le rôle de guide dans la partie de l'environnement qu'il a enregistré. On évite ainsi le besoin de transmettre des parties du modèle de l'environnement entre les agents. Le système de navigation bio-inspiré permet en effet l'échange d'agent guide sans conséquence sur la dérive de l'estimation de la position. Pour des raison de simplicité, dans les expériences présentées ci-dessous, chaque agent a un successeu prédéfini, et l'agent guide passe le relai à son successeur quand il a ajouté un nombre prédéfini de cellules de lieu (sauf si un autre agent reconnait la partie de l'environnement qu'il connait).<br/>
+
+Ce modèle étant en cours de publication, la description détaillée de son fonctionnement et les résultats seront disponibles prochainement. 
+			</p>
+
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/construction_2_8.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Construction du graphe de navigation (guidage manuel) avec un groupe de deux agents. Les agents échangent leur rôle quand le guide a plécé 8 cellules de lieu. En haut à droite, les cellules de grille et les cellules d'orientation. En bas à droite, les cellules de lieu et la grille globale permettant de comparer la position estimée (trace cyan) et la position réelle (trace jaune).
+			</p>
+			<br/>
+
+
+			<figure style="text-align:center">
+				<img src="/projects/graph_8.png" alt="Graph 8" width="550" />
+			</figure>
+			<p style="text-align: center">
+				Modèle de l'environnement après avoir effectué la boucle principale de l'environnement. Le premier agent a enregistré 18 cellules de lieu (en rouge) et le second agent a enregistré 13 cellules de lieu (en bleu). Quatre cellules sont partagées par les deux agents: le modèle comporte ainsi 27 celules de lieux.
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+					<source src="/projects/navig_2_8.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br/>
+				Suivi d'une séquence de cellules de lieu (navigation autonome). Les agent se guide uniquement à l'aide de son système visuel (pas de mesure des déplacements) en se dirigeant vers la position de la cellule de lieu suivante. Quand l'agent guide change, on n'observe pas de dérive dans l'estimation de la position.
+			</p>
+			<br/>
+
+
+
+
+			<figure style="text-align:center">
+				<img src="/projects/graph_16.png" alt="Graph 16" width="550" />
+			</figure>
+			<p style="text-align: center">
+				Modèle de l'environnement après avoir effectué la boucle principale de l'environnement, avec un changement de guide après création de 16 cellules de lieu. Le premier agent a enregistré 17 cellules de lieu (en rouge) et le second agent a enregistré 13 cellules de lieu (en bleu), pour un modèle comportant 28 cellules de lieu. Deux cellules sont partagées par les deux agents : plus les modèles des agents sont regroupées, moins il y a de cellules de lieu redondantes et de changement de roles.
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+					<source src="/projects/navig_2_16.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br/>
+				Suivi d'une séquence de cellules de lieu (navigation autonome) d'après le second graphe.
+			</p>
+			<br/>
+
+
+
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/construction_5_4.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Construction du graphe de navigation (guidage manuel) avec un groupe de cinq agents et un changement après création de 4 cellules de lieu.
+			</p>
+			<br/>
+
+			<figure style="text-align:center">
+				<img src="/projects/graph_4.png" alt="Graph 4" width="550" />
+			</figure>
+			<p style="text-align: center">
+				Modèle de l'environnement construit par les cinq agents. Le premier agent a enregistré 10 cellules de lieu (en rouge) et le second 8 cellules (en bleu), les autres agents, 5 cellules (vert, jaune, cyan), pour un modèle comportant 26 cellules de lieu avec 7 cellules partagées.
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+					<source src="/projects/navig_2_16.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br/>
+				Suivi du modèle de l'environnement construit par les cinq agents (navigation autonome). Chaque agent guide le groupe sur la portion de l'environnement qu'il a enregistré : il n'est pas nécessaire d'échanger les informations sur l'environnement entre les agents.
+			</p>
+			<br/>
+
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
