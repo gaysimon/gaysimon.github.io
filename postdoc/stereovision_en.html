@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/postdoc/stereovision.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/stereovision_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		
+		<section class="subsection">
+			<p>
+				<center style="text-align: center;font-size: xx-large;">Stereo-vision systems</center><br /><br />
+			</p>
+
+			<p>
+				In order to provide required data to our navigation model, we proposed to use stereo-vision systems. Indeed, these systems provide an estimation of distance, even in dynamic environment. We first tested an Intel <a href="https://www.intelrealsense.com/depth-camera-d435i/">RealSense<a/> camera, that provide a depth map using two infrared cameras. We successfully tested our grid cell model on this device.
+			</p>
+
+			<p>
+				However, the small distance between the two cameras limits the range of the device: beyond 5m, the precision becomes too low to be used. Thus, if this device can be used on a small robot, it cannot be used in large environments. We thus developed a system based on two standard webcam. This system uses an optical flow algorithm (function <a href="https://docs.opencv.org/3.0-beta/modules/video/doc/motion_analysis_and_object_tracking.html">calcOpticalFlowPyrLK<a> from OpenCV) applied between the two images on vertical edges to detect and localize vertical structures in the environment. The use of an optical flow algorithm allows a large interval between cameras (here, 20cm) providing a large range of several dozen of meters. We also planned to use wide-angle lens to increase visual field.
+			</p>
+
+			<p>
+				<figure style="text-align:center">
+					<img src="/postdoc/stereo1.png" alt="Vision Stereo" width="650" />
+				</figure>
+			</p>
+
+			<p style="text-align:center">
+				Stereo-vision system: left, an image provided by one of the two cameras. An optical flow algorithm is applied between the two images on vertical edges and measure the difference between the two images (black lines). This difference makes it possible to estimate the distance of elements. Middle: red points indicates the presence and position of main vertical structures (top view, distance is not linear). We can recognize the elements in the scene, and even windows on the other building (top points on the image). The right image shows the depth map. We added a feature detection around vertical edges to help recognizing places. This system thus provide required data for our navigation system. 
+			</p>
+
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

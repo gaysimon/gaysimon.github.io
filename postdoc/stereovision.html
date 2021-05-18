@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/postdoc/stereovision.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/stereovision_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+		<section class="subsection">
+			<p>
+				<center style="text-align: center;font-size: xx-large;">Systèmes de vision stéréo</center><br /><br />
+			</p>
+
+			<p>
+				Afin de fournir les informations nécessaire à notre système de navigation, nous utilisons des systèmes de vision stéréo. Ces systèmes permettent en effet de fournir des estimations de distances, y compris en environnement dynamique. Nous avons dans un premier temps testé la caméra <a href="https://www.intelrealsense.com/depth-camera-d435i/">RealSense<a/> d'Intel, qui fourni la carte de profondeur à l'aide de deux caméras infrarouges. Nous avons pu tester avec succès notre modèle de cellule de grille sur cette caméra.
+			</p>
+
+			<p>
+				Cependant, la faible distance entre les deux objectifs limite la portée de la caméra : au delà de 5m, la précision devient trop faible pour être exploitable. Ainsi, si cette caméra peut être utilisée sur un petit robot, elle ne peut être utilisée dans un environnement de grande taille. Nous avons alors développé un système plus adapté à nos besoins, utilisant deux webcams standards. Ce système utilise un algorithme de flux optique (fonction <a href="https://docs.opencv.org/3.0-beta/modules/video/doc/motion_analysis_and_object_tracking.html">calcOpticalFlowPyrLK<a> d'OpenCV) appliqué entre les deux images sur les contours verticaux, permettant de détecter et localiser les structures verticales de l'environnement. L'utilisation d'un algorithme de flux optique permet un grand intervalle entre les objectifs (ici, de 20cm) permettant une portée de plusieurs dizaines de mètres. Nous prévoyons également l'utilisation de lentilles grand angle pour augmenter le champs de vision.
+			</p>
+
+			<p>
+				<figure style="text-align:center">
+					<img src="/postdoc/stereo1.png" alt="Vision Stereo" width="650" />
+				</figure>
+			<p/>
+
+
+			<p style="text-align:center">
+				Système stéréo : à gauche, image fournies par l'une des caméras. Un algorithme de flux optique est appliqué entre les deux images sur les contours verticaux pour déterminer la différence entre les deux points de vue (traits noirs). Cette différence permet de déterminer la distance des éléments. Au milieux, les points rouges indique la présence et la position des structures verticales (en vue du dessus, la distance n'est pas linéaire). On reconnaît les éléments du décors, ainsi que les fenêtres situés en face (points en haut sur l'image centrale). L'image de droite montre la carte de profondeur. On ajoute une détection de points caractéristiques autours des contours verticaux pour faciliter la reconnaissance des lieux. Ce système permet ainsi de fournir les informations nécessaires et suffisantes pour notre système de navigation.
+			</p>
+
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
