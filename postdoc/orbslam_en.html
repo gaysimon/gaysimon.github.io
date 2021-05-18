@@ -36,11 +36,11 @@
 
 			<p>
 				In a first time, we considered the <a href="https://github.com/raulmur/ORB_SLAM">ORB-SLAM<a/> system for our navigation model. ORB-SLAM is a very efficient monocular or stereovision mapping and localization system based on <a href="https://en.wikipedia.org/wiki/Oriented_FAST_and_rotated_BRIEF">ORB<a/> features detector. 
-			<p/>
+			</p>
 
 			<p>
 				We thus planed to use this system to recognize already visited places and for localization and orientation with a unique camera with a fisheye lens. An interface was developed by our <a href="https://fr.linkedin.com/in/pierre-biojoux-1b418815a">trainee student<a/> to test and quickly change environment models to construct a navigation graph.
-			<p/>
+			</p>
 
 			<figure style="text-align:center">
 				<img src="/postdoc/OrbSlam.png" alt="ORB*SLAM System" width="400" />
@@ -48,7 +48,7 @@
 
 			<p style="text-align: center">
 				ORB-SLAM uses points of interest and camera movements to localize these points in space to construct a model of the environment (right) making it possible to localize in the environment.
-			<p/>
+			</p>
 
 			<p>
 				However, this system has several limits: in its monocular version, the system cannot handle rotations movements without translations of the camera, and is not very tolerant to dynamic environments. Moreover, the recorded models are very heavy (a hundred of MB for a single office), making it poorly suitable for large environments. Because of these problems, we considered more simple solutions based on stereovision. 
