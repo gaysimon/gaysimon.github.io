@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/postdoc/orbslam.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/orbslam_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		
+		<section class="subsection">
+			<p>
+				<center style="text-align: center;font-size: xx-large;">Tests on ORB-SLAM system</center><br /><br />
+			<p/>
+
+			<p>
+				In a first time, we considered the <a href="https://github.com/raulmur/ORB_SLAM">ORB-SLAM<a/> system for our navigation model. ORB-SLAM is a very efficient monocular or stereovision mapping and localization system based on <a href="https://en.wikipedia.org/wiki/Oriented_FAST_and_rotated_BRIEF">ORB<a/> features detector. 
+			<p/>
+
+			<p>
+				We thus planed to use this system to recognize already visited places and for localization and orientation with a unique camera with a fisheye lens. An interface was developed by our <a href="https://fr.linkedin.com/in/pierre-biojoux-1b418815a">trainee student<a/> to test and quickly change environment models to construct a navigation graph.
+			<p/>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/OrbSlam.png" alt="ORB*SLAM System" width="400" />
+			</figure>
+
+			<p style="text-align: center">
+				ORB-SLAM uses points of interest and camera movements to localize these points in space to construct a model of the environment (right) making it possible to localize in the environment.
+			<p/>
+
+			<p>
+				However, this system has several limits: in its monocular version, the system cannot handle rotations movements without translations of the camera, and is not very tolerant to dynamic environments. Moreover, the recorded models are very heavy (a hundred of MB for a single office), making it poorly suitable for large environments. Because of these problems, we considered more simple solutions based on stereovision. 
+			</p>
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>
