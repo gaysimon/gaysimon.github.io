@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/postdoc/tactibelt.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/tactibelt_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+		<section class="subsection">
+			<p>
+				<center style="text-align: center;font-size: xx-large;">Une ceinture haptique : la TactiBelt</center><br /><br />
+			</p>
+
+			<p>
+				Dans le cadre du projet ACCESSPACE, nous avons prévu l'utilisation d'une ceinture comportant un ensemble de vibreurs pour transmettre des informations sur l'environnement. Le modèle actuel prévoit l'utilisation de 48 vibreurs répartis sur trois lignes faisant le tours de la ceinture.<br /><br />
+				Nous avons conçu l'interface PC-TactiBelt autours d'un Arduino Mega, et d'une carte dédiée permettant d'alimenter les vibreurs à l'aide d'une batterie externe. L'interface permet de piloter les vibreurs individuellement, et de leur appliquer une pulsation spécifique. <br/>
+			</p>
+
+			<p style="text-align:center">
+
+				<video width="320" height="240" controls>
+					<source src="/videos/tactibeltArduino.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+			</p>
+
+			<p>
+				Pour les tests préliminaires, nous avons placé une ligne de 16 vibreurs sur la ceinture, et crée un simulateur 2D basé sur l'environnement développé pendant ma thèse. Des vibrations continues permettent d'indiquer la présence d'obstacles, les vibrations devenant de plus en plus fortes à mesure que l'on s'approche d'un mur. Une vibration pulsée indique la direction de la cible à atteindre (rond mauve). Différents profils de vibrations sont utilisés pour indiquer des points de navigation, des repères ou des directions libres.
+
+				<figure style="text-align:center">
+					<img src="/postdoc/tactibelt.jpg" alt="Tactibelt" width="300" />
+					<img src="/postdoc/tactibelt.png" alt="Test environment" width="550" />
+				</figure>
+
+				Les 48 vibreurs de la ceinture. Des connecteurs DVI permettent de connecter et déconnecter rapidement la ceinture du module Arduino. 
+
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/tactibelt_open.png" alt="Tactibelt inside" width="550" />
+				<img src="/postdoc/tactibelt_wear.jpg" alt="Tactibelt complete" width="250" />
+			</figure>
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
