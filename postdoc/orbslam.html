@@ -29,15 +29,15 @@
 		<section class="subsection">
 			<p>
 				<center style="text-align: center;font-size: xx-large;">Tests du système ORB-SLAM</center><br /><br />
-			<p/>
+			</p>
 
 			<p>
 				Dans un premier temps, nous avons envisagé d'utiliser le système <a href="https://github.com/raulmur/ORB_SLAM">ORB-SLAM<a/> dans nos modèles de navigation. ORB-SLAM est un système de cartographie et de localisation monoculaire ou stéréo basé sur le détecteur de caractéristique <a href="https://en.wikipedia.org/wiki/Oriented_FAST_and_rotated_BRIEF">ORB<a/> particulièrement efficace.  
-			<p/>
+			</p>
 
 			<p>
 				Il était ainsi prévu d'utiliser ce modèle pour reconnaître les lieux déjà visités pour se localiser et s'orienter de façon précise à l'aide d'une caméra dotée d'une lentille fisheye. L'interface développée par notre <a href="https://fr.linkedin.com/in/pierre-biojoux-1b418815a">stagiaire<a/> permettait de tester et échanger rapidement les modèles de l'environnement pour permettre la construction d'un graphe de navigation.
-			<p/>
+			</p>
 
 			<figure style="text-align:center">
 				<img src="/postdoc/OrbSlam.png" alt="Système ORB-SLAM" width="400" />
@@ -45,7 +45,7 @@
 
 			<p style="text-align: center">
 				Le système ORB-SLAM détecte des points d'intérêt et utilise les mouvements de la caméra pour localiser ces points dans l'espace et construire un modèle de l'environnement (à droite) permettant de se localiser.
-			<p/>
+			</p>
 
 			<p>
 				Cependant, le système souffre de certaines limites : dans sa version mono-caméra, le système ne peut pas gérer des mouvements de rotation sans translation de la caméra, et est peu tolérant aux environnements dynamiques. De plus, les modèles créés sont particulièrement volumineux (près d'une centaine de Mo pour un simple bureau), le rendant peu adapté aux grands environnements. Ces problèmes nous ont poussé à envisager des solutions plus simples à base de systèmes de vision stéréo. 
