@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/postdoc/navig1.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/navig1_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		
+		<section class="subsection">
+			<p>
+				<center style="text-align: center;font-size: xx-large;">Preliminary work on partially bio-inspired navigation systems</center><br /><br />
+				<p>
+					We developed and tested navigation mechanisms inspired by the <a href="https://en.wikipedia.org/wiki/Hippocampus">hippocampus<a/> of mammals' brain, that has the advantage of being robust and tolerant to errors. This mechanism uses '<a href="https://en.wikipedia.org/wiki/Place_cell">place cells<a/>' that characterize areas in space, the set of place cells characterizing a topological (and non-topographic) map of the environment that is very tolerant to motion drift. <br/>
+					<br/>
+
+					In this model, each place cell characterizes a unique position in space, and indicates the direction to reach its neighbour cells. The place cells are added when changing direction, allowing an adapted discretization of the environment. We tested this model on a RI agent, that does not have preconceptions about space, but also in a real environment, using a camera.
+				</p>
+			</p>
+		</section>
+
+		<section class="subsection">
+			<p>
+				We first tested the navigation system on a RI agent based on my PhD work. The agent is placed in a large environment that its space memory cannot fully integrate. Its interactional system defines that it likes to eat food in the order red-green-blue. It is also equipped with a mechanism implementing a form of curiosity, leading the agent to explore undiscovered directions around place cells. Note that this experiment only aims to test the construction and navigation mechanisms, the place recognition is hard-coded to not interfere measures with wrong detections.<br/>
+				<br/>
+
+				After a training period in a small environment, the agent is placed in the large environment. The curiosity mechanism leads the agent to explore the environment until a point of food of each color is discovered. The agent then navigates from a food point to another one, exploiting the navigation graph.<br/>
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/agent.png" alt="neurocognitive agent" width="550" />
+			</figure>
+
+			<p>
+				Construction of the graph during exploration. The agent starts on the top-left corner. It first discovers the room with green food, but ignore it. Later, it discovers red food. It thus eats red, then immediately move towards green food that it discovered, before continuing its exploration. When it finally finds the blue food point, the agent starts to navigate between food points to eat in the right order.
+			</p>
+
+
+			<figure style="text-align:center">
+    				<img src="/postdoc/hippocampus.png" alt="map constructed by the agent" width="550" />
+			</figure>
+
+
+			<p>
+				We then tested this mechanism in a real environment, with a recognition system based on visual interest point detection. We move around a room, then return to the starting point. The system added four place cells to characterize the traveled path. We can observe on the graph that the first place cell was recognized, allowing to connect it to the fourth one. We can also note that because of the motion drift, place cells are not correctly aligned. However, as each place cell defines its own local reference, cells 1 and 4 indicate the right direction to reach their neighbour cells..
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/map.png" alt="system in real environment" width="550" />
+			</figure>
+
+			<p>
+				Although its efficiency and drift tolerance, this system will not be robust in redundant environment. We then proposed a system using both visual recognition and path integration through a visual odometry mechanism inspired by <a href="https://en.wikipedia.org/wiki/Grid_cell">Grid Cells<a/>.<br/>
+			</p>
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

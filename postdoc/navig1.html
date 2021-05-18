@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/postdoc/navig1.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/navig1_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+		<section class="subsection">
+			<p>
+				<center style="text-align: center;font-size: xx-large;">Études préliminaires sur des systèmes de navigation partiellement bio-inspiré</center><br /><br />
+				<p>
+					Nous avons développé et testé un mécanisme de navigation inspiré de l'<a href="https://fr.wikipedia.org/wiki/Hippocampe_(cerveau)">hippocampe<a/> du cerveau des mammifères, qui a l'avantage d'être robuste et tolérant aux erreurs. Ce mécanisme permet de placer des '<a href="https://fr.wikipedia.org/wiki/Cellule_de_lieu">cellules de lieux<a/>' caractérisant des régions de l'espace, l'ensemble de ces cellules formant une carte de l'environnement topologique mais non topographique, permettant une tolérance à la dérive. <br/>
+					<br/>
+
+					Dans ce modèle, chaque cellule de lieux caractérise une position unique de l'espace, et indique la direction pour atteindre les cellules voisines. Les cellules de lieu sont placées lorsque l'on change de direction, permettant une discrétisation adaptée de l'environnement. Nous avons pu tester ce modèle sur un agent RI, qui a l'avantage de ne pas avoir de notion a priori de l'espace, mais également dans un environnement réel, en utilisant une caméra.
+				</p>
+			</p>
+		</section>
+
+		<section class="subsection">
+			<p>
+				Nous avons dans un premier temps testé le système de navigation sur un agent RI issu de mes travaux de thèse. L'agent est placé dans un environnement bien plus grand que ce que sa mémoire spatiale peut intégrer. Son système interactionnel définit une préférence pour manger la nourriture dans l'ordre rouge-vert-bleu. Il dispose également d'un mécanisme implémentant une forme de curiosité le poussant à explorer les directions inexplorées autours des cellules de lieu. Notons que ce test vise uniquement à tester les algorithmes de construction et de navigation, la reconnaissance des lieux est ainsi hardcodée pour ne pas fausser les résultats avec des détections erronées.<br/>
+				<br/>
+
+				Après un apprentissage dans un environnement de faible dimensions, l'agent est placé dans le grand environnement. Son mécanisme de curiosité le pousse à explorer son environnement, jusqu'à ce qu'une instance de chaque point de nourriture soit trouvé. L'agent passe ensuite d'une proie à une autre, en utilisant le graphe de navigation pour se diriger d'un point à un autre.<br/>
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/agent.png" alt="neurocognitive agent" width="550" />
+			</figure>
+
+			<p>
+				Construction du graphe de navigation pendant l'exploration. L'agent débute en haut à gauche : il découvre la salle avec le point de nourriture vert, mais la néglige. Plus tard, il découvre le point de nourriture rouge. Il interagit donc pour manger, puis se dirige immédiatement vers le point de nourriture vert avant de reprendre son exploration. Il finit par trouver le point de nourriture bleu. À partir de ce moment, l'agent va naviguer entre ces points pour manger la nourriture dans le bon ordre.
+			</p>
+
+
+			<figure style="text-align:center">
+    				<img src="/postdoc/hippocampus.png" alt="carte crée par l'agent" width="550" />
+			</figure>
+
+
+			<p>
+				Nous avons ensuite testé le système en environnement réel, avec un système de reconnaissance utilisant une détection de points d'intérêts visuels. On effectue le tour d'une pièce avant de revenir au point de départ. Le système place quatre cellules de lieux pour caractériser le chemin parcouru. On observera sur le graphe que la première cellule a été reconnue, permettant de la connecter à la quatrième. On notera toutefois qu'à cause de la dérive, les cellules ne sont pas correctement alignées. Cependant, comme chaque cellule de lieu définit son propre référentiel, les cellules 1 et 4 indiquent la bonne direction pour atteindre ses voisines.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/map.png" alt="système en environnement reel" width="550" />
+			</figure>
+		
+			<p>
+				Ce mécanisme, bien qu'efficace et tolérant à la dérive, est moins robuste dans un environnement redondant. Nous avons alors envisagé un système utilisant à la fois la reconnaissance visuelle et l'intégration de chemin par un mécanisme d'odométrie visuelle inspiré des <a href="https://fr.wikipedia.org/wiki/Cellule_de_grille">Cellules de Grille<a/>.<br/>
+			</p>
+		</section>
+
+	</div>
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
