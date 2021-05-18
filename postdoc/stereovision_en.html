@@ -35,11 +35,11 @@
 			</p>
 
 			<p>
-				In order to provide required data to our navigation model, we proposed to use stereo-vision systems. Indeed, these systems provide an estimation of distance, even in dynamic environment. We first tested an Intel <a href="https://www.intelrealsense.com/depth-camera-d435i/">RealSense<a/> camera, that provide a depth map using two infrared cameras. We successfully tested our grid cell model on this device.
+				In order to provide required data to our navigation model, we proposed to use stereo-vision systems. Indeed, these systems provide an estimation of distance, even in dynamic environment. We first tested an Intel <a href="https://www.intelrealsense.com/depth-camera-d435i/">RealSense</a> camera, that provide a depth map using two infrared cameras. We successfully tested our grid cell model on this device.
 			</p>
 
 			<p>
-				However, the small distance between the two cameras limits the range of the device: beyond 5m, the precision becomes too low to be used. Thus, if this device can be used on a small robot, it cannot be used in large environments. We thus developed a system based on two standard webcam. This system uses an optical flow algorithm (function <a href="https://docs.opencv.org/3.0-beta/modules/video/doc/motion_analysis_and_object_tracking.html">calcOpticalFlowPyrLK<a> from OpenCV) applied between the two images on vertical edges to detect and localize vertical structures in the environment. The use of an optical flow algorithm allows a large interval between cameras (here, 20cm) providing a large range of several dozen of meters. We also planned to use wide-angle lens to increase visual field.
+				However, the small distance between the two cameras limits the range of the device: beyond 5m, the precision becomes too low to be used. Thus, if this device can be used on a small robot, it cannot be used in large environments. We thus developed a system based on two standard webcam. This system uses an optical flow algorithm (function <a href="https://docs.opencv.org/3.0-beta/modules/video/doc/motion_analysis_and_object_tracking.html">calcOpticalFlowPyrLK</a> from OpenCV) applied between the two images on vertical edges to detect and localize vertical structures in the environment. The use of an optical flow algorithm allows a large interval between cameras (here, 20cm) providing a large range of several dozen of meters. We also planned to use wide-angle lens to increase visual field.
 			</p>
 
 			<p>
