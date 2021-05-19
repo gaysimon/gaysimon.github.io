@@ -99,19 +99,20 @@ Ce système de navigation repose sur l’utilisation de structures inspirées de
 				- Les cellules d’orientation de la tête sont des neurones qui s’active quand la tête est orientée dans une position spécifique. Dans notre modèle, les cellules d’orientation sont associées à un angle d’orientation prédéfini, couvrant uniformément un tour complet (360°). Chaque cellule d’orientation défini, à partir du contexte observé, un contexte ‘pivoté’ de son angle. Ainsi, en comparant ces contextes pivotés et les contextes prédits des cellules de grille, on peut déterminer le couple cellule d’orientation-cellule de grille avec la plus forte similarité, donnant la position et l’orientation précises autour de la cellule de lieu active.
 
 			<figure style="text-align:center">
-				<img src="/postdoc/hdc.png" alt="cellules d'orientation de la tete" width="300" />
+				<img src="/postdoc/hdc.png" alt="cellules d'orientation de la tete" width="250" />
 			</figure>
 			<p style="text-align: center">
 				Les cellules d'orientation de la tête génèrent des versions du contexte observé dans différentes orientations.
 			</p>
 
-				
+			<p>
 				La démo interactive ci-dessous présente une implémentation simplifiée de ce principe de localisation autour d’une cellule de lieu : placez des points distinctifs dans l’environnement (tous du même type), activez une cellule de lieu, puis déplacez l’agent pour observer l’activité des cellules de grille et d’orientation. Vous pouvez aussi observer le contexte de chaque cellule et les comparer.
 
 			</p>
 
 			<p style="text-align: center">
-				<a href="/postdoc/demo_GC.html"><img src="/postdoc/demo_GC.png" width="300" alt="demo grid cells" /></a>
+				<a href="/postdoc/demo_GC.html"><img src="/postdoc/demo_GC.png" width="350" alt="demo grid cells" /></a><br/>
+				démo GC-HDC
 			</p>
 		
 			<p>
@@ -131,7 +132,8 @@ Ce système de navigation repose sur l’utilisation de structures inspirées de
 			</p>
 
 			<p style="text-align: center">
-			<a href="/postdoc/demo_PC.html"><img src="/postdoc/demo_PC.png"  width="300" alt="demo place cells" /></a>
+				<a href="/postdoc/demo_PC.html"><img src="/postdoc/demo_PC.png"  width="300" alt="demo place cells" /></a><br/>
+				démo cellules de lieu
 			</p>
 			<br/><br/>
 
