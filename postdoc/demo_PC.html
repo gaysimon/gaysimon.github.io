@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta charset="utf-8" />
+        <title>script</title>
+
+
+    <style>
+	/*//////////////////////////////////////////////////////////////////////////////////////////////*/
+
+	#env{
+		width:610px;
+		height:610px;
+		float:left;
+	}
+
+	#environment{
+		border:solid 5px;
+		width:600px;
+		height:600px;
+	}
+
+	#interface{
+		float:left;
+		left:650px;
+		width:225px;
+		height:450px;
+		text-align:justify;
+		font-size:12px;
+		margin-left:10px;
+	}
+
+	#module{
+		border:solid 3px;
+		width:220px;
+		height:220px;
+		text-align:center;
+		font-size:30px;
+		padding-top:2px;
+	}
+
+	input[type="button"]{
+		font-weight:bold;
+		font-size:20px;
+		height:50px;
+		width:100px
+        }
+      /*//////////////////////////////////////////////////////////////////////////////////////////////*/
+      </style>
+
+</head>
+
+<body>
+
+	<div id="env">
+
+		<canvas id="environment" width="150" height="150"></canvas>
+	</div>
+		
+	<div id="interface">
+
+		<canvas id="module"></canvas>
+		<br/><br/>
+		The module above shows the grid cells' activity. The module is centered on the current active place cell (blue point). When moving to the edge of the module, a new place cell is added, redefining the module center and edges. Neighbor place cells are displayed whith yellow points. You can move toward them in the module, but be aware of the toroidal shape of the module.
+
+	</div>
+
+
+	<script>
+	///////////////////////////////////////////////////////////////////
+
+	// cursor position (in pixels)
+	var mx=-1;
+	var my=-1;
+
+	// most active grid cell
+	var gx=-1;
+	var gy=-1;
+
+	// distance from active place cell (in pixels)
+	var dx=-1;
+	var dy=-1;
+	var dx2=-1;	// distance in the module's reference (in pixel)
+	var dy2=-1;
+
+
+	// list of place cells
+	var PC=[[]];
+	var current=-1;
+	var neighbors=[[]];
+
+	// canevas
+	var environment   = document.getElementById("environment");
+	var envCanevas = environment.getContext("2d");
+ 	envCanevas.lineWidth = 3;
+	environment.width = 600;
+	environment.height = 600;
+
+	var module   = document.getElementById("module");
+	var modCanevas = module.getContext("2d");
+	modCanevas.lineWidth = 1;
+	module.width = 220;
+	module.height = 220;
+
+	drawEnv();
+
+
+	// draw module of grid cells
+	for (var i = 0; i < 11; i++) {
+		for (var j = 0; j < 11; j++) {
+			modCanevas.beginPath();
+			modCanevas.arc(i*20+10, j*20+8, 10, 0, 2 * Math.PI, true);
+			modCanevas.fillStyle = 'red';
+			modCanevas.fill();
+		}
+	}
+
+
+
+         // get cursor position
+         function mousePosition(mouseEvent){
+
+		if (current>=0){
+			// position relative to the PC
+			mx= mouseEvent.pageX;
+			my= mouseEvent.pageY;
+			dx= mx-PC[current][0];
+			dy= my-PC[current][1];
+
+			// position on the module
+			dx2= dx+(PC[current][2]-5)*10;
+			dy2= dy+(PC[current][3]-5)*10;
+			if (dx2> 55) dx2-=110;
+			if (dx2<-55) dx2+=110;
+			if (dy2> 55) dy2-=110;
+			if (dy2<-55) dy2+=110;
+
+			// draw the environment
+			drawEnv()
+			drawModule();
+
+
+			////////////////////////////////////////////////////////////////////
+			// step 1 : detect distance with neighbors
+			var cx=gx-PC[current][2];
+			var cy=gy-PC[current][3];
+			if (cx> 5) cx-=11;
+			if (cx<-5) cx+=11;
+			if (cy> 5) cy-=11;
+			if (cy<-5) cy+=11;
+			var dist=Math.max(Math.abs(cx),Math.abs(cy));
+
+			var change=-1;
+
+			for (var n=0;n<neighbors[current].length;n++){
+				// distance between the two place cells
+				var cx2=PC[current][2]-neighbors[current][n][1];
+				var cy2=PC[current][3]-neighbors[current][n][2];
+				if (cx2> 5) cx2-=11;
+				if (cx2<-5) cx2+=11;
+				if (cy2> 5) cy2-=11;
+				if (cy2<-5) cy2+=11;
+
+				// distance between active GC and neighbor
+				var cx3=cx+cx2;
+				var cy3=cy+cy2;
+
+				var dist2=Math.max(Math.abs(cx3),Math.abs(cy3));
+
+				if (dist2<dist){
+					dist=dist2;
+					change=neighbors[current][n][0];
+				}
+			}
+			if (change>=0 && dist<4){
+				// change for neighbor PC
+				current=change;
+				drawEnv()
+				drawModule();
+
+			}
+			else{
+				////////////////////////////////////////////////////////////////////
+				// step 2 : if moving out of the module, try to recognize places
+				if (dx>=45 || dx<=-45 || dy>=45 || dy<=-45){
+
+					change=-1;
+					dist=50;
+					for (var p=0;p<PC.length;p++){
+						var dist2=50;
+						if (p!=current){
+							// distance between position and cell
+							dist2=Math.sqrt( 
+								 Math.abs( PC[current][0]-PC[p][0] )*Math.abs( PC[current][0]-PC[p][0] ) 
+								+Math.abs( PC[current][1]-PC[p][1] )*Math.abs( PC[current][1]-PC[p][1] ) 
+							);
+						}
+						if (dist2<50){
+							var dist2=Math.sqrt( 
+								 Math.abs( mx-PC[p][0] )*Math.abs( mx-PC[p][0] ) 
+								+Math.abs( my-PC[p][1] )*Math.abs( my-PC[p][1] ) 
+							);
+
+							if (dist2<dist){
+								dist=dist2;
+								change=p;
+							}
+						}
+					}
+					
+					if (change>=0){
+						// connect recognized place cell
+						connectPlace(change,Math.round(dx2/10),Math.round(dy2/10) );
+						drawEnv()
+						drawModule();
+					}
+					else{
+
+						////////////////////////////////////////////////////////////////////
+						// step 3 : add a new place cell
+			
+						addPlaceCell(Math.round(dx2/10),Math.round(dy2/10));
+					}
+				}
+			}
+		}	
+        }
+
+	
+	// add and conect a new place cell
+	function addPlaceCell(px, py){
+		PC.push([Math.round(mx),Math.round(my),px+5,py+5]);
+		neighbors[current].push([PC.length-1, px+5, py+5]);
+		neighbors.push([ [current, PC[current][2], PC[current][3] ] ]);
+		current=PC.length-1;
+	}
+
+	// connect a recognized place cell
+	function connectPlace(id, px, py){
+		neighbors[current].push([id, px+5, py+5]);
+		current=id;
+	}
+
+	// start tracking
+	function mouseClick(mouseEvent){
+		mx= mouseEvent.pageX;
+		my= mouseEvent.pageY;
+
+		PC=[[mx, my, 5, 5]];
+		current=0;
+		neighbors=[[]];
+
+		dx= mx-PC[0][0];
+		dy= my-PC[0][1];
+
+		drawEnv();
+		drawModule();
+	}
+
+	// stop tracking
+	function mouseOut(mouseEvent){
+		current=-1
+	}
+
+	// draw the envoronment
+	function drawEnv(){
+
+
+
+		if (current==-1){
+			// instructions
+			envCanevas.font = '12px serif';
+			envCanevas.fillStyle = "black";
+			envCanevas.fillText('click in this area to start tracking, then slowly move. Tracking stop when leaving this area.', 15, 30);
+			envCanevas.fillText('click again to restart.', 15, 50);
+		}
+		else{
+			// clear canevas
+			envCanevas.fillStyle = "white";
+			envCanevas.fillRect(0, 0, 600, 600);
+
+			// draw module edge
+			envCanevas.strokeStyle="blue";
+			envCanevas.strokeRect((PC[current][0]-65), (PC[current][1]-65), 100, 100)
+
+			// draw place cells
+			for (var p = 0; p < PC.length; p++) {
+
+				// cells
+				envCanevas.beginPath();
+				envCanevas.arc((PC[p][0]-15), (PC[p][1]-15), 5, 0, 2 * Math.PI, true);
+				envCanevas.stroke();
+
+				// links between cells
+				for (var n=0;n<neighbors[p].length;n++){
+					envCanevas.beginPath();
+	    				envCanevas.moveTo(PC[p][0]-15, PC[p][1]-15);
+	    				envCanevas.lineTo(PC[neighbors[p][n][0]][0]-15, PC[neighbors[p][n][0]][1]-15);
+	   				envCanevas.stroke();
+				}
+			}
+
+			// current position
+			envCanevas.beginPath();
+			envCanevas.arc((mx-15), (my-15), 5, 0, 2 * Math.PI, true);
+			envCanevas.fillStyle = "red";
+			envCanevas.fill();
+
+		}
+	}
+
+
+	// draw the module
+	function drawModule(){
+
+		// clear canevas
+		modCanevas.fillStyle = "white";
+		modCanevas.fillRect(0, 0, 220, 220);
+
+		// draw grid cells and compute their activity
+		var min=100;
+		for (var i = 0; i < 11; i++) {
+			for (var j = 0; j < 11; j++) {
+
+				var dist=Math.sqrt( 
+					 Math.abs( dx-(i-5)*10 )*Math.abs( dx-(i-5)*10 ) 
+					+Math.abs( dy-(j-5)*10 )*Math.abs( dy-(j-5)*10 ) 
+				);
+				dist=Math.max(0, Math.min(255, dist*10));
+
+				var i2= i+ (PC[current][2]-5);
+				var j2= j+ (PC[current][3]-5);
+
+				if (i2< 0) i2+=11;
+				if (i2>10) i2-=11;
+				if (j2< 0) j2+=11;
+				if (j2>10) j2-=11;
+
+				if (dist<min){
+					min=dist;
+					gx=i2;
+					gy=j2;
+				}
+
+				modCanevas.beginPath();
+				modCanevas.arc(i2*20+10, j2*20+8, 10, 0, 2 * Math.PI, true);
+				modCanevas.fillStyle = 'rgb('+dist+','+(255-dist)+',0)';
+				modCanevas.fill();
+			}
+		}
+
+		// draw GC connected to the active ePC
+		modCanevas.beginPath();
+		modCanevas.arc(PC[current][2]*20+10, PC[current][3]*20+8, 5, 0, 2 * Math.PI, true);
+		modCanevas.fillStyle = 'blue';
+		modCanevas.fill();
+
+		// Draw the most active PC
+		modCanevas.beginPath();
+		modCanevas.arc(gx*20+10, gy*20+8, 10, 0, 2 * Math.PI, true);
+		modCanevas.strokeStyle = 'blue';
+		modCanevas.stroke();
+
+		// draw position of neighbors on the module
+		for (var n = 0; n < neighbors[current].length; n++) {
+			modCanevas.beginPath();
+			modCanevas.arc(neighbors[current][n][1]*20+10, neighbors[current][n][2]*20+8, 5, 0, 2 * Math.PI, true);
+			modCanevas.fillStyle = 'yellow';
+			modCanevas.fill();
+		}
+
+		// draw module limits
+		var posx=PC[current][2]-5;
+		var posy=PC[current][3]-5;
+		if (posx<0) posx+=11;
+		if (posy<0) posy+=11;
+
+		modCanevas.strokeStyle = 'black';
+		modCanevas.beginPath();
+    		modCanevas.moveTo(0, posy*20);
+    		modCanevas.lineTo(220, posy*20);
+   		modCanevas.stroke();
+
+		modCanevas.beginPath();
+    		modCanevas.moveTo(posx*20, 0);
+    		modCanevas.lineTo(posx*20, 220);
+   		modCanevas.stroke();
+	}
+
+
+
+
+
+	// mouse listeners
+	document.getElementById("environment").onmousemove = mousePosition;
+	document.getElementById("environment").onclick = mouseClick;
+	document.getElementById("environment").onmouseout = mouseOut;
+
+	</script>
+
+</body>
+</html>

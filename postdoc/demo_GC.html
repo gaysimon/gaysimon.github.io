@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html >
+<head>
+        <meta charset="utf-8" />
+        <title>script</title>
+
+
+	<style>
+	/*//////////////////////////////////////////////////////////////////////////////////////////////*/
+
+	#env{
+		width:610px;
+		height:610px;
+		float:left;
+		margin-left:0px;
+	}
+
+	#interface{
+		border:solid 2px;
+		float:left;
+		left:650px;
+		width:235px;
+		height:350px;
+		text-align:center;
+		font-size:12px;
+		padding-top:10px;
+		margin-left:5px;
+	}
+
+	#environment{
+		position:relative;
+		border:solid 5px;
+		width:600px;
+		height:600px;
+	}
+
+	#module{
+		border:solid 2px;
+		width:220px;
+		height:220px;
+		text-align:center;
+		font-size:12px;
+		padding-top:3px;
+		margin-left:1px;
+	}
+
+	#HDC{
+		border:solid 2px;
+		width:220px;
+		height:220px;
+		text-align:center;
+		font-size:12px;
+		padding-top:3px;
+		margin-top:1px;
+		margin-left:1px;
+	}
+
+	.context{
+		border:solid 3px;
+		width:180px;
+		height:100px;
+		text-align:center;
+		font-size:12px;
+		padding-top:5px;
+		margin-left:1px;
+	}
+
+	.context_large{
+		border:solid 5px;
+		width:720px;
+		height:200px;
+		text-align:center;
+		font-size:12px;
+		margin-top:5px;
+		margin-left:5px;
+	}
+
+
+	input[type="button"]{
+		font-weight:bold;
+		font-size:14px;
+		height:50px;
+		width:100px;
+		text-align: center;
+        }
+      	/*//////////////////////////////////////////////////////////////////////////////////////////////*/
+	</style>
+</head>
+
+<body>
+
+	<div id="env">
+		<canvas id="environment" width="150" height="150"></canvas>
+	</div>
+
+	<div id="interface">
+		Observed context (polar coordinates)
+		<canvas class="context" id="envcontext"></canvas><br/><br/>
+
+		Place Cell context
+		<canvas class="context" id="PCcontext"></canvas>
+		<br/><br/>
+		Click to set/reset PC context
+		<input id="buttonPC" type="button" value="Place cell" onclick="setPC()"> 
+		<input id="buttonReset" type="button" value="Reset" onclick="reset()"> 
+	</div>
+
+	<div id="interface">
+		Grid Cell module
+     		<canvas id="module"></canvas><br/><br/>
+		Select a Grid Cell above to display its predicted context below (as green discs), and compare it with a Head Direction Cell  context (right)
+	</div>
+
+	<div id="interface">
+		Head Direction Cells
+		<canvas id="HDC"></canvas><br/><br/>
+		Select a Head Direction Cell above to display its 'rotated' context below (as blue circles), and compare it with a Grid Cell context (left)
+	</div>
+
+	<canvas class="context_large" id="comparecontext"></canvas><br/>
+	&emsp;X: <input id="slideX" type="range" min="-50" max="50" value="0" class="slider">
+	&emsp;Y: <input id="slideY" type="range" min="-50" max="50" value="0" class="slider">
+	&emsp;Rot: <input id="slideR" type="range" min="-90" max="90" value="0" class="slider">
+
+
+	<script>
+	///////////////////////////////////////////////////////////////////
+
+	// cursor position
+	var mx=-1;
+	var my=-1;
+
+	// selected grid cell
+	var gx=5;
+	var gy=5;
+
+	// activity and contexts of GCs
+	var gactivity=[];
+	var gcontexts=[];
+
+	for (var i=0;i<11;i++){
+		gactivity.push([]);
+		gcontexts.push([]);
+		for (var j=0;j<11;j++){
+			gactivity[i].push(0);
+			gcontexts[i].push([]);
+		}
+	}
+	var gc_max=1;
+
+	// Selected head direction cell
+	var sel_hdc=0;
+
+	// activity and contexts of HDCs
+	var dactivity=[];
+	var dcontexts=[];
+
+	for (var i=0;i<72;i++){
+		dactivity.push(0);
+		dcontexts.push([]);
+	}
+	var hdc_id=0;
+	var hdc_max=1;
+
+
+	// environment points
+	var points=[];
+
+	// observed context
+	var context=[];
+
+	// place cell's context
+	var PC=[];
+
+	// position of the agent
+	var px=0;
+	var py=0;
+	var orientation=0;
+
+	//sliders
+	var sliderX = document.getElementById("slideX");
+	sliderX.oninput = function() {
+ 		px = parseInt(this.value);
+		setContext();
+		update();
+	}
+
+	var sliderY = document.getElementById("slideY");
+	sliderY.oninput = function() {
+ 		py = parseInt(this.value);
+		setContext();
+		update();
+	} 
+
+	var sliderR = document.getElementById("slideR");
+	sliderR.oninput = function() {
+ 		orientation = parseInt(this.value);
+		setContext();
+		update();
+	} 
+	
+	// canevas
+	var environment   = document.getElementById("environment");
+	var envCanevas = environment.getContext("2d");
+ 	envCanevas.lineWidth = 3;
+	environment.width = 600;
+	environment.height = 600;
+
+	var module   = document.getElementById("module");
+	var modCanevas = module.getContext("2d");
+	modCanevas.lineWidth = 1;
+	module.width = 220;
+	module.height = 220;
+
+	var hdc   = document.getElementById("HDC");
+	var hdcCanevas = hdc.getContext("2d");
+	hdcCanevas.lineWidth = 1;
+	hdc.width = 220;
+	hdc.height = 220;
+
+	var envcontext   = document.getElementById("envcontext");
+	var conCanevas = envcontext.getContext("2d");
+	conCanevas.lineWidth = 1;
+	envcontext.width = 180;
+	envcontext.height = 100;
+
+	var PCcontext   = document.getElementById("PCcontext");
+	var pcCanevas = PCcontext.getContext("2d");
+	pcCanevas.lineWidth = 1;
+	PCcontext.width = 180;
+	PCcontext.height = 100;
+
+	var comparecontext   = document.getElementById("comparecontext");
+	var compareCanevas = comparecontext.getContext("2d");
+	pcCanevas.lineWidth = 1;
+	comparecontext.width = 720;
+	comparecontext.height = 200;
+
+	// initialize and draw the system
+	update();
+
+
+
+	/////////////////////////////////////////
+	// update context and redraw system
+	function update(){
+		computeCells();
+		drawEnv();
+		drawModule();
+		drawEnvContext();
+		drawPCContext();
+		drawCompareContext();
+		drawHDC();
+	}
+
+	// draw the environment
+	function drawEnv(){
+
+		// clear canevas
+		envCanevas.fillStyle = "white";
+		envCanevas.fillRect(0, 0, 600, 600);
+
+		// draw module edges
+		envCanevas.strokeStyle="blue";
+		envCanevas.strokeRect(250, 250, 100, 100)
+
+		// draw points
+		for (var i = 0; i < points.length; i++) {
+			envCanevas.beginPath();
+			envCanevas.arc(points[i][0], 600-points[i][1], 5, 0, 2 * Math.PI, true);
+			envCanevas.fillStyle = 'green';
+			envCanevas.fill();
+		}
+
+		// draw the agent
+		envCanevas.beginPath();
+		envCanevas.arc(300+px, 300-py, 10, 0, 2 * Math.PI, true);
+		envCanevas.fillStyle = 'red';
+		envCanevas.fill();
+
+		envCanevas.beginPath();
+		envCanevas.strokeStyle="black";
+    		envCanevas.moveTo(300+px, 300-py);
+    		envCanevas.lineTo(300+px + Math.cos(toRadians(orientation+90))*10, 300-py - Math.sin(toRadians(orientation+90))*10);
+   		envCanevas.stroke();
+
+		// instructions
+		if (points.length==0){
+			envCanevas.font = '12px serif';
+			envCanevas.fillStyle = "black";
+			envCanevas.fillText('click in this area to add or remove distinctive points.', 15, 30);
+			envCanevas.fillText('then, click on "Place Cell" button to record the context and start tracking.', 15, 50);
+			envCanevas.fillText("You can then move the agent with sliders, observe cells' activity and compare their contexts.", 15, 70);
+		}
+	}
+
+	// draw the module
+	function drawModule(){
+
+		// clear canevas
+		modCanevas.fillStyle = "white";
+		modCanevas.fillRect(0, 0, 220, 220);
+
+		// draw cells
+		for (var i = 0; i < 11; i++) {
+			for (var j = 0; j < 11; j++) {
+
+				var value=Math.round(255* (gactivity[i][j]/Math.max(1,gc_max) ) );
+				modCanevas.beginPath();
+				modCanevas.arc(i*20+10, j*20+8, 10, 0, 2 * Math.PI, true);
+				modCanevas.fillStyle = 'rgb('+(255-value)+','+value+',0)';
+				modCanevas.fill();
+			}
+		}
+
+		// draw selected cell
+		modCanevas.beginPath();
+		modCanevas.arc(gx*20+10, gy*20+8, 10, 0, 2 * Math.PI, true);
+		modCanevas.strokeStyle = 'blue';
+		modCanevas.stroke();
+	}
+
+	// draw HDCs
+	function drawHDC(){
+
+		// clear canevas
+		hdcCanevas.fillStyle = "white";
+		hdcCanevas.fillRect(0, 0, 230, 50);
+
+		// draw cells
+		for (var a = 0; a < 72; a++) {
+			var ax=100*Math.cos(toRadians(a*5+90));
+			var ay=-100*Math.sin(toRadians(a*5+90));
+
+			var value=Math.round(255* (dactivity[a]/Math.max(1,hdc_max) ) );
+			hdcCanevas.beginPath();
+			hdcCanevas.arc(110+ax, 110+ay, 5, 0, 2 * Math.PI, true);
+			hdcCanevas.fillStyle = 'rgb('+(255-value)+','+value+',0)';
+			hdcCanevas.fill();
+		}
+
+		// draw selected cell
+		var ax=100*Math.cos(toRadians(sel_hdc*5+90));
+		var ay=-100*Math.sin(toRadians(sel_hdc*5+90));
+		hdcCanevas.beginPath();
+		hdcCanevas.arc(110+ax, 110+ay, 5, 0, 2 * Math.PI, true);
+		hdcCanevas.strokeStyle = 'blue';
+		hdcCanevas.stroke();
+	}
+
+	// dessine le contexte environmental
+	function drawEnvContext(){
+
+		conCanevas.fillStyle = "white";
+		conCanevas.fillRect(0, 0, 185, 210);
+
+		for (var i = 0; i < context.length; i++) {
+			conCanevas.beginPath();
+			conCanevas.arc(180-context[i][0], 100-context[i][1]/2, 2, 0, 2 * Math.PI, true);
+			conCanevas.fillStyle = 'green';
+			conCanevas.fill();
+		}
+	}
+
+	// draw PC's context
+	function drawPCContext(){
+
+		pcCanevas.fillStyle = "white";
+		pcCanevas.fillRect(0, 0, 185, 210);
+
+		for (var i = 0; i < PC.length; i++) {
+			pcCanevas.beginPath();
+			pcCanevas.arc(180-PC[i][0], 100-PC[i][1]/2, 2, 0, 2 * Math.PI, true);
+			pcCanevas.fillStyle = 'green';
+			pcCanevas.fill();
+		}
+	}
+
+	// draw contexts of selected GC and HDC (to compare them)
+	function drawCompareContext(){
+
+		// clear canevas
+		compareCanevas.fillStyle = "white";
+		compareCanevas.fillRect(0, 0, 730, 210);
+
+		// GC context
+		for (var i = 0; i < gcontexts[gx][gy].length; i++) {
+			var theta=gcontexts[gx][gy][i][0]+90;
+			if (theta<0) theta+=360;
+			else if (theta>=360) theta-=360;
+			compareCanevas.beginPath();
+			compareCanevas.arc(720-theta*2, 200-gcontexts[gx][gy][i][1], 4, 0, 2 * Math.PI, true);
+			compareCanevas.fillStyle = 'green';
+			compareCanevas.fill();
+		}
+
+		// HDC context
+		for (var i = 0; i < dcontexts[sel_hdc].length; i++) {
+			var theta=dcontexts[sel_hdc][i][0]+90;
+			if (theta<0) theta+=360;
+			else if (theta>=360) theta-=360;
+			compareCanevas.beginPath();
+			compareCanevas.arc(720-theta*2, 200-dcontexts[sel_hdc][i][1], 6, 0, 2 * Math.PI, true);
+			compareCanevas.strokeStyle = 'blue';
+			compareCanevas.stroke();
+		}
+	}
+
+	/////////////////////////////////////////
+
+	// compute cell activity
+	function computeCells(){
+
+		// reset hdc activity
+		dactivity=[];
+		hdc_max=0;
+
+		// compute new HDCs activities
+		for (var a=0;a<72;a++){
+
+			var v_max=0;
+
+			for (var i = 0; i < 11; i++) {
+				for (var j = 0; j < 11; j++) {
+					var sum=0;
+
+					for (var p1 = 0; p1 < dcontexts[a].length; p1++) {
+						for (var p2 = 0; p2 < gcontexts[i][j].length; p2++) {
+							sum+=distVal(dcontexts[a][p1], gcontexts[i][j][p2]);
+						}
+					}
+
+					if (sum>v_max) v_max=sum;
+				}
+			}
+
+			dactivity.push(v_max);
+
+			// get direction
+			if (v_max>hdc_max){
+				hdc_max=v_max;
+				hdc_id=a;
+			}
+		}
+
+		// reset GC activity
+		gactivity=[];
+		gc_max=0;
+
+		for (var i=0;i<11;i++){
+			gactivity.push([]);
+		}
+
+		// compute GC activities in detected direction
+		for (var i = 0; i < 11; i++) {
+			for (var j = 0; j < 11; j++) {
+				var sum=0;
+
+				for (var p1 = 0; p1 < dcontexts[hdc_id].length; p1++) {
+					for (var p2 = 0; p2 < gcontexts[i][j].length; p2++) {
+						sum+=distVal(dcontexts[hdc_id][p1], gcontexts[i][j][p2]);
+					}
+				}
+
+				gactivity[i].push(sum);
+
+				if (sum>gc_max){
+					gc_max=sum;
+				}
+			}
+		}
+	}
+
+	// define a proximity value between two points
+	function distVal(p1,p2){
+		var dist= Math.sqrt((p1[0]-p2[0])*(p1[0]-p2[0]) + (p1[1]-p2[1])*(p1[1]-p2[1]));
+		return Math.max(0 , 1 - dist/10); 
+	}
+	
+
+
+	/////////////////////////////////////////
+
+	// add/remove environment points
+	function setPoint(mouseEvent){
+		mx= mouseEvent.pageX-15;
+		my=600-mouseEvent.pageY+15;
+
+		if (mx<250 || mx>350 || my<250 || my>350){
+
+			var found=0;
+			for (var i=0;i<points.length;i++){
+				if ( Math.abs(mx-points[i][0])<10 && Math.abs(my-points[i][1])<10){
+					points.splice(i,1);
+					found=1;
+				}
+			}
+			if (found==0){
+				points.push([mx,my]);
+			}
+			setContext();
+		}
+	}
+
+
+	
+	// set points in the observed context
+	function setContext(){
+
+		// reset context
+		context=[];
+
+		// get points of the environment
+		for (var i=0;i<points.length;i++){
+			
+			var pointx=points[i][0]-300 - px;
+			var pointy=points[i][1]-300 - py;
+
+			var dist=Math.tanh(Math.sqrt(pointx*pointx+pointy*pointy)/250)*200;
+			var theta=toDegrees(Math.atan2(pointy,pointx)) - orientation;
+
+			if (dist>199) dist=199;
+
+			if (theta>=0 && theta<180){ 		
+				context.push([theta,dist]);
+			}
+		}
+
+		// set HDC contexts
+		dcontexts=[];
+		for (var a=0;a<72;a++){
+			dcontexts.push([]);
+		
+			for (var p=0;p<context.length;p++){
+				var dist=context[p][1];
+				var theta=context[p][0]+a*5;
+
+				if (theta<0) theta+=360;
+				if (theta>=360) theta-=360;
+
+				dcontexts[a].push([theta,dist]);
+			}
+		}
+		update();
+	}
+
+
+	// set the place cell context
+	function setPC(){
+
+		// reset agent position
+		px=0;
+		py=0;
+		orientation=0;
+
+		// get environment points
+		setContext();
+		
+		// reset place cell context
+		PC=[];
+
+		// reset GC context
+		gcontexts=[];
+		for (var i=0;i<11;i++){
+			gcontexts.push([]);
+			for (var j=0;j<11;j++){
+				gcontexts[i].push([]);
+			}
+		}
+
+		// set environment points in contexts
+		for (var p=0;p<points.length;p++){
+			
+			var pointx=points[p][0]-300;
+			var pointy=points[p][1]-300;
+
+			var dist=Math.tanh(Math.sqrt(pointx*pointx+pointy*pointy)/250)*200;
+			var theta=toDegrees(Math.atan2(pointy,pointx));
+
+			if (dist>199) dist=199;
+
+			if (theta>=0 && theta<180){
+
+				// set point in PC's context
+				PC.push([theta,dist]);
+
+				// set points in GCs' contexts
+				for (var i=0;i<11;i++){
+					for (var j=0;j<11;j++){
+
+						var pointx2 = pointx + (5-i)*10;
+						var pointy2 = pointy + (j-5)*10;
+
+						dist=Math.tanh(Math.sqrt(pointx2*pointx2+pointy2*pointy2)/250)*200;
+						theta=toDegrees(Math.atan2(pointy2,pointx2));
+
+						if (theta<0) theta+=360;
+						if (theta>=360) theta-=360;
+
+						gcontexts[i][j].push([theta,dist]);
+					}
+				}
+			} 
+		}
+		update();
+	}
+
+	// select a GC to display
+	function setGC(mouseEvent){
+		gx=Math.round((mouseEvent.pageX-890)/20);
+		gy=Math.round((mouseEvent.pageY- 50)/20);
+
+		if (gx<0) gx=0;
+		if (gx>10) gx=10;
+		if (gy<0) gy=0;
+		if (gy>10) gy=10;
+
+		update();
+	}
+
+	// select a HDC to display
+	function setHDC(mouseEvent){
+		var x=mouseEvent.pageX-1230;
+		var y=-mouseEvent.pageY+150;
+
+		var theta=Math.round(toDegrees(Math.atan2(y,x))-90);
+		if (theta<0) theta+=360;
+		if (theta>=355) theta-=355;
+
+		sel_hdc=Math.round(theta/5);
+
+		update();
+	}
+
+
+	// reset the system
+	function reset(){
+
+		points=[];
+		context=[];
+		PC=[];
+
+		px=0;
+		py=0;
+		orientation=0;
+
+
+		gactivity=[];
+		gcontexts=[];
+
+		for (var i=0;i<11;i++){
+			gactivity.push([]);
+			gcontexts.push([]);
+			for (var j=0;j<11;j++){
+				gactivity[i].push(0);
+				gcontexts[i].push([]);
+			}
+		}
+
+		dactivity=[];
+		dcontexts=[];
+
+		for (var i=0;i<72;i++){
+			dactivity.push(0);
+			dcontexts.push([]);
+		}
+
+		update();
+	}
+
+	// degree-radian conversion
+	function toDegrees(radians){
+  		return radians * (180/Math.PI);
+	}
+	function toRadians(degrees){
+  		return degrees * (Math.PI/180);
+	}
+
+
+	// listeners
+	document.getElementById("environment").onclick = setPoint;
+	document.getElementById("module").onclick = setGC;
+	document.getElementById("HDC").onclick = setHDC;
+
+	</script>
+
+</body>
+</html>
