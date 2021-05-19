@@ -29,17 +29,120 @@
 		</nav>
 			
 		
+		<section class="subsection">
 
-<section class="subsection">
-	<p>
-		<center style="text-align: center;font-size: xx-large;">A bio-inspired navigation system</center><br /><br />
+			<center style="text-align: center;font-size: xx-large;">Un système de navigation bio-inspiré</center><br /><br />
 			<p>
-				Coming soon...
+				This navigation system is based on structures inspired by neurons involved in navigation in mammals, namely <a href="https://en.wikipedia.org/wiki/Place_cell">place cells</a>, <a href="https://en.wikipedia.org/wiki/Grid_cell">grid cells</a> and <a href='https://en.wikipedia.org/wiki/Head_direction_cell'>head orientation cells</a>.
+			</p>
 
-				<br/>
-				<br/>
+			<p>
+				Originally, this model was designed for the conception of a navigation assistance system for visually impaired people. It had to meet certain constraints: indoor and outdoor navigation, measurement of displacements in all directions, reduced field of view (no panoramic cameras), no absolute odometry, while remaining low on resources, and therefore, on energy. After testing visual SLAM models, we turned to biologically inspired approaches. Currently, other applications are studied, such as robotics, or even the guidance of a robotic swarm, made possible by the decentralized aspect of the environment model.
+			</p>
+			
+		</section>
 
-				This navigation system uses models of <a href="https://en.wikipedia.org/wiki/Place_cell">place cells</a> and <a href="https://en.wikipedia.org/wiki/Grid_cell">grid cells</a> to track the position in space while providing reliable navigation data. Place cells are used to track position through long distances and to recognize already visited places, grid cells are used for visual odometry. As this model is under publication, the detailed description of its mechanisms and results will be available soon. 
+		<section class="subsection">
+
+			<p>
+
+				Description of the model:
+				<br/><br/>
+			</p>
+
+			<p>
+				This navigation model is based on the joint use of structures inspired by certain types of neurons involved in navigation in mammals. Its robustness mainly comes first from its predictive aspect, by estimating the possible observations around a given position, and secondly by the sequential aspect of the environment model, which allows to compensate a low number of visual cues. This model is described in our <a href="https://www.mdpi.com/2078-2489/12/3/100">MDPI article</a>.
+			</p>
+
+			<p>
+The model requires a sensory system that can recognize and localize distinctive elements in ego-centric space (stereovision system, lidar, optical flow...). The distinctive elements can be varied (simple color, object or pattern recognition, vertical line detection...).  Ideally, the field of view should approach 180°, although 90° is theoretically sufficient.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/context.png" alt="visual context" width="400" />
+			</figure>
+			<p style="text-align: center">
+				Example of perception system. Here, points of interest are defined by their color, and localized in polar coordinates.
+			</p>
+
+			<p>
+				- Place cells are structures characterizing a position in the environment, by recording the context observed at that position. Neighbor cells are connected together to form an easily exploitable navigation graph. The place cells use this recorded context to recognize already visited places.
+			</p>
+
+			<p>
+				- Grid cells are neurons mainly involved in path integration. Their functioning is very particular: their receptive fields (the regions of space where they are activated) form the vertices of a regular hexagonal grid. They are gathered in groups, called modules. The grid cells of the same module form 'grids' of identical size and orientation, but with different offsets, allowing to cover the whole space with a small toroidal surface that repeats indefinitely.
+			</p>
+
+
+			<figure style="text-align:center">
+				<img src="/postdoc/gridcells.png" alt="grid cells" width="400" />
+			</figure>
+			<p style="text-align: center">
+				(a) Grid cells have a receptive field forming a hexagonal grid. (b) A module allows characterizing the whole space.
+			</p>
+
+			<p>
+				In our model, a module contains a set of grid cells. The spacing between the cells defines a displacement in space. As the module has a toroidal shape, we can associate a location cell with an arbitrarily chosen grid cell. This grid cell then becomes the 'center' of the module. By retrieving the context of the place cell, and the position relative to the center, each grid cell generates the expected context at the position it characterizes, relative to the place cell position.
+			</p>
+
+
+			<figure style="text-align:center">
+				<img src="/postdoc/cluster_position.png" alt="position tracking" width="400" />
+			</figure>
+			<p style="text-align: center">
+				Localisation principle: grid cells use the place cell context (a) to define predictions around this place cell (b). The module activity allows defining the position around the place cell.
+			</p>
+
+			<p>
+
+				- Head Direction cells are neurons that are activated when the head is oriented in a specific position. In our model, head direction cells are associated with a predefined orientation angle, uniformly covering a full turn (360°). Each orientation cell computes, from the observed context and its angle, a 'rotated' context. Thus, by comparing these rotated contexts with the predicted contexts of grid cells, we can define the orientation cell-grid cell couple with the highest similarity, giving the precise position and orientation around the active place cell.
+
+			<figure style="text-align:center">
+				<img src="/postdoc/hdc.png" alt="Head Direction Cells" width="250" />
+			</figure>
+			<p style="text-align: center">
+				Head Direction Cells generate versions of the observed context with different orientations.
+			</p>
+
+			<p>
+				The interactive demo below shows a simplified implementation of this principle of locating around a place cell: place distinctive points in the environment (all of the same type), activate a place cell, and then move the agent to observe the activity of the grid and orientation cells. You can also observe the context of each cell and compare them.
+
+			</p>
+
+
+			<p style="text-align: center">
+				<a href="/postdoc/demo_GC.html"><img src="/postdoc/demo_GC.png" width="350" alt="demo grid cells" /></a>
+			</p>
+
+			<p>
+				Of course, this principle limits the localization to the surface covered by the module. To continue tracking position, the system relies on the following principle: when defining the center of the module, the set of ‘border’ cells are also defined. When we reach one of these ‘border’ cells, a new place cell is created and associated with this grid cell. The grid cells then compute new predictions from the context recorded by this new place cell and the new center of the module, allowing to continue tracking.
+
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/PC_change.png" alt="graph construction" width="400" />
+			</figure>
+			<p style="text-align: center">
+				Principle of place cell change and graph construction.
+			</p>
+
+			<p>
+				The interactive demo below illustrates this principle of navigation graph construction. Click in the environment, then slowly move around to observe the position on the module (here, we simply use the cursor position) and the place cell changes.
+			</p>
+
+			<p style="text-align: center">
+				<a href="/postdoc/demo_PC.html"><img src="/postdoc/demo_PC.png" width="300" alt="demo place cells" /></a>
+			</p>
+			<br/><br/>
+
+		</section>
+
+		<section class="subsection">
+
+			<p>
+
+				videos of experimentations:
+				<br/><br/>
 			</p>
 
 			<p style="text-align: center">
