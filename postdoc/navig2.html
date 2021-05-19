@@ -22,19 +22,142 @@
 			<a href="/robot.html">Les Robots</a><br />
 			<a href="/software.html">logiciels</a><br />
 			<br />
-			<a href="/postdoc/navig2.html"><img src="/img/fr.png" alt="fr" /> </a>
-			<a href="/postdoc/navig2_en.html"><img src="/img/en.png" alt="en" /> </a>
+			<a href="/postdoc/navig2.html"><img src="img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/navig2_en.html"><img src="img/en.png" alt="en" /> </a>
 		</nav>
 
-<section class="subsection">
-	<p>
-		<center style="text-align: center;font-size: xx-large;">Un système de navigation bio-inspiré</center><br /><br />
-			<p>
-				Prochainement...
+		<section class="subsection">
 
-				<br/>
-				<br/>
-				Ce système de navigation utilise des modèles de <a href="https://fr.wikipedia.org/wiki/Cellule_de_lieu">cellules de lieux</a> et de <a href="https://fr.wikipedia.org/wiki/Cellule_de_grille">cellules de grille</a> pour assurer le suivi dans l'espace tout en fournissant des informations de navigation fiables. Les cellules de lieu sont utilisées pour assurer le suivi sur de longues distances et pour reconnaître les lieux déjà visités, les cellules de grilles sont utilisés pour permettre une odométrie visuelle. Ce modèle étant en cours de publication, la description détaillée de son fonctionnement et les résultats seront disponibles prochainement. 
+			<center style="text-align: center;font-size: xx-large;">Un système de navigation bio-inspiré</center><br /><br />
+			<p>
+Ce système de navigation repose sur l’utilisation de structures inspirées des <a href="https://fr.wikipedia.org/wiki/Cellule_de_lieu">cellules de lieux</a> et de <a href="https://fr.wikipedia.org/wiki/Cellule_de_grille">cellules de grille</a> et des <a href='https://en.wikipedia.org/wiki/Head_direction_cell'>cellules d’orientation de la tête</a>, neurones impliqués dans la navigation chez les mammifères.
+			</p>
+
+			<p>
+À l’origine, ce modèle a été pensé pour la conception d’un système d’assistance à la navigation pour les personnes déficientes visuelles. Il devait ainsi répondre à certaines contraintes : navigation en intérieur et en extérieur, mesure des déplacements dans toutes les directions, champs de vision réduit (pas de caméras panoramiques), pas d’odométrie absolue, tout en restant peu gourmand en ressources et donc en énergie. Après des essais de modèles de SLAM visuel, nous nous sommes tourné vers des approches d’inspiration biologiques. Actuellement, d’autres applications sont envisagées, comme la robotique, voire le guidage d’une flottille de robot, rendue possible par l’aspect décentralisé du modèle de l’environnement.
+			</p>
+			
+		</section>
+
+		<section class="subsection">
+
+			<p>
+
+				Description du modèle :
+				<br/><br/>
+			</p>
+
+			<p>
+
+				Ce modèle de navigation repose sur l’utilisation conjointe de structures inspirés par certains types de neurones impliqués dans la navigation chez les mammifères. Sa robustesse provient d’une part de son aspect prédictif, en estimant les observations possibles autours d’une position donnée, et d’autre part par l’aspect séquentiel du modèle de l’environnement, qui permet de compenser un faible nombre de repères visuels. Ce modèle est décrit dans notre <a href="https://www.mdpi.com/2078-2489/12/3/100">article MDPI</a>.
+
+			</p>
+			<br/>
+
+			<p>
+
+				Le modèle nécessite un système sensoriel capable de reconnaître et localiser des éléments distinctif dans l’espace égo-centré (Système de stéréovision, lidar, flot optique…). Les éléments distinctifs peuvent être variés (simple couleur, reconnaissance d’objet ou de motifs, détections de lignes verticales…).  Idéalement, le champs de vision doit approcher les 180°, bien que 90° soit théoriquement suffisant.
+
+			</p>
+			<br/>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/context.png" alt="contexte visuel" width="400" />
+			</figure>
+			<p style="text-align: center">
+				Exemple de système de perception. Ici, les points caractéristiques sont définis par leur couleur et localisés en coordonnées polaires.
+			</p>
+			<br/>
+
+			<p>
+				- Les cellules de lieu sont des structures capable de caractériser une position de l’environnement, en enregistrant le contexte observé à cette position. Les cellules voisines sont reliées entre elles, permettant de former un graphe de navigation facilement exploitable. Les cellules de lieu utilisent ce contexte enregistré pour reconnaître les lieux déjà visités.
+			</p>
+			<br/>
+
+			<p>
+				- Les cellules de grilles sont des neurones principalement impliqués dans l’intégration de chemin. Leur fonctionnement est très particulier : leur champs récepteur (les régions de l’espace où ils s’activent) forment les sommets d’une grille hexagonale régulière. Ils sont rassemblés en groupe, appelés modules. Les cellules de grille d’un même module forment des ‘grilles’ de taille et orientation identiques, mais avec un décalage, permettant de couvrir l’ensemble de l’espace avec une petite surface torique qui se répète.
+			</p>
+			<br/>
+
+
+			<figure style="text-align:center">
+				<img src="/postdoc/gridcells.png" alt="grid cells" width="400" />
+			</figure>
+			<p style="text-align: center">
+				(a) Les cellules de grille ont un champs récepteur formant une grille hexagonale. (b) Un module permet de caractériser l'ensemble de l'espace.
+			</p>
+			<br/>
+
+			<p>
+				Dans notre modèle, un module contient un ensemble de cellules de grille. L’espacement entre les cellules définit un déplacement dans l’espace. Comme le module a une forme torique, on peut associer une cellule de lieu avec une cellule de grille choisie arbitrairement. Cette cellule de grille devient alors le ‘centre’ du module. En récupérant le contexte de la cellule de lieu, et la position par rapport au centre, chaque cellule de grille va pouvoir générer le contexte attendu à la position qu’elle caractérise par rapport à la cellule de lieu.
+			</p>
+			<br/>
+
+
+			<figure style="text-align:center">
+				<img src="/postdoc/cluster_position.png" alt="position tracking" width="400" />
+			</figure>
+			<p style="text-align: center">
+				principe de la localisation : les cellules de grilles utilisent le contexte de la cellule de lieu (a) pour définir des prédictions autour de cette cellule (b). L'activité du module permet de définir la position autour de la cellule de lieu.
+			</p>
+			<br/>
+
+			</p>
+			<br/>
+
+			<p>
+
+				- Les cellules d’orientation de la tête sont des neurones qui s’active quand la tête est orientée dans une position spécifique. Dans notre modèle, les cellules d’orientation sont associées à un angle d’orientation prédéfini, couvrant uniformément un tour complet (360°). Chaque cellule d’orientation défini, à partir du contexte observé, un contexte ‘pivoté’ de son angle. Ainsi, en comparant ces contextes pivotés et les contextes prédits des cellules de grille, on peut déterminer le couple cellule d’orientation-cellule de grille avec la plus forte similarité, donnant la position et l’orientation précises autour de la cellule de lieu active.
+
+			<figure style="text-align:center">
+				<img src="/postdoc/hdc.png" alt="cellules d'orientation de la tete" width="300" />
+			</figure>
+			<p style="text-align: center">
+				Les cellules d'orientation de la tête génèrent des versions du contexte observé dans différentes orientations.
+			</p>
+			<br/>
+
+				
+				La démo interactive ci-dessous présente une implémentation simplifiée de ce principe de localisation autour d’une cellule de lieu : placez des points distinctifs dans l’environnement (tous du même type), activez une cellule de lieu, puis déplacez l’agent pour observer l’activité des cellules de grille et d’orientation. Vous pouvez aussi observer le contexte de chaque cellule et les comparer.
+
+			</p>
+			<br/>
+
+			<a href="/postdoc/demo_GC.html"><img src="/postdoc/demo_GC.jpg" width="300" alt="demo grid cells" /></a>
+
+			<p>
+				Bien entendu, ce principe limite la localisation à la surface couverte par le module. Pour continuer le suivi, le système repose sur le principe suivant : lorsque l’on définit le centre du module, on définit également les cellules en bordure de ce module. Lorsque l’on atteint une de ces cellules en bordure, une nouvelle cellule de lieu est créée et associée à cette cellule de grille. Les cellules de grille calculent de nouvelles prédictions à partir du contexte de cette nouvelle cellule de lieu et du nouveau centre du module, permettant de continuer le suivi.
+
+			</p>
+			<br/>
+
+			<figure style="text-align:center">
+				<img src="/postdoc/PC_change.png" alt="graph construction" width="400" />
+			</figure>
+			<p style="text-align: center">
+				Principe du changement de cellule de lieu et de construction du graphe.
+			</p>
+			<br/>
+
+			<p>
+				La démo interactive ci-dessous illustre ce principe de construction du graphe de navigation. Cliquez dans l’environnement, puis déplacez-vous doucement pour observer la position sur le module (ici, on utilise simplement la position du curseur) et les changements de cellule de lieu.
+			</p>
+			<br/>
+
+			<a href="/postdoc/demo_PC.html"><img src="/postdoc/demo_PC.jpg" width="300" alt="demo place cells" /></a>
+			<br/>
+
+
+
+
+		</section>
+
+		<section class="subsection">
+
+			<p>
+
+				vidéos des expérimetations :
+				<br/><br/>
 			</p>
 
 
@@ -47,18 +170,10 @@
 				Construction du graphe de navigation (guidage manuel). En haut à droite, les cellules de grille et les cellules d'orientation. En bas à droite, les cellules de lieu.
 			</p>
 			<br/>
-				
-			<figure style="text-align:center">
-				<img src="/postdoc/graph_complete.png" alt="comparaison" width="300" />
-			</figure>
-			<p style="text-align: center">
-				Graphe de navigation après exploration de l'environnement. On notera dans les parties avec peu de repère visuels des séquences de cellules de lieu "directionnelles". Le modèle compense ainsi le faible nombre de repères par l'aspect séquentiel du graphe.
-			</p>
-			<br/>
 
 			<p style="text-align: center">
  				<video width="640" controls >
-					<source src="/postdoc/navig_sequence.mp4" type="video/mp4">
+					<source src="videos/navig_sequence.mp4" type="video/mp4">
 					Your browser does not support the video tag.
 				</video> 
 				<br/>
