@@ -22,186 +22,57 @@
 			<a href="/robot.html">Les Robots</a><br />
 			<a href="/software.html">logiciels</a><br />
 			<br />
-			<a href="/postdoc/navig2.html"><img src="/img/fr.png" alt="fr" /> </a>
-			<a href="/postdoc/navig2_en.html"><img src="/img/en.png" alt="en" /> </a>
+			<a href="/postdoc/navig1.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/postdoc/navig1_en.html"><img src="/img/en.png" alt="en" /> </a>
 		</nav>
 
 		<section class="subsection">
-
-			<center style="text-align: center;font-size: xx-large;">Un système de navigation bio-inspiré</center><br /><br />
 			<p>
-Ce système de navigation repose sur l’utilisation de structures inspirées des <a href="https://fr.wikipedia.org/wiki/Cellule_de_lieu">cellules de lieux</a> et de <a href="https://fr.wikipedia.org/wiki/Cellule_de_grille">cellules de grille</a> et des <a href='https://en.wikipedia.org/wiki/Head_direction_cell'>cellules d’orientation de la tête</a>, neurones impliqués dans la navigation chez les mammifères.
-			</p>
+				<center style="text-align: center;font-size: xx-large;">Études préliminaires sur des systèmes de navigation partiellement bio-inspiré</center><br /><br />
+				<p>
+					Nous avons développé et testé un mécanisme de navigation inspiré de l'<a href="https://fr.wikipedia.org/wiki/Hippocampe_(cerveau)">hippocampe<a/> du cerveau des mammifères, qui a l'avantage d'être robuste et tolérant aux erreurs. Ce mécanisme permet de placer des '<a href="https://fr.wikipedia.org/wiki/Cellule_de_lieu">cellules de lieux<a/>' caractérisant des régions de l'espace, l'ensemble de ces cellules formant une carte de l'environnement topologique mais non topographique, permettant une tolérance à la dérive. <br/>
+					<br/>
 
-			<p>
-À l’origine, ce modèle a été pensé pour la conception d’un système d’assistance à la navigation pour les personnes déficientes visuelles. Il devait ainsi répondre à certaines contraintes : navigation en intérieur et en extérieur, mesure des déplacements dans toutes les directions, champs de vision réduit (pas de caméras panoramiques), pas d’odométrie absolue, tout en restant peu gourmand en ressources et donc en énergie. Après des essais de modèles de SLAM visuel, nous nous sommes tourné vers des approches d’inspiration biologiques. Actuellement, d’autres applications sont envisagées, comme la robotique, voire le guidage d’une flottille de robot, rendue possible par l’aspect décentralisé du modèle de l’environnement.
+					Dans ce modèle, chaque cellule de lieux caractérise une position unique de l'espace, et indique la direction pour atteindre les cellules voisines. Les cellules de lieu sont placées lorsque l'on change de direction, permettant une discrétisation adaptée de l'environnement. Nous avons pu tester ce modèle sur un agent RI, qui a l'avantage de ne pas avoir de notion a priori de l'espace, mais également dans un environnement réel, en utilisant une caméra.
+				</p>
 			</p>
-			
 		</section>
 
 		<section class="subsection">
-
 			<p>
+				Nous avons dans un premier temps testé le système de navigation sur un agent RI issu de mes travaux de thèse. L'agent est placé dans un environnement bien plus grand que ce que sa mémoire spatiale peut intégrer. Son système interactionnel définit une préférence pour manger la nourriture dans l'ordre rouge-vert-bleu. Il dispose également d'un mécanisme implémentant une forme de curiosité le poussant à explorer les directions inexplorées autours des cellules de lieu. Notons que ce test vise uniquement à tester les algorithmes de construction et de navigation, la reconnaissance des lieux est ainsi hardcodée pour ne pas fausser les résultats avec des détections erronées.<br/>
+				<br/>
 
-				Description du modèle :
-				<br/><br/>
-			</p>
-
-			<p>
-
-				Ce modèle de navigation repose sur l’utilisation conjointe de structures inspirés par certains types de neurones impliqués dans la navigation chez les mammifères. Sa robustesse provient d’une part de son aspect prédictif, en estimant les observations possibles autours d’une position donnée, et d’autre part par l’aspect séquentiel du modèle de l’environnement, qui permet de compenser un faible nombre de repères visuels. Ce modèle est décrit dans notre <a href="https://www.mdpi.com/2078-2489/12/3/100">article MDPI</a>.
-
-			</p>
-
-			<p>
-
-				Le modèle nécessite un système sensoriel capable de reconnaître et localiser des éléments distinctif dans l’espace égo-centré (Système de stéréovision, lidar, flot optique…). Les éléments distinctifs peuvent être variés (simple couleur, reconnaissance d’objet ou de motifs, détections de lignes verticales…).  Idéalement, le champs de vision doit approcher les 180°, bien que 90° soit théoriquement suffisant.
-
+				Après un apprentissage dans un environnement de faible dimensions, l'agent est placé dans le grand environnement. Son mécanisme de curiosité le pousse à explorer son environnement, jusqu'à ce qu'une instance de chaque point de nourriture soit trouvé. L'agent passe ensuite d'une proie à une autre, en utilisant le graphe de navigation pour se diriger d'un point à un autre.<br/>
 			</p>
 
 			<figure style="text-align:center">
-				<img src="/postdoc/context.png" alt="contexte visuel" width="400" />
+				<img src="/postdoc/agent.png" alt="neurocognitive agent" width="550" />
 			</figure>
-			<p style="text-align: center">
-				Exemple de système de perception. Ici, les points caractéristiques sont définis par leur couleur et localisés en coordonnées polaires.
-			</p>
 
 			<p>
-				- Les cellules de lieu sont des structures capable de caractériser une position de l’environnement, en enregistrant le contexte observé à cette position. Les cellules voisines sont reliées entre elles, permettant de former un graphe de navigation facilement exploitable. Les cellules de lieu utilisent ce contexte enregistré pour reconnaître les lieux déjà visités.
-			</p>
-
-			<p>
-				- Les cellules de grilles sont des neurones principalement impliqués dans l’intégration de chemin. Leur fonctionnement est très particulier : leur champs récepteur (les régions de l’espace où ils s’activent) forment les sommets d’une grille hexagonale régulière. Ils sont rassemblés en groupe, appelés modules. Les cellules de grille d’un même module forment des ‘grilles’ de taille et orientation identiques, mais avec un décalage, permettant de couvrir l’ensemble de l’espace avec une petite surface torique qui se répète.
+				Construction du graphe de navigation pendant l'exploration. L'agent débute en haut à gauche : il découvre la salle avec le point de nourriture vert, mais la néglige. Plus tard, il découvre le point de nourriture rouge. Il interagit donc pour manger, puis se dirige immédiatement vers le point de nourriture vert avant de reprendre son exploration. Il finit par trouver le point de nourriture bleu. À partir de ce moment, l'agent va naviguer entre ces points pour manger la nourriture dans le bon ordre.
 			</p>
 
 
 			<figure style="text-align:center">
-				<img src="/postdoc/gridcells.png" alt="grid cells" width="400" />
+    				<img src="/postdoc/hippocampus.png" alt="carte crée par l'agent" width="550" />
 			</figure>
-			<p style="text-align: center">
-				(a) Les cellules de grille ont un champs récepteur formant une grille hexagonale. (b) Un module permet de caractériser l'ensemble de l'espace.
-			</p>
+
 
 			<p>
-				Dans notre modèle, un module contient un ensemble de cellules de grille. L’espacement entre les cellules définit un déplacement dans l’espace. Comme le module a une forme torique, on peut associer une cellule de lieu avec une cellule de grille choisie arbitrairement. Cette cellule de grille devient alors le ‘centre’ du module. En récupérant le contexte de la cellule de lieu, et la position par rapport au centre, chaque cellule de grille va pouvoir générer le contexte attendu à la position qu’elle caractérise par rapport à la cellule de lieu.
-			</p>
-
-
-			<figure style="text-align:center">
-				<img src="/postdoc/cluster_position.png" alt="position tracking" width="400" />
-			</figure>
-			<p style="text-align: center">
-				principe de la localisation : les cellules de grilles utilisent le contexte de la cellule de lieu (a) pour définir des prédictions autour de cette cellule (b). L'activité du module permet de définir la position autour de la cellule de lieu.
-			</p>
-
-			<p>
-
-				- Les cellules d’orientation de la tête sont des neurones qui s’active quand la tête est orientée dans une position spécifique. Dans notre modèle, les cellules d’orientation sont associées à un angle d’orientation prédéfini, couvrant uniformément un tour complet (360°). Chaque cellule d’orientation défini, à partir du contexte observé, un contexte ‘pivoté’ de son angle. Ainsi, en comparant ces contextes pivotés et les contextes prédits des cellules de grille, on peut déterminer le couple cellule d’orientation-cellule de grille avec la plus forte similarité, donnant la position et l’orientation précises autour de la cellule de lieu active.
-
-			<figure style="text-align:center">
-				<img src="/postdoc/hdc.png" alt="cellules d'orientation de la tete" width="300" />
-			</figure>
-			<p style="text-align: center">
-				Les cellules d'orientation de la tête génèrent des versions du contexte observé dans différentes orientations.
-			</p>
-
-				
-				La démo interactive ci-dessous présente une implémentation simplifiée de ce principe de localisation autour d’une cellule de lieu : placez des points distinctifs dans l’environnement (tous du même type), activez une cellule de lieu, puis déplacez l’agent pour observer l’activité des cellules de grille et d’orientation. Vous pouvez aussi observer le contexte de chaque cellule et les comparer.
-
-			</p>
-
-			<a href="/postdoc/demo_GC.html"><img src="/postdoc/demo_GC.jpg" class="imageflottante" width="300" alt="demo grid cells" /></a>
-
-			<p>
-				Bien entendu, ce principe limite la localisation à la surface couverte par le module. Pour continuer le suivi, le système repose sur le principe suivant : lorsque l’on définit le centre du module, on définit également les cellules en bordure de ce module. Lorsque l’on atteint une de ces cellules en bordure, une nouvelle cellule de lieu est créée et associée à cette cellule de grille. Les cellules de grille calculent de nouvelles prédictions à partir du contexte de cette nouvelle cellule de lieu et du nouveau centre du module, permettant de continuer le suivi.
-
+				Nous avons ensuite testé le système en environnement réel, avec un système de reconnaissance utilisant une détection de points d'intérêts visuels. On effectue le tour d'une pièce avant de revenir au point de départ. Le système place quatre cellules de lieux pour caractériser le chemin parcouru. On observera sur le graphe que la première cellule a été reconnue, permettant de la connecter à la quatrième. On notera toutefois qu'à cause de la dérive, les cellules ne sont pas correctement alignées. Cependant, comme chaque cellule de lieu définit son propre référentiel, les cellules 1 et 4 indiquent la bonne direction pour atteindre ses voisines.
 			</p>
 
 			<figure style="text-align:center">
-				<img src="/postdoc/PC_change.png" alt="graph construction" width="400" />
+				<img src="/postdoc/map.png" alt="système en environnement reel" width="550" />
 			</figure>
-			<p style="text-align: center">
-				Principe du changement de cellule de lieu et de construction du graphe.
-			</p>
-
+		
 			<p>
-				La démo interactive ci-dessous illustre ce principe de construction du graphe de navigation. Cliquez dans l’environnement, puis déplacez-vous doucement pour observer la position sur le module (ici, on utilise simplement la position du curseur) et les changements de cellule de lieu.
+				Ce mécanisme, bien qu'efficace et tolérant à la dérive, est moins robuste dans un environnement redondant. Nous avons alors envisagé un système utilisant à la fois la reconnaissance visuelle et l'intégration de chemin par un mécanisme d'odométrie visuelle inspiré des <a href="https://fr.wikipedia.org/wiki/Cellule_de_grille">Cellules de Grille<a/>.<br/>
 			</p>
-
-			<a href="/postdoc/demo_PC.html"><img src="/postdoc/demo_PC.jpg" class="imageflottante" width="300" alt="demo place cells" /></a>
-			<br/><br/>
-
-
-
 		</section>
 
-		<section class="subsection">
-
-			<p>
-
-				vidéos des expérimentations :
-				<br/><br/>
-			</p>
-
-
-			<p style="text-align: center">
- 				<video width="640" controls >
-  					<source src="/postdoc/gridcells.mp4" type="video/mp4">
-					Your browser does not support the video tag.
-				</video> 
-				<br>
-				Construction du graphe de navigation (guidage manuel). En haut à droite, les cellules de grille et les cellules d'orientation. En bas à droite, les cellules de lieu.
-			</p>
-			<br/>
-
-			<p style="text-align: center">
- 				<video width="640" controls >
-					<source src="/postdoc/navig_sequence.mp4" type="video/mp4">
-					Your browser does not support the video tag.
-				</video> 
-				<br/>
-				Suivi d'une séquence de cellules de lieu (navigation autonome). L'agent se guide uniquement à l'aide de son système visuel (pas de mesure des déplacements).
-			</p>
-			<br/>
-
-			<figure style="text-align:center">
-				<img src="/postdoc/sequence.png" alt="comparaison" width="550" />
-			</figure>
-			<p style="text-align: center">
-				Comparaison du trajet effectué avec le guidage manuel pour construire une séquence de cellules de lieu (trait noir), et du trajet effectué automatiquement en suivant cette séquence (trait rouge).
-			</p>
-			<br/>
-
-			<p style="text-align: center">
- 				<video width="640" controls >
-  					<source src="/postdoc/navig_homing.mp4" type="video/mp4">
-					Your browser does not support the video tag.
-				</video> 
-				<br/>
-				Retour au point de départ, en suivant la séquence inversée de cellules de lieu (trait bleu). Comme l'agent ne voit pas derrière lui, il ne peut compter, pour le retour, que sur la distance estimée entre les cellules de lieu et la mesure visuelle de ses déplacement à l'aide de nouvelles cellules. Le système de guidage permet une intégration de chemin relativement fiable.
-			</p>
-			<br/>
-
-			<p style="text-align: center">
-				<video width="640" controls >
-					<source src="/postdoc/navig_robust.mp4" type="video/mp4">
-					Your browser does not support the video tag.
-				</video> 
-				<br/>
-				Tolérance aux changements : même en modifiant l'environnement, le système de guidage parvient à trouver des repères pour suivre la séquence de cellule de lieu définie dans l'environnement initial.
-			</p>
-			<br/>
-
-			<p style="text-align: center">
-				<video width="640" controls >
-					<source src="/postdoc/navig_shortcut.mp4" type="video/mp4">
-					Your browser does not support the video tag.
-				</video> 
-				<br/>
-				Détection de raccourcis (trait vert) : l'agent peut estimer la position des cellules de lieu autour de lui et se dirige vers la cellule atteignable en ligne droite (sans obstacle entre lui et la position estimée) la plus proche de la dernière cellule de la séquence.
-			</p>
-
-		</section>
 	</div>
 	
 	<footer>
