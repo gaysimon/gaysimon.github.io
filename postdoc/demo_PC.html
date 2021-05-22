@@ -106,15 +106,16 @@
 
 
 	// draw module of grid cells
-	for (var i = 0; i < 11; i++) {
-		for (var j = 0; j < 11; j++) {
-			modCanevas.beginPath();
-			modCanevas.arc(i*20+10, j*20+8, 10, 0, 2 * Math.PI, true);
-			modCanevas.fillStyle = 'red';
-			modCanevas.fill();
+	if (current==-1){
+		for (var i = 0; i < 11; i++) {
+			for (var j = 0; j < 11; j++) {
+				modCanevas.beginPath();
+				modCanevas.arc(i*20+10, j*20+8, 10, 0, 2 * Math.PI, true);
+				modCanevas.fillStyle = 'red';
+				modCanevas.fill();
+			}
 		}
 	}
-
 
 
          // get cursor position
