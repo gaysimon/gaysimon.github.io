@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/these/these9.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these9_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Hard-coded Space Memory: development of exploitation mechanisms</center><br /><br />
+			<p>
+				We begun to study extra-personal space integration mechanisms by developing decisional mechanisms, in order to define minimal required information that a space memory must provide.
+				<br /><br />
+
+				The selected mechanism is based on the following assumption: as the agent tries to enact interactions with positive valences, it is interesting to move closer to elements that afford such interactions. We thus propose that the decisional mechanism adds a positive utility value to interactions allowing to move closer to elements affording interactions with positive valences, and a negative utility value to interactions allowing to move closer to elements affording interactions with negative valences. Elements affording interactions are recognized through signatures of interactions learned by the agent. We must take the estimated distance of elements into consideration, so that close elements have a greater influence on agent's decisions. Thus, the space memory must provide two types of information about surrounding elements: an estimation of their distances and interaction(s) allowing to move closer to these elements.
+				<br /><br />
+
+				First tests were conducted on a simulated agent with a visual system that can detect three colors (red, green, blue) with a visual field of 180°. The agent is based on the parallel version of the Radical Interactionism Model (called Parallel Radical Interactionism, or PRI). The visual system provide a set of secondary interactions associated to visual stimuli. We used a hard-coded space memory that store and update position of visual interactions relative to the agent when it is moving, during nearly ten cycle of decision. This memory adds to interactions considered as enactable a utility value that depends on distance variation of objects, relative to the agent, that they produce, and that is added to valences of interactions. The decisional mechanism then select the enactable interaction with the greatest ''extended'' valence (see  <a href="http://liris.cnrs.fr/Documents/Liris-6835.pdf"> Gay, Georgeon, and Wolf 2014</a>, and <a href="http://liris.cnrs.fr/Documents/Liris-7032.pdf">Gay 2014</a> for more details on the implementation).
+				<br /><br />
+
+				Preliminary tests have shown that, like peri-personal mechanisms, learning signatures is needed to ensure that the agent will not generate behaviors based on wrong or incomplete signatures that it couldn't revise. We added a learning mechanism that forces the enaction of an interaction when the certitude of its prediction of success or failure in the current context is lower than a certain threshold. There are thus no separated learning and exploitation periods, the agent keeps its learning abilities during its entire ''life''.
+				<br /><br />
+
+				Experimental tests have shown that signature learning is relatively fast: after nearly 2000 decisional cycles, the agent rarely uses learning mechanism, and is mainly directed by the exploitation mechanism. The agent move toward food and avoids walls. We then conducted several experiments to test the decisional system.
+			</p>
+
+			<video width="640" height="480" controls>
+				<source src="/these/ernest7_2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<p>
+				<br /><br />
+				Tests were conducted to analyze how the agent ''interprets'' its environment. We use the fact that the agent is strongly attracted by preys to observe how it reacts in presence of other objects. It appears that algae, that have the same interactional properties as empty space, became ''transparent'' for the agent. In contrast, the agent stays away from walls.
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/exp1_alga_small.png" alt="algues" />
+				<br /><br />
+				<img src="/these/exp1_wall_small.png" alt="murs" />
+    				<figcaption>Figure 1 : The agent considers algae as empty spaces, while staying away from walls.</figcaption>
+			</figure>
+
+			<p>
+				<br /><br />
+				We also observe that the agent takes every elements of its environment into consideration. In presence of two prey placed symmetrically, the agent will move toward the one that will seems less ''dangerous'' to reach. Here, the prey that is far from walls.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/selection.png" alt="selection" />
+    				<figcaption>Figure 2 : The agent moves toward the easiest to reach prey, as it prefer to stay away from walls.</figcaption>
+			</figure>
+
+			<p>
+				<br /><br />
+				In this last experiment, preys are invisible, and stay at the same distance from an alga. After learning signatures, we observe that signature of interaction ''eat'' is characterized by the presence of a red object at a certain distance. This results a behavior where the agent turns around algae to eat preys, even if they are invisible. This example shows that signatures of interactions do not only consider the affordance itself, but also surrounding context.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/invisible.png" alt="invisible" />
+    				<figcaption>Figure 3 : The agent cannot see preys, but signature of interaction eat indicates that this interaction can be enacted when the agent is at a certain distance of a red element. The agent then stay near red algae.</figcaption>
+			</figure>
+
+			<p>
+				<br /><br />
+				The decisional mechanism is robust enough to be implemented on the <a href="/robot/eirl_en.html"> ErnestIRL</a> robot, with similar results.
+			</p>
+
+			<video width="640" height="300" controls>
+				<source src="videos/robot2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<video width="320" height="240" controls>
+				<source src="videos/selection.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these8_en.html">Previous</a> &nbsp;&nbsp; <a href="/these_en.html">Back</a> &nbsp;&nbsp; <a href="/these/these10_en.html">Next</a> </center>
+			<br />
+		</section>
+	</div>
+
+
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

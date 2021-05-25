@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/these/these9.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these9_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Mémoire spatiale pré-cablée : étude des mécanismes d'exploitation</center><br /><br />
+			<p>		
+				Nous avons débuté l'étude des mécanismes permettant l'intégration de l'espace extra-personnel par le développement des mécanismes décisionnels, afin de définir les informations minimales nécessaires qu'une mémoire de l'espace devra fournir.
+				<br /><br />
+
+				Le mécanisme de décision retenu se base sur l'hypothèse suivante : puisque l'agent cherche à effectuer des interactions à valeur de satisfaction positive, il est intéressant pour lui de se rapprocher des éléments affordant de telles interactions. Nous proposons ainsi que le mécanisme décisionnel ajoute une valeur d'utilité positive aux interactions permettant de se rapprocher d'un élément affordant une interaction à valeur de satisfaction positive, et négative aux interactions permettant de se rapprocher d'une interaction à valeur de satisfaction négative. Les éléments affordant les interactions sont reconnus par le biais des signatures d'interactions apprises par l'agent. Il faut également prendre en compte la distance estimée des éléments, de façon à ce que les éléments proches aient une influence plus importante sur les décisions de l'agent. Une mémoire de l'espace devra ainsi fournir au système décisionnel deux informations sur les éléments entourant l'agent : une estimation de sa distance et la ou les interactions permettant de s'en approcher.
+				<br /><br />
+
+				Les premiers tests ont été effectués sur un agent simulé disposant d'un système visuel permettant la perception de trois couleurs (rouge, vert et bleu) avec un champ de vision de 180°. L'agent est basé sur la version parallèle du modèle radical interactionnism (appelée Parallel Radical Interactionnism, ou PRI). Le système visuel définissant un ensemble d'interactions secondaires, associées aux stimuli visuels. Nous avons utilisé une mémoire spatiale hard-codée qui enregistre et met à jour la position des interactions visuelles par rapport à l'agent lorsque celui-ci se déplace, pour une durée d'une dizaine de cycle de décision. Cette mémoire ajoute aux interactions considérées comme énactables une valeur d'utilité qui dépend des variations de distance aux objets qu'elles permettent, et qui s'ajoutent à leur valeurs de satisfaction propres. Le mécanisme décisionnel sélectionne ensuite l'interaction énactable disposant de la plus grande valeur de satisfaction ''étendue'' (voir  <a href="http://liris.cnrs.fr/Documents/Liris-6835.pdf"> Gay, Georgeon, and Wolf 2014</a>, et <a href="http://liris.cnrs.fr/Documents/Liris-7032.pdf">Gay 2014</a> pour plus de détail sur l'implémentation).
+				<br /><br />
+
+				Les tests préliminaires ont montré que, comme pour la mémoire péri-personnelle, un apprentissage des signatures est nécessaire pour éviter que l'agent ne se base sur des signatures fausses ou incomplète qu'il ne pourrait plus corriger. Nous avons donc ajouté un mécanisme d'apprentissage qui force l'énaction lorsque la certitude de la prédiction de succès ou d'échec d'une interaction dans un contexte interactionnel donné est inférieure à un certain seuil. Il n'y a donc pas de phase d'apprentissage et d'exploitation séparés, l'agent conserve une capacité d'apprentissage tout au long de sa ''vie''. 
+				<br /><br />
+
+				Les tests expérimentaux montrent que l'apprentissage des signatures est relativement rapide : après 2000 cycles de décisions environ, l'agent n'utilise le mécanisme d'apprentissage que de façon ponctuelle, et est principalement dirigé par le mécanisme d'exploitation. L'agent se dirige naturellement vers la nourriture et évite les murs. Différents tests ont pu alors être effectués pour tester le système décisionnel.
+
+			</p>
+
+			<video width="640" height="480" controls>
+				<source src="/these/ernest7_2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<p>
+				<br /><br />
+				Les tests effectués ont pour but d'analyser la façon dont l'agent ''interprète'' son environnement. Nous utilisons le fait que l'agent soit attiré par les proies pour observer sa réaction en présence d'autres objets. Il apparait que les algues, qui ont les même propriétés interactionnelles que l'espace vide, sont devenu totalement ''transparentes'' pour l'agent. En revanche, l'agent reste à bonne distance des murs.
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/exp1_alga_small.png" alt="algues" />
+				<br /><br />
+				<img src="/these/exp1_wall_small.png" alt="murs" />
+    				<figcaption>Figure 1 : L'agent considère les algues comme des espaces vides, en revanche, il reste à distance des murs.</figcaption>
+			</figure>
+
+			<p>
+				<br /><br />
+					On observe également que l'agent tient compte de l'ensemble des éléments de son environnement. En présence de deux proies placées symétriquement, l'agent ira vers celle qui lui semble la moins ''périlleuse'' à atteindre. Ici, celle qui est le plus loin des murs.
+				</p>
+
+				<figure style="text-align:center">
+					<img src="/these/selection.png" alt="selection" />
+	    				<figcaption>Figure 2 : L'agent se dirige vers la proie la plus facile à atteindre, car il préfère rester loin des murs.</figcaption>
+				</figure>
+
+			<p>
+				<br /><br />
+				Dans une dernière expérience, les proies ont été rendues invisibles, et restent toujours à la même distance d'une algue. Après apprentissage, on observe que la signature de l'interaction ''manger'' est caractérisée par la présence d'une algue à une certaine distance. Il en résulte un comportement où l'agent tourne autours des algues pour attraper des proies, même si celles-ci lui sont invisibles. Cet exemple montre que les signatures d'interaction ne caractérisent pas forcément l'objet qui afforde une interaction, mais également le contexte environnant.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/invisible.png" alt="invisible" />
+    				<figcaption>Figure 3 : L'agent ne peux pas voir les proies, mais la signature de manger indique que cette interaction est énactable si l'agent est à une certaine distance d'un élément rouge. L'agent reste ainsi autours des algues rouges.</figcaption>
+			</figure>
+
+			<p>
+				<br /><br />
+				Le mécanisme de décision est si robuste qu'il a pu être implémenté sur le robot <a href="/robot/eirl.html"> ErnestIRL</a>, avec des résultats comparables au système simulé.
+			</p>
+
+			<video width="640" height="300" controls>
+				<source src="/these/robot2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<video width="320" height="240" controls>
+				<source src="/these/selection.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these8.html">Précedent</a> &nbsp;&nbsp; <a href="/these.html">Retour</a> &nbsp;&nbsp; <a href="/these/these10.html">Suivant</a> </center>
+			<br />
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
