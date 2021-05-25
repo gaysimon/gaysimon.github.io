@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/these/these11.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these1_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Construction of a surrounding space memory</center><br /><br />
+			<p>	
+				Tracking surrounding elements can be vital for many living beings. I developed a structure, called Space Memory, that gives to the agent the ability to track and localize surrounding elements, even when they escape from its sensory system. This structure is based of the object instance detection developed previously.
+				<br /><br />
+
+				This structure is based on several principles. First, we consider that every position characterized by the same couple (interaction;distance) belongs to a same "place". A place is thus a set of positions sharing the same interactional properties. However, this segmentation of space is not sufficient to track objects. A second principle consider places preceded by a sequence of interaction. These "composite places" are defined as follow: when an object is considered as present in a composite place, if the agent enacts the sequence of interaction of this composite place, then the object will be in the final place of the composite place.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/composite_places.png" alt="lieux composites" />
+    				<figcaption>Figure 1 : Principle of composite places: in this example, the agent cannot see the mauve object, but it it turns 90° left, then the object will be detected in place l12. Then, it was possible, in initial state, to consider the presence of the mauve object in composite place ["left"][l12}.</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				Of course, we first need to define positions (sequences of interactions) that characterize a composite place in order to use it. The learning principle, based on signatures of places,is described below:
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/principle1.png" alt="signature de lieu" />
+    				<figcaption>Figure 2 : place signature learning principle: at t, the agent detects a object instance at position p. Then, the agent turns left and detect an instance of the same object in place l4. Thus, p may be a part of composite place ["left"][l4}. Note that the instance may be different from the initial one, it is thus preferable to consider first instances of the least represented objects.</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+				<img src="/these/signatures_lieu.png" alt="signatures de lieu" />
+    				<figcaption>Figure 3 : examples of place signatures. Here, we use positions under the form of coordinates instead of sequences of interactions in order to make results easier to read and understand. Top: 5 examples of signatures of primitive places. Bottom: examples of composite places composed of the above primitive place and sequence of one interaction (displayed to the left). Positions considered as part of places are in light gray in signatures. In the case of composite places, we can guess that areas covered by these places extend outside the visual field of the agent, allowing to characterize the presence of objects instances in the global space.</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				Composite places allow to track objects, but are limited to the length of the sequence of interaction that compose them, and the tracking is interrupted if the agent enacts other interactions than these sequences. I propose a last principle to allow longer object tracking: when the position of an object is characterized by a list of places (primitive or composite), then it is possible to consider the intersection of these places, characterizing the most probable position of the object, can be assimilated to a position in space. Note that this position is not limited to space covered by the sensory system of the agent. This principle is based on the presence signature principle:
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/deplacement.png" alt="signature de présence" />
+    				<figcaption>Figure 4 : presence signature learning: here the space memory contains an object instance with a position characterized by a set of three places. We can consider that the intersection of these three places can be assimilated to a position in the global space. Thus, if the agent turns left 90°, and detects an instance of the same object in place l4, then position characterized by (l1,l2,l3) may be a part of composite place ["left"][l4}</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+				<img src="these/presence_signatures.png" alt="signature de présence" />
+    				<figcaption>Figure 5 : examples of presence signature. These four composite places, that are similar, are characterized by the intersection of places displayed at the bottom of the figure.</figcaption>
+			</figure>
+			<br /><br />
+
+			<p>
+				Presence signatures allows to link area of the non-observable space of the agent, as in the following example:
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/update2.png" alt="suivi des objets" />
+    				<figcaption>Figure 6 : object tracking. In this context, and because of asymmetries in signatures of interactions, the agent will prefer to reach prey A. Prey B is stored with a set of places, displayed in the right (we only display primitive places and composite places with sequence of one interaction). In the next step, the agent move forward. Places are updated, and indicate that prey B can be reached by enacting first "turn right 90°" or "turn right 45°", characterizing the fact that prey B is on the right side of the agent. But at the next step, the agent turns left. No places characterizing position of prey B can be updated. However, places displayed in Figure 5 can be evoked because of their presence signatures. Once updated, they characterize the position of prey B with interactions "turn left 90°", characterizing the fact that prey B is on the left side of the agent. These presence signatures thus link areas of non-observable space.</figcaption>
+			</figure>
+			<br /><br />
+
+			<p>
+				The agent, equipped with a space memory, generates behaviors similar to the ones observed with the hard-coded memory: it moves toward objects affording interaction "eat" and stay away from walls. We can observe that, despite the poor precision of the memory, the agent can move toward interesting objects for more than 10 steps without seeing them. These results were published in <a href="/docs/csr_SG_AM_OG_AD_V3.pdf"> Gay, Mille, Georgeon, and Dutech 2017</a>
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/prey_alga.png" alt="proie et algue" />
+				<img src="/these/prey_track_alga.png" alt="proie et algue" />
+
+				<br /><br />
+
+				<img src="/these/prey_wall.png" alt="proie et mur" />
+				<img src="/these/prey_track_wall.png" alt="proie et mur" />
+    				<figcaption>Figure 7 : behavior of the agent in presence of an alga, then a wall. The bottom line shows the estimated position of the prey in space memory.</figcaption>
+			</figure>
+
+			<video width="320" height="240" controls>
+				<source src="/these/expe.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<video width="320" height="240" controls>
+				<source src="/these/expe2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<p>
+				It is interesting to observe that when we remove the prey, the agent, guided by its space memory, continue to move toward the position of the prey, then, facing the incoherence, seems to search for the missing prey.
+				<br /><br />
+
+				<video width="320" height="240" controls>
+					<source src="/these/expe3.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+
+				<video width="320" height="240" controls>
+					<source src="/these/expe4.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br /><br />
+
+				We can observe that the space memory is relatively reliable despite its limited precision. The behavior of the agent considers every elements stored in the memory: the agent adapt its trajectory to avoid the hidden wall in front of it.
+
+			</p>
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these10_en.html">Previous</a> &nbsp;&nbsp; <a href="/these_en.html">Back</a> &nbsp;&nbsp; <a href="/these/ater1_en.html">Next </a> </center>
+			<br /> </center>
+			<br />
+		</section>
+	</div>
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

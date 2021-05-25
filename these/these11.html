@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/these/these11.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these1_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Construction d'une mémoire de l'espace environnant</center><br /><br />
+			<p>		
+				Pouvoir suivre les éléments environnant peut s'avérer vital pour de nombreux êtres vivants. Afin de doter nos agents de cette capacité, j'ai développé une structure, appelée mémoire spatiale, permettant à l'agent de suivre et localiser les éléments qui l'entourent même lorsqu'ils échappent à son système sensoriel. Cette structure est basée sur la détection des instances d'objets développée précédemment.
+				<br /><br />
+
+				Cette structure repose sur différents principes. Tout d'abord, on considère toutes les positions, caractérisés par un même couple (interaction;distance), comme faisant partie d'un même "lieu". Un lieu est donc un ensemble de positions partageant les mêmes propriétés interactionnelles. Cependant, cette segmentation de l'espace en lieux n'est pas suffisante pour suivre des objets. Un second principe considère des lieux précédés par une séquence d'interaction. Ces "lieux composites" sont définis comme tel : lorsqu'un objet est considéré comme faisant partie d'un lieu composite, si l'agent énacte la séquence d'interaction de ce lieu composite, alors l'objet se retrouvera dans le lieu final du lieu composite.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/composite_places.png" alt="lieux composites" />
+    				<figcaption>Figure 1 : principe des lieux composites : dans cet exemple, l'agent ne voit pas l'objet mauve, mais si il tourne à gauche de 90°, alors l'objet mauve se retrouvera dans le lieu l12. Ainsi, on peut, dans l'état initial, considérer la présence de l'objet mauve dans le lieu composite ["gauche"][l12}.</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				Bien sûr, pour qu'un objet puisse être considéré comme étant dans un lieu composite, il faut dans un premier temps déterminer les positions (séquences d'interactions) qui caractérisent ce lieu composite. Le principe d'apprentissage, basé sur des signatures de lieu, est décrit ci-dessous:
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/principle1.png" alt="signature de lieu" />
+    				<figcaption>Figure 2 : apprentissage des signatures de lieu : à t, l'agent détecte une instance d'objet à une position p. Puis, l'agent tourne à gauche et détecte une instance du même objet dans le lieu l4. Ainsi, p a de fortes chances de faire partie du lieu composite ["gauche"][l4}. Notons que l'instance peut ne pas être la même, il est donc préférable de se concentrer sur les objets les moins représentés dans l'environnement.</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+				<img src="/these/signatures_lieu.png" alt="signatures de lieu" />
+    				<figcaption>Figure 3 : exemples de signatures de lieu. Ici, nous utilisons des positions sous forme de coordonnées plutôt que de séquences d'interactions afin de faciliter la lecture et la compréhension des résultats. En haut : 5 exemples de signatures de lieux primitifs. En bas, des exemples de lieux composites formés par l'ajout d'une séquence d'une interaction (indiquée à gauche). Les positions considérées comme faisant partie du lieu sont en clair sur les signatures. Dans le cas des lieux composites, on devine que la surface caractérisée par les lieux s'étendent en dehors du champs visuel de l'agent, permettant de caractériser la présence d'objets dans l'espace global.</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				Les lieux composites permettent de suivre les objets, mais de façon limitée : d'une part, le suivi est limité par la séquence du lieu composite, et le suivi s'arrête si l'agent effectue d'autres interactions que celles de cette séquence. Pour assurer un suivi plus long, je propose ce dernier principe : si un objet a une position caractérisée par une liste de lieux (composite ou non), alors on peut considérer que l'intersection de ces lieux, caractérisant la position probable de l'objet, peut être assimilé à une position de l'espace. Notons que cette position n'est plus limitée à l'espace couvert par le système sensoriel de l'agent. Ceci repose sur l'apprentissage de signatures de présence :
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/deplacement.png" alt="signature de présence" />
+    				<figcaption>Figure 4 : apprentissage des signatures de présence : ici, la mémoire spatiale contient une instance d'objet dont la localisation est caractérisée par un ensemble de trois lieux. On peut considérer que l'intersection de ces trois lieux est assimilable à une position de l'espace global. Ainsi, si l'agent tourne à gauche d e90°, et que l'agent détecte une instance du même objet dans le lieu l4, alors la position caractérisée par (l1,l2,l3) a de fortes chances de faire partie du lieu composite ["gauche"][l4}</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+				<img src="/these/presence_signatures.png" alt="signature de présence" />
+    				<figcaption>Figure 5 : exemples de signatures de présence. Les quatres lieux composites, très proches, sont caractérisés par l'intersection des deux lieux affichés en bas.</figcaption>
+			</figure>
+			<br /><br />
+
+			<p>
+				Les signatures de présence permettent de lier des régions de l'espace non observable de l'agent, comme dans l'exemple ci-dessous :
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/update2.png" alt="suivi des objets" />
+    				<figcaption>Figure 6 : Suivi des objets. Dans ce contexte, et en raison d'assymétries dans les signatures d'interactions, l'agent va préférer atteindre la proie A. La proie B, quand à elle, est mémorisé à l'aide d'un ensemble de lieux, représentés à droite (seul les lieux primitifs et composite avec une séquence d'une interaction sont représentés). Au pas suivant, l'agent avance. Les lieux sont mis à jour, et indiquent que la proie B peut être atteinte en énactant "tourner à droite de 90°" ou "tourner à droite de 45°", caractérisant le fait que la proie B est à droite de l'agent. Mais au pas suivant, l'agent tourne à gauche. Aucun des lieux composite caractérisant la position de B ne peuvent être mis à jour. Cependant, les lieux de la figure 5 ont pû être évoqué grâce à leur signatures de présence. Une fois mis à jour, ils caractérisent la position de la proie B par l'interaction "tourner à gauche de 90°", indiquant que B est à gauche de l'agent. Les signatures de présence ont ainsi permis de relier des régions de l'espace non observable </figcaption>
+			</figure>
+			<br /><br />
+
+			<p>
+				L'agent, doté d'une mémoire spatiale, génère des comportements similaires à ceux observés avec une mémoire spatiale pré-cablée : il se dirige naturellement vers les objets affordant l'interaction manger, tout en restant à distance des murs; On notera également que malgré une faible précision de la mémoire, l'agent parvient quand même à se diriger vers les objets "intéressant" même après les avoir perdus de vue pendant près de 10 pas. Ces résultats ont été publié dans <a href="/docs/csr_SG_AM_OG_AD_V3.pdf"> Gay, Mille, Georgeon, and Dutech 2017</a>
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/prey_alga.png" alt="proie et algue" />
+				<img src="/these/prey_track_alga.png" alt="proie et algue" />
+
+				<br /><br />
+
+				<img src="/these/prey_wall.png" alt="proie et mur" />
+				<img src="/these/prey_track_wall.png" alt="proie et mur" />
+    				<figcaption>Figure 7 : comportement de l'agent en présence d'une algue puis d'un mur. La frise en bas montre la position de la proie estimée par la mémoire spatiale.</figcaption>
+			</figure>
+
+			<video width="320" height="240" controls>
+				<source src="/these/expe.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<video width="320" height="240" controls>
+				<source src="/these/expe2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<p>
+				Il est intéressant de constater que si on retire la proie, l'agent, guidé par sa mémoire spatiale, continue de se diriger vers l'ancienne position, puis, face à l'incohérence, semble chercher la proie qui devrait être là.
+				<br /><br />
+
+				<video width="320" height="240" controls>
+					<source src="/these/expe3.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+
+				<video width="320" height="240" controls>
+					<source src="/these/expe4.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+
+				<br /><br />
+
+				On peut constater que la mémoire spatiale reste relativement fiable malgré sa faible précision. Le comportement de l'agent tient compte de l'ensemble des éléments présent dans sa mémoire : celui-ci adapte sa trajectoire pour éviter le mur devant lui.
+
+			</p>
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these10.html">Précedent</a> &nbsp;&nbsp; <a href="/these.html">Retour</a> &nbsp;&nbsp; <a href="/these/ater1.html">Suivant </a> </center>
+			<br /> </center>
+			<br />
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
