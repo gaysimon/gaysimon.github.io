@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/these/these10.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these10_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Detection of distant affordances</center><br /><br />
+			<p>
+				Previous experiments have shown that only two type of information are required to localize an affordance in space: the interaction allowing to move closer the most to this affordance, and an estimation of its distance. I thus developed a structure that can detect distant affordances, and store and track them while the agent is moving, under the form of couples (interaction, distance).
+				<br /><br />
+
+				The first step thus consists to detect distant affordances using signatures of interactions learned by the agent. We use here a property of signatures: indeed, a signature designates contexts of interactions that characterize an affordance, and these interactions can have their own signatures. Thus, by replacing the content of the signature S of an interaction i by the sum of signatures of interactions designated by S and associated to tha same primary interaction j, we can obtain a signature that characterizes a context that, after enacting j, allows to enact i. As this principle can recursively be applied, it is possible to "backmove" the interactional context affording an interaction with a sequence of interactions. We can then consider that the position of an object instance is characterized by the sequence of interactions allowing to reach it. Note that when more than one sequences allow to reach the object instance, we only consider the shortest. Similarly, when an object can be interacted from more than one position, we only consider the closest position (interactionaly). These sequences carry the two required types of information: the interaction allowing to move closer is given by the first interaction of the sequence (as it is the first "step" of the shortest path), and the distance, characterized by the length of the sequence, in number of interactions. This principle thus define a strong correlation between the notion of distance and possibilities of interactions of the agent.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/signatures5.png" alt="signatures" />
+    				<figcaption>Figure 1 : Signatures obtained after 40 000 steps. Each column represents the signature of an interaction. As we observed previously, "move forward" is related to the absence of green and blue object in front of the agent (dark red blob). "Bump" is related to a green object and "eat" to a blue object. On signatures of visual interactions, we can observe that movements produced by their associated primary interactions (in these examples, move forward and turn right 90°) are encoded in signatures. We use these properties to "backmove" signatures.</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+				<a href="/these/projection.png"><img src="/these/projection_mini.png" alt="rétropropagation" /></a>
+    				<figcaption>Figure 2 (click for full size) : backmovement of signature of interaction "bump" with an increasingly long sequence (bottom). We observe that the green blog characterizing the affordance of "bump" is moved on visual space. These backmovements of the signature allow to detect distant affordances in the environment</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				I developed and tested mechanisms implementing this principle n our simulated agents. We first let the agent learns signatures of interactions, then, when the majority of signatures are stabilized (nearly 40 000 steps), we test the object instance detection mechanism. At each detection cycle, the agent "scans" its environment by backmoving signatures. After eliminating longest and redundant sequences, we observe that the agent can characterize its environment in terms of sequences of interactions: in example given in Figure 3, the agent has detected walls, preys and empty spaces in its environment.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/config1.png" alt="detection1" />
+    				<figcaption>Figure 3 : the agent detects a set of sequences of interactions characterizing the presence of object instances. Each sequence is here represented with a circle indicating the real position and orientation characterized by the sequence. The agent detects object affording "bump" (in front of green circles), "eat" (blue circles) and "move forward" (red circles). Couples (interactions;distance) of detected instances are displayed.</figcaption>
+			</figure>
+
+			<p>
+				By comparing similar environments, we observe that the precision of object detection is directly correlated to interactional possibilities of the agent. Thus, close objects affording the same interaction will be considered as the same object, as they are characterized by the same couple (interaction;distance). However, if an object affording an other interaction is set between these two objects, the agent will consider two separated objects: this new object will separates sequences characterizing the two other objects.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/exp2_2.png" alt="detection2" />
+				<br /><br />
+				<img src="/these/exp3_2.png" alt="detection3" />
+    				<figcaption>Figure 4 : the object detection depends of the interactional possibilities of the agent. Top: the two preys are considered as the same instance localized at ("move forward";4), as they can be reached by similar sequences. Bottom: the presence of a wall block between the preys allows a clear separation. Preys are localized at ("move forward";5) and ("move forward";6)</figcaption>
+			</figure>
+
+			<p>
+
+				<br /><br />
+				This mechanism thus allows to characterize the environment of the agent under the form of interactions. However, it is limited to the observable space. An additional structure must be added to keep and update the positions of these objects, even when they escape from sensory system of the agent.
+			</p>
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these9_en.html">Previous</a> &nbsp;&nbsp; <a href="/these_en.html">Back</a> &nbsp;&nbsp; <a href="/these/these11_en.html">Next</a> </center>
+			<br />
+		</section>
+	</div>
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

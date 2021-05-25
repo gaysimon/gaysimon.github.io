@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/these/these10.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these10_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Détection des affordances distantes</center><br /><br />
+			<p>		
+				Les expériences précédentes ont montré que seules deux informations sont nécessaires pour localiser une affordance dans l'espace : l'interaction qui permet de s'en rapprocher le plus, et une estimation de sa distance. J'ai donc développé une structure capable de détecter les affordances distantes, de les stocker et de les suivre lors des déplacements de l'agent, sous la forme de couples (interaction;distance).
+				<br /><br />
+
+				La première étape consiste donc à détecter les affordances distantes à partir des signatures d'interactions construites par l'agent. On utilise ici une propriété liée aux signatures : en effet, une signature désigne des contextes d'interactions caractérisant une affordance. Or, ces interactions peuvent avoir leur propre signature. Ainsi, en remplaçant le contenu d'une signature S d'une interaction i par la somme des signatures des interactions désignées par S et liées à une même interaction primaire j, on obtient une signature caractérisant un contexte, qui, après énaction de j, permet d'énacter i. Comme cette opération peut être appliquée récursivement, il est possible de "rétropropager" le contexte interactionnel affordant une interaction par une séquence d'interactions. On peut alors considérer que la position d'une instance d'objet peut être caractérisée par la séquence d'interaction qui permet de l'atteindre. Notons que si plusieurs séquences permettent de l'atteindre, on ne considérera que la séquence la plus courte. De même, si un objet peut être interagi depuis plusieurs positions, on ne considérera que la position la plus proche (interactionnellement parlant). Ces séquences portent les deux informations dont nous avons besoin : l'interaction permettant un rapprochement maximal est donné par la première interaction de la séquence (puisque c'est le premier "pas" du chemin le plus court), et la distance, caractérisée par la longueur de la séquence, en nombre d'interactions. Ainsi, ce principe définit une forte corrélation entre la notion de distance et les possibilités d'interaction de l'agent.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/signatures5.png" alt="signatures" />
+    				<figcaption>Figure 1 : signatures obtenues après 40 000 pas. Chaque colonne représente la signature d'une interaction. Comme obtenu précédemment, on observe que "avancer" est lié à l'absence d'objet vert ou bleu devant l'agent (tache rouge sombre), "se cogner" est lié à un objet vert et "manger à un objet bleu. En observant les signatures d'interactions visuelles, on observe que les mouvements produits par leurs interactions primaires associées (dans ces exemples, avancer et tourner à droite de 90°), sont encodés dans les signatures. On utilisera ces propriétés pour "rétropropager" les signatures.</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+				<a href="/these/projection.png"><img src="/these/projection_mini.png" alt="rétropropagation" /></a>
+    				<figcaption>Figure 2 (cliquez pour agrandir) : rétropropagation de la signature de l'intéraction "se cogner" par une séquence de plus en plus longue (en bas). On observe que la tache verte caractérisant l'affordance de "se cogner" est déplacée dans l'espace visuel. Ces rétropropagations de la signature permettent de détecter les affordances distantes dans l'environnement</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				J'ai développé et testé des mécanismes implémentant ce principe sur nos agents simulés. On procède tout d'abord à un apprentissage des signatures d'interaction, lorsque la majorité des signatures se stabilisent (environ 40 000 pas), on teste le mécanisme de détection des instances d'objets. À chaque cycle de détection, l'agent "scanne" son environnement en rétropropageant ses signatures. Après élimination des séquences redondantes les plus longues, on observe que l'agent arrive à caractériser son environnement en terme de séquence d'interaction : dans l'exemple donné en Figure 3, l'agent a parfaitement détecté les murs, les proies et les espaces vides dans son environnement.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/config1.png" alt="detection1" />
+    				<figcaption>Figure 3 : l'agent a détecté un ensemble de séquence d'interactions caractérisant la présence d'instances d'objets. Chaque séquence est ici représentée par un cercle indiquent la position et l'orientation réelle caractérisée par cette séquence. L'agent a clairement détecté les objets affordant "se cogner" (devant les cercles verts), "manger" (cercles bleus) et "avancer" (cercles rouges). Les couples (interactions;distances) des instances détectées sont également indiqués</figcaption>
+			</figure>
+
+			<p>
+				En comparant des environnements similaires, on observe que la précision de la détection des objets est directement liée aux possibilités interactionnelles de l'agent. Ainsi, des objets proches affordant une même interaction seront considérés comme un seul et même objet, puisque caractérisés par le même couple (interaction;distance). En revanche, si un objet affordant une autre interaction est placé entre ces deux objets, l'agent les considérera comme des objets séparés : ce nouvel objet va séparer les séquence caractérisant les deux autres objets de façon plus nette.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/exp2_2.png" alt="detection2" />
+				<br /><br />
+				<img src="/these/exp3_2.png" alt="detection3" />
+    				<figcaption>Figure 4 : La détection des instances d'objet dépend des possibilités interactionnelles de l'agent. En haut, les deux proies sont considérées comme une seule instance localisée en ("avancer";4), car elles sont facilement atteignables par des séquences proches. En bas, la présence du mur entre les proies permet une séparation plus nette: les proies sont respectivement localisées en ("avancer",5) et ("avancer",6)</figcaption>
+			</figure>
+
+			<p>
+				<br /><br />
+				Ce mécanisme permet ainsi de caractériser l'environnement de l'agent sous forme d'interactions. Cependant, il reste limité à l'espace observable. Une structure supplémentaire doit être ajouté pour garder trace de la position de ces objets, même lorsqu'ils échappent au système sensoriel de l'agent.
+			</p>
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these9.html">Précedent</a> &nbsp;&nbsp; <a href="/these.html">Retour</a> &nbsp;&nbsp; <a href="/these/these11.html">Suivant</a> </center>
+			<br />
+		</section>
+	</div>
+
+
+
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
