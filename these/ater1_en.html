@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/these/ater1.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/ater1_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+		
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Adaptation to a dynamic environment</center><br /><br />
+			<p>		
+				Until now, I developed agents in static environments. Is it possible to adapt our mechanisms to integrate a dynamic environment? The first sequential versions of our agents demonstrated that, by observing sequences of interactions, the agent can track mobile objects. We thus combined spatial and sequential models: indeed, by observing sequences of two interactions, it is possible to characterize a movement relative to the agent.
+				<br /><br />
+
+				The implementation of this model demonstrated that signatures of interactions learned by such an agent can integrate dynamic properties of its environment: position of an object designated by a signature depends of its movement. We tested the mechanism with a hard-coded space memory integrating properties observed on signatures of interactions. It appears that the agent "anticipates" the position of mobile preys, trying to overtake them before turning and capture them (<a href="/docs/BICA_2015_submission_69.pdf">Gay and Hassas, 2015</a>).
+
+			</p>
+
+			<figure style="text-align:center">
+				<a href="/these/signatures_dynamic2.png"><img src="/these/signatures_dynamic.png" alt="signatures" /></a>
+    				<figcaption>Figure 1 (click for full size) : signatures of sequences of interactions [forward, forward], [bump], [forward, eat], [right 45°, right 45°], and two sequences of visual interactions characterizing "seeing a blue elements", respectively immobile when moving forward twice, and moving in the direction of the blue arrow while turning left 45° twice. Signature of sequence [forward,eat] indicates that the position of the object (blue blob) relative to the agent depends of the movement of the object. As an example, when the object is moving right, it must be displaced to the left to let the agent interacts with it. Visual interactions show that dynamic properties are encoded in their signatures (orange arrows).</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+				<a href="/these/movements2.png"><img src="/these/movements.png" alt="mouvements" /></a>
+    				<figcaption>Figure 2 (click for full size) : dynamic properties encoded in signatures of sequences of visual interactions, according to an external observer. Figures represent movements of blue objects relative to the agent according to its movement (indicated on the left), and the movement of the object (initially unknown by the agent, displayed on the top). The movement of the object produce an offset in the movement observed by the agent. Note that the agent does not use the notion of space and cannot access to such a representation.</figcaption>
+			</figure>
+			<br /><br />
+
+
+			<video width="320" height="240" controls>
+				<source src="/these/expd_1.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<video width="320" height="240" controls>
+				<source src="/these/expd_2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+			<br /><br />
+
+			We can observe that the agent turns left, then tries to overtake the prey to catch it: the space memory compensates the movement of mobile objects.
+			<br /><br />
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these11_en.html">Previous</a> &nbsp;&nbsp; <a href="/these_en.html">Back</a> &nbsp;&nbsp; <a href="/these/ater2_en.html">Next </a> </center>
+			<br /> </center>
+			<br />
+		</section>
+	</div>	
+		
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>
