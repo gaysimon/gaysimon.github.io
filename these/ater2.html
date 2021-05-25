@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/these/ater2.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/ater2_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Mécanismes permettant la construction d'affordances</center><br /><br />
+			<p>		
+				Les mécanismes décisionnels utilisés jusqu'ici sont très rudimentaires et limités à l'approche des objets affordant des interactions "satisfaisantes", dans le but de tester les mécanismes de la mémoire spatiale. J'ai donc exploré les possibilités de mécanismes plus élaborés. Notamment, un mécanisme considérant un agent capable de modifier son environnement pour construire des affordances.
+				<br /><br />
+
+				Je me suis inspiré du jeu du Sokoban pour ce nouvel environnement : l'environnement est discret et dispose de deux nouveaux types d'objet, les blocs mobiles jaunes et les dalles rouges, l'agent peux observer l'ensemble de son environnement (comme si il voyait son environnement vu du dessus), et dispose d'une interaction supplémentaire : pousser un objet mobile. La physique de l'environnement fait que si un bloc est poussé sur une dalle rouge, le bloc deviens une proie bleu. Si un bloc jaune est poussé contre un mur, celui-ci est bloqué et l'agent peut se cogner dedans. Ainsi, il est possible de construire deux objets affordant respectivement "manger" et "se cogner" en déplaçant des blocs jaunes.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/env2.png" alt="environnement" />
+				<figcaption>Figure 1 : environnement de test. Lorsque l'agent pousse un bloc jaune sur une dalle rouge, une proie apparait.</figcaption>
+			</figure>
+			<br /><br />
+
+			<p>
+				La détection d'affordance constructible repose sur la détection d'affordances distantes. en effet, il peut arriver qu'un contexte affordant une interaction ne se trouve que de façon partielle dans l'environnement. On appellera un contexte partiel un "proto-objet". D'autre part, il est possible de détecter un objet déplaçable, si celui-ci peut être interagi plusieurs fois consécutivement. Par exemple, un même bloc déplaçable peut être poussé plusieurs fois, et donc considéré comme étant à plusieurs positions simultanément. Notons que ce principe marche également avec "se cogner". Cependant, quand l'agent se cogne, le reste de l'environnement ne se déplace pas par rapport à lui. Ainsi, si l'agent détecte N proto-objets permettant la construction d'un objet affordant une interaction intéressante, et qu'au moins N-1 proto-objets sont déplaçables (c'est à dire qu'ils sont inclus dans un autre objet considéré comme déplaçable), alors l'agent peut les rassembler pour construire cet objet.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/env_construction.png" alt="environnement" />
+
+				<img src="/these/objRecognition.png" alt="environnement" />
+				<img src="/these/proto_recognition0.png" alt="environnement" />
+				<figcaption>Figure 2 : reconnaissance des objets (en bas à gauche) et des proto-objets (en bas, à droite). Les proto-objets manquants sont matérialisés par des carrés vides.</figcaption>
+			</figure>
+			<br /><br />
+
+			<p>
+				J'ai développé un mécanisme décisionnel qui s'ajoute aux autres (exploration et exploitation). Celui-ci s'active lorsque tous les proto-objets permettant la construction d'un objet sont présents dans le contexte de l'agent. Tout comme le mécanisme d'exploitation considère la distance d'un objet par rapport à l'agent, ce mécanisme considère la distance entre un proto-objet déplaçable et un autre proto-objet. Si interagir avec ce premier permet de réduire la distance entre les deux proto-objets, alors le mécanisme ajoute une valeur d'utilité à l'interaction qui permet de se rapprocher de ce premier proto-objet. Ainsi, l'agent va générer des comportements permettant de construire des objets affordant des interactions satisfaisantes.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/push.png" alt="push" />
+				<figcaption>Figure 3 : informations relatives à la manipulation de l'objet affordant "push" et à la construction d'objets, apprises par l'agent.</figcaption>
+			</figure>
+			<br /><br />
+
+			<p>
+				Les expériences menées sur l'agent simulé montrent que lorsqu'un bloc jaune et une dalle rouge sont dans son environnement proche, l'agent va pousser le bloc vers la dalle, en changeant, lorsque c'est nécessaire, de côté, jusqu'à obtenir une proie. On observe également que le comportement de l'agent est également influencé par les autres objets qui l'entourent (<a href="/docs/SG_AM_AC.pdf">Gay, Mille and Cordier, 2016</a>).
+			</p>
+
+			<br /><br />
+
+
+			<video width="320" height="240" controls>
+				<source src="/these/config_2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<video width="320" height="240" controls>
+				<source src="/these/config_2_2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<br /><br />
+
+			Dans ces deux cas, l'agent arrive correctement à pousser le bloc jaune vers la dalle rouge. Si on ajoute un bloc mur sur le chemin emprunté dans le premier test, l'agent change sa trajectoire pour l'éviter.
+
+			<br /><br />
+
+			<figure style="text-align:center">
+				<img src="/these/config2.png" alt="suivi" />				
+				<img src="/these/config.png" alt="suivi" />
+				<figcaption>Figure 4 : autre configuration, et listing des mécanismes décisionnels. À gauche, le mécanisme d'exploitation, qui cherche à se rapprocher des objets affordant des interactions positives. À droite, le mécanisme de construction. On ne représente ici que les séquences contribuant le plus à la valeur d'utilité fournie par chaque mécanisme (à droite des séquences). L'interaction proposée par chaque mécanisme est ainsi la première interaction des séquences affichées. La partie des séquences du mécanisme de construction encadrée en rouge correspond à la position de l'objet déplaçable. Les deux séquences montrent la distance entre les deux proto-objets avant et après avoir déplacé l'objet mobile. On notera qu'au pas 4, le mécanisme d'exploitation propose de tourner à gauche, pour énacter l'interaction pousser qui est légèrement positive. Cependant, le mécanisme de construction a détecté la possibilité de construire une affordance de "manger" qui dispose d'une valeur de satisfaction très élevée. C'est donc cette seconde décision qui l'emporte : l'agent pousse alors le bloc jaune vers la dalle.</figcaption>
+			</figure>
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/ater1.html">Précedent</a> &nbsp;&nbsp; <a href="/these.html">Retour</a> &nbsp;&nbsp; <a href="/these/ater3.html">Suivant</a> </center>
+			<br /> </center>
+			<br />
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/these/ater2.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/ater2_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Mechanisms for affordance construction</center><br /><br />
+			<p>		
+				Until now, our decisional mechanisms were rudimentary and limited to approaching "attractive" affordances, in order to test mechanisms of the space memory. I thus explored possibilities for more complex mechanisms. In particular, a mechanism considering an agent that can modify its environment to construct affordances.
+				<br /><br />
+
+				I was inspired by the Sokoban game for this new environment: the environment is discrete and proposes two new types of objects, movable yellow blocks and red tiles, the agent can observe its whole environment (as if it could see its environment from top view), and has an additional interaction: pushing a movable object. The rules of the environment define that when a yellow block is pushed over a red tile, the block becomes a blue prey. When a yellow block is pushed against a wall, it is stuck and the agent can bump into it. Thus, it is possible to construct objects affording "eat" and "bump" by moving yellow blocks.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/env2.png" alt="environnement" />
+    				<figcaption>Figure 1 : test environment. When the agent pushes a yellow block over a red tile, a prey appears.</figcaption>
+			</figure>
+
+			<br /><br />
+
+			<p>
+				The detection of constructible affordances is based on the mechanism of distant affordances detection. Indeed, it is possible that a context affording an interaction can only be partially present in the environment. We call such a partial context "proto-objects". Then, it is possible to detect a movable object, when the same object can be interacted more than once consecutively. As an example, a movable block can be pushed several times, and thus be considered at more than one position simultaneously. Note that this principle can also be applied to "bump" interaction. However, when the agent bumps, the environment doesn't move in the point of view of the agent. Then, when the agent detects N proto-objects allowing the construction of an object affording an interesting interaction, and at least N-1 proto-objects are movable (i.e. they are included in movable objects), then the agent can gather these elements to construct this object.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/env_construction.png" alt="environnement" />
+
+				<img src="/these/objRecognition.png" alt="environnement" />
+				<img src="/these/proto_recognition0.png" alt="environnement" />
+    				<figcaption>Figure 2 : recognition of objects (bottom left) and proto-objects (bottom right). Missing proto-objects are represented with empty squares.</figcaption>
+			</figure>
+
+			<br /><br />
+
+			<p>
+				I developed a decisional mechanism that is added to other mechanisms (exploration and exploitation). This mechanism is active when every proto-objets allowing the construction of an object are present in the environmental context of the agent. Similarly to the exploitation mechanism that consider the distance between an object and the agent, this mechanism considers the distance between a movable proto-object and an other proto-object. When interacting with the first proto-object allows to reduce the distance between the two proto-objects, then the mechanism adds a utility value to the interaction allowing to move toward this first proto-object. Thus, the agent will generate behaviors that constructs objects affording attractive interactions.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/push.png" alt="push" />
+    				<figcaption>Figure 3 : information related to the manipulation of object affording "push" and the construction of objects, learned by the agent.</figcaption>
+			</figure>
+
+			<br /><br />
+
+			<p>
+				Experiments conducted on simulated agents show that when a yellow block and a red tile are in the surrounding environment, the agent pushes the block over the tile, and changes, when needed, side of the block, until the prey appears. We also observe that the behavior of the agent considers other surrounding elements (<a href="/docs/SG_AM_AC.pdf">Gay, Mille and Cordier, 2016</a>).
+			</p>
+
+			<br /><br />
+
+
+			<video width="320" height="240" controls>
+				<source src="/these/config_2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<video width="320" height="240" controls>
+				<source src="/these/config_2_2.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+			</video> 
+
+			<br /><br />
+
+			In these two cases, the agent successfully pushes the yellow block over the red tile. When we add a wall block on the path used in the first test, the agent use an other path to avoid it.
+
+			<br /><br />
+
+			<figure style="text-align:center">
+				<img src="/these/config2.png" alt="suivi" />				
+				<img src="/these/config.png" alt="suivi" />
+    				<figcaption>Figure 4 : another configuration, and listings of decisional mechanisms. Left, the exploitation mechanism. Right: construction mechanism. We only represent sequences with the strongest contribution to utility values provided by each mechanism (on the right of sequences). The interaction proposed by each mechanism is the first interaction of displayed sequences. The part of sequences of construction mechanism that are in red boxes correspond to the position of the movable object. The two sequences show the distance between the two proto-objects before and after moving the movable object. At step 4, we can observe that the exploitation mechanism proposes to turn left to enact interaction "push" that is slightly positive. However, the construction mechanism has detected the possibility to construct an affordance of "eat", that has a very high valence. This second decision is selected: the agent push the block toward the red tile.</figcaption>
+			</figure>
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/ater1_en.html">Previous</a> &nbsp;&nbsp; <a href="/these_en.html">Back</a> &nbsp;&nbsp; <a href="/these/ater3_en.html">Next</a> </center>
+			<br /> </center>
+			<br />
+		</section>
+	</div>
+
+		
+	
+	<footer>
+		<p>
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>
