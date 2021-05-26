@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/these/these5.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these5_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Ernest sort de son simulateur!</center><br /><br />
+			<p>
+				Nous avons porté le mécanisme d'apprentissage sur un robot e-Puck afin d'en tester la robustesse dans un environnement bruité. Ce mécanisme restait fonctionnel malgré les fausses détections des capteurs et, lorsque les conditions d'éclairage ne permettaient pas une détection fiable, adaptait son comportement : nous avons observé des séquences d'actions qui consistait à toucher plusieurs fois, ou à tourner en boucle si le taux de fausse détection etait trop élevé. Ce portage montre que le mécanisme d'apprentissage peut s'adapter à de nombreuses situations. Une vidéo montrant l'agent dans un environnement réel est disponible <a href="http://e-ernest.blogspot.fr/2012/04/ernest-7-in-e-puck.html">ici</a>.<br />
+			</p>
+
+			<figure>
+				<img src="/these/epuck.jpg" alt="e-Puck" />
+   				<figcaption>Ernest dans le "Box Environment"</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				L'implémentation de la mémoire spatiale fut plus problématique, celle-ci étant conçue pour un environnement discret ne laissant pas de place aux erreurs. J'ai alors développé une nouvelle version basée sur la probabilité de recouvrement des interactions dans l'espace. Les associations entre interactions sont définis par une valeur réelle qui permet de tenir compte des erreurs de recouvrement dans la mémoire spatiale. Une nouvelle <a href="http://e-ernest.blogspot.fr/2012/05/ernest-113.html">vidéo</a> montre le fonctionnement de cette mémoire spatiale.<br />
+			</p>
+
+			<figure>
+				<img src="/these/memories.jpg" alt="memories" />
+    				<figcaption>A gauche, la mémoire spatiale discrète avec ses groupes d'interactions, à droite la mémoire continue, et les liens entre les interactions</figcaption>
+			</figure>
+
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these3.html">Précedent</a> &nbsp;&nbsp; <a href="/these.html">Retour</a> &nbsp;&nbsp; <a href="/these/these7.html">Suivant </a> </center>
+			<br />
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
