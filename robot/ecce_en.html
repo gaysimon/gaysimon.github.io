@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/robot/ecce.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/robot/ecce_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		
+		<section class="subsection">
+			<section class="listsection">
+				<br />
+				I worked on the robot ECCERobot during my final year research internship at the AI Lab of Zurich, in 2010.
+				<br />
+				<br />
+				<a href="/docs/rapport_stage_2010_GAY_Simon.pdf"> my internship's thesis</a> (fr)
+				<br />
+				<br />
+			</section>
+
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					EcceRobot
+				</p>
+
+				<figure style="text-align:center">
+    					<img src="/robot/ecce1_micro.jpg" alt="ecce1" />
+    					<figcaption>EcceRobot, the anthropomimetic robot.</figcaption>
+				</figure>
+
+				<p>
+					<br />
+					EcceRobot on the<a href="http://www.ifi.uzh.ch/ailab/robots.html">University of Zurich</a>'s website.
+					<br />
+				</p>
+
+				<figure style="text-align:center">
+    					<img src="/robot/ecce2.jpg" alt="ecce2" />
+				</figure>
+				<br />
+
+				<figure style="text-align:center">
+    					<img src="/robot/ecce4.jpg" alt="ecce4" />
+				</figure>
+				<br />
+
+				<figure style="text-align:center">
+    					<img src="/robot/ecce3.jpg" alt="ecce3" />
+    					<figcaption>The motor interface.</figcaption>
+				</figure>
+				<br />
+
+			</section>
+
+			<section class="listsection">
+
+				<p style="text-align: center;font-size: xx-large;">
+					The segmentation and tracking system
+				</p>
+
+				<p> During my internship, I developed a segmentation and tracking system that can estimate translations and rotations of an object in space. This system is based on a two-levels multi-agent system: a first set of numerous agents track the image using an optic flow algorithm, and filter movements to remove noise. A second group of agents extract and manage data obtained with the first group, and manage the distribution of first group agents on the image. The system considers that a group of points of the image that move in a synchronized way belongs to a same object. The set of first level agents that detect an object are assigned to the analysis of movements of this object, under the supervision of a second level agent. This second level agent analyses the behavior of these agents to estimate the movements of the object (translation and rotation) in the three dimensions of space (c.f. internship's thesis for more details).
+
+					<figure style="text-align:center">
+    						<img src="/robot/track1.png" alt="tracking" />
+    						<figcaption>The tracking system: left, three object are detected. Yellow ellipses show an estimation of the size of objects. Colored squares show surfaces covered by agents. Right: the display device. Cardans allow to visualize observed movements.</figcaption>
+					</figure>
+				</p>
+
+			</section>
+
+			<section class="listsection">
+
+				<p style="text-align: center;font-size: xx-large;">
+					Experiments on the robot ECCERobot
+				</p>
+
+				<p>
+					The aim of my internship was to detect which elements were part of the body of the robot. To achieve this, we compare movements detected by the tracking system and motor commands. A correlation between movements of an object and a motor command indicates that this object is a part of the body of the robot. It is even possible to define movements associated to each motor command.
+					<br />
+
+					<figure style="text-align:center">
+    						<img src="/robot/ecce_vision.jpg" alt="ecce_vision" style="margin-left:-25px"/>
+    						<figcaption>The robot is equipped with the segmentation and motion analysis mechanism that I developed during my internship, that allows the robot to determine which elements are parts of its own body.</figcaption>
+					</figure>
+					<br />
+
+					<figure style="text-align:center">
+    						<img src="/robot/ecce_track1_1.png" alt="ecce_vision"/>
+    						<figcaption>Blue: movements detected by the tracking system for one of objects, after filtering to eliminate noise. Green: motor commands. Columns represent X, Y and Z axis, and lines represent position, linear speed and angular speed.</figcaption>
+					</figure>
+					<br />
+
+					<figure style="text-align:center">
+    						<img src="/robot/ecce_track2.png" alt="ecce_vision"/>
+    						<figcaption>Correlation between two tested motor commands and components of movement of three detected objects. It appears that object 1 (blue) is not a part of the robot. Object 2 (green) is strongly correlated to motor command 1 (left arm) and object 3 (red) is strongly correlated to motor command 2 (right arm). It is even possible to define to which component of the movement is associated to a motor command.</figcaption>
+					</figure>
+					<br />
+
+					<figure style="text-align:center">
+    						<img src="/robot/ecce_tool.jpg" alt="ecce_tool" style="margin-left:-25px"/>
+    						<figcaption>The tracking mechanism can integrate body modifications: here, a tool is attached to the hand of the robot after its detection and segmentation. The mechanism now consider the tool as a part of the robot's body.</figcaption>
+					</figure>
+
+				</p>
+
+			</section>
+		</section>
+
+	</div>
+
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

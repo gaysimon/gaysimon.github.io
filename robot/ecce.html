@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/robot/ecce.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/robot/ecce_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+
+				<br />
+				J'ai eu l'occasion de travailler sur le robot ECCERobot au cours de mon stage recherche de fin d'étude à l'AI lab de Zurich, en 2010.
+				<br />
+				<br />
+				<a href="/docs/rapport_stage_2010_GAY_Simon.pdf"> mon mémoire de stage</a>
+				<br />
+				<br />
+			</section>
+
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					EcceRobot
+				</p>
+
+				<figure style="text-align:center">
+    					<img src="/robot/ecce1_micro.jpg" alt="ecce1" />
+    					<figcaption>EcceRobot, le robot anthropomimétique.</figcaption>
+				</figure>
+
+				<p>
+					<br />
+					EcceRobot sur le site de l'<a href="http://www.ifi.uzh.ch/ailab/robots.html">University of Zurich</a>.
+					<br />
+				</p>
+
+				<figure style="text-align:center">
+    					<img src="/robot/ecce2.jpg" alt="ecce2" />
+				</figure>
+				<br />
+
+				<figure style="text-align:center">
+    					<img src="/robot/ecce4.jpg" alt="ecce4" />
+				</figure>
+				<br />
+
+				<figure style="text-align:center">
+    					<img src="/robot/ecce3.jpg" alt="ecce3" />
+    					<figcaption>L'interface moteur.</figcaption>
+				</figure>
+				<br />
+
+			</section>
+
+			<section class="listsection">
+
+				<p style="text-align: center;font-size: xx-large;">
+					Le système de segmentation et de suivi
+				</p>
+
+				<p> 
+					Au cours de mon stage, j'ai développé un système de segmentation et de suivi capable d'estimer les translations et rotations d'objets dans l'espace. Ce système repose sur un système multi-agent à deux niveaux : un ensemble d'agents, très nombreux, suit l'image à l'aide d'un algorithme de flux optique, et filtrent les mouvements parasites. Un second groupe d'agents extrait et gère des informations obtenues par le premier groupe, et régule la répartition de ce premier groupe d'agents sur l'image. Le système considère que lorsqu'un groupe de points de l'image se déplacent de façon synchronisée, ces points font partie d'un même objet. L'ensemble des agents de premier niveau qui ont détecté cet objet sont alors affectés à l'analyse des mouvements de cet objet, et sont supervisés par un agent de second niveau. Ce dernier analyse le comportement de ces agents pour estimer le déplacement de l'objet (translation et rotation) dans les trois dimensions (voir le mémoire pour plus de détails).
+
+					<figure style="text-align:center">
+    						<img src="/robot/track1.png" alt="tracking" />
+    						<figcaption>Le système de tracking : à gauche, trois objets ont été détectés. Les ellipses jaunes permettent d'estimer la taille de l'objet, les carrés colorés montrent la surface couverte par les agents. À droite, le système d'affichage. Les cardans permettent de visualiser le mouvement observé.</figcaption>
+					</figure>
+				</p>
+
+			</section>
+
+			<section class="listsection">
+
+				<p style="text-align: center;font-size: xx-large;">
+					Expériences sur le robot ECCERobot
+				</p>
+
+				<p>
+					Le but de mon stage était de permettre au robot de savoir quels éléments faisaient partie de son corps. On compare pour cela les mouvements détectés par le système de suivi et les commandes motrices. Une corrélation entre les mouvements d'un objet et une commande motrice indique que cet objet fait partie du corps du robot. Il devient même possible de définir les mouvements associés à chaque commande motrice.
+					<br />
+
+					<figure style="text-align:center">
+	    					<img src="/robot/ecce_vision.jpg" alt="ecce_vision" style="margin-left:-25px"/>
+	    					<figcaption>Le robot est ici doté du système de segmentation et d'analyse du mouvement que j'ai développé au cours de mon stage, qui lui permet de déterminer quels éléments font partie de son corps.</figcaption>
+					</figure>
+					<br />
+
+					<figure style="text-align:center">
+	    					<img src="/robot/ecce_track1_1.png" alt="ecce_vision"/>
+	    					<figcaption>En bleu : mouvements détectés par le système de suivi pour l'un des objets après un filtrage passe-bas pour éliminer les mouvements parasites. En vert : les commandes motrices. Les colonnes représentent les axes X, Y et Z, les lignes, la position, la vitesse linéaire et la vitesse angulaire.</figcaption>
+					</figure>
+					<br />
+
+					<figure style="text-align:center">
+	    					<img src="/robot/ecce_track2.png" alt="ecce_vision"/>
+	    					<figcaption>Corrélation entre deux commandes motrices testées et les différentes composantes du mouvement des trois objets détectés : il apparait que l'objet 1 (bleu) ne fait pas partie du robot. L'objet 2 (vert) est fortement corrélés à la commande motrice 1 (bras gauche) et l'objet 3 (rouge) est fortement corrélé à la commande motrice 2 (bras droit). Il est même possible de définir à quelles composantes du mouvement sont associées les commandes.</figcaption>
+					</figure>
+					<br />
+
+					<figure style="text-align:center">
+	    					<img src="/robot/ecce_tool.jpg" alt="ecce_tool" style="margin-left:-25px"/>
+	    					<figcaption>Le système de suivi s'adapte à des changements morphologiques : ici, un outil a été ajouté après détection du bras. Le système de suivi considère ensuite que l'outil fait partie du corps.</figcaption>
+					</figure>
+				</p>
+
+			</section>
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
