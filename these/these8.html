@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/these/these8.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these8_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">L'hypothèse vestibulaire</center><br /><br />
+			<p>		
+				La plupart des êtres vivant disposent d'organes sensoriels leur permettant de mesurer leurs déplacements dans l'espace. On pense notamment au système vestibulaire des vertébrés, qui mesure les translations et les rotations. D'autres animaux plus simples, comme les insectes, disposent de poils sensitifs leur permettant de mesurer la vitesse relative de l'air. Le fait que la plupart des êtres vivants disposent de tels sens semble indiquer qu'un tel système fournit un avantage décisif qui a conduit à sa généralisation par le biais de l'évolution.
+				<br /><br />
+
+				L'intérêt d'un tel organe sensoriel repose sur le fait que l'espace théorique des interactions possibles a plus de dimensions que l'espace physique. En effet, deux interactions peuvent produire un même mouvement dans l'espace. Nous ne pouvons pas exploiter directement les informations issues d'un système vestibulaire : celui-ci étant différent d'un individu à l'autre, il n'est pas possible de supposer que les stimuli sensoriels et leurs liens avec les déplacements dans l'espace soient connus a priori. Cependant, nous pouvons supposer que chaque interaction produit un unique stimulus vestibulaire. En effet, l'énaction réussie d'une interaction implique que le mouvement qu'elle génère a été effectué. Ainsi, il est possible de regrouper des interactions produisant un même mouvement.
+				<br /><br />
+
+				Nous avons implémenté et testé une variante de notre mémoire spatiale prenant en compte des informations provenant d'un mécanisme estimant les déplacements de l'agent. Ce mécanisme fournit, à chaque interaction énactée, le mouvement (sans signification ni sémantique définie a priori) effectué.
+				<br /><br />
+
+				Les interactions composites sont modifiées : puisque le path correspond au mouvement nécessaire pour atteindre un objet, nous pouvons considérer un path comme une séquence de mouvements et non plus d'interactions. Une interaction composite est alors constituée d'une séquence d'interactions primitives caractérisant l'objet qui afforde cette séquence, précédée par une séquence de mouvement caractérisant la position de cet objet :
+				<br /><br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/composite2.png" alt="composite" />
+    				<figcaption>Figure 1 : modification des interactions composites : le path est constitué d'une séquence de stimuli vestibulaires.</figcaption>
+			</figure>
+
+			<p>
+				L'utilisation des mouvements pour caractériser le path a pour effet de réduire le nombre d'interactions composites possibles, puisque plusieurs séquences d'interactions peuvent donner une même séquence de mouvements. Par contre, le path n'étant plus défini par une séquence d'interactions, on ne peut pas définir a priori la valeur de satisfaction d'une interaction composite. Il n'est pas non plus possible de déterminer si le path est énactable, puisque plusieurs séquences d'interactions peuvent correspondre à la séquence de mouvements. Il est donc nécessaire de définir une séquence d'interactions permettant de parcourir le path de cette interaction. Nous avons donc modifié le mécanisme de sélection pour reconstituer le path d'une interaction composite en fonction du contenu de la mémoire spatiale. Reconstruire le path d'une interaction composite consiste à définir un ensemble d'interactions composites possibles et inscrites dans ce path tel que chaque mouvement du path puisse être remplacé par une interaction primitive.
+				<br /><br />
+
+				Notons que si plusieurs interactions peuvent remplacer un mouvement, on choisira celle disposant de la plus grande valeur de satisfaction. La séquence permettant d'énacter le path sera donc toujours la séquence offrant la valeur de satisfaction la plus élevée. La valeur de satisfaction d'une interaction composite est définie à partir de l'interaction reconstituée, et calculée comme la somme des valeurs de satisfactions des interactions primitives qui la composent.
+				<br /><br />
+
+				Une variante de l'expérimentation précédente, implémentant le système vestibulaire nous a permis d'observer une amélioration significative de l'apprentissage des signatures d'interaction : l'apprentissage est plus rapide, et, comme les interactions composites sont moins nombreuses et plus souvent testés, leurs signatures sont plus cohérentes avec les objets qui affordent ces interactions.
+				<br /><br />
+
+				L'expérimentation se déroule selon les mêmes conditions que pour la version non vestibulaire de l'agent : on laisse l'agent apprendre les signatures de ses interactions composites jusqu'à obtenir un comportement stable. 
+				<br /><br />
+
+				Nous pouvons remarquer que la durée d'apprentissage, même si elle est très variable selon la configuration utilisée, est considérablement réduite : pour la configuration small loop, par exemple, avec une longueur des interactions composites limitée à 2, le nombre de cycles nécessaires à l'apprentissage passe de 4000 cycles environ à 1800 cycles, et avec une longueur limitée à 3, ce nombre passe de 35 500 cycles à 5800 cycles environ. Il a été également possible de tester l'apprentissage des interactions composites de longueur 4 dans un temps raisonnable : entre 40 600 et 50 000 cycles sont nécessaires pour obtenir un comportement stable, soit un nombre de cycles de décision comparable à l'apprentissage du système non vestibulaire avec des interactions limitées à une longueur de 3.
+				<br /><br />
+
+				Le pourcentage d'interactions fiables, et correctes est également plus important. Ceci est principalement dû au fait que les interactions composites sont plus souvent testées, et au faible nombre d'interactions composites possibles. La possibilité d'énacter le path est en effet moins influencée par le contexte de l'agent, puisque deux interactions opposées peuvent générer un même mouvement.
+				<br /><br />
+
+				La spécialisation en fonction des positions et des éléments de l'environnement est également plus précise (Figure 2). L'agent a clairement défini les positions et les objets qu'il peut observer. On peut noter qu'avec des interactions composites de longueur limitée à 4, la spécialisation est plus importante qu'avec des interactions composites de longueur limitée à 3 sans système vestibulaire, même si le nombre d'interactions composites découvertes par l'agent est plus important. On remarque également que les interactions non spécialisées sont principalement des interactions liées à un élément qui échappent au système interactionnel de l'agent.
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/test6_vestibular.png" alt="vestibular" />
+    				<figcaption>Figure 2 : Spécialisation des interactions composites en fonction de la position et des éléments dans la configuration small loop, avec des interactions composites de longueur limitées à 2, 3 et 4 (de gauche à droite). Les interactions composites forment des groupes compacts.</figcaption>
+			</figure>
+
+			<p>
+				Cependant, nous n'observons pas de changements significatifs dans le comportement. L'agent utilise les mêmes séquences que précédemment. Nous pouvons noter que malgré l'utilisation d'interactions composites de longueur 4, l'agent utilise toujours les mêmes interactions composites de longueur 2. En effet, la plupart de ces interactions composites de longueur 3 et 4 sont affordées par des objets situés en dehors du système interactionnel de l'agent, et pour lesquels il n'est pas possible de définir de signature. On retrouve également certaines erreurs que nous avons pu observer précédemment, bien que les erreurs soient moins nombreuses.
+				<br /><br />
+
+				Cette expérience montre que l'utilisation d'un système vestibulaire sur un agent permet d'accroître de façon significative les performances de l'apprentissage d'une mémoire spatiale, et ce, sans perte de performances ni de variations importantes dans le comportement de l'agent.
+				<br /><br />
+			</p>
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these7.html">Précedent</a> &nbsp;&nbsp; <a href="/these.html">Retour</a> &nbsp;&nbsp; <a href="/these/these9.html">Suivant</a> </center>
+			<br />
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
