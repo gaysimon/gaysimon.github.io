@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/these/these7.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these7_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Une représentation de l'espace proche sans préconceptions</center><br /><br />
+			<p>		
+				Nous proposons un mécanisme permettant à un agent de représenter l'espace proche en se basant uniquement sur le couplage entre l'agent et son environnement. Ce mécanisme se base sur les deux hypothèses suivantes :<br />
+				- On définit un objet comme une configuration spatiale d'éléments de l'environnement permettant par sa présence d'effectuer une certaine interaction. Cette hypothèse fait référence à la théorie des affordances de Gibson.<br />
+				- On définit une position de l'espace comme une séquence d'interaction permettant de l'atteindre. Cette hypothèse fait référence à la notion d'espace représentatif de Poincaré.<br /><br />
+
+				Un objet dans l'espace proche de l'agent peut ainsi être représenté par un couple comprenant la séquence d'interaction (éventuellement de longueur 0) permettant de l'atteindre et une interaction finale qui caractérise l'objet. Nous appellerons ce couple Interaction Composite. L'espace proche peut alors être caractérisé par un ensemble d'interaction composite, sans que la notion d'espace soit nécessaire.<br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/reconstitution.png" alt="reconstitution" />
+    				<figcaption>Figure 1 : représentation de l'espace à l'aide d'un ensemble de séquences d'interactions</figcaption>
+			</figure>
+
+			<p>
+				Dans notre approche interactionnelle, l'agent perçoit son environnement au travers des interactions qu'il effectue. Nous définissons le contexte interactionnel de l'agent comme un vecteur donnant à chaque pas le succès, l'échec ou la non-utilisation de chaque interaction possible. Le mécanisme va devoir apprendre à reconnaître le contexte de chaque interaction composite à partir du contexte interactionnel. Nous appelons signature (ou pattern) le motif du contexte interactionnel permettant de prédire si une interaction composite est possible. Le mécanisme d'apprentissage que nous avons développé repose sur un neurone artificiel prenant en entrée le contexte interactionnel avant d'effectuer l'interaction composite, et le résultat de l'interaction composite en sortie (1 pour un succès et -1 pour un échec). Notons que nous ne prenons en considération que le résultat de l'interaction finale, car seule celle-ci permet de représenter l'objet associé à l'interaction composite. L'échec d'une interaction de la séquence indique seulement que l'objet n'était pas atteignable. La signature est alors donné par l'ensemble des poids du neurone associé à l'interaction composite.<br /><br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/neuron.png" alt="neuron" />
+    				<figcaption>Figure 2 : à gauche, le contexte interactionnel, à droite, la certitude du succès de l'interaction liée au neurone. La signature d'une interaction est donnée par l'ensemble des poids du neurone </figcaption>
+			</figure>
+
+			<p>
+				A chaque pas, l'agent peut caractériser la partie de l'environnement qu'il a perçut au travers de la dernière interaction effectué, en stockant les interactions composites reconnues. Supposons maintenant qu'au pas suivant, l'agent effectue une certaine interaction i. Supposons également que certaines interactions composites reconnues précédemment ont une séquence qui commence par i. Cela signifie que l'agent a commencé à parcourir la séquence de ces interactions composites. On peut alors mettre à jour ces interactions composites en supprimant cette première interaction. Ainsi, un objet perçut au pas précédent sera défini à une nouvelle position (par rapport à l'agent) par la séquence d'interaction restante, même si l'agent ne le perçoit plus. On définit ainsi une mémoire qui suit les objets et prédit leurs positions en terme de séquence d'interactions. Le fait que l'objet soit défini comme présent implique que le contexte défini par la signature de l'interaction qui le caractérise doit être présente dans le contexte interactionnel. On peut donc compléter ce dernier, ce qui peut permettre notamment la détections d'autres interactions composites. L'agent perçoit ainsi son environnement comme si il effectuait plusieurs interactions simultanément.<br /><br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/update.png" alt="update" />
+    				<figcaption>Figure 3 : Mécanisme de mise à jour de la mémoire : l'agent touche la case à sa gauche et perçoit un espace vide. Le contexte interactionnel évoque alors un ensemble d'interactions composites. Au pas suivant, l'agent tourne à gauche. Les interactions composites sont mises à jour par suppression du premier élément. Les interactions composites obtenues fournissent des informations sur les interactions que l'agent peut effectuer.</figcaption>
+			</figure>
+
+			<p>
+				Le mécanisme a été testé sur un système simple, doté d'un système sensoriel à faible portée pouvant être couvert par le mécanisme de mémoire spatiale. L'agent dispose de douze interactions possibles :
+				avancer d'un pas, se cogner dans un mur, tourner à droite de 90° vers un espace vide, tourner à droite de 90° vers un mur, tourner à gauche de 90° vers un espace vide, tourner à gauche de 90° vers un mur, toucher un espace vide devant, toucher un mur devant, toucher un espace vide à droite, toucher un mur à droite, toucher un espace vide à gauche, toucher un mur à gauche. Dans un souci de simplification, le contexte interactionnel ne tiendra compte que des six interactions "toucher". Les tests ont été effectués dans des environnements simples inspirés du <a href="http://e-ernest.blogspot.fr/2012/05/challenge-emergent-cognition.html">Small Loop Problem</a>. On dote l'agent d'un mécanisme implémentant une forme de curiosité lui permettant de tester les interactions composites pour lesquelles la signature ne permet pas de prédire le succès ou l'échec avec une grande certitude. Notons qu'il n'y a pas de phases d'apprentissage et d'exploitation distinctes, le mécanisme d'apprentissage est utilisé à chaque fois que le contexte est favorable à l'apprentissage d'une interaction composite.<br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/env.png" alt="neuron" />
+    				<figcaption>Figure 4 : l'agent dans son environnement </figcaption>
+			</figure>
+
+			<p>
+				<br />
+				Une fois le comportement stabilisé, on observe deux aspects des signatures sur deux graphes distincts : le premier compare la valeur absolue des signatures, ce qui permet de regrouper les interactions composites (représentés par des points) par la position des objets qu'elles définissent. Le second regroupe les interactions qui ont une même interaction finale (i.e. qui décrivent un même type d'objet à des positions différentes), et génère une force d'attraction entre les interactions composites dont la signature est similaire, et répulsive si les signatures ont des valeurs opposées. Les interactions sont alors regroupées par le type d'objet qu'elles représentent. On observe sur le premier graphe qu'une grande partie des interactions composites forme trois groupes, représentant les trois positions que l'agent peut percevoir (devant, droite, gauche). Le second graphe montre que les interactions composites permettent de catégoriser les deux types d'objets de l'environnement (mur et espace vide). L'agent a ainsi défini les objets et positions de son environnement.
+				<br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/specialization.png" alt="specialisation" />
+    				<figcaption>Figure 5 : spécialisation des interactions composites en fonction des positions et des objets. En haut, spécialisation en fonction des positions. Les trois positions observables par le biais des interactions "toucher" (devant, à droite et à gauche) sont représentés par trois carrés. Les interactions composites sont représentées par des points dont la position est définie par les valeurs de leur signatures et la couleur par leur positions réelles (inconnues de l'agent) : rouge pour le coté gauche, vert pour l'avent et bleu pour le coté droit. Des liens gris relient les interactions composites ayant une même interaction finale. Ces liens montrent les "déplacements" des objets par rapport à l'agent lors d'une mise à jour d'une interaction composite. Il apparaît que la majorité des interactions se regroupent selon leurs positions réelles. En bas, les interactions composites sont représentés par des points dont la couleur est défini par le type d'objet associé : gris pour un espace vide et vert pour un mur. On regroupe les interactions partageant une même interaction finale (puisque représentant un même objet par définition), puis on applique une force d'attractions entre les interactions dont les signatures sont similaires, et une force de répulsion entre les interactions dont les signatures ont des valeurs opposées. On remarque un regroupement en deux groupes, représentant les deux objets de l'environnement.</figcaption>
+			</figure>
+
+			<p>
+				<br />
+				On observe ensuite le comportement de l'agent dans les différentes situations offertes par son environnement. La figure 6 résume les séquences du comportement utilisées par l'agent. On peut également observer le fonctionnement de la mémoire spatiale qui complète la perception de l'agent (figure 7). On notera que dans certains cas, on observe la présence d'interactions composites liées à un élément de l'environnement situé à une position que l'agent ne peut percevoir (figure 8) : Le mécanisme permet ainsi de garder ces éléments en mémoire, et donne une indication sur le moyen de l'atteindre (la séquence de l'interaction composite elle-même).
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/behavior5_1.png" alt="behavior1" />
+				<img src="/these/behavior5_2.png" alt="behavior2" />
+    				<figcaption>Figure 6 : comportement obtenu dans les configurations couloir, virage à droite, virage à gauche et voie sans issue. On notera que deux séquences peuvent émerger dans le cas de la voie sans issue.</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+    				<img src="/these/test8_M_2.png" alt="rigntTurn" />
+    				<figcaption>Figure 7 : Mémoire spatiale dans le cas d'un virage à gauche. De haut en bas: l'agent dans son environnement, la dernière interaction énactée, le contexte interactionnel (représenté sous la forme de trois carrés représentant les interactions toucher un espace vide à gauche, devant et à droite), la mémoire spatiale mise à jour, le contexte complété par les signatures des interactions composites mises à jour, et la mémoire spatiale contenant les interactions évoquées par le contexte complété. On ne représentera en mémoire que les interactions composites pertinentes, avec leurs signatures. On peut voir à chaque étape le contexte se compléter jusqu'à fournir une perception globale (étape 2). Lorsque l'agent tourne à gauche, le contexte contient des informations sur les éléments situés devant lui et à sa droite.</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+    				<img src="/these/test8_S_2.png" alt="aboutTurn" />
+    				<figcaption>Figure 8 : cas d'une voie sans issue. Après avoir tourné à droite, la mémoire contient une interaction composite (dans le rectangle rouge) indiquant que l'agent peut tourner à gauche et toucher un mur à sa gauche (donc derrière lui dans sa position actuelle). La mémoire informe ainsi l'agent sur un objet situé en dehors de son système sensoriel.</figcaption>
+			</figure>
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these5.html">Précedent</a> &nbsp;&nbsp; <a href="/these.html">Retour</a> &nbsp;&nbsp; <a href="/these/these8.html">Suivant </a> </center>
+			<br />
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>

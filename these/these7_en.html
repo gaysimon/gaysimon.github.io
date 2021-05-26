@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/these/these7.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these7_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">A Representation of the surrounding space without preconceptions</center><br /><br />
+			<p>		
+				We propose a mechanism that allows an agent to represent its surrounding space based only on the coupling between the agent and its environment. This mechanism is based on the two following assumptions:
+				- We define an object as a spatial configuration of elements of the environment that allows, by its presence, the enaction of a certain interaction. This assumption refers to Gibson's theory of affordances.
+				- We define a position in space with the sequence of interaction that allows to reach it. This assumption refers to the notion of representative space of Poincaré.
+				<br /><br />
+				An object in the surrounding space of the agent can thus be represented with a couple composed of the sequence of interaction (eventually empty) that allows to reach it and the final interaction that represents this object. We call such a couple a Composite Interaction. The surrounding space can then be described with a set of composite interaction, without using the notion of space.
+				<br />
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/reconstitution.png" alt="reconstitution" />
+				<figcaption>Figure 1: space representation based on a set of sequences of interactions</figcaption>
+			</figure>
+
+			<p>
+				In our interactional approach, the agent perceives its environment through the enacted interactions. We define the interactional context of the agent as a vector that gives, at each step, the success, the fail or the non-utilization of each possible interaction. The mechanism must learn to recognize the context of each composite interaction in the interactional context. We call signature the pattern of the interactional context that allows to predict if a composite interaction can be enacted. We developed a learning mechanism based on an artificial neuron that uses the interactional context before intending a composite interaction and the result of the composite interaction as output (1 for a success and -1 for a fail). Note that we only take the result of the final interaction of the agent into consideration as the object is only represented by this interaction. A fail of an interaction of the sequence only indicates that the object cannot be reached. The signature is given by the set of weights of the neuron associated to the composite interaction.
+				<br /><br />
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/neuron.png" alt="neuron" />
+				<figcaption>Figure 2: left, the interactional context. Right, the certitude of success of the interaction related to the neuron. The signature is given by the set of weights of the neuron. </figcaption>
+			</figure>
+
+			<p>
+				At each step, the agent characterizes the part of the environment perceived through the last enacted interaction, by storing recognized composite interactions. We now suppose that the agent enacts, at the next step, an interaction i. We also suppose that certain composite interactions previosly recognized have a sequence that begins with this interaction i. This means that the agent begins to enact these composite interactions. Thus, an object perceived at previous step will be defined at a different position (according to the agent) by the remaining sequence of interaction, even if the agent cannot perceive it. We thus define a memory that tracks objects and predicts their positions in term of sequences of interactions. The fact that an object is defined as present implies that the context defined by the signature of the composite interaction that characterize this object must be present in the interactional context. The memory can thus complete the interactional context using updated composite interactions, which can be used to recognize and store other composite interactions. The agent thus perceives its environment as if it enacts multiple interactions simultaneously.
+				<br /><br />
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/update.png" alt="update" />
+				<figcaption>Figure 3: update mechanism of the memory: in this case, the agent touches the left cell and fells an empty space. The interactional context then evokes a set of composite interactions. At the next step, the agent turn left. The composite interactions are updated by removing first elements of sequences. The updated composite interactions give information on the interaction the agent can enact.</figcaption>
+			</figure>
+
+			<p>
+				The mechanism was tested on a simple system, using a short range sensory system that can be covered by the space memory system. The agent has a set of twelve possible interactions:
+				move forward, bump in a wall, turn left of 90° in front of an empty space, turn right of 90° in front of an empty space, turn left of 90° in front of a wall, turn right of 90° in front of a wall, touch front an empty space, touch front a wall, touch left an empty space, touch right an empty space, touch right a wall. We simplify the interactional context by using only "touch" interactions. The experiments were conducted in simple environments inspired by the <a href="http://e-ernest.blogspot.fr/2012/05/challenge-emergent-cognition.html">Small Loop Problem</a>. We developed a mechanism that implements a form of curiosity that leads the agent to reinforce composite interactions for which the result cannot be predicted with a high certitude. Note that we do not define a learning and an exploitation phase: the curiosity mechanism is used each time the context is favorable to the reinforcement of a composite interaction. 
+				<br /><br />
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/env.png" alt="neuron" />
+				<figcaption>Figure 4: the agent in its environment</figcaption>
+			</figure>
+
+			<p>
+				Once the behavior becomes permanent, we observe two aspects of signatures on two distinct graphs: the first one compares absolute values of signatures, which allows to gather composite interactions (represented with points) according to the position of objects they represent. The second one gathers composite interactions that share a same final interaction (i.e. that describe a same object at different positions), and generates an attractive force between interaction with similar signatures and a repulsive force between those with opposite signatures. The composite interactions are then gathered according to the type of object their represent. We can observe on the first graph that a large part of composite interactions are gathered into three groups representing the three positions the agent can perceive (front, left and right). The second graph shows that the composite interactions have defined the two types of objects that compose the environment (walls and empty spaces). The agent thus discovered the objects and positions of its environment.
+				<br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/specialization.png" alt="specialisation" />
+    				<figcaption>Figure 5: specialization of composite interactions according to positions and objects. Top: specialization according to positions. The three positions that can be observed through "touch" interactions (front, left and right) are represented with three squares. Composite interactions are represented with dots for which the position is defined by the values of their signatures, and colors by their real positions (unknown to the agent): red for left, green for front and green for right. gray segments links composite interactions that share a same final interactions. These links shows the "movements" of objects around the agent when it enacts an interaction. This graph shows that a majority of interactions are set to match their their real positions.  Bottom: composite interactions are represented by dots for which the color is defined by the associated object: gray for empty spaces and green for walls. Composite interactions that share a same final interactions are gathered as they represent a same object by definition. An attraction force is then applied between composite interactions with similar signatures and a repulsive force betweens those with opposite signatures. We can observe two groups representing the two objects in the environment.</figcaption>
+			</figure>
+
+			<p>
+				<br />
+				We then observe the behavior of the agent in the different configurations provided by the environment. Figure 6 lists the behavior sequences used by the agent. We can also observe how the space memory can complete the interactional context (Figure 7). We can note that in certain cases, we can observe the presence of composite interactions that are related to an element at a position the agent cannot perceive (Figure 8): the mechanism thus allows the agent to keep elements in memory, and gives the sequence of interaction needed to reach it.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/these/behavior5_1.png" alt="behavior1" />
+				<img src="/these/behavior5_2.png" alt="behavior2" />	
+				<figcaption>Figure 6: behavior observed in straight lines, turn left, turn right and about-turn configurations. We can note that two strategies can emerge in the turn-about configuration.</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+				<img src="/these/test8_M_2.png" alt="rigntTurn" />
+				<figcaption>Figure 7: space memory in a turn left configuration. From top to bottom: the agent in its environment, the last enacted interaction, the interactional context (represented as three squares representing touch left, front and right an empty space), the updated space memory, the interactional context improved with signatures of updated composite interactions, and the space memory with evoked composite interactions. We only display pertinent composite interactions, with their signatures. We can observe that the context is completed at each step until it can provide a complete perception of the environment (step 2). When the agent turns left, the context can still give informations on surrounding environment.</figcaption>
+			</figure>
+			<br />
+
+			<figure style="text-align:center">
+    				<img src="/these/test8_S_2.png" alt="aboutTurn" />
+    				<figcaption>Figure 8: turn-about configuration: after turning right, the memory contains a composite interaction (in red rectangle), that consists in turning left and touching left a wall (and thus, behind the agent in the current position). The memory thus gives information about an object that is out of the agent sensory system.</figcaption>
+			</figure>
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these5_en.html">Previous</a> &nbsp;&nbsp; <a href="/these_en.html">Back</a> &nbsp;&nbsp; <a href="/these/these8_en">Next</a> </center>
+			<br />
+		</section>
+	</div>
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>
