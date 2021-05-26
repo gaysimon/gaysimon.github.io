@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/these/these2.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these2_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+					
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">The algorithms of the space memory.</center><br /><br />
+			<p>
+				The sequential learning algorithms have shown their limits in open environments: the agent is unable to to notice that two different sequences of movement may lead to the same point in space (for example, turn left three time of 90° is equivalent of turning right once), and as it did not has object persistence, it stops pursuing a target of interest when the target was lost by the sensors.<br /><br />
+
+				Inspired by a region of vertebrate brains specialized in space representation, the <i>tectum</i> (also called <i>colliculus</i> in mammals), Olivier Georgeon implemented a space memory allowing an agent to localize elements in its surrounding environment. But this memory was based on a set of preconceptions (as the position of sensors in egocentric reference, the movements of of these elements and the associations of visual and tactile stimuli).<br /><br />
+
+				I made preliminary studies to develop mechanisms that allow an agent to learn this information. Three algorithms were developed: <br /><br />
+
+				-The <i>sensor mapping</i> is used to learn the position of sensors and how they cover space. This algorithm considers every kind of sensors as a set of binary sensors we called points of perception. Each point is sensible to a specific value of the sensor range. The algorithm is based on the assumption that the distance between two of these points is proportional to the average delay between change of value of these two points. We tried this algorithm on an agent equipped with 18 short range sensors. Although the estimated structure is far to match the real one, the sensor distribution is recognizable.<br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/sensormapping.png" alt="Sensor Mapping" />
+    				<figcaption>Figure 1 : The sensor mapping</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				-The <i>action mapping</i>, that learn the movement of objects in the environment while the agent is acting. It consists in an optic flow algorithm applied to the set of perception points given by the sensor mapping. This algorithm was tested on a predefined structure of the visual system (5° angular resolution for a total span of 180°). Each pixel gives the distance of the detected point. Figure 2 shows the optic flow measured for the translation and the right turn (the agent is on the center of the vector field).<br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/actionmapping1.png" alt="Action Mapping" />
+    				<figcaption>Figure 2 : the action mapping applyed to the visual system.<br /> right rotation (left) and the translation (right)</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				If we suppose that the agent knows that its movements are combination of translations and rotations, we can compute for each action the average translation and rotation coefficient. Figure 3 shows the vector fields given by applying these coefficients to the whole space memory.
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/actionmapping2.png" alt="Action Mapping" />
+    				<figcaption>Figure 3 : we apply the average translation and rotation coefficients</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				Now that we can determine the origins of stimuli and their movements, we can fill a map of stimuli around the agent. When the agent is moving, it complete its perception of its environment. Figure 4 shows the tactile and visual stimuli memorized in the space memory.
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/maps.png" alt="maps" />
+    				<figcaption>Figure 4 : the tactile stimuli (left) and visual stimuli (right) memorized by the agent (center).</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				If the different sensor modalities are mapped together, stimuli from a same object will be stored on a same place of the stimuli map. We can thus link these stimuli to represent "objects" as they are perceived by the agent. Figure 5 shows such associations between visual and tactile stimuli the agent can recognize in its environment.<br /><br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/bundles.png" alt="bundles" />
+    				<figcaption>Figure 5 : The table shows visual and tactile stimuli associations. The map shows "objects" recognized by the agent.</figcaption>
+			</figure>
+			<br />
+
+			These algorithms were presented at the BRIMS 2012 conference (see <a href="/publi_en.html">Publications</a> section).
+			<br /><br />
+		</section>
+
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these1_en.html">Previous</a> &nbsp;&nbsp; <a href="/these_en.html">Back</a> &nbsp;&nbsp; <a href="/these/these3_en.html">Next</a> </center>
+			<br />
+		</section>
+	</div>
+
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

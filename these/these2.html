@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/these/these2.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/these/these2_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section id="memory" class="subsection"><br />
+			<center style="text-align: center;font-size: xx-large;">Les algorithmes de la mémoire spatiale.</center><br /><br />
+			<p>
+				Les algorithmes d'apprentissage séquentiel ont montré leurs limites dans les environnements ouvert : l'agent ne peut pas se rendre compte que des séquences peuvent conduire au même résultat (par exemple tourner trois fois à gauche de 90° est équivalent à tourner une fois à droite), et ne disposant pas de la persistance de l'objet, il cesse de suivre les éléments de son environnement lorsqu'il ne les perçoit plus.<br /><br />
+
+				En s'inspirant d'une région du cerveau des vertébrés spécialisée dans la représentation de l'espace, le <i>tectum</i> (aussi appelé <i>colliculus</i> chez les mammifères), Olivier Georgeon avait implémenté une mémoire spatiale permettant à l'agent de localiser les éléments de son environnement immédiat. Mais cette mémoire était basé sur un grand nombre de préconceptions (notamment la position des capteurs sur la carte, le déplacement des éléments et les associations des stimuli visuels et tactiles).<br /><br />
+
+				J'ai alors effectué une étude préliminaire destinée à développer des mécanismes pour permettre à l'agent d'apprendre ces informations. Trois algorithmes ont été développés :<br /><br />
+				-Le <i>sensor mapping</i>, destiné à apprendre la position des capteurs et de leur couverture dans l'espace. Cet algorithme considère tout type de capteur comme un ensemble de capteurs binaires, que nous appelons points de perception, chacun sensible à une certaine valeur du capteur concerné. L'algorithme est basé sur l'hypothèse que la distance qui sépare deux points de perception est proportionnel à la durée qui sépare un changement d'état de ces deux points. Un essais mené sur un agent équipé de 18 capteurs de distances montre que l'algorithme, bien qu'imparfait, donne une bonne estimation de la couverture des capteurs.<br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/sensormapping.png" alt="Sensor Mapping" />
+    				<figcaption>Figure 1 : Le sensor mapping</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				-L'<i>action mapping</i>, qui permet d'apprendre le déplacement des éléments de l'environnement lorsque l'agent se déplace. Il consiste en un algorithme de mesure du flot optique appliqué à l'ensemble des points de perception fournis par le sensor mapping. L'algorithme a été testé sur le système visuel de l'agent, avec une résolution angulaire de 5° pour un champs de visuion de 180°. Chaque pixel fourni la distance du point détecté. La figure 2 montre le champs de vecteur obtenu pour la translation et la rotation à droite (l'agent est au centre du champs de vecteur).<br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/actionmapping1.png" alt="Action Mapping" />
+    				<figcaption>Figure 2 : l'action mapping appliqué au système visuel.<br /> à gauche la rotation à droite, à droite la translation</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				Si on fait la supposition que l'agent sait que ses déplacements sont des combinaisons de translations et de rotations, on peut calculer les coefficients de translation et de rotation moyens pour chaque action. La figure 3 montre les champs de vecteurs obtenus en appliquant ces coefficients à la mémoire spatiale.
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/actionmapping2.png" alt="Action Mapping" />
+    				<figcaption>Figure 3 : on applique les coefficients de translation et de rotation moyens</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				Maintenant que l'on peut déterminer la provenance des stimuli et que l'on connaît leurs déplacements, on peut remplir une carte des stimuli autours de l'agent. Au fur et à mesure que l'agent se déplace, il complète sa perception de son environnement. La figure 4 montre les stimuli tactiles et visuels que l'agent a mémorisé autours de lui.
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/maps.png" alt="maps" />
+    				<figcaption>Figure 4 : les stimuli tactiles (à gauche) et visuels (à droite) mémorisés par l'agent (au centre).</figcaption>
+			</figure>
+			<br />
+
+			<p>
+				Si les différentes modalités sensoielles sont mappées ensemble, les stimuli issus d'un même objet se retrouvent au même endroit sur la carte. On peut donc lier les stimuli pour représenter les "objets" tels que l'agent le perçoit. La figure 5 montre de telles associations entre les stimuli visuels et tactiles, que l'agent peut reconnaître dans son environnement.<br /><br />
+			</p>
+
+			<figure style="text-align:center">
+    				<img src="/these/bundles.png" alt="bundles" />
+    				<figcaption>Figure 5 : Le tableau montre les associations entre les stimuli visuels et tactiles. La carte de droite montre les "objets" reconnus par l'agent.</figcaption>
+			</figure>
+			<br />
+
+			Les algorithmes décrits ici ont été présenté à la conférence BRIMS 2012 (voir section <a href="/publi.html">Publications</a>).
+			<br /><br />
+		</section>
+
+		<section class="subsection">
+			<br />
+			<center> <a href="/these/these1.html">Précedent</a> &nbsp;&nbsp; <a href="/these.html">Retour</a> &nbsp;&nbsp; <a href="/these/these3.html">Suivant </a> </center>
+			<br />
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
