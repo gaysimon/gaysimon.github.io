@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/article/jsimu.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/article/jsimu_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Johnny 2.0 simulator
+				</p>
+
+				<figure>
+					<a href="/article/j2simu.png"><img src="/article/j2simu.png" alt="Simulateur Johnny 2.0" width="450" /></a>
+				</figure>
+			</section>
+
+			<section class="listsection">
+
+				<br />
+
+				Ressources :
+				<br /><br />
+				- <a href="/article/Johnny2_simu_Cpp.7z">Johnny2_simu_Cpp.7z</a>: C++ sources<br />
+				(requires OpenCV library)
+
+				<br /><br />
+
+				- <a href="/article/Johnny2_simu_Java.7z">Johnny2_simu_Java.7z</a>: Java sources<br />
+
+				<br /><br />
+
+				- <a href="/article/Johnny2_simu.jar">Johnny2_simu.jar</a>: executable jar
+				<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+
+
+				Simulation of the Johnny 2.0 robot developed during my second year TIPE. This simulator was first developed in C++ (using OpenCV library for display functions), then ported in Java.<br /><br />
+
+				This simulator allows to observe the behavior of Johnny 2.0 in two light conditions, light at the center and light on edges, while analyzing parameters and internal variables of the robot. It is also possible to modify some of these parameters during the simulation, such as synaptic weights, and to provide “rewards” and “punishments” to influence the behavior of the robot.
+
+				<br /><br />
+
+				simulation display:
+
+				<br /><br />
+
+				- Environment
+
+				<br /><br />
+
+				<figure>
+					<a href="/article/simulation.png"><img src="/article/simulation.png" alt="simulation" width="450" /></a>
+					<figcaption>Simulation part. Left: the robot in its environment (here, light on edges). Right: buttons for simulation control</figcaption>
+				</figure>
+
+
+				The robot and its environment are displayed on the top left part. The robot is represented as a gray disc, with a wheel on each side and two light sensors in front of the robot. A red light turns on when the robot bumps in a wall. It is possible to move the robot by clicking on it (the simulation is then paused). In the Java version, the simulator displays the path of the robot on the last 400 last steps.
+
+
+				<br /><br />
+
+				Several information and buttons are displayed on the right of the environment, allowing to control the simulation:<br />
+				- light sensor values: these histograms indicate the amount of light received by each sensor.<br />
+				- step display: indicates the number of simulation cycle since the beginning of the simulation.<br />
+				- light change button: allows to change light conditions: light on the center (by default) and light on edges. This change allows to test the adaptation possibilities of the robot.<br />
+				- start/pause button: starts or pauses the simulation.<br />
+				- stop button: stop and reinitialize the simulation. The step counter is reset to 0.<br />
+				- record button: when activated, the simulator write, at each step, internal values in a text file <code>Johnny2_simu.txt</code>. Each line has the following form:<br />
+				<code>step sensorL sensorR bumper motorL motorR astrocytL astrocytR synapseL+ synapseL- synapseR+ synapseR- internal_valueL internal_valueR light_condition</code>
+
+
+				<br /><br />
+
+				- Neural network
+
+				<br /><br />
+
+				<figure>
+					<a href="/article/network.png"><img src="/article/network.png" alt="système nerveux" width="450" /></a>
+					<figcaption>Neural System of the robot (left). Right: The display allows to visualize and modify synaptic weights</figcaption>
+				</figure>
+
+				The neural network of the robot is displayed on the bottom left part. The two rectangles on the top left and right represent values of light sensors. The rectangle on the top middle represents the bump sensor. The two rectangles on the bottom left and right represent motors (the black horizontal lines show the motor speed values). Light sensors are connected to the two neurons (left and right circles), each of them is connected with two synapses (exciter and inhibitor), represented with little discs. Neurons outputs control motors. The circles on the middle represent the two astrocyts. They get values from the bump sensor and motor speeds to define the internal state. The astrocyts are connected to synapses and periodically modify their values. Colors indicate values: green for positive values and red for negative values.
+				<br /><br />
+
+				On the right of the network, several sliders allows to visualize and modify internal values:<br />
+				- reward and punishment make it possible to attribute a reward or punishment value that will be integrated on the next astrocyts value change. They influence the learning process independently of internal values.<br />
+				- synapses: these sliders display current values of the four synaptic weights of the network (left exciter, left inhibitor, right exciter, right inhibitor), and allows to modify them.
+				<br /><br />
+
+				- Internal value curves
+
+
+				<figure>
+					<a href="/article/graphs.png"><img src="/article/graphs.png" alt="courbes" width="250" /></a>
+					<figcaption>Curves of internal values. From top to bottom: light sensors, left and right synaptic weights, left and right astrocyt outputs, left and right motor speeds</figcaption>
+				</figure>
+
+				The courbs on the right display the evolution of internal values of the robot on the last 400 simulation steps. From top to bottom:<br />
+				- values of left and right light sensors (yellow)<br />
+				- values of left synapses, exciter (yellow) and inhibitor (blue)<br />
+				- values of right synapses, exciter (yellow) and inhibitor (blue)<br />
+				- output values of left and right astrocyts (green). This values are added to synaptic weights. Unlike the physical robot, when the internal value of astrocyts becomes negative, the frequence and amplitude increase to let the robot testing solutions faster. This variation was not implemented in the physical robot due to limitations of its microcontroller.<br />
+				- speed of the left and righ motors (red)<br />
+				<br />
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Experiments:<br /><br />
+
+					At the beginning, the robot progressively increases its speed, then bumps in a wall. After several collisions, it associates collision with absence of light, and becomes photovore and turns around the light source (0:30). Then, as the sensor on the side of obscurity doesn't allow to detect collision, the robot get a half-photovore behavior using only one sensor (0:55) and turns around the light source in the other direction. After several turns without collision, it moves again in dark areas (1:30), and the cycle restarts. We then change light conditions (1:53). The robot, as a photovore, moves toward a wall. After a collision, it moves slowly, and finally becomes photophobe and stays away from enlighten walls (2:35).<br /><br />
+
+					<video width="640"  controls>
+						<source src="/article/jsimu.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video> 
+
+				</p>
+
+			</section>
+		</section>
+	</div>		
+
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

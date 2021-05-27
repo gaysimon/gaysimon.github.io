@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/article/jsimu.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/article/jsimu_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Simulateur Johnny 2.0
+				</p>
+
+				<figure>
+					<a href="/article/j2simu.png"><img src="/article/j2simu.png" alt="Simulateur Johnny 2.0" width="450" /></a>
+				</figure>
+			</section>
+
+			<section class="listsection">
+
+				<br />
+				Ressources :
+				<br /><br />
+				- <a href="/article/Johnny2_simu_Cpp.7z">Johnny2_simu_Cpp.7z</a> : source C++<br />
+				(nécessite la librairie OpenCV)
+
+				<br /><br />
+
+				- <a href="/article/Johnny2_simu_Java.7z">Johnny2_simu_Java.7z</a> : source Java<br />
+
+				<br /><br />
+
+				- <a href="/article/Johnny2_simu.jar">Johnny2_simu.jar</a> : jar exécutable
+				<br /><br />
+
+			</section>
+
+			<section class="listsection">
+	
+				<p>
+					Description :<br />
+				</p>
+
+				Simulation du robot Johnny 2.0 réalisé dans le cadre de mon TIPE de seconde année. Ce simulateur a été réalisé en C++ (en utilisant la librairie OpenCV pour l’affichage), puis porté en langage Java.<br /><br />
+
+				Ce simulateur permet de simuler le comportement de Johnny 2.0 dans deux conditions lumineuses, lumière au centre et lumière sur les bords, tout en observant l’ensemble des paramètres et variables internes de robot. Il est également possible de modifier certains paramètres pendant la simulation, comme les valeurs synaptiques, et d’attribuer des "récompenses" et des "punitions" pour influencer le comportement du robot.
+				<br /><br />
+
+				Affichage de la simulation :
+				<br /><br />
+
+				- Environnement
+				<br /><br />
+
+				<figure>
+					<a href="/article/simulation.png"><img src="/article/simulation.png" alt="simulation" width="450" /></a>
+					<figcaption>Partie simulation. À gauche, le robot dans son environnement (ici, éclairage sur les bords), à droite, les boutons permettant de piloter la simulation</figcaption>
+				</figure>
+
+				Le robot et son environnement sont affichés en haut à gauche. Le robot est représenté par un disque gris, avec une roue de chaque coté et deux capteurs de luminosité à l’avant. Une lumière rouge s’allume lorsque l’agent heurte un bord. Il est possible de déplacer le robot en cliquant dessus (la simulation se met alors en pause). Dans la version Java, le simulateur montre le chemin du robot sur les 400 derniers pas.
+				<br /><br />
+
+				À droite de l’environnement sont affichés des informations sur la simulation et des boutons permettant de contrôler le déroulement de la simulation :<br />
+				-affichage des capteurs de lumière : ces histogrammes indiquent la quantité de lumière reçue par chaque capteurs.<br />
+				-affichage du nombre de pas : indique le nombre de cycle de simulation écoulés depuis le début de la simulation.<br />
+				-bouton de changement de lumière : permet d’échanger les conditions d’éclairage : lumière au centre (par défaut) et lumière sur les bords. Ce changement permet de tester les capacités d’adaptation du robot aux variations de son environnement.<br />
+				-bouton de démarrage/pause : permet de lancer la simulation ou la mettre en pause.<br />
+				-bouton stop : arrête et réinitialise la simulation. Le compteur est remis à 0.<br />
+				-bouton d’enregistrement : lorsqu’il est activé, le simulateur va à chaque pas, écrire les valeurs internes dans un fichier texte <code>Johnny2_simu.txt</code>. Une ligne s’écrit sous la forme :<br />
+				<code>pas capteurG capteurD bumper moteurG moteurD astrocyteG astrocyteD synapseG+ synapseG- synapseD+ synapseD- valeur_interneG valeur_interneD conditions_lumineuses</code>
+
+				<br /><br />
+
+				- Système neuronal
+
+				<br /><br />
+
+				<figure>
+					<a href="/article/network.png"><img src="/article/network.png" alt="système nerveux" width="450" /></a>
+					<figcaption>système nerveux du robot (à gauche). À droite, l'affichage permet de visualiser les poids synaptiques et de les modifier</figcaption>
+				</figure>
+
+
+				Le système nerveux du robot est affiché en bas à gauche. Les deux rectangles en haut à droite et à gauche représentent les valeurs des capteurs de lumière. Le rectangle en haut au milieu représente le capteur de contact. Les rectangles en bas à droite et à gauche représentent les moteurs (le trait horizontal noir indique la vitesse). Les capteurs de lumière sont reliés aux deux neurones (cercles à droite et à gauche), chacun par deux synapses (exitatrice et inhibitrice), représenté par les petits disques. Les sorties des neurones pilotent les moteurs. Les deux cercles au milieu représentent les deux astrocytes. Ceux-ci récupèrent les valeurs du capteur de contact et la vitesse des moteurs pour définir l’état interne. Les astrocytes sont reliés aux synapses dont ils vont modifier la valeur de façon périodique. La couleur des éléments montre les valeurs : vert pour des valeurs positives et rouge pour des valeurs négatives.
+				<br /><br />
+
+				À droite du réseau, des réglettes permettent de visualiser et modifier les valeurs internes :
+
+				<br />
+				- récompense et punition permettent d’attribuer une valeur de récompense ou de punition qui sera pris en compte au prochain changement de valeur des astrocytes. Ils permettent d’influencer l’apprentissage indépendamment des valeurs internes.<br />
+				- synapses : ces réglettes affichent la valeur actuelle des quatre poids synaptiques du réseau (gauche excitateur, gauche inhibiteur, droite excitateur, droite inhibiteur), et permettent de les modifier.
+
+				<br /><br />
+
+				- Courbes des valeurs internes
+
+
+				<figure>
+					<a href="/article/graphs.png"><img src="/article/graphs.png" alt="courbes" width="250" /></a>
+					<figcaption>Courbes des valeurs internes. De haut en bas : capteurs de luminosité, poids synaptiques gauches et droits, valeurs de sortie des astrocytes gauche et droit, vitesses des moteurs gauche et droit </figcaption>
+				</figure>
+
+
+				Les courbes à droite permettent d’observer l’évolution des valeurs internes du robot au cours du temps, sur les 400 derniers cycles de simulation. De haut en bas :<br />
+				- valeurs du capteur de luminosité gauche (jaune)<br />
+				- valeurs du capteur de luminosité droit (jaune)<br />
+				- valeurs des synapses gauches, excitateur (jaune) et inhibiteur (bleu)<br />
+				- valeurs des synapses droits, excitateur (jaune) et inhibiteur (bleu)<br />
+				- valeur de sortie des astrocytes gauche et droit (vert). Cette valeur vient s’ajouter aux poids synaptiques. Contrairement au robot physique, Lorsque la valeur interne des astrocytes passe en négatif, la fréquence et l’amplitude augmente pour permettre au robot de se tester rapidement des solutions. Cette variation n’a pas été implémenté sur le robot physique en raison des limitations de son microcontrôleur.<br />
+				- vitesse des moteurs gauche et droit (rouge).<br />
+				<br />
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Expériences :<br /><br />
+
+					Dans un premier temps, le robot augmente progressivement sa vitesse, puis heurte un mur. Après quelques collisions, il associe la collision à l'absense de lumière, et adope un comportement photovore et tourne autour de la source lumineuse (0:30). Puis, comme le capteur du coté de l'ombre ne permet plus de détecter une collision, le robot adopte un comportement semi-photovore n'utilisant qu'un seul capteur (0:55) et tourne autours de la source lumineuse dans l'autre sens. Après quelques tours sans collision, il recommence à se diriger vers l'obscurité (1:30), et le cycle recommence. On change alors les conditions lumineuses (1:53). Le robot, photovore, se dirige vers le mur. Après collision, il avance doucement, et finit par adopter un comportement photophobe lui permettant de rester loin des murs (2:35).<br /><br />
+
+
+					<video width="640"  controls>
+						<source src="/article/jsimu.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video> 
+
+				</p>
+			</section>
+		</section>
+	</div>
+
+
+
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
