@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/articles/vacu.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/vacu_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Environnement VacuumSG 
+				</p>
+
+				<figure>
+					<a href="/articles/vacuumSG_1.png"><img src="/articles/vacuumSG_micro.png" alt="vacuumSG" /></a>
+				</figure>
+			</section>
+
+
+			<section class="listsection">
+				<p>
+					Ressources :<br /><br />
+
+					<a href="/articles/src.zip">sources</a> <br /><br />
+
+					<a href="/articles/vacuumSG.zip">workspace pour Eclipse</a> <br /><br />
+
+					<a href="/articles/vacuumSG.pdf">manuel d'utilisation</a> <br /><br />
+				</p>
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				Ce simulateur est dérivé de celui que j'ai utilisé durant ma thèse. Il est basé sur l'environnement Vacuum de Cohen (Teaching agent programming using custom environments and Jess, 2005), que j'ai modifié pour permettre une simulation d'un environnement continu. Afin que ce simulateur puisse être utilisé dans d'autre projets ou à des fins d'enseignement, j'ai retiré tout le système décisionnel des agents mis au point au cours de ma thèse et simplifié au maximum l'implémentation de l'environnement.<br /><br />
+
+				<figure>
+					<a href="/articles/architecture.png"><img src="/articles/architecture_micro.png" alt="architecture" /></a>
+					<figcaption>Architecture du simulateur</figcaption>
+				</figure>
+
+
+				Ce simulateur est conçu pour la simulation d'un ou plusieurs agents en environment continu (il est cependant possible de restreindre l'agent à une grille). Par rapport à l'environnement utilisé pendant ma thèse, on peut noter les améliorations suivantes : <br />
+				- chaque agent s'exécute sur un thread différent.<br />
+				- le système visuel n'est plus restreint au centre de l'agent et peut être placé n'importe où sur l'agent.<br /><br />
+
+				L'utilisateur peut contrôler la simulation à l'aide de l'interface suivante :
+
+				<figure>
+					<a href="/articles/interface.png"><img src="/articles/interface_micro.png" alt="interface" /></a>
+				</figure>
+
+				Il peut également sélectionner, dans la fenêtre principale, l'agent à observer, et éditer l'environnement.<br /><br />
+
+				L'environnement par défaut est construit à l'aide d'un fichier texte, et peut être modifié pendant la simulation. Il est possible d'ajouter des éléments en plus de ceux proposés.<br /><br />
+
+				Le robot simulé peut se déplacer dans toutes les directions et tourner sur lui-même. Il peut sentir les propriétés tactiles des éléments situés devant lui, à sa droite, à sa gauche, et derrière lui. Il dispose également d'un anneau de "leds" lui permettant d'afficher ses états internes.<br /><br />
+
+				Le simulateur propose également un moteur de rendu polaire donnant au robot un système visuel de 360° capable de mesurer les distances, et pouvant être utilisé pour simuler de nombreux types de capteurs (caméra, capteur de contact, de luminosité, de distance...). Un exemple de capteur ainsi construit est donné dans la version de base. Ce système de rendu peut être placé en tout point du robot, ce qui rend possible, par exemple, l'utilisation d'un système stéréoscopique.<br /><br />
+
+				<figure>
+					<a href="/articles/vision.png"><img src="/articles/vision_micro.png" alt="vision" /></a>
+					<figcaption>Affichage du système visuel. Le moteur de rendu peut définir un champs de vision de 360° capable de déterminer la couleur, la propriété tactile et la distance des objets, avec une résolution angulaire de 1°</figcaption>
+				</figure>
+
+				Les échanges entre le robot et le système de décision se font sous la forme de vecteurs contenant soit les commandes motrices, soit les valeurs des capteurs du robot. La version de base propose des vecteurs utilisables, mais d'autres vecteurs peuvent être utilisés.<br /><br />
+
+				La version de base propose en exemple deux systèmes de décision : <br />
+
+				- Braitenberg.java : implémente les célèbres véhicules de Valentino Braitenberg. Le robot utilise les proies en guise de source lumineuse.<br />
+
+				- WallAvoider.java : un simple système d'évitement d'obstacle : le robot avance en tournant à gauche, et tourne à droite si il rencontre un obstacle.<br />
+
+			</section>
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/articles/vacu.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/vacu_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					VacuumSG Environment 
+				</p>
+
+				<figure>
+					<a href="/articles/vacuumSG_1.png"><img src="/articles/vacuumSG_micro.png" alt="vacuumSG" /></a>
+				</figure>
+			</section>
+
+			<section class="listsection">
+				<p>
+
+					Ressources :<br /><br />
+
+					<a href="/articles/src.zip">sources</a> <br /><br />
+
+					<a href="/articles/vacuumSG.zip">workspace for Eclipse</a> <br /><br />
+
+					<a href="/articles/vacuumSG.pdf">user manual</a> (fr)<br /><br /> 
+				</p>
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				This simulator is a derived from the one I used during my PhD. It is based on the Cohen's Vacuum environment (Teaching agent programming using custom environments and Jess, 2005), that I modified to allow a simulation in a continuous environment. I removed the systems of agents I developed during my phd to make this environment reusable in other projects or for educational purposes.<br /><br />
+
+				<figure>
+					<a href="/articles/architecture.png"><img src="/articles/architecture_micro.png" alt="architecture" /></a>
+					<figcaption>Architecture of the simulator</figcaption>
+				</figure>
+
+
+				This simulator is designed for the simulation of one or more agents in a continuous environment (it is however possible to restrain the agent to a grid). We can note the following improvements from the simulator I used during my phd:<br />
+				- each agent is executed in a different thread <br />
+				- the visual system is not restricted to the center of the agent and can be place anywhere on the agent.<br />
+
+				The user can control the simulation using the following interface:
+
+				<figure>
+					<a href="/articles/interface.png"><img src="/articles/interface_micro.png" alt="interface" /></a>
+				</figure>
+
+				The user can also select, in the main window, the agent to observe, and edit the environment.<br /><br />
+
+				The default environment is constructed according to a text file, and can be modified during the simulation. It is possible to define additional elements in addition to those that are proposed.<br /><br />
+
+				The simulated robot can move in all directions and rotate. It can feel tactile properties of elements in front of it, at its left and right, and behind it. It is also equipped with a ring of "leds" that allows to display its internal states.<br /><br />
+
+				The simulator also propose a polar rendering system that gives to the robot a visual field of 360° that is able to measure distance, and that can be used to simulate numerous types os sensors (camera, contact sensors, light sensors, distance sensors...). An example of such a simulated sensor is given in the basic version. This rendering system can be placed at every point of the robot, which allows, as example, the use of a stereoscopic system.<br /><br />
+
+				<figure>
+					<a href="/articles/vision.png"><img src="/articles/vision_micro.png" alt="vision" /></a>
+					<figcaption>Display panel of the visual system. The rendering system can define a visual field of 360° that can define the color, tactile properties and distance of objects, with an angular resolution of 1°</figcaption>
+				</figure>
+
+				The communication between the decisional system and the robot is based on vectors that contain motor commands or sensor values. The basic version propose usable vectors, but other vectors can be used.<br /><br />
+
+				The basic version proposes two decisional systems as examples:<br />
+
+				- Braitenberg.java : implements Valentino Braitenberg's famous vehicles. The robot uses preys as light sources.<br />
+
+				- WallAvoider.java : a simple obstacle avoidance system: the robot moves forward while turning left, and turns right when it found an obstacle.<br />
+				<br />
+
+			</section>
+		</section>
+	</div>
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>
