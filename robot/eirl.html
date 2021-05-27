@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/robot/eirl.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/robot/eirl_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Ernest IRL
+				</p>
+
+				<figure>
+					<a href="/robot/ernestIRL.jpg"><img src="/robot/ernestIRL_micro.jpg" alt="Ernest IRL" /></a>
+				</figure>
+
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				Ce robot est destiné à tester le mécanisme de la mémoire spatiale extra-personnelle en environnement réel. Le robot évolue dans un environnement similaire à l'environnement simulé : les murs sont verts, les proies et les algues sont représentées par des carrés de carton colorés.<br /><br />
+
+				<figure>
+					<a href="/robot/ernest_env.png"><img src="/robot/ernest_env_mini.png" alt="Environnement" /></a>
+					<figcaption>Ernest se promène dans le monde réel...</figcaption>
+				</figure>
+
+				Le robot a été construit en Lego Mindstorms et son design implémente son système interactionnel : il s'agit d'une base roulante pouvant avancer tout droit ou tourner sur lui-même. Son système sensoriel comprend un capteur de contact à l'avant lui permettant de détecter l'interaction "se cogner", un capteur de luminosité sous le robot détectant le passage sur un carré bleu, qui définit l'interaction "manger une proie". Une caméra panoramique surélevée fournit les interactions visuelles. Cette caméra est constituée d'une webcam pointant vers une surface sphérique réfléchissante donnant un champs de vision de 180°. Les couleurs sont ensuite filtrées, et les éléments "masqués" sont effacés. L'image est ensuite projeté sur une surface plane pour définir les interactions visuelles énactées.<br /><br />
+
+				<figure>
+					<a href="/robot/ernest_vision.jpg"><img src="/robot/ernest_vision_mini.jpg" alt="johnny1" /></a>
+					<figcaption>Le système visuel du robot : robot dans son environnement, image perçue par la caméra, image filtrée, image projeté.</figcaption>
+				</figure>
+
+				La communication avec le PC s'effectue par infrarouge avec la brique Lego RCX. Un programme en langage <a href="http://bricxcc.sourceforge.net/nqc/">Not Quite C</a> (NQC), permet au RCX de recevoir des commandes d'actions et d'envoyer le résultat des interactions.
+				<br /><br />
+			</section>
+
+
+			<section class="listsection">
+
+				<br />
+				Ressources :
+				<br /><br />
+
+				- Modèle Lego du robot (à ouvrir avec <a href="http://leocad.org/trac">leoCAD</a>) : <a href="/robot/ernestIRL.lcd">ernestIRL.lcd</a>
+				<br /> Notons que les pièces non Lego (webcam, miroir et élastiques) ainsi que les pièces souples ne sont pas représentées.
+				<br /><br />
+
+				<figure>
+					<a href="/robot/ernestIRL_lcad.png"><img src="/robot/ernestIRL_lcad_mini.png" alt="ernestIRL" /></a>
+					<figcaption>Le modèle du robot sous leoCAD.</figcaption>
+				</figure>
+				<br />
+
+				- Modèle Lego <a href="http://www.blender.org/">Blender</a> : <a href="/robot/ernestIRL.blend">ernestIRL.blend</a>
+				<br />L'ensemble des pièces peut être manipulé en utilisant l'élément empty nommé "Robot". Le modèle dispose également d'une caméra au niveau de la webacm permettant de simuler l'image produite par celle-ci. Pour choisir une caméra, faire clic droit sur celle-ci, puis <code>Ctrl+0</code>.
+
+				<figure>
+					<a href="/robot/robot.jpg"><img src="/robot/robot_mini.jpg" alt="ernestIRL" /></a>
+					<a href="/robot/camera.jpg"><img src="/robot/camera_mini.jpg" alt="webcam" /></a>
+					<figcaption>Le modèle blender du robot. A droite, le point de vue du robot.</figcaption>
+				</figure>
+				<br /><br />
+
+				- interface java-RCX : <a href="/robot/Interface.java">Interface.java</a>
+				<br /><br />
+
+				- programme nqc : <a href="/robot/ernest.nqc">ernest.nqc</a>
+				<br /> <br />
+
+				Sous windows, le programme nqc peut être transféré au RCX à l'aide du programme <a href="http://bricxcc.sourceforge.net/">Bricx Command Center</a> (Bricxcc).<br /> <br />
+				Sous Linux, il suffit d'installer le paquet "nqc", puis, d'ouvrir une console et de taper la commande : <code>nqc -S"port serie" -d "nom_du_fichier.nqc"</code>.<br />
+				"port serie" correspond au port utilisé. Dans mon cas, j'utilise un convertisseur USB vers port serie (/dev/ttyUSB0). <br />
+				La commande est donc : <code>nqc -S/dev/ttyUSB0 -d ernest.nqc</code>
+				<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<br />
+				Commandes :<br /><br />
+				Les commandes sont les suivantes : (les messages utilisés ont été choisi plus ou moins aléatoirement)<br />
+				- avancer d'un pas : 42. Le robot retourne 2 si il s'est cogné, 3 si il s'est arrêté sur une surface sombre, 1 sinon. <br />
+				- tourner à gauche de 45° : 64. <br />
+				- tourner à droite de 45° : 128. <br />
+				- tourner à gauche de 90° : 164. <br />
+				- tourner à droite de 90° : 200. <br />
+				Dans le cas d'une rotation, le robot retourne 1. <br /><br />
+				Ces commandes peuvent être envoyés avec Bricxcc, avec l'interface java fournie ci-dessus ou avec la commande : <code>nqc -S"port serie" -msg "commande"</code> (par exemple, <code>nqc -S/dev/ttyUSB0 -msg 42</code> ) sous Linux.<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Expériences :<br /><br />
+
+					le robot a permis de mettre en évidence la robustesse de notre système car, même avec une mémoire spatiale peu fiable et des moteurs peu précis, le comportement du robot est très similaire à celui de l'agent simulé : le robot génère des signatures d'interactions pertinentes et se dirige naturellement vers les proies tout en évitant les murs.<br /><br />
+
+					On observe sur les signatures d'interactions que la partie visible du robot (reflet de la caméra), n'est pas pris en considération. En effet, cet élément est toujours présent dans le champs visuel, et n'est donc pas pertinente pour prédire le résultat d'une interaction. Le robot ne fait ainsi ''pas attention'' à sa caméra. Une autre observation intéressante est que lorsque la batterie du robot se décharge, et que le pas du robot se réduit, les signatures s'adaptent à cette variation. Le modèle montre ainsi une tolérance et une adaptativité aux pannes.<br /><br />
+
+					<figure>
+						<a href="/robot/signatures.png"><img src="/robot/signatures.png" alt="Ernest IRL" width=500 /></a>
+						<figcaption>Signatures des interactions avancer, se cogner, manger. On observe que la partie visible du robot (reflet de la caméra) n'est pas prise en considération dans les signatures.</figcaption>
+					</figure>
+
+
+					<video width="640" height="300" controls>
+						<source src="/robot/robot2.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video> 
+
+					<video width="320" height="240" controls>
+						<source src="/robot/selection.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video> 
+				</p>
+			</section>
+		</section>
+
+	</div>
+
+
+
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>

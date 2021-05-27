@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/robot/eirl.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/robot/eirl_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Ernest IRL
+				</p>
+
+				<figure>
+					<a href="/robot/ernestIRL.jpg"><img src="/robot/ernestIRL_micro.jpg" alt="Ernest IRL" /></a>
+				</figure>
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Description:<br />
+				</p>
+
+				This robot was created to test the Extra-personal Space Memory in a real environment. The environment is similar to the simulated environment: walls are green, preys and algas are represented by colored cardboard squares.<br /><br />
+
+				<figure>
+					<a href="/robot/ernest_env.png"><img src="/robot/ernest_env_mini.png" alt="Environnement" /></a>
+					<figcaption>Ernest playing in the real world...</figcaption>
+				</figure>
+
+				The robot was constructed with Lego Mindstorms, and its design implements its interactional system: it consists in a mobile platform that can move forward and rotate. The sensory system includes a frontal contact sensor to detect "bump" interaction and a light sensor beneath to detect when the robot moves on a blue square, that define the "eat a prey" interaction. An elevated panoramic camera provides visual interactions. This camera consists in a webcam oriented toward a spherical reflecting surface that gives a visual field of 180°. The colors are filtered, and "hidden" elements removed. The image is then projected on a plane surface to define enacted visual interactions.<br /><br />
+
+				<figure>
+					<a href="/robot/ernest_vision.jpg"><img src="/robot/ernest_vision_mini.jpg" alt="johnny1" /></a>
+					<figcaption>The visual system of the robot: robot in the environment, image perceived by the camera, filtered image, projected image.</figcaption>
+				</figure>
+
+				The communication with a PC is based on an infrared link with the Lego RCX brick. A <a href="http://bricxcc.sourceforge.net/nqc/">Not Quite C</a> (NQC) program allows the RCX to receive action commands and to send results of interactions.
+				<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<br />
+				Resources:
+				<br /><br />
+				- Lego model of the robot (open with <a href="http://leocad.org/trac">leoCAD</a>) : <a href="/robot/robot.lcd">robot.lcd</a>
+				<br /> Note that non-Lego pieces (webcam, mirror and rubber bands) and flexible pieces are not represented.
+				<br /><br />
+
+				<figure>
+					<a href="/robot/ernestIRL_lcad.png"><img src="/robot/ernestIRL_lcad_mini.png" alt="ernestIRL" /></a>
+					<figcaption>The robot model made with leoCAD.</figcaption>
+				</figure>
+				<br />
+
+				- Lego model made with <a href="http://www.blender.org/">Blender</a> : <a href="/robot/ernestIRL.blend">ernestIRL.blend</a>
+				<br />The components of the robot can be manipulated using the "empty" element named "Robot". The model proposes a camera parented to the camera model, which allows to simulate the image produced by the camera of the robot. To select a camera, select it with a right clic, then press <code>Ctrl+0</code>.
+
+				<figure>
+					<a href="/robot/robot.jpg"><img src="/robot/robot_mini.jpg" alt="ernestIRL" /></a>
+					<a href="/robot/camera.jpg"><img src="/robot/camera_mini.jpg" alt="webcam" /></a>
+					<figcaption>The blender model of the robot. Right : the point of view of the robot.</figcaption>
+				</figure>
+				<br /><br />
+
+				- java-RCX interface: <a href="/robot/Interface.java">Interface.java</a>
+				<br /><br />
+				- nqc program: <a href="/robot/ernest.nqc">ernest.nqc</a>
+				<br /> <br />
+				Under windows, the nqc program can be sent to RCX using <a href="http://bricxcc.sourceforge.net/">Bricx Command Center</a> (Bricxcc).<br /> <br />
+				Under Linux, you have to install the "nqc" package, then open a console and type the command: <code>nqc -S"serial_port" -d "file_name.nqc"</code>.<br />
+				"serial_port" is the used port. In my case, I use a USB to serial converter (/dev/ttyUSB0). <br />
+				Thus, the command is: <code>nqc -S/dev/ttyUSB0 -d ernest.nqc</code>
+				<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<br />
+				Commands:<br /><br />
+				List of action commands: (message numbers were randomly defined)<br />
+				- move forward of one step: 42. The robot returns 2 if it bumps, 3 if it stops on a blue square and 1 otherwise. <br />
+				- turn left of 45° : 64. <br />
+				- turn right of 45° : 128. <br />
+				- turn left of 90° : 164. <br />
+				- turn right of 90° : 200. <br />
+				In the case of a rotation, the robot returns 1.<br /><br />
+				These commands can be sent with Bricxcc, with the provided java interface or with the command <code>nqc -S"serial_port" -msg "command"</code> (for example, <code>nqc -S/dev/ttyUSB0 -msg 42</code> ) under Linux.<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Experiments:<br /><br />
+
+					the robot demonstrates the robustness of our system as, even with an unreliable space memory and unprecise motors, the behavior of the robot is very similar to the simulated agent: the robot generates pertinent signatures of interactions and moves toward preys while avoiding walls.<br /><br />
+
+					We observe, on signatures of interactions, that the visible part of the robot (camera reflection) is not considered. Indeed, this element is always present in the visual field, and is thus not pertinent to predict the result of an interaction. The robot thus ''forget'' its camera. Another interesting observation is that when the battery discharges, and the step of the robot is shortened, signatures adapt to this variation. The model thus demonstrates a tolerance and adaptability to failures.
+
+
+					<figure>
+						<a href="/robot/signatures.png"><img src="/robot/signatures.png" alt="Ernest IRL" width=500 /></a>
+						<figcaption>Signatures of interactions move forward, bump, eat. We observe that the visible part of the robot (camera reflection) is not considered by signatures.</figcaption>
+					</figure>
+
+
+					<video width="640" height="300" controls>
+						<source src="/robot/robot2.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video> 
+
+					<video width="320" height="240" controls>
+						<source src="/robot/selection.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video> 
+				</p>
+
+			</section>
+		</section>
+
+	</div>		
+
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

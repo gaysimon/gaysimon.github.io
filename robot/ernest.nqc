@@ -1,0 +1,86 @@
+
+  int val1=0;
+  int step=0;
+  int bump=0;
+
+
+task main(){
+
+SetSensor(SENSOR_1, SENSOR_TOUCH);
+SetSensor(SENSOR_2, SENSOR_LIGHT);
+
+  while(true){
+	ClearMessage();
+        until(Message()!=0);
+        val1=0;
+        step=0;
+        bump=0;
+        if (Message()==42){
+	   forward();
+        }
+        if (Message()==64){
+	   turnLeft(40);
+        }
+	if (Message()==128){
+	   turnRight(40);
+        }
+	if (Message()==164){
+	   turnLeft(80);
+        }
+	if (Message()==200){
+	   turnRight(80);
+        }
+  }
+
+
+}
+
+void forward(){
+   OnRev(OUT_A+OUT_C);
+   while(step<10 && bump==0){
+  	Wait(10);
+        step++;
+        if (SENSOR_1==1){
+	   bump=1;
+        }
+   }
+   Off(OUT_A+OUT_C);
+
+   if (SENSOR_2<38){
+      val1=3;
+      SendMessage(3);
+      PlaySound(SOUND_UP);
+   }
+   else{
+   	if (bump==0){
+     		val1=1;
+              SendMessage(1);
+   	}
+   	else{
+		OnFwd(OUT_A+OUT_C);
+		Wait(20);
+		Off(OUT_A+OUT_C);
+        	val1=2;
+              SendMessage(2);
+   	}
+   }
+}
+
+
+void turnLeft(int delay){
+   OnRev(OUT_A);
+   OnFwd(OUT_C);
+   Wait(delay);
+   Off(OUT_A+OUT_C);
+   val1=1;
+   SendMessage(1);
+}
+
+void turnRight(int delay){
+   OnRev(OUT_C);
+   OnFwd(OUT_A);
+   Wait(delay);
+   Off(OUT_A+OUT_C);
+   val1=1;
+   SendMessage(1);
+}
