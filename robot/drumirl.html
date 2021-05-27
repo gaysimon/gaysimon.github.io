@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/robot/drumirl.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/robot/drumirl_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Drum Player IRL
+				</p>
+
+				<figure>
+					<a href="/robot/drummer.jpg"><img src="/robot/drummer.jpg" alt="Ernest IRL" width="450" /></a>
+				</figure>
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				Ce robot, calqué sur le modèle du <a href="/article/drum.html">Drum Player</a>, est destiné à tester des mécanisme d'apprentissage séquentiels. Nous avons pu notamment tester les mécanismes d'apprentissages développés par <a href="http://www.oliviergeorgeon.com/">Olivier Georgeon</a>.<br /><br />
+
+				Le Drum Player est un bras robotique constitué de deux servomoteurs de modélisme, le premier permettant de déplacer le bras horizontalement, tandis que le second permet de lever et baisser le bras. Au bout du bras est placé un capteur de contact, constitué d'une tige de corde à piano, passant dans un cercle de métal. Lorsque le bras touche un objet, la tige fait contact avec l'anneau, permettant la détection. Le robot est contrôlé par un mini-ordinateur Raspberry Pi 2. La figure ci-dessous montre le câblage des éléments du robots :<br /><br />
+
+				<figure>
+					<a href="/robot/raspberry.png"><img src="/robot/raspberry.png" alt="raspberry Pi" width="450" /></a>
+					<figcaption>Câblage du robot : tous les éléments sont directement connectés aux ports GPIO du Raspberry Pi. comme les servomoteurs ont une faible consommation, et qu'un seul est utilisé à la fois, on peut se passer d'une alimentation externe.</figcaption>
+				</figure>
+
+				<figure>
+					<img src="/robot/contact.jpg" alt="contact" width="450" />
+					<figcaption>Gros plan sur le capteur de contact.</figcaption>
+				</figure>
+				<br />
+
+				Le robot est piloté par un script en Python qui échange avec un système décisionnel externe de la même façon que le Drum Player simulé, c'est à dire par le biais de deux fichiers texte, solution qui facilite le portage sur différents systèmes d'exploitation ainsi que l'utilisation d'autres langages de programmation. Le cycle de décision débute avec le mécanisme décisionnel, qui écrit le symbole d'une interaction dans le fichier <code>intention.txt</code>, puis se met en attente tant que le fichier <code>enacted.txt</code> est vide. Le robot attend jusqu'à ce que le fichier <code>intention.txt</code> ne soit plus vide, puis, lorsque c'est le cas, lit le symbole, efface le fichier, puis effectue l'interaction. À la fin de l'interaction, le robot écrit le symbole de l'intéraction énactée dans le fichier <code>enacted.txt</code>. Le système décisionnel peut alors lire ce symbole, puis, après avoir effacé ce dernier, intègre le résulat de son intention.
+				<br /><br />
+
+				<figure>
+					<img src="/articles/drum/RI.png" alt="PRI" width="450" />
+					<figcaption>Système d'échange entre le système décisionnel et le robot</figcaption>
+				</figure>
+
+
+				Le script contrôlant le robot propose un système interactionnel composé de 14 interactions, chacune étant identifiée par un numéro :<br /><br />
+
+				<center>
+					<table>
+					   <tr>
+					    	<td width="80">id</td>
+					     	<td width="40">do </td>
+					     	<td width="40">ré </td>
+						<td width="40">mi </td>
+						<td width="40">fa </td>
+						<td width="40">sol</td>
+						<td width="40">la </td>
+						<td width="40">si </td>
+					   </tr>
+					   <tr>
+					       <td>reussi</td>
+					       <td>  0 </td>
+					       <td>  2 </td>
+					       <td>  4 </td>
+					       <td>  6 </td>
+					       <td>  8 </td>
+					       <td> 10 </td>
+					       <td> 12 </td>
+					   </tr>
+					   <tr>
+					       <td>raté</td>
+					       <td>  1 </td>
+					       <td>  3 </td>
+					       <td>  5 </td>
+					       <td>  7 </td>
+					       <td>  9 </td>
+					       <td> 11 </td>
+					       <td> 13 </td>
+					   </tr>
+					</table>
+				</center>
+				<br />
+
+			</section>
+
+
+			<section class="listsection">
+
+				<br />
+				Ressources :
+				<br /><br />
+				- <a href="/robot/drum_playerIRL.zip">drum_playerIRL.zip</a> : archive contenant le script de contrôle du robot, les fichiers d'échange, ainsi que deux scripts Python (test_random.py et test_gamme.py) permettant de tester le robot.<br /><br />
+
+			</section>
+
+
+			<section class="listsection">
+
+				Utilisation du robot pour tester les mécanismes d'apprentissage
+				<br /><br />
+
+				Nous avons interfacé le mécanisme d'apprentissage séquentiel développé par Olivier Georgeon. Ici, le robot peut tapper à gauche, à droite et au centre. Nous tentons dans cette vidéo de lui apprendre à jouer la séquence droite-droite-milieu-milieu. Au bout de 5 minutes d'apprentissage, l'agent commence enfin à jouer cette séquence.<br /><br />
+
+				<video width="640" controls>
+					<source src="/robot/drum_learn.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br /><br />
+
+			</section>
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
