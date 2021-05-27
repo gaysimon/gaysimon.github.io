@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/articles/sma.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/sma_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Multi-Agent System
+				</p>
+
+				<figure>
+					<a href="/articles/SMA.png"><img src="/articles/SMA_micro.png" alt="johnny1" /></a>
+				</figure>
+			</section>
+
+			<section class="listsection">
+				<p>
+
+					Resources:<br /><br />
+
+					Project report (fr): <a href="/articles/SMA.pdf">SMA.pdf</a> <br /><br />
+
+					Executable .jar: <a href="/articles/SMA3.jar">SMA3.jar</a> <br /><br />
+
+					Source code : <a href="/articles/SMA3.7z">SMA3.7z</a> <br /><br />
+				</p>
+			</section>
+
+
+			<section class="listsection">
+				<p>
+					Description :<br />
+				</p>
+
+				This simulator is a project I developed during my third year. It illustrates the principle of multi-agent systems, principally how a complex collective behavior can emerge from a group of simple agents. In this simulator, three types of resources (red, green and blue), are randomly allocated on a grid. the agents move randomly on this grid, observing these simple rules:<br /><br />
+				-an agent can take a resource with a probability inversely proportional to the number of resources of a same type around the agent.<br />
+				-an agent can pose a resource on an empty cell with a probability proportional to the number of resources of a same type around the agent.<br /><br />
+
+				These two rules have for consequences the progressive regrouping of each type of resource. Indeed, the isolated resources have a high probability of being taken, and a high probability to be posed on a group of resources.<br /><br />
+
+				<figure>
+					<a href="/articles/sma1a.png"><img src="/articles/sma1a_micro.png" alt="sma1a" /></a>
+					<a href="/articles/sma1b.png"><img src="/articles/sma1b_micro.png" alt="sma1b" /></a>
+					<figcaption>Before/After: The resources are grouped by a team of 50 agents.</figcaption>
+				</figure>
+
+				The subject of the project involved the use of "pheromones" to improve the system. Inspired by ant colonies, the first version of this mechanism allowed the agents to set traces on the environment. These traces modified the movements of the agents that approach them to make them following the path. Unfortunately, this mechanism did not improve the system. Sometime resources needed long time to be grouped. The explanation is that, unlike ants, agents do not have a start point and a end point. Thus, path can be created between two heaps of resources, but as exchanges are bidirectional, the size of these heaps stay constant. An other problem can appear if an agent make a loop: it can then stay trapped of its own path, that became a trap for other agents that approach it.<br /><br />
+
+				<figure>
+					<a href="/articles/sma2a.png"><img src="/articles/sma2a_micro.png" alt="sma2a" /></a>
+					<a href="/articles/sma2b.png"><img src="/articles/sma2b_micro.png" alt="sma2b" /></a>
+					<figcaption> Left: the environment. Right: traces set by "pheromones". Some agents are trapped by their own paths (red rectangle)</figcaption>
+				</figure>
+
+				I then developed a second version equipped with a new mechanism based on this principle: when a agent poses a resource, it set traces on n steps after the pose. Only agent that search a resource are attracted by these paths. As the length of the path is constant regardless of the size of the heap, little heaps will be attractive on large surfaces, but stay weakly attractive for agent that carry a resource. This mechanism reduces by 4 the number of steps required to have resources regrouped in three heaps.<br /><br />
+
+				<figure>
+					<a href="/articles/sma_f.png"><img src="/articles/sma_f.png" alt="johnny1" /></a>
+					<figcaption>principle of the path of constant length: a little heaps will be attractive on a surface almost as large than the one of a large heaps.</figcaption>
+				</figure>
+
+				<figure>
+					<a href="/articles/sma3a.png"><img src="/articles/sma3a_micro.png" alt="sma3a" /></a>
+					<a href="/articles/sma3b.png"><img src="/articles/sma3b_micro.png" alt="sma3b" /></a>
+					<figcaption> The new mechanism: the little red heaps on bottom-left corner is very attractive for its size. It will be absorbed some hundred steps later.</figcaption>
+				</figure>
+
+				A last functionality was added: a point of attraction. This point attracts agents that pass in its attraction field. It results a formation of heaps around the point. In the final version of the project, it is possible to set the position of the point, its strength and its range.
+
+				<figure>
+					<a href="/articles/sma4a.png"><img src="/articles/sma4a_micro.png" alt="sma4a" /></a>
+					<a href="/articles/sma4c.png"><img src="/articles/sma4c_micro.png" alt="sma4c" /></a>
+					<figcaption> Grouping around the point of attraction (yellow disc in right panel).</figcaption>
+				</figure>
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Software description:<br />
+				</p>
+
+				<figure>
+					<a href="/articles/SMA.png"><img src="/articles/SMA_micro.png" alt="SMA" /></a>
+				</figure>
+
+				The final version of the system uses a graphic interface that allow the user to control the simulation and modify some parameters during the run. This interface is composed of four parts:<br /><br />
+
+				-The Superior panel: it allows to set the initial parameters of the simulation,<br />
+				It is composed of the initialization panel, that define the size of the environment, the number of agents and of resources.<br />
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pa1.png"><img src="/articles/sma_pa1.png" alt="sma_pa1" /></a>
+				</figure>
+
+				The panel of probability allows modifying the probability for an agent to take or pose a resource.
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pa2.png"><img src="/articles/sma_pa2.png" alt="sma_pa2" /></a>
+				</figure>
+
+				The launch panel initialize the simulation. The turbo button can run the specified number of cycle at hight speed (there are, however, no display update nor the possibility to change setting during the run).
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pa3.png"><img src="/articles/sma_pa3.png" alt="sma_pa3" /></a>
+				</figure>
+				<br />
+
+				-the central panel display, in the left part, the environment with agent and resources, and in the right part, pheromones, attraction point and last movements of agents.
+				<br /><br />
+
+				-The inferior panel allows the user to control the simulation run and modify some parameters.<br />
+				It is composed of the management panel that display the number of agents and resources, and to add or remove agents or resources. (Attention: remove an agent that carry a resource also remove the resource).
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pc1.png"><img src="/articles/sma_pc1.png" alt="sma_pc1" /></a>
+				</figure>
+
+				The control panel gives control of the simulation: run, stop, step by step, and speed (delay between two steps).
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pc2.png"><img src="/articles/sma_pc2.png" alt="sma_pc2" /></a>
+				</figure>
+
+				The LightPoint panel sets parameters of the light point: position, range and attraction strength.
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pc3.png"><img src="/articles/sma_pc3.png" alt="sma_pc3" /></a>
+				</figure>
+				<br />
+
+
+				-The histogram, in an other window, display the delay between two pick up, two poses, carry and empty delay of the last agent of the list. The panel display these delay with bar graphs. Scale is a line for 100 steps. 
+				<figure style="text-align: center;">
+					<a href="/articles/sma_p4.png"><img src="/articles/sma_p4.png" alt="sma_p4" /></a>
+				</figure>
+				<br />
+
+			</section>
+		</section>
+	</div>		
+
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

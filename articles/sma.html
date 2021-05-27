@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/articles/sma.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/sma_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Système Multi-Agent
+				</p>
+
+				<figure>
+					<a href="/articles/SMA.png"><img src="/articles/SMA_micro.png" alt="johnny1" /></a>
+				</figure>
+			</section>
+
+			<section class="listsection">
+				<p>
+					Ressources :<br /><br />
+
+					Rapport du projet : <a href="/articles/SMA.pdf">SMA.pdf</a> <br /><br />
+
+					Fichier .jar exécutable : <a href="/articles/SMA3.jar">SMA3.jar</a> <br /><br />
+
+					Sources : <a href="/articles/SMA3.7z">SMA3.7z</a> <br /><br />
+				</p>
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+				Description :<br />
+				</p>
+
+				Ce simulateur est un projet développé en troisième année. Il illustre le fonctionnement des systèmes multi-agents, notamment comment un comportement collectif peut émerger d'un ensemble d'agents très simples. Dans ce simulateur, trois types de ressources (rouges, vertes et bleues) sont réparties aléatoirement sur la grille. Les agents se déplacent aléatoirement sur cette grille en observant quelques règles simples : <br /><br />
+				-un agent peut prendre une ressource avec une probabilité inversement proportionnelle au nombre de ressource de même type autours de l'agent.<br />
+				-Un agent portant une ressource peut la déposer sur une case vide avec une probabilité proportionnelle au nombre de ressources de même type autours de l’agent.<br /><br />
+
+				Ces deux règles ont pour conséquence le regroupement progressif de chaque type de ressource. En effet, les éléments isolés ont de fortes chances d'être déplacés, et une forte probabilité d'être déposé à proximité d'un groupe de ressources.<br /><br />
+
+				<figure>
+					<a href="/articles/sma1a.png"><img src="/articles/sma1a_micro.png" alt="sma1a" /></a>
+					<a href="/articles/sma1b.png"><img src="/articles/sma1b_micro.png" alt="sma1b" /></a>
+					<figcaption>Avant/Après : les ressources sont rassemblées par 50 agents</figcaption>
+				</figure>
+
+				Le sujet du projet prévoyait l'utilisation de “phéromones” pour améliorer le système. Inspiré des colonies de fourmis, la première version de ce mécanisme permettait aux agents de déposer des marques dans l'environnement. Ces marques modifient les déplacements des agents qui s'en approche, leur permettant de suivre la piste. Malheureusement, les performances n'étaient pas au rendez-vous, les ressources mettaient souvent plus de temps à se regrouper. L'explication est que contrairement aux fourmis, les agents n'ont pas de point de départ et de point d'arrivé. Ainsi, des chemins peuvent se créer entre deux groupes de ressources, mais les échanges étant bidirectionnel, ces groupes ne verront pas leur nombre de ressources varier. Un autre problème peut survenir si un agent effectue une boucle : il peut alors rester prisonnier de sa propre piste, qui devient un piège pour les agents qui s'en approche.<br /><br />
+
+				<figure>
+					<a href="/articles/sma2a.png"><img src="/articles/sma2a_micro.png" alt="sma2a" /></a>
+					<a href="/articles/sma2b.png"><img src="/articles/sma2b_micro.png" alt="sma2b" /></a>
+					<figcaption> A gauche, l'environnement. A droite, les traces laissées par les "phéromones". Des agents sont pris au piège par la piste qu'ils tracent (rectangle rouge)</figcaption>
+				</figure>
+
+				J'ai alors développé une seconde version doté d'un nouveau mécanisme basé sur ce principe : lorsqu’un agent dépose une ressource, il marque l'environnement sur les n pas qui suivent la pose. Seuls les agents qui cherchent une ressource seront attirés par cette trace. La longueur des pistes étant constante quelle que soit la taille du groupe, les petits tas attirerons les agents sur une surface bien supérieure, tandis qu’ils resteront faiblement attractif pour ceux qui cherchent à déposer une ressource. Ce mécanisme permet de réduire environ par 4 le nombre de pas nécessaire pour que les ressources soient regroupées.<br /><br />
+		
+
+				<figure>
+					<a href="/articles/sma_f.png"><img src="/articles/sma_f.png" alt="johnny1" /></a>
+					<figcaption>principe de la trace de longueur constante : un petit tas sera attractif sur une surface presque aussi grande que celle d'un grand.</figcaption>
+				</figure>
+
+				<figure>
+					<a href="/articles/sma3a.png"><img src="/articles/sma3a_micro.png" alt="sma3a" /></a>
+					<a href="/articles/sma3b.png"><img src="/articles/sma3b_micro.png" alt="sma3b" /></a>
+					<figcaption> Le nouveau mécanisme en action : le petit tas rouge en bas est très attractif par rapport à sa taille. Il sera absorbé quelques centaines de pas plus tard.</figcaption>
+				</figure>
+
+				Une dernière fonctionnalité a été ajouté : un point d'attraction. Ce point attire les agents qui passent dans son champ d'attraction. Il en résulte un regroupement des tas à proximité de ce point. Dans la version finale du projet, il est possible de régler la position du point, sa force d'attraction et son rayon d'action.
+
+				<figure>
+					<a href="/articles/sma4a.png"><img src="/articles/sma4a_micro.png" alt="sma4a" /></a>
+					<a href="/articles/sma4c.png"><img src="/articles/sma4c_micro.png" alt="sma4c" /></a>
+					<figcaption> Rassemblement des tas autour du point d'attraction (disque jaune à droite).</figcaption>
+				</figure>
+
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description logicielle :<br />
+				</p>
+
+				<figure>
+					<a href="/articles/SMA.png"><img src="/articles/SMA_micro.png" alt="SMA" /></a>
+				</figure>
+
+				La version finale du système comprend une interface graphique qui permet de contrôler la simulation et modifier certains paramètres en cours d'exécution. Cette interface comprend quatre parties :<br /><br />
+
+				-Le panel supérieur : il permet de modifier les paramètres initiaux de la simulation. <br />
+				Il est constitué du panel d'initialisation, qui permet de définir la taille de l'environnement, le nombre d'agent et de ressources.<br />
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pa1.png"><img src="/articles/sma_pa1.png" alt="sma_pa1" /></a>
+				</figure>
+
+				Le panel des probabilités permet de modifier à tout moment la probabilité pour un agent de prendre ou de poser une ressource. Il faut cependant s'assurer, pour la pose de ressource, que la grille comporte au moins un tas d'au minimum deux éléments pour chaque ressources, sans quoi aucun tas ne se formera.
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pa2.png"><img src="/articles/sma_pa2.png" alt="sma_pa2" /></a>
+				</figure>
+
+				Le panel de lancement permet d'initialiser la simulation. Le bouton turbo permet de lancer le nombre de cycles spécifié à grande vitesse (il n'y a cependant pas de mise à jour de l'écran ni la possibilité d'utiliser l'interface pendant l'exécution).
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pa3.png"><img src="/articles/sma_pa3.png" alt="sma_pa3" /></a>
+				</figure>
+				<br />
+
+				-Le panel central affiche, dans sa partie gauche, l'environnement avec les agents et les ressources, et dans sa partie gauche, les phéromones, le point d'attraction et les derniers déplacements des agents.
+				<br /><br />
+
+				-Le panel inférieur permet de contrôler le déroulement de la simulation et de modifier certains paramètres. <br />
+				Il est composé du panel de gestion, qui affiche le nombre d'agents et de ressources sur la grille, et permet l'ajout ou la suppression des agents et ressources. (attention, si on supprime un agent transportant une ressource, on supprime également la ressource).
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pc1.png"><img src="/articles/sma_pc1.png" alt="sma_pc1" /></a>
+				</figure>
+
+				Le panel de contrôle permet de contrôler le déroulement des événements , avance, pause, pas à pas et réglage de la vitesse (temporisation entre deux itérations).
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pc2.png"><img src="/articles/sma_pc2.png" alt="sma_pc2" /></a>
+				</figure>
+
+				Le panel du LightPoint permet de gérer les paramètres du point lumineux : position, rayon d'action et force d'attraction.
+				<figure style="text-align: center;">
+					<a href="/articles/sma_pc3.png"><img src="/articles/sma_pc3.png" alt="sma_pc3" /></a>
+				</figure>
+				 <br />
+
+				-L'histogramme, dans une fenêtre à part, affiche le temps entre deux prises de ressources, de deux poses, le temps en charge et à vide du dernier agent de la liste. L'affichage montre sous forme de barre ces quatre durées. L'échelle est un trait pour 100 itérations.
+				<figure style="text-align: center;">
+					<a href="/articles/sma_p4.png"><img src="/articles/sma_p4.png" alt="sma_p4" /></a>
+				</figure>
+				<br />
+
+			</section>
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
