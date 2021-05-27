@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/articles/littleai.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/littleai_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Une implémentation java du jeu<br /> Little AI
+				</p>
+			</section>
+
+			<section class="listsection">
+				<p>
+					Ressources :<br /><br />
+
+					<a href="/articles/LittleAI_src.zip">fichiers sources</a> <br /><br /> 
+
+					<a href="/articles/LittleAI_eclipse.zip">workspace eclipse</a> <br /><br /> 
+
+					<a href="/articles/LittleAI.jar">JAR exécutable</a> <br /><br /> 
+				</p>
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				<a href=http://little-ai.com/>Little AI</a> est une application mobile crée par <a href="http://www.oliviergeorgeon.com/"> Olivier Georgeon</a>, dont le but est de mettre l'utilisateur à la place d'un agent cognitif comme Ernest, qui découvre son environnement uniquement au travers d'interactions.
+
+				<br /><br />
+
+				Cette version a été développée en Java avec pour objectif de permettre, de façon simple, la création de niveaux basés sur des environnements complexes.<br />
+
+				<br />
+
+			</section>
+
+			<section class="listsection">
+
+				Utilisation :<br /><br />
+
+				L'interface du jeu est toujours organisé de la même façon : en bas à gauche se trouve le panneau des boutons permettant d'interagir avec l'environnement. À droite, se trouve l'environnement, dans sa boite noire : le joueur n'a pas d'autre moyen de l'explorer que par le biais des interactions à sa disposition. À chaque action effectuée, le joueur peut voir le résultat, sous la forme d'une interaction, avec le score qui lui est associé. En haut à gauche est affiché le score total, somme des dix dernières interactions. Le but du joueur est de comprendre le fonctionnement de l'environnement en analysant les séquences d'interactions, pour maximiser son score.<br />
+
+				<figure>
+					<img src="/articles/littleAI1.png" alt="LittleAI" width="400" />
+				</figure>
+
+				Afin de simplifier la tâche, il est possible de modifier les formes des actions et les couleurs des interactions pour mieux les distinguer sur la frise. Pour changer la forme d'une action (et des interactions qui peuvent en résulter), il suffit de cliquer longuement sur le bouton jusqu'à l'apparition du menu, puis de relâcher sur la forme voulue. Il en est de même pour la couleur des interactions.<br />
+
+				<video width="600" height="420" controls>
+					<source src="/articles/littleAI.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br /><br />
+
+				Si vous parvenez à obtenir un score suffisant, vous serez autorisé à voir l'environnement. Est-il conforme à vos hypothèses?<br />
+
+				<figure>
+					<img src="/articles/littleAI2.png" alt="LittleAI" width="400" />
+				</figure>
+
+				<figure>
+					<img src="/articles/littleAI3.png" alt="LittleAI" width="400" />
+				</figure>
+
+				Cette implémentation permet de créer des niveaux utilisant des environnements pouvant être complexes. Quatre exemples de niveaux sont fournis. Les deux premiers sont très simples, tandis que les deux suivants sont de difficulté élevée. Le quatrième niveau illustre l'utilisation d'interactions parallèles.
+
+				<figure>
+					<img src="/articles/littleAI4.png" alt="LittleAI" width="400" />
+				</figure>
+				<br />
+			</section>
+
+			<section class="listsection">
+				<br />
+				Comment créer un niveau?
+				<br /><br />
+				La première étape consiste à définir l'environnement avec lequel l'avatar du joueur va interagir. L'environnement est constitué d'une matrice de nombres. Il faut ensuite définir les actions possibles, et leur résultats en fonctions des valeurs des cellules de la matrice. Chaque interaction est définie par un nombre de 0 à n, chaque action par un nombre de 0 à m.
+				<br /><br />
+
+				Une fois que l'environnement et ses propriétés physiques sont définies, on peut passer à l'implémentation. Pour créer un niveau, il faut créer une nouvelle classe héritant de la classe Level (par exemple, <code>Level3</code>). Voici le cadre minimal pour créer un nouveau niveau :<br /><br />
+
+				<code>
+					import java.awt.Color;<br /><br />
+
+					public class Level3 extends Level{<br /><br />
+
+	
+					&nbsp&nbsp&nbsp&nbsp 			public Level3(){<br />
+
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	//initialise les variables<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp 			}<br /><br />
+	
+					&nbsp&nbsp&nbsp&nbsp 			public void action(int a){<br />
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	int[] ret=new int[1];<br />
+		
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	// description des interactions<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	push(ret);<br />
+					&nbsp&nbsp&nbsp&nbsp 			}<br /><br />
+	
+					&nbsp&nbsp&nbsp&nbsp			 public boolean solved(){<br />
+
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	// condition de réussite du niveau<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	return sum>=10; // exemple : si le score atteint 10<br />
+					&nbsp&nbsp&nbsp&nbsp			}<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp			public void drawAgent(Graphics2D g, float x, float y, int width){<br />
+		
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	// dessine l'avatar<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp			}<br />
+					}<br /><br />
+
+				</code>
+
+				Initialisation des variables : un certain nombre de variables doivent être définies pour décrire et initialiser l'environnement :<br />
+				-<code>int nbActions</code> : défini le nombre d'action disponibles pour le joueur<br />
+				-<code>int nbInteraction</code> : défini le nombre total d'interactions<br />
+				-<code>int[] actionMap</code> : vecteur de longueur nbInteraction donnant pour chaque interaction l'action qui lui est associé<br />
+				-<code>int[] valence</code> : vecteur de longueur nbInteraction donnant le score associé à chaque interaction<br />
+				-<code>int panel_width</code> et <code>int panel_height</code> : donne le nombre de colonnes et de lignes du panneau de contrôle<br />
+				-<code>int[] shapes</code> :  vecteur de longueur nbAction donnant la forme initiale de chaque action. Par défaut, 0->cercle, 1->carré, 2->triangle haut, 3->triangle bas, 4->triangle gauche, 5->triangle droite<br />
+				-<code>int[] colors</code> : vecteur de longueur nbInteraction donnant la couleur de chaque interaction. Par défaut, 0->blanc, 1->noir...<br />
+				-<code>int[][] world</code> : la matrice définissant l'environnement<br />
+				-<code>int px</code>, <code>int py</code>, <code>float theta</code> : position (x,y) et orientation initiales de l'avatar dans l'environnement.<br />
+				-<code>Color color</code> : couleur de l'avatar lorsqu'il est affiché. Par défaut, l'avatar est orange.<br /><br />
+
+				méthode <code>public void action(int a)</code> : c'est dans cette méthode que sont définies les propriétés "physiques" de l'environnement. Cette méthode décrit l'interaction avatar-environnement qui se produit lorsque le joueur sélectionne l'action <code>a</code>. Il est par exemple possible de déplacer l'avatar ou de changer la valeur d'une cellule de l'environnement.
+				le vecteur <code>int[] ret</code> est un vecteur contenant l'identifiant de la ou des interactions considérées comme effectuées. Notons que ce vecteur doit toujours être de la même taille. La dernière instruction, <code>push(ret)</code>, permet d'enregistrer la ou les interactions effectuées.<br /><br />
+
+				fonction <code>public boolean solved()</code> : défini la condition de réussite du niveau. Deux variables peuvent être utilisées : <code>sum</code>, correspondant au score, et <code>tests</code>, qui compte le nombre d'actions du joueur. Il est également possible de définir la réussite d'un niveau comme le fait d'obtenir une interaction donnée un certain nombre de fois, ou de réussir une certaine séquence : aucune limite n'est imposée, si ce n'est votre imagination.<br /><br />
+
+				méthode <code>public void drawAgent(Graphics2D g, float x, float y, int width)</code> (facultatif) : permet de dessiner l'avatar, au coordonnées (x,y) de la matrice, avec une largeur de width. Par défaut, l'avatar est représenté par un cercle.<br /><br />
+
+
+				Enfin, la dernière étape : intégrer le niveau au jeux, en ajoutant ou en insérant, dans la méthode <code>void newLevel()</code>, une ligne supplémentaire :<br /> <code>else if (id_level==4) level=new Level3();</code><br />
+			</section>
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>

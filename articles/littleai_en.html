@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/articles/littleai.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/littleai_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+
+	
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					A java implementation of Little AI game
+				</p>
+			</section>
+
+			<section class="listsection">
+				<p>
+
+					Resources :<br /><br />
+
+					<a href="/articles/LittleAI_src.zip">source files</a> <br /><br /> 
+
+					<a href="/articles/LittleAI_eclipse.zip">Eclipse workspace</a> <br /><br /> 
+
+					<a href="/articles/LittleAI.jar">executable JAR</a> <br /><br /> 
+
+				</p>
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				<a href=http://little-ai.com/>Little AI</a> is a mobile application created by <a href="http://www.oliviergeorgeon.com/"> Olivier Georgeon</a>, that lets the user playing the role of a cognitive agent like Ernest, that discovers its environment only through interacting with the environment.
+
+				<br /><br />
+
+				This version was developed in Java, with the aim of allowing easy creation of levels based on complex environments.
+				<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				Utilization:<br /><br />
+
+				The game interface is always organized in the same way: the button panel allowing to interact with the environment is on the bottom left. The environment is on the right, in a black box: the player can only explore it through available interactions. At each enacted interaction, the player can observe the result, under the form of an interaction, with the associated score. The global score is displayed at the top left, and display the sum of the last ten interactions. The goal of the player is to understand the rules of the environment by analyzing sequences of interactions, in order to maximize the score.<br />
+
+				<figure>
+					<img src="/articles/littleAI1.png" alt="LittleAI" width="400" />
+				</figure>
+
+				It is possible, to simplify the task, to modify the form of actions and colors of interactions to better recognize them on the timeline. To change the form of an action (and of interactions that can result), do a long left click on the button until the menu appears, then release on the wanted form. It is possible to change color of interactions in the same way.<br />
+
+				<video width="600" height="420" controls>
+					<source src="/articles/littleAI.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br /><br />
+
+				If you reach a sufficient score, you will be allowed to observe the environment. Does it correspond to your assumptions?<br />
+
+				<figure>
+					<img src="/articles/littleAI2.png" alt="LittleAI" width="400" />
+				</figure>
+
+				<figure>
+					<img src="/articles/littleAI3.png" alt="LittleAI" width="400" />
+				</figure>
+
+				This implementation allows to create new levels that can be based on complex levels. Four example levels are provided. The two firsts are very simple, while the two others are very hard. The fourth level illustrates the use of parallel interactions.
+
+				<figure>
+					<img src="/articles/littleAI4.png" alt="LittleAI" width="400" />
+				</figure>
+				<br />
+			</section>
+
+			<section class="listsection">
+				<br />
+				How to create a level?
+				<br /><br />
+
+				The first step consists in defining the environment with which the avatar of the player will interact. The environment is composed of a matrix of numbers. Then, you need to define the possible actions, and their results according to values in cells of the matrix. Each interaction is defined with a number, from 0 to n, and each action with a number from 0 to m.
+				<br /><br />
+
+				Once the environments and its properties are defined, you can implement it. To create a level, you need to create a new class, inheriting class Level (as an example, <code>Level3</code>). This is the minimal frame to create a new level:<br /><br />
+
+				<code>
+					import java.awt.Color;<br /><br />
+
+					public class Level3 extends Level{<br /><br />
+
+	
+					&nbsp&nbsp&nbsp&nbsp 			public Level3(){<br />
+
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	//initialize variables<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp 			}<br /><br />
+	
+					&nbsp&nbsp&nbsp&nbsp 			public void action(int a){<br />
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	int[] ret=new int[1];<br />
+		
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	// description of interactions<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	push(ret);<br />
+					&nbsp&nbsp&nbsp&nbsp 			}<br /><br />
+	
+					&nbsp&nbsp&nbsp&nbsp			 public boolean solved(){<br />
+
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	// conditions of success<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	return sum>=10; // example : when score reaches 10<br />
+					&nbsp&nbsp&nbsp&nbsp			}<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp			public void drawAgent(Graphics2D g, float x, float y, int width){<br />
+		
+					&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp	// draw the avatar<br /><br />
+
+					&nbsp&nbsp&nbsp&nbsp			}<br />
+					}<br /><br />
+
+				</code>
+
+				Initialization of variables : several variables must be defined to describe and initialize the environment:<br />
+				-<code>int nbActions</code> : defines the number of available actions<br />
+				-<code>int nbInteraction</code> : defines the number of possible interactions<br />
+				-<code>int[] actionMap</code> : vector of length nbInteraction giving, for each interaction, the associated action<br />
+				-<code>int[] valence</code> : vector of length nbInteraction giving the score associated to each interaction<br />
+				-<code>int panel_width</code> and <code>int panel_height</code> : gives the number of columns and lines of the button panel<br />
+				-<code>int[] shapes</code> :  vector of length nbAction giving the initial form of each action. default: 0->circle, 1->square, 2->triangle top, 3->triangle bottom, 4->triangle left, 5->triangle right<br />
+				-<code>int[] colors</code> : vector of length nbInteraction giving the initial color of each interaction. Default: 0->white, 1->black...<br />
+				-<code>int[][] world</code> : matrix defining the environment<br />
+				-<code>int px</code>, <code>int py</code>, <code>float theta</code> : initial position (x,y) and orientation of the avatar in the environment.<br />
+				-<code>Color color</code> : color of the avatar, when displayed. By default,  the avatar is orange.<br /><br />
+
+				method <code>public void action(int a)</code> : this method defines the "physical" properties of the environment, and describes the avatar-environment interaction that happens when the player selects action <code>a</code>. As an example, it is possible to move the avatar, or change the value of a cell of the environment.
+				Vector <code>int[] ret</code> is the vector containing the id of the interaction(s) considered as enacted. Note that this vector must have a constant size. The last instruction, <code>push(ret)</code>, records the enacted interaction(s).<br /><br />
+
+				function <code>public boolean solved()</code> : defines the success condition of the level. Two variables can be used: <code>sum</code>, giving the score, and <code>tests</code>, counting the number of actions of the player. It is also possible to define the success as the fact of obtaining a given interaction a certain number of times, or to successfully enact a certain sequence of interaction: there are no limits, except your imagination.<br /><br />
+
+				method <code>public void drawAgent(Graphics2D g, float x, float y, int width)</code> (optional) : draws the avatar, at coordinates (x,y) of the matrix, with a size of width. By default, the avatar is represented with a circle.<br /><br />
+
+
+				Finally, the last step: integrating the level to the game, by adding or inserting, in method <code>void newLevel()</code>, an additional line: <br /> <code>else if (id_level==4) level=new Level3();</code><br />
+			</section>
+		</section>
+	</div>
+
+
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>
