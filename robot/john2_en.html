@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/robot/john2.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/robot/john2_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Johnny 2.0
+				</p>
+
+				<figure>
+					<a href="/robot/johnny2.jpg"><img src="/robot/johnny2_micro.jpg" alt="johnny2" /></a>
+				</figure>
+			</section>
+
+
+			<section class="listsection">
+				<p>
+					Description :<br />
+				</p>
+
+				The subject of the TIPE (individual supervided practical work) of my second year of preparatory classes (2007) was the Time. I took advantage of this TIPE to test a neuronal learning mechanism I conceived short time before, inspired by a description of astrocyt cells. This mechanism observes the influence of small changes in synaptic connections due to a periodic function, to make the system converging toward a desired state.
+
+
+				<figure>
+					<a href="/robot/astrocyte.jpg"><img src="/robot/astrocyte.jpg" alt="astrocyte" /></a>
+					<figcaption>astrocyt cell (green)</figcaption>
+				</figure>
+
+				Johnny 2.0 is an evolution of the robot Johnny 1, incorporating elements of its chassis and its sorvomotors. This version is programmable and controlled by a PIC16F84 microcontroller. The sensory system is composed of two photoresistors and a contact sensor (antennas). The "nervous system" of the robot is composed of two neurons, and two "astrocytes" that controls synaptic weights of the networks.
+
+				<figure>
+					<a href="/robot/johnny2_1.jpg"><img src="/robot/johnny2_1_mini.jpg" alt="johnny2" /></a>
+					<a href="/robot/johnny2_2.jpg"><img src="/robot/johnny2_2_mini.jpg" alt="johnny2" /></a>
+					<figcaption>The robot Johnny 2.0</figcaption>
+				</figure>
+
+				The principle of the learning mechanism is the following: each astrocyte adds to synapses on which it is connected a periodic function with a null average value T(t). The astrocytes observe changes in the local satisfaction value of the system, adding i x T(t), with i the output value of the previous neuron, to the synapses if this state is increasing, or substracting it if decreasing.
+
+
+				<figure>
+					<a href="/robot/reseau.jpg"><img src="/robot/reseau_mini.jpg" alt="johnny1" /></a>
+					<figcaption>Neuronal network of the robot</figcaption>
+				</figure>
+
+				The satisfaction function of each astrocyte is define as proportionnal to the speed of corresponding motor. If the robot bumps into an obstacle, the value becomes negative, and is decreased at each periods until the robot avoid the obstacle. The robot behavior thus consists on moving forward, while avoiding obstacles.
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Experiments :<br />
+				</p>
+
+				Some experiments were performed to test the learning ability of the mechanism. The used learning function is a square function. As described previously, the satisfaction state is defined according to motor speed and contact sensor state. The robot is placed in a square enclosure where two light conditions are possible: center enlightened and walls enlightened.<br />
+
+				<figure>
+					<a href="/robot/eclairage.png"><img src="/robot/eclairage.png" alt="eclairage" /></a>
+					<figcaption>Two light conditions</figcaption>
+				</figure>
+
+				For the first experiment, the center is enlightened, and the robot is placed in the enlightened area. The following behavior is observed:<br />
+
+				<figure>
+					<a href="/robot/light.jpg"><img src="/robot/light_mini.jpg" alt="light" /></a>
+					<figcaption>The robot is placed under the light source (led flashlight). Flash was used for the photo.</figcaption>
+				</figure>
+
+				-the robot oscillates, driven by variations in synaptic weights.<br />
+				-it begins to accelerate and go out of the enlighted area.<br />
+				-it stops and oscillates again, before moving forward in darkness.<br />
+				-it bumps a wall. The motors speed oscillates more and more stronger until it becomes negative: the robot moves back.<br /><br />
+
+				<figure>
+					<a href="/robot/bump.jpg"><img src="/robot/bump_mini.jpg" alt="light" /></a>
+					<figcaption>The robot bumps into a wall. Flash was used for the photo.</figcaption>
+				</figure>
+
+				At this step, the robot becomes photovore and turn around the light source. After a certain time evolving at the limit of the enlightened area, the photovore behavior fades and the robot moves forward... and starts a new cycle.<br /><br />
+
+				<figure>
+					<a href="/robot/run.jpg"><img src="/robot/run_mini.jpg" alt="light" /></a>
+					<figcaption>The robot, photovore, turns around the light source.</figcaption>
+				</figure>
+
+				For the second experiment, the light conditions are reversed when the robot becomes photovore. The following behavior is observed:<br />
+				-the robot moves toward an enlightened wall and bumps it.<br />
+				-Its speed oscillates until it moves back.<br />
+				-It moves back regardless of the perceived enlightenment.<br />
+				-By moving under the dark area, its speed will slowly increase until it becomes positive: the robot becomes photophobe.<br /><br />
+				 
+				These experiments shown that the robot is able to adapt itself to light conditions of its environment.
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Documents :<br />
+				</p>
+
+				Presentation support (fr): <a href="/robot/tipe.pdf">TIPE.pdf</a> <br />
+				Note : due to a crash of a hard disk, the original digital document was lost. This document is a scan of the paper version.<br /><br />
+
+				programm in basicF84 : <a href="/robot/prog.wps">prog.wps</a> <br />
+
+			</section>
+		</section>
+	</div>
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

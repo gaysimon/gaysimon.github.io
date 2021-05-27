@@ -1,0 +1,342 @@
+
+
+port A : sorties  0->condensateur droit
+                        1->condensateur gauche
+                        2->servo droit
+                        3->servo gauche
+
+port B : entrées 0->mesure droite
+                       1->mesure gauche
+                       2->capteur
+
+
+
+
+VAR I
+VAR J
+VAR NB1
+VAR NB2
+VAR LUMD
+           VAR LUMG
+           VAR LUM1
+           VAR LUM2
+           VAR LUM
+           VAR OBD
+           VAR OBG
+           VAR OB
+           VAR AD
+           VAR AG
+           VAR ND
+           VAR NG
+           VAR E
+           VAR F
+           VAR G
+           VAR H
+           VAR T
+           VAR V
+VAR FA
+VAR MOD
+VAR D
+ORG 0
+CONFIG PORTA,0
+           CONFIG PORTB,7
+
+           E=7
+F=7
+G=7
+H=7
+           AD=40
+           AG=40
+           V=0
+           FA=4
+           D=1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DEBUT1 T=50
+
+DEBUT LUMD=1
+            J=250
+            BSF PORTA,2
+TEMP NOP
+             DECFSZ J,1
+             GOTO TEMP
+             BCF PORTA,2
+             J=250
+TEMPO NOP
+             DECFSZ J,1
+             GOTO TEMPO
+              J=6
+              LUMD=1
+COMPT  I=256
+COMPT1 NB1=2
+COMP1  NOP
+             DECFSZ NB1,1
+             GOTO COMP1
+              NOP
+              DECFSZ I,1
+              GOTO COMPT1
+             BTFSC PORTB,0
+             INCF LUMD,1
+             BTFSS PORTB,0
+             NOP
+             DECFSZ J,1
+              GOTO COMPT
+             OBD=6-LUMD
+             INCF OBD,1
+            LUM=LUMD*E
+            OB=OBD*F
+ LUM1=LUM+OB
+              IF V=1 THEN
+               LUM1=LUM1+FA
+             ELSE
+                  IF LUM1>FA THEN
+                     LUM1=LUM1-FA
+                   ELSE
+                      LUM1=1
+                   ENDIF
+              ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+ LUMG=1
+            J=250
+            BSF PORTA,3
+TEMP2 NOP
+             DECFSZ J,1
+             GOTO TEMP2
+             BCF PORTA,3
+             J=250
+TEMPO2 NOP
+             DECFSZ J,1
+             GOTO TEMPO2
+              J=6
+              LUMG=1
+COMPT2  I=256
+COMPT3 NB1=2
+COMP2   NOP
+              DECFSZ NB1,1
+              GOTO COMP2
+              NOP
+              DECFSZ I,1
+              GOTO COMPT3
+             BTFSC PORTB,1
+             INCF LUMG,1
+             BTFSS PORTB,1            
+             NOP
+             DECFSZ J,1
+              GOTO COMPT2
+               OBG=6-LUMG
+               INCF OBG,1
+               LUM=LUMG*G
+               OB=OBG*H
+               LUM2=LUM+OB
+               IF V=1 THEN
+               LUM2=LUM2+FA
+                ELSE
+                  IF LUM2>FA THEN
+                     LUM2=LUM2-FA
+                   ELSE
+                      LUM2=1
+                    ENDIF
+                ENDIF
+
+              ND=LUM1+D
+              NG=LUM2+D
+             
+
+
+
+
+
+
+
+
+
+
+              NB1=250
+              BSF PORTA,0
+BOUCLE1 NOP
+                DECFSZ NB1,1
+                GOTO BOUCLE1
+                NB2=20
+BOUCLE2 NOP
+                 DECFSZ NB2,1
+                 GOTO BOUCLE2
+BOUCLE3 NOP
+                 DECFSZ LUM1,1
+                 GOTO BOUCLE3
+              BCF PORTA,0
+               NB1=250
+              BSF PORTA,1
+BOUCLE5 NOP
+                DECFSZ NB1,1
+                GOTO BOUCLE5
+                NB2=62
+BOUCLE6 NOP
+                 DECFSZ NB2,1
+                 GOTO BOUCLE6
+BOUCLE7 NOP
+                 DECFSZ LUM2,1
+                 GOTO BOUCLE7
+              BCF PORTA,1
+
+                NB1=250
+               NB2=18
+BOUCLE4 NOP
+                 DECFSZ NB1,1
+                 GOTO BOUCLE4
+                 NB1=250
+                 DECFSZ NB2,1
+                 GOTO BOUCLE4
+                 NOP
+                 BTFSC PORTB,2
+                 GOSUB RA1
+                 NOP
+                 DECFSZ T,1
+                 GOTO DEBUT
+                 NOP
+
+
+
+
+
+
+
+
+
+
+
+
+
+     IF V=0 THEN
+                          IF ND=<AD THEN
+                                 IF LUMD>OBD THEN
+                                           IF E>0 THEN
+                                              DECF E,1
+                                           ENDIF
+                                 ELSE
+                                           IF F>0 THEN
+                                              DECF F,1
+                                           ENDIF
+                                 ENDIF
+                           ENDIF
+                  
+                          IF NG=<AG THEN
+                                 IF LUMG>OBG THEN
+                                           IF G>0 THEN
+                                              DECF G,1
+                                           ENDIF
+                                 ELSE
+                                           IF H>0 THEN
+                                              DECF H,1
+                                           ENDIF
+                                 ENDIF
+                           ENDIF
+
+
+
+
+
+
+
+
+
+
+
+
+
+                ELSE
+                          IF ND=<AD THEN
+                                    IF LUMD> OBD THEN
+                                           E=E+MOD
+                                     ELSE
+                                            F=F+MOD
+                                      ENDIF
+                          ELSE
+                                    IF LUMD>OBD THEN
+                                           IF E>0 THEN
+                                              DECF E,1
+                                           ENDIF
+                                 ELSE
+                                           IF F>0 THEN
+                                              DECF F,1
+                                           ENDIF
+                                 ENDIF
+                           ENDIF
+                         IF NG=<AG THEN
+                                    IF LUMG>OBG THEN
+                                         G=G+MOD
+                                     ELSE
+                                          H=H+MOD
+                                     ENDIF
+                          ELSE
+                                    IF LUMG>OBG THEN
+                                           IF G>0 THEN
+                                              DECF G,1
+                                           ENDIF
+                                 ELSE
+                                           IF H>0 THEN
+                                              DECF H,1
+                                           ENDIF
+                                 ENDIF
+                           ENDIF
+                  ENDIF
+
+
+
+
+
+
+                AD=ND
+                 AG=NG
+                   IF V=1 THEN 
+                   V=0
+                 ELSE  
+                    V=1
+                  ENDIF
+                  
+                   BTFSC PORTB,2
+                   GOSUB RAS
+                   BTFSS PORTB,2
+                   GOSUB CHOC
+                 GOTO DEBUT1
+
+RA1 D=1
+       RETURN
+      
+RAS FA=9
+       MOD=1
+       D=1
+       RETURN
+
+CHOC FA=FA+8
+          MOD=MOD+2
+          D=D+20
+          RETURN
+
+
+

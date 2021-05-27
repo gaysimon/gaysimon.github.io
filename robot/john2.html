@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/robot/john2.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/robot/john2_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Johnny 2.0
+				</p>
+
+				<figure>
+					<a href="/robot/johnny2.jpg"><img src="/robot/johnny2_micro.jpg" alt="johnny2" /></a>
+				</figure>
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				Le sujet de TIPE (travail individuel pratique encadré) de ma deuxième année de prépa (2007) avait pour thème le Temps. J'ai alors profité de ce TIPE pour tester un mécanisme d'apprentissage neuronal imaginé peu de temps auparavant et inspiré d'une description des cellules astrocytaires. Ce mécanisme étudie l'influence de petites modifications apportées par une fonction périodique dans les synapses pour faire converger le système vers l'état souhaité.
+
+				<figure>
+					<a href="/robot/astrocyte.jpg"><img src="/robot/astrocyte.jpg" alt="astrocyte" /></a>
+					<figcaption>cellule astrocytaire (en vert)</figcaption>
+				</figure>
+
+				Le robot Johnny 2.0 est une évolution du robot Johnny 1, dont il reprend des éléments du chassis et les servomoteurs. Cette version est programmable et est contrôlé par un microcontrôleur PIC16F84. Son système sensoriel comprend deux capteurs visuels (des photorésistantes) et un capteur de contact (une paire d'antennes). Le "système nerveux" du robot est constitué de deux neurones, ainsi que deux "astrocytes" qui contrôlent les poids des synapses du réseau.<br /><br />
+
+				<figure>
+					<a href="/robot/johnny2_1.jpg"><img src="/robot/johnny2_1_mini.jpg" alt="johnny2" /></a>
+					<a href="/robot/johnny2_2.jpg"><img src="/robot/johnny2_2_mini.jpg" alt="johnny2" /></a>
+					<figcaption>Le robot Johnny 2.0</figcaption>
+				</figure>
+
+				Le principe du mécanisme d'apprentissage est le suivant : chaque astrocyte ajoute aux synapses auxquelles il est connecté une fonction périodique de valeur moyenne nulle T(t). Les astrocytes observent les variations de l'état de satisfaction local du système, ajoutant i x T(t) à la synapse si cet état augmente ou le soustrait si il diminue, avec i valeur de sortie du neurone en amont de la synapse.
+
+				<figure>
+					<a href="/robot/reseau.jpg"><img src="/robot/reseau_mini.jpg" alt="johnny2" /></a>
+					<figcaption>Le réseau neuronal du robot</figcaption>
+				</figure>
+
+				La fonction de satisfaction de chaque astrocyte est défini comme proportionnel à la vitesse du moteur associé. Si le robot heurte un obstacle, la valeur devient négative et diminue à chaque période tant que l'obstacle n'est pas évité. Le robot aura ainsi tendance à aller le plus vite possible tout en évitant de se cogner.
+
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Expériences :<br />
+				</p>
+
+				Plusieurs expériences ont été effectuées pour tester les capacités d'apprentissage du réseau. La fonction d'apprentissage utilisée est une fonction carrée. Comme décrit précédamment, l'état de satisfaction est définie avec la vitesse des moteurs et le capteur de contact. Le robot est placé dans un enclos carré où deux conditions d'éclairage sont possible : centre éclairé ou bords éclairés.<br />
+
+				<figure>
+					<a href="/robot/eclairage.png"><img src="/robot/eclairage.png" alt="eclairage" /></a>
+					<figcaption>Deux conditions d'éclairage.</figcaption>
+				</figure>
+
+				Pour la première expérience, on éclaire le centre de l'enclot, le robot est placé sous la source lumineuse.
+				On observe le comportement suivant :<br />
+
+				<figure>
+					<a href="/robot/light.jpg"><img src="/robot/light_mini.jpg" alt="light" /></a>
+					<figcaption>Le robot est placé sous la source lumineuse (lampe à leds). Utilisation du flash pour la photo.</figcaption>
+				</figure>
+
+				-le robot commence par osciller, mû par les variations de ses synapses.<br />
+				-Il commence à accélérer et sort de la zone éclairée.<br />
+				-Il s'arrête et recommence à osciller, avant d'avancer dans l'obscurité.<br />
+				-Il finit par heurter un mur. La vitesse des moteurs se met à osciller de plus en plus fort jusqu'à ce que la vitesse devienne négative : le robot recule.
+				<br /><br />
+
+				<figure>
+					<a href="/robot/bump.jpg"><img src="/robot/bump_mini.jpg" alt="light" /></a>
+					<figcaption>Le robot heurte un mur. Utilisation du flash pour la photo.</figcaption>
+				</figure>
+
+				A ce stade, le robot devient photovore et se met à tourner autours de la source lumineuse. Au bout d'un certain temps, à force d'évoluer à la limite de la zone éclairée, le comportement photovore s'estompe et le robot se met à avancer tout droit... et repart pour un nouveau cycle.<br /><br />
+
+				<figure>
+					<a href="/robot/run.jpg"><img src="/robot/run_mini.jpg" alt="light" /></a>
+					<figcaption>Le robot, devenu photovore, tourne autours de la source de lumière.</figcaption>
+				</figure>
+
+
+				Pour la seconde expérience, on inverse les conditions d'éclairage lorsque le robot est devenu photovore. On observe le comportement suivant :<br />
+				-le robot, photovore, se dirige vers le mur éclairé et le heurte.<br />
+				-Sa vitesse oscille jusqu'à ce qu'il recule.<br />
+				-Il se met à reculer, quel que soit l'éclairage qu'il perçoit.<br />
+				-En passant sous la zone d'ombre, sa vitesse va peu à peu augmenter jusqu'à devenir positive : le robot devient photophobe.<br /><br />
+				 
+				Ces expériences montrent que le robot est capable de s'adapter aux conditions de son environnement.
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Documents :<br />
+				</p>
+
+				support de présentation : <a href="/robot/tipe.pdf">TIPE.pdf</a> <br />
+				Note : le document numérique original a été perdu dans un crash de disque dur, le document ci-dessus est le scan de la version papier.<br /><br />
+
+				programme en basicF84 : <a href="/robot/prog.wps">prog.wps</a> <br />
+
+			</section>
+		</section>
+	</div>
+
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
