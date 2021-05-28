@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/articles/drum.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/drum_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Drum Player, un simulateur pour tester des mécanismes d'apprentissage séquentiels
+				</p>
+
+				<figure>
+					<a href="/articles/drum_player.png"><img src="/articles/drum_player.png" alt="Simulation" width="450" controls/></a>
+				</figure>
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				Un robot simulé basé sur le moteur de jeu Blender (BGE), destiné à tester des mécanismes d'apprentissage séquentiels. Il est inspiré des travaux d'<a href="http://www.oliviergeorgeon.com/">Olivier Georgeon</a>, et notamment de sa <a href="https://www.youtube.com/watch?v=ZE00FYSkW4M">simulation</a> du robot Poppy, basé sur <a href="http://www.v-rep.eu/">V-rep</a>. Le but de ce simulateur est de proposer une plateforme entièrement open-source et facilement utilisable, pour tester des mécanismes d'apprentissage.<br /><br />
+
+				Le Drum Player est un bras robotique doté de deux degrés de liberté, et d'un capteur de contact au bout de son bras pour détecter les tambours. Le robot est configuré pour pouvoir jouer sept notes, et détecter si la note a bien été jouée. Lorsque le bras tappe sur un tambour, un son, issu du répertoire <code>sound</code>, est joué. Il est bien sûr possible de remplacer les notes jouées par d'autres sons, en remplaçant les fichiers sons du répertoire <code>sound</code>.
+				<br /><br />
+
+				Le simulateur échange avec un système décisionnel externe par le biais de deux fichiers texte. Cette solution, outre sa simplicité, facilite le portage sur différents systèmes d'exploitation ainsi que l'utilisation d'autres langages de programmation. Le cycle de décision débute avec le mécanisme décisionnel, qui écrit le symbole d'une interaction dans le fichier <code>intention.txt</code>, puis se met en attente tant que le fichier <code>enacted.txt</code> est vide. Le simulateur attend jusqu'à ce que le fichier <code>intention.txt</code> ne soit plus vide, puis, lorsque c'est le cas, lit le symbole, efface le fichier, puis effectue l'interaction. À la fin de l'interaction, le simulateur écrit le symbole de l'intéraction énactée dans le fichier <code>enacted.txt</code>. Le système décisionnel peut alors lire ce symbole, puis, après avoir effacé ce dernier, intègre le résulat de son intention.
+				<br /><br />
+
+				<figure>
+					<img src="/articles/RI.png" alt="PRI" width="450" />
+					<figcaption>Système d'échange entre le système décisionnel et le simulateur</figcaption>
+				</figure>
+
+				Le simulateur propose un système interactionnel composé de 14 interactions, chacune étant identifiée par un numéro :<br /><br />
+
+				<center>
+				<table>
+				   <tr>
+					<td width="80">id</td>
+				    	<td width="40">do </td>
+					<td width="40">ré </td>
+					<td width="40">mi </td>
+					<td width="40">fa </td>
+					<td width="40">sol</td>
+					<td width="40">la </td>
+					<td width="40">si </td>
+				   </tr>
+				   <tr>
+				       <td>reussi</td>
+				       <td>  0 </td>
+				       <td>  2 </td>
+				       <td>  4 </td>
+				       <td>  6 </td>
+				       <td>  8 </td>
+				       <td> 10 </td>
+				       <td> 12 </td>
+				   </tr>
+				   <tr>
+				       <td>raté</td>
+				       <td>  1 </td>
+				       <td>  3 </td>
+				       <td>  5 </td>
+				       <td>  7 </td>
+				       <td>  9 </td>
+				       <td> 11 </td>
+				       <td> 13 </td>
+				   </tr>
+				</table>
+				</center>
+				<br />
+
+			</section>
+
+
+			<section class="listsection">
+
+				<br />
+				Ressources :
+				<br /><br />
+				- <a href="/articles/drum_player.zip">drum_player.zip</a> : archive contenant le fichier Blender du simulateur, les fichiers d'échange, les notes à jouer au format mp3, ainsi que deux scripts Python (test_random.py et test_gamme.py) permettant de tester le simulateur. Nécessite Blender 2.69 ou supérieur.<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<br />
+				Utilisation<br /><br />
+
+				Pour installer le simulateur, il suffit de décompresser l'archive dans un répertoire quelconque, puis d'ouvrir le fichier <code>drum_player.blend</code> avec Blender. La simulation se lance en appuyant sur la touche 'P', et se termine en appuyant sur 'Echap'. Une fois lancé, le simulateur attend une commande dans le ficher <code>intended.txt</code>. Il est possible de tester le bon fonctionnement du simulateur avec les fichier <code>test_random.py</code> et <code>test_gamme.py</code>, en exécutant la commande <code>python test_random.py</code> ou <code>python test_gamme.py</code> depuis le répertoire <code>Ernest_simulator</code>. Le premier joue des notes au hasard, le second joue les notes de la gamme dans l'ordre. Si le robot se met à bouger, le simulateur est pret.<br /><br />
+
+
+				Commandes :<br /><br />
+
+				il est possible de contôler le bras, les tambours et la caméra pendant la simulation. Voici la liste des commandes :<br /><br />
+
+				Jouer des notes :<br />
+				touches 'a', 'z', 'e', 'r', 'u', 'i', 'o' pour jouer les 7 notes<br /><br />
+
+				placer/retirer les tambours:
+				touches 'q', 's', 'd', 'f', 'j', 'k', 'l'<br /><br />
+
+				contrôle de la caméra (pavé numérique):<br /><br />
+
+				translations<br />
+				5 : avant<br />
+				2 : arrière<br />
+				1 : gauche<br />
+				3 : droite<br />
+				/ : haut<br />
+				8 : bas<br /><br />
+
+				rotations<br />
+				4 : gauche<br />
+				6 : droite<br />
+				* : haut<br />
+				9 : bas<br /><br />
+
+				zoom : + et -<br /><br />
+
+			</section>
+
+
+			<section class="listsection">
+
+				Drum Player en action : à gauche, piloté par test_game.py, à droite, par test_random.py<br /><br />
+
+				<video width="320" height="240" controls>
+					<source src="/articles/drummer1.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+
+				<video width="320" height="240" controls>
+					<source src="/articles/drummer2.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br /><br />
+
+			</section>
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
