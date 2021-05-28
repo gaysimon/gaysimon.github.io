@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+        <title>Simon GAY</title>
+    </head>
+
+    <body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+
+
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/articles/esimu.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/esimu_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+			
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					ErnestIRL Simulator
+				</p>
+
+				<figure>
+					<a href="/articles/simulation_image.jpg"><img src="/articles/simulation_image.jpg" alt="Simulation" width="450" controls/></a>
+				</figure>
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				A simulation of the <a href="/articles/eirl_en.html">ErnestIRL</a> robot based on the Blender Game Engine (BGE). The simulator uses a modified version of the 3D model of the robot and a virtual environment similar to the one used with the robot.
+				<br /><br />
+
+				Like ErnestIRL, the model has a front contact sensor, a color pattern sensor beneath and a panoramic camera. Note that this camera is composed of a top view camera instead a system using spherical mirror, as BGE cannot simulate a mirror efficiently. The obtained image is sent in front of observation camera using a script that can be found here: <a href="http://www.tutorialsforblender3d.com">www.tutorialsforblender3d.com</a>.
+				<br /><br />
+
+				The simulator communicates with an external decisional mechanism through three files. This solution has the advantage of being simple, and being easy to use on different operating systems and with different programing languages. There is also a strict separation between the decisional system (the agent) and its environment, as the agent can only interact with its environment through interactions, respecting the principles of Radical Interactionism. The decision cycle starts with the agent that writes the symbol of an interaction in file <code>intention.txt</code>, then waits while file <code>enacted.txt</code> is empty. The simulator waits until file <code>intention.txt</code> is empty, then, when it contains a symbol, reads it, erase file contains, and processes the interaction. At the end of the enaction cycle, the simulator write the symbol of the enacted interaction in file <code>enacted.txt</code>. The agent can then read this symbol, and, after erasing it from file, integrates the result of its intention.
+				<br /><br />
+
+				<figure>
+					<img src="/articles/PRI.png" alt="PRI" width="450" />
+					<figcaption>Exchange system between decisional system and simulator</figcaption>
+				</figure>
+
+				A file <code>simulation_image.jpg</code> is generated at each decision cycle. The bottom left part can be used to define visual interactions.
+				<br /><br />
+			</section>
+
+
+			<section class="listsection">
+
+				<br />
+				Resources :
+				<br /><br />
+				- <a href="/articles/Ernest_simulator.zip">Ernest_simulator.zip</a>: archive containing the simulator Blender file, exchange files, and a python script (test_random.py) to test the simulator. Requires Blender 2.69 or above.<br /><br />
+
+				- <a href="/articles/version7_3_simu.zip">version7_3_simu.zip</a> : sources of decisional system 7.3 of Ernest, modified to be used with the simulator.
+				<br /><br />
+
+				- <a href="/articles/spaceMemoryV7_3_simu_(1).txt">spaceMemoryV7_3_simu_(1).txt</a> : save file of signatures learned after 1500 decision cycles, for decisional system v7.3 simu.
+				<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<br />
+				Utilization<br /><br />
+
+				To install the simulator, just unzip it in a directory, then open <code>Ernest_simulation.blend</code> file with Blender. The simulation is started by pressing 'P', and stopped by pressing 'Esc'. You can test the simulator with script <code>test_random.py</code>, by entering, from <code>Ernest_simulator</code> directory, command <code>python test_random.py</code>. If the robot starts to move, the simulator is ready.<br /><br />
+
+
+				Commands :<br /><br />
+
+				It is possible to move elements of the environment, the camera and the robot during the simulation. This is the list of commands:<br /><br />
+
+				Manual control of the robot:<br />
+				z : move forward of one step<br />
+				s : move backward of one step<br />
+				q : turn left<br />
+				d : turn right<br /><br />
+
+				Camera controls (keypad):<br /><br />
+
+				translations<br />
+				5 : front<br />
+				2 : rear<br />
+				1 : left<br />
+				3 : right<br />
+				/ : up<br />
+				8 : down<br /><br />
+
+				rotations<br />
+				4 : left<br />
+				6 : right<br />
+				* : up<br />
+				9 : down<br /><br />
+
+				zoom : + and -<br /><br />
+
+				other<br />
+				p : camera tracks the robot<br /><br />
+
+
+				Environment edition:<br /> 
+				c : select the object to manipulate. The name of the selected object is displayed in terminal.<br />
+				directional arrows : move selected object.<br />
+				h : hide/display selected object.<br /><br />
+
+
+				<video width="320" height="240" controls>
+					<source src="/articles/esimu_camera.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+
+				<video width="320" height="240" controls>
+					<source src="/articles/esimu_edition.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Utilization with decisional mechanisms of Ernest<br /><br />
+				</p>
+
+				It is possible to use decisional mechanisms of our agents to interact with the simulator. The proposed version (v7.3 simu) is a modified version of v7.3 used to control ErnestIRL. The interface and integration of visual system were modified to take properties of the simulator into consideration.<br /><br />
+
+				It is then possible to reproduce experiments conducted with ErnestIRL, with similar results. We can however note that signatures of interactions obtained with the simulator slightly differ from signatures obtained with ErnestIRL, mainly because of differences in their visual systems.<br /><br />
+
+				Learning: at the beginning, the agent is mainly driven by its learning mechanism that leads it to test its interactions and learn signatures. While signatures become reliable, the exploitation mechanism is more often used. After nearly 7 minutes, the agent begins to move toward food while avoiding walls. The learning mechanism is still used in less known contexts. After nearly 17 minutes, the behavior becomes very efficient.<br />
+
+				<video width="640" controls>
+					<source src="/articles/esimu_learning.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+				<br /><br />
+
+				Here, we test obstacle avoidance (learning mechanism is deactivated to do not interfere with emergent behaviors). When the agent is moving toward a prey, we put a wall block in front of it. We then observe an obstacle avoiding behavior to avoid the wall and reach the prey.<br />
+
+				<video width="640" controls>
+					<source src="/articles/esimu_exp1.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+
+			</section>
+		</section>
+	</div>
+		
+	
+	<footer>
+		<p>
+	   		
+
+			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+		<p>
+			&nbsp;Le projet Ernest
+		</p>
+
+
+		</div>
+	</footer>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/articles/esimu.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/esimu_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Simulateur ErnestIRL
+				</p>
+
+				<figure>
+					<a href="/articles/simulation_image.jpg"><img src="/articles/simulation_image.jpg" alt="Simulation" width="450" controls/></a>
+				</figure>
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				Une simulation du robot <a href="/robot/eirl.html">ErnestIRL</a> basé sur le moteur de jeu Blender (BGE). Le simulateur utilise une version modifiée du modèle 3D du robot et un environnement virtuel similaire à celui utilisé pour le robot.
+				<br /><br />
+
+				Tout comme le robot ErnestIRL, le modèle simulé dispose d'un capteur de contact à l'avant, d'un capteur détectant le passage sur des éléments colorés et une caméra.panoramique. Notons que cette dernière est consituée d'une caméra en hauteur plutôt qu'un système basé sur un miroir sphérique, le BGE ne permettant pas en effet de simuler efficacement un miroir. L'image obtenue est envoyée devant la caméra d'observation à l'aide d'un script disponible sur <a href="http://www.tutorialsforblender3d.com">www.tutorialsforblender3d.com</a>.
+				<br /><br />
+
+				Le simulateur échange avec un système décisionnel externe par le biais de trois fichiers. Cette solution, outre sa simplicité, facilite le portage sur différents systèmes d'exploitation ainsi que l'utilisation d'autres langages. La séparation entre le système décisionnel (l'agent) et son environnement est ainsi totale, l'agent n'interagit avec son environnement que sous la forme d'interactions, respectant les principes du Radical Interactionism. Le cycle de décision débute avec l'agent, qui écrit le symbole d'une interaction dans le fichier <code>intention.txt</code>, puis se met en attente tant que le fichier <code>enacted.txt</code> est vide. Le simulateur attend jusqu'à ce que le fichier <code>intention.txt</code> ne soit plus vide, puis, lorsque c'est le cas, lit le symbole, efface le fichier, puis effectue l'interaction. À la fin de l'interaction, le simulateur écrit le symbole de l'intéraction énactée dans le fichier <code>enacted.txt</code>. L'agent peut alors lire ce symbole, puis, après avoir effacé ce dernier, intègre le résulat de son intention.
+				<br /><br />
+
+				<figure>
+					<img src="/articles/PRI.png" alt="PRI" width="450" />
+					<figcaption>Système d'échange entre le système décisionnel et le simulateur</figcaption>
+				</figure>
+
+				Le fichier <code>simulation_image.jpg</code> est généré à chaque cycle de décision. La partie en bas à gauche affiche ce que voit l'agent. Cette partie peut être exploitée pour générer des interactions visuelles.
+				<br /><br />	
+			</section>
+
+
+			<section class="listsection">
+
+				<br />
+				Ressources :
+				<br /><br />
+				- <a href="/articles/Ernest_simulator.zip">Ernest_simulator.zip</a> : archive contenant le fichier Blender de la simulation et les fichiers d'échange, ainsi qu'un script Python (test_random.py) permettant de tester le simulateur. Nécessite Blender 2.69 ou supérieur.<br /><br />
+
+				- <a href="/articles/version7_3_simu.zip">version7_3_simu.zip</a> : sources du système décisionnel 7.3 d'Ernest, modifié pour être utilisé avec le simulateur.
+				<br /><br />
+
+				- <a href="/articles/spaceMemoryV7_3_simu_(1).txt">spaceMemoryV7_3_simu_(1).txt</a> : sauvegarde des signatures apprises après 1500 cycles de décisions, utilisable avec le système décisionnel v7.3 simu.
+				<br /><br />
+
+			</section>
+
+			<section class="listsection">
+
+				<br />
+				Utilisation<br /><br />
+
+				Pour installer le simulateur, il suffit de décompresser l'archive dans un répertoire quelconque, puis d'ouvrir le fichier <code>Ernest_simulation.blend</code> avec Blender. La simulation se lance en appuyant sur la touche 'P', et se termine en appuyant sur 'Echap'. Il est possible de tester le bon fonctionnement du simulateur avec le fichier <code>test_random.py</code>, en exécutant la commande <code>python test_random.py</code> depuis le répertoire <code>Ernest_simulator</code>. Si le robot se met à bouger, le simulateur est pret.<br /><br />
+
+
+				Commandes :<br /><br />
+
+				il est possible de déplacer les élements de l'environnement, la caméra et le robot pendant la simulation. Voici la liste des commandes :<br /><br />
+
+				Contrôle manuel du robot :<br />
+				z : faire avancer le robot d'un pas<br />
+				s : faire reculer le robot d'un pas<br />
+				q : faire tourner le robot à gauche<br />
+				d : faire tourner le robot à droite<br /><br />
+
+				contrôle de la caméra (pavé numérique):<br /><br />
+
+				translations<br />
+				5 : avant<br />
+				2 : arrière<br />
+				1 : gauche<br />
+				3 : droite<br />
+				/ : haut<br />
+				8 : bas<br /><br />
+
+				rotations<br />
+				4 : gauche<br />
+				6 : droite<br />
+				* : haut<br />
+				9 : bas<br /><br />
+
+				zoom : + et -<br /><br />
+
+				autre<br />
+				p : la caméra suit le robot<br /><br />
+
+
+				édition de l'environnement :<br /> 
+				c : choisir l'objet à manipuler. Le nom de l'objet à manipuler est affiché dans la console, si celle-ci est ouverte.<br />
+				flèches directionnelles : déplacer l'objet sélectionné.<br />
+				h : cacher/afficher l'objet sélectionné.<br /><br />
+
+
+				<video width="320" height="240" controls>
+					<source src="/articles/esimu_camera.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+
+				<video width="320" height="240" controls>
+					<source src="/articles/esimu_edition.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+
+			</section>
+
+			<section class="listsection">
+
+				<p>
+					Utilisation avec les mécanismes décisionnels d'Ernest<br /><br />
+				</p>
+
+				Il est possible d'utiliser les mécanismes décisionnels de nos agents pour interagir avec le simulateur. La version proposée (v7.3 simu) est une version modifiée de la version v7.3 permettant de contrôler le robot ErnestIRL. L'interface et l'intégration du système visuels ont été modifiés pour tenir compte des spécificité du simulateur.<br /><br />
+
+				Il devient alors possible de reproduire les expérimentations effectuées avec ErnestIRL, avec des résultats comparables. On notera toutefois que les signatures d'interaction obtenues différent légèrement de celles obtenues avec ErnestIRL, principalement à cause des différences dans leurs systèmes visuels respectifs.<br /><br />
+
+				Apprentissage de l'agent : au début, l'agent est principalement dirigé par le mécanisme d'apprentissage qui le pousse à tester ses interactions pour construire les signatures. À mesure que les signatures deviennent fiable, le mécanisme d'exploitation devient de plus en plus utilisé. Après 7 minutes environ, l'agent commence à générer des comportements le poussant à se diriger vers la nourriture tout en évitant les murs. Le mécanisme d'apprentissage reste cependant utilisé dans les situations peu connues. Après 17 minutes environ, le comportement devient très efficace.<br />
+
+				<video width="640" controls>
+					<source src="/articles/esimu_learning.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+				<br /><br />
+
+				On teste ici l'évitement des obstacles (le mécanisme d'apprentissage est désactivé afin de ne pas parasiter les comportements émergents). Lorsque l'agent se dirige vers une proie, on lui barre le chemin avec un mur. On observe alors un comportement d'évitement pour contourner le mur et atteindre la proie.<br />
+
+				<video width="640" controls>
+					<source src="/articles/esimu_exp1.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+
+			</section>
+		</section>
+	</div>
+
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
