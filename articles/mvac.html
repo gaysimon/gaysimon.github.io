@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/articles/mvac.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/articles/mvac_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+
+		<section class="subsection">
+			<section class="listsection">
+				<p style="text-align: center;font-size: xx-large;">
+					Microvacuum, un environnement minimaliste en ligne de commande
+				</p>
+
+				<figure>
+					<img src="/articles/microvacuum1.png" alt="Microvacuum" />
+				</figure>
+			</section>
+
+			<section class="listsection">
+				<p>
+					Ressources :<br /><br />
+
+					<a href="/articles/microvacuum.zip">sources</a> (Linux, Mac) <br /><br /> 
+
+					Note : la compatibilité Python2/Python3 est assurée en modifiant la fonction :<br />
+
+					<code>
+
+						&nbsp;def input_key(msg):<br />
+
+						&nbsp;&nbsp;	return raw_input(msg)	# Python 2<br />
+
+						&nbsp;&nbsp;	#return input(msg)	# Python 3<br />
+
+					</code>
+					par :<br />
+					<code>
+						&nbsp;def input_key(msg):<br />
+
+						&nbsp;&nbsp;	#return raw_input(msg)	# Python 2<br />
+
+						&nbsp;&nbsp;	return input(msg)	# Python 3<br />
+
+					</code>
+
+					dans microvacuum.py
+				</p>
+			</section>
+
+
+			<section class="listsection">
+
+				<p>
+					Description :<br />
+				</p>
+
+				Microvacuum est un environnement de simulation minimaliste écrit en Python, permettant de tester des modèles d'agents cognitifs. Ce simulateur est constitué de différents éléments :
+				<br /><br />
+
+				&nbsp;- le module principal (microvacuum.py)<br />
+				&nbsp;- un module d'IA<br />
+				&nbsp;- un fichier texte décrivant l'environnement<br />
+				&nbsp;- un fichier texte décrivant l'affichage de l'environnement<br /><br />
+
+				Le module principal initialise et contrôle l'exécution de la simulation, l'interface utilisateur et l'affichage. Il est possible de définir le module IA, les fichiers descripteurs et les paramètres du système visuel dans l'en-tête de ce module. L'environnement est décrit comme une matrice de nombre. L'agent interagit avec l'environnement par le biais de la classe Robot, contenant différentes fonctions et méthodes pour agir dans l'environnement :<br /><br />
+
+				&nbsp;- la position de l'agent est définie par les variables <code>x</code> et <code>y</code>, l'orientation par la variable <code>z</code> (pouvant prendre pour valeur 0, 1, 2 ou 3 correspondant aux orientations 0°, 90°, 180° et 270°). <br />
+				&nbsp;- <code>feel(self,x,y)</code> retourne la valeur de la cellule située aux coordonnées (x,y) par rapport à l'agent
+				<br />
+				&nbsp;- <code>see(self)</code> génère l'image fournie par le système visuel de l'agent
+				<br />
+				&nbsp;- <code>move(self,x,y,z)</code> déplace l'agent (position {x,y} et rotation z).
+				<br />
+				&nbsp;- <code>change(self,x,y,id)</code> remplace la valeur de la cellule située aux coordonnées (x,y) par rapport à l'agent par la valeur id
+				<br /><br />
+
+
+				Les modules d'IA (dans le répertoire <code>AI</code>) contiennent les algorithmes permettant à l'agent de fonctionner. Le fichier Min/ai.py est un module minimal, contenant toutes les fonctions et méthodes nécessaires. Les modules RI1 et PRI1 sont des exemples de modules d'IA respectants les principes du modèle Radical Interactionism.<br /><br />
+
+				&nbsp;- la variable <code>name</code> permet de donner un nom au module, qui sera utilisé pour reconnaître les fichiers de sauvegarde.<br />
+
+				&nbsp;- <code>intend(self)</code> est la méthode qui permet à l'agent d'agir dans son environnement. Cette méthode décrit l'interaction entre l'agent et son environnement. Dans cet exemple, l'agent choisi aléatoirement d'avancer, de tourner à droite ou de tourner à gauche. Les cellules de valeur 1 sont ici définies comme non traversables : si l'agent est face à une cellule de valeur 1, il ne peut pas avancer.<br />
+
+				&nbsp;- <code>display(self)</code> permet de retourner un message à afficher sous l'affichage principal.<br />
+
+				&nbsp;- <code>getDisplayLine(self,l)</code> permet d'afficher des informations à droite de l'affichage principal. Le module principal récupère ces informations ligne par ligne (l).<br />
+
+				&nbsp;- <code>listCommands(self)</code> retourne la description des commandes utilisateur propres à ce module IA.<br />
+
+				&nbsp;- <code>commandLine(self,args)</code> permet de traiter les commandes utilisateur propres à ce module IA. args est une liste de chaines de caractères correspondant à la commande et à d'éventuels arguments.<br />
+
+				&nbsp;- <code>getAgentSymbol(self)</code> permet de spécifier l'indice du caractère à afficher pour représenter l'agent (qui sera récupéré dans le fichier de description de l'affichage). Le symbole peut par exemple varier en foction de l'orientation de l'agent ou en fonctions d'états internes.<br />
+
+				&nbsp;- <code>load(self,text)</code> permet de charger des informations issues de la chaîne de caractère <code>text</code>.<br />
+
+				&nbsp;- <code>save(self)</code> permet de retourner une chaîne de caractère contenant des informations qui seront sauvegardées dans un fichier texte.<br /><br />
+
+
+				Le fichier descripteur de l'environnement est un fichier texte situé dans le répertoire <code>env</code>. L'environnement est décrit sous la forme de nombres séparés par des espaces. Les fichiers <code>env1.txt</code> et <code>env2.txt</code> montrent deux exemples de fichiers descripteurs valides.<br /><br />
+
+
+				Le fichier descripteur de l'affichage est un fichier texte situé dans le répertoire <code>skin</code> et contient les symboles à afficher pour représenter l'environnement et l'agent. Le fichier doit contenir deux lignes : la première contient les symboles représentant l'agent. Notons que si getAgentSymbol(self) retourne un identifiant supérieur au nombre de symboles, le premier symbole sera affiché. La seconde ligne contient la liste des symboles représentant les cellules de l'environnement. Une cellule contenant le nombre N sera représenté par le Nème symbole de cette liste. Si N est supérieur au nombre de symboles, la cellule sera alors représenté par son propre nombre.Les fichier <code>skin1.txt</code> et <code>skin2.txt</code> montrent deux exemples de fichiers descripteurs valides.<br />
+
+			</section>
+
+			<section class="listsection">
+
+				<br />
+				Utilisation :
+				<br /><br />
+				une fois dans le répertoire microvacuum, on lance la simulation par la commande :<br /><br />
+
+				<code>python microvacuum.py</code>
+				<br /><br />
+
+				Le simulateur se lance en mode commande, permettant d'agir sur la simulation. Voici la liste des commandes :<br />
+				&nbsp;&nbsp;   'c [x] [y] [id]': remplacer la valeur de la cellule (x,y) par 'id' <br />
+				&nbsp;&nbsp;   'h': lister les commandes<br />
+				&nbsp;&nbsp;   'load [file]': charger le fichier [file].txt <br />
+				&nbsp;&nbsp;   'm [x] [y] [rz]': changer la position et l'orientation de l'agent par (x;y,rz)<br />
+				&nbsp;&nbsp;   'q': quitter le simulateur<br />
+				&nbsp;&nbsp;   'r': lancer/continuer la simulation<br />
+				&nbsp;&nbsp;   's': avancer la simulation d'un pas<br />
+				&nbsp;&nbsp;   'save [file]': sauvegarder dans [file].txt. Si le fichier existait déjà, il sera écrasé.<br />
+				&nbsp;&nbsp;   'screen [file]': faire une capture d'écran et l'enregistrer dans [file].txt <br />
+				&nbsp;&nbsp;   't' [time]: définir une durée de [time] secondes entre deux pas <br />
+				&nbsp;&nbsp;   'v': afficher/masquer le système visuel<br /><br />
+
+				D'autres commandes peuvent être ajoutées par le module IA<br /><br />
+
+				<figure>
+					<img src="/articles/microvacuum2.png" alt="Microvacuum" />
+				</figure>
+
+				La simulation se lance avec la commande 'r'. Une fois la simulation lancée, on peut mettre en pause et retourner au mode commande en pressant 'p', ou quitter la simulation en pressant 'q'<br />
+
+			</section>
+		</section>
+	</div>
+
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
