@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+                	<a href="/index_en.html">Home</a><br />
+			<a href="/recherches_en.html">Recherches</a><br />
+			<a href="/postdoc_en.html">My PostDoc</a><br />
+			<a href="/these_en.html">My PhD</a><br />
+			<a href="/publi_en.html">Publications</a><br />
+			<a href="/robot_en.html">Robots</a><br />
+			<a href="/software_en.html">Softwares</a><br />
+			<br />
+			<a href="/projects/navig_camera.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/projects/navig_camera_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+<section class="subsection">
+	<p>
+		<center style="text-align: center;font-size: xx-large;">A real-world implementation of a bio-inspired navigation system</center><br /><br />
+			<p>
+				
+
+				<br/>
+				<br/>
+				This system is a real-world implementation of the <a href="/postdoc/navig2_en.html">bio-inspired<a/> navigation model developped during my postdoc at LITIS lab (Rouen). We used a stereo camera to generate the environmental context (Figure 1).<br/>
+<br/>
+As this system is under publication, the detailed description of its mechanisms and results will be available soon. 
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/projects/stereo_camera.jpg" alt="Stereo camera" width="350" />
+			</figure>
+			<p style="text-align: center">
+				Figure 1: The camera is a modified Sony PS4 camera model 1.
+			</p>
+			
+			The visual system uses the disparity between images to detect and localize vertical lines in the scene. These lines are then projected on the n&avigation plane to generate the environmental context (Figure 2). We differentiate lines with positive and negative gradient, which helps recognizing the contexts.
+			
+			<figure style="text-align:center">
+				<img src="/projects/stereo_vision.png" alt="Stereo vision" width="350" />
+			</figure>
+			<p style="text-align: center">
+				Figure 2: The visual system detects vertical lines in the scene (top left) and uses the disparity between stereo images (top right) to detect and localize vertical lines in space. The lines are projected on navigation plane (bottom right) to define the environmental context.
+			</p>
+			
+			<br/>
+			With the camera mounted on a trolley, it is possible to map a path in an unknown environment. The system ws tested in two environments.
+			
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/construction_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Construction of a path in the corridor environment. Grid cells and head direction cells indicate the position and orientation around the current place cell. Place cells are mapped on the global grid (observation tool) allowing to observe the graph (blue points) and the trajectory (cyan line).
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/construction_floor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Construction of a path in the floor loop environment
+			</p>
+			<br/>
+
+			It is then possible to perform the recorded path by following navigation instruction: each place cell gives the position of next place cell. By aligning the direction of the trolley with the direction of the next place cell, it is possible to perform the path.
+
+<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/exploitation_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				following the path in corridor environment.
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/exploitation_floor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				following the path in floor loop environment.
+			</p>
+			<br/>
+			
+			The 
+
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
+
