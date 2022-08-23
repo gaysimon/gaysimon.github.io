@@ -26,16 +26,19 @@
 			<a href="/projects/navig_camera_en.html"><img src="/img/en.png" alt="en" /> </a>
 		</nav>
 
-<section class="subsection">
-	<p>
-		<center style="text-align: center;font-size: xx-large;">A real-world implementation of a bio-inspired navigation system</center><br /><br />
+		<section class="subsection">
+			<p>
+				<center style="text-align: center;font-size: xx-large;">A real-world implementation of a bio-inspired navigation system</center><br /><br />
+			</p>
+			
 			<p>
 				
 
 				<br/>
 				<br/>
+				
 				This system is a real-world implementation of the <a href="/postdoc/navig2_en.html">bio-inspired<a/> navigation model developped during my postdoc at LITIS lab (Rouen). We used a stereo camera to generate the environmental context (Figure 1).<br/>
-<br/>
+				<br/>
 As this system is under publication, the detailed description of its mechanisms and results will be available soon. 
 			</p>
 
@@ -46,7 +49,9 @@ As this system is under publication, the detailed description of its mechanisms 
 				Figure 1: The camera is a modified Sony PS4 camera model 1.
 			</p>
 			
-			The visual system uses the disparity between images to detect and localize vertical lines in the scene. These lines are then projected on the n&avigation plane to generate the environmental context (Figure 2). We differentiate lines with positive and negative gradient, which helps recognizing the contexts.
+			<p>
+				The visual system uses the disparity between images to detect and localize vertical lines in the scene. These lines are then projected on the n&avigation plane to generate the environmental context (Figure 2). We differentiate lines with positive and negative gradient, which helps recognizing the contexts.
+			</p>
 			
 			<figure style="text-align:center">
 				<img src="/projects/stereo_vision.png" alt="Stereo vision" width="350" />
@@ -54,9 +59,16 @@ As this system is under publication, the detailed description of its mechanisms 
 			<p style="text-align: center">
 				Figure 2: The visual system detects vertical lines in the scene (top left) and uses the disparity between stereo images (top right) to detect and localize vertical lines in space. The lines are projected on navigation plane (bottom right) to define the environmental context.
 			</p>
+			<br/>
+			
+		</section>
+
+		<section class="subsection">
 			
 			<br/>
-			With the camera mounted on a trolley, it is possible to map a path in an unknown environment. The system ws tested in two environments.
+			<p>
+				With the camera mounted on a trolley, it is possible to map a path in an unknown environment. The system ws tested in two environments.
+			</p>
 			
 			<p style="text-align: center">
  				<video width="640" controls >
@@ -78,9 +90,15 @@ As this system is under publication, the detailed description of its mechanisms 
 			</p>
 			<br/>
 
-			It is then possible to perform the recorded path by following navigation instruction: each place cell gives the position of next place cell. By aligning the direction of the trolley with the direction of the next place cell, it is possible to perform the path.
+		</section>
 
-<p style="text-align: center">
+		<section class="subsection">
+			<br/>
+			<p>
+				It is then possible to perform the recorded path by following navigation instruction: each place cell gives the position of next place cell. By aligning the direction of the trolley with the direction of the next place cell, it is possible to perform the path.
+			</p>
+			
+			<p style="text-align: center">
  				<video width="640" controls >
   					<source src="/projects/exploitation_corridor.mp4" type="video/mp4">
 					Your browser does not support the video tag.
@@ -101,8 +119,67 @@ As this system is under publication, the detailed description of its mechanisms 
 			<br/>
 			
 			
-	
+		</section>
 
+		<section class="subsection">
+			
+			<br/>
+			<p>
+			The use of a decentralized graph of local models makes the system robust to environment changes: the system only considers points of interest that are close to their expected positions in a local model. Thus, while a sufficient number of points of interest remains unchanged, the system is able to track the position. In the following video, several pieces of furnitures were added or shifted from previously recorded path.
+			</p>
+			
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/robustness_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Robustness of the model to environment changes. We added or shifted tables, chairs, coat hanger, and open several doors.
+			</p>
+			<br/>
+			
+			<p>
+			The local tracking system, using grid and head-direction cells, can track the movements of the camera in all directions, while the camera remains at grid cell module range (here, the module covers a square of 220x220cm). This feature makes possible to track a person in space.
+			</p>
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/lateral_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Tracking movements in space: lateral movement of 60cm to the left of place cell's position (3 grid cells) then 40cm to the right of the place cell's position (2 GCs).
+			</p>
+			<br/>
+			
+		</section>
+
+		<section class="subsection">
+			<br/>
+			
+			<p>
+				We also tested the system with the camera worn on the chest. Despite being not very tolerant to camera's tilt and roll, the system could track the position along the corridor path.
+			
+			</p>
+			
+			<figure style="text-align:center">
+				<img src="/projects/camera_chest.png" alt="Chest camera" width="350" />
+			</figure>
+			<p style="text-align: center">
+				Figure 3: camera attached to a front strap of a bagpack.
+			</p>
+			
+			<br/>
+			
+				<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/walk_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Tracking a person with the camera worn on chest.
+			</p>
+			
+			<br/>
 		</section>
 	</div>
 	
@@ -145,4 +222,3 @@ As this system is under publication, the detailed description of its mechanisms 
 
 </body>
 </html>
-
