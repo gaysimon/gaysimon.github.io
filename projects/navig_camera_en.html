@@ -181,6 +181,34 @@ As this system is under publication, the detailed description of its mechanisms 
 			
 			<br/>
 		</section>
+
+		<section class="subsection">
+			<br/>
+			
+			<p>
+				The navigation system was also tested on a mobile autonomous robot, equipped with a Banana-Pi M5 single-board computer. This test demonstrates the possibility to design embedded small and portative devices, but also the guidance possibilities of the model. Indeed, the robot moves toward the next place cell in the graph, alowing to perform the recorded path autonomously.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/projects/robot.jpg" alt="robot moving through the corridor" width="500" />
+			</figure>
+			<p style="text-align: center">
+				Figure 4: the robotic platform is based on a <a href="https://osoyoo.com/2019/11/08/omni-direction-mecanum-wheel-robotic-kit-v1/">Osoyoo Mecanumm Wheel</a>. The upper deck contains the stereo camera, a powerbank, a Banana Pi M5 single-board computer and a Wifi dongle. The lower deck contains an Arduino Mega board and two motor drivers controlling the four DC motors.
+			</p>
+			
+			<br/>
+			
+				<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/robot_navig.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				The robot follows the path previously recorded in the corridor environment with the trolley. Despite the height difference, the robot is still able to move through the corridor. It however losts the tracking when arriving in the middle room, where the point of view from the ground is too different to recognize the environment.
+			</p>
+			
+			<br/>
+		</section>
 	</div>
 	
 	<footer>
