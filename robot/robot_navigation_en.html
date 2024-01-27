@@ -63,7 +63,7 @@
 
 
 			<figure style="text-align:center">
-				<img src="/robot/mecanuum_platform.jpg" alt="mecanuum platform" width="600" />
+				<img src="/robot/mecanuum_platform.jpg" alt="mecanuum platform" width="400" />
 			</figure>
 			<p style="text-align: center">
 				The Mecanuum Wheel platform, once assembled. The Arduino is equipped with a Wifi/Bluetooth shield. The kit also includes a sonar mounted on a servomotor and a line sensor. 
@@ -114,10 +114,6 @@
 			</p>
 
 			<p>
-				Afin de rendre le robot autonome, tout en permettant du traitement d'image et la localisation, la plateforme a été équipée d'un nano-ordinateur. Les célèbres Raspberry Pi 4 étant en rupture de stock en cette période, notre choix s'est porté sur un modèle équivalent : le <a href="https://wiki.banana-pi.org/Banana_Pi_BPI-M5">Banana Pi M5</a>. Celui-ci n'étant pas équipé d'une connexion Wifi, un dongle doit être ajouté. Le nano-ordinateur tourne sous Raspbian, un dérivé de Debian adapté pour les Raspberry Pi et cartes compatibles.
-La caméra binoculaire est une caméra de Playstation 4 (PS4 eye) modifiée pour pouvoir être branchée sur un port USB3 (tutoriel disponible <a href="https://www.instructables.com/HACK-PlayStation-4-Cam-Into-Cheap-3D-Depth-Camera-/">ici</a>).
-L'ensemble est alimenté par une batterie de type powerbank de 20Ah, indépendante de la batterie des moteurs. Le système communique avec la plateforme robotique par une connexion USB avec l'Arduino du robot.
-
 				In order to make the robot autonomous, while enabling image processing and localisation, the platform is equipped with a nanocomputer. As the famous Raspberry Pi 4 was out of stock at this time, we chose an equivalent model: the <a href="https://wiki.banana-pi.org/Banana_Pi_BPI-M5">Banana Pi M5</a>. This computer doesn't have a Wi-Fi connection, so a Wifi dongle has to be added. The nanocomputer runs under Raspbian, a Debian system adapted for Raspberry Pi and compatible boards.
 The binocular camera is a Playstation 4 (PS4 eye) camera modified to plug into a USB3 port (tutorial available <a href="https://www.instructables.com/HACK-PlayStation-4-Cam-Into-Cheap-3D-Depth-Camera-/">here</a>).
 The system is powered by a 20Ah powerbank, independent of the motor battery. The system communicates with the robotic platform via a USB connection with the Arduino board of the robot.
@@ -189,11 +185,9 @@ The study of our navigation models also focuses on the distribution of the model
 			</p>
 		
 			<figure style="text-align:center">
-				<img src="/robot/robot_barcode.jpg" alt="robot with barcode" width="600" />
+				<img src="/robot/robot_barcode.jpg" alt="robot with barcode" width="300" />
 			</figure>
 			<p style="text-align: center">
-				Le robot équipé de son code-barre vertical. Les deux lignes du haut et la ligne du bas constituent des marqueurs pour reconnaitre le code-barre. Quatres lignes peuvent ensuite figurer sur le code, fournissant un code à 4 bits (ici, le code 1001=9). La ligne de hauteur variable permet une approximation de l'orientation du robot, en comparant la hauteur de la ligne observée et la hauteur du code-barre.
-
 The robot with its vertical barcode. The top two lines and the bottom line act as markers to identify the barcode. Four lines can appear on the code, providing a 4-bit code (here, code 1001=9). The variable-height line provides an approximation of the robot's orientation, by comparing the height of the observed line with the height of the barcode.
 			</p>
 
