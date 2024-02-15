@@ -1,4 +1,8 @@
 
+#include <Wire.h>//https://www.arduino.cc/en/reference/wire
+#include <Adafruit_MPU6050.h>//https://github.com/adafruit/Adafruit_MPU6050
+#include <Adafruit_Sensor.h>//https://github.com/adafruit/Adafruit_Sensor
+
 #define speedPinRF 9            //RIGHT WHEEL PWM pin D45 connect front MODEL-X ENA 
 #define RightMotorDirPin1F  22  //Front Right Motor direction pin 1 to Front MODEL-X IN1  (K1)
 #define RightMotorDirPin2F  24  //Front Right Motor direction pin 2 to Front MODEL-X IN2   (K1)    
@@ -13,6 +17,11 @@
 #define speedPinLB 12           //LEFT WHEEL  PWM pin D8 connect Rear MODEL-X ENB
 #define LeftMotorDirPin1B 7     //Rear left Motor direction pin 1 to Back MODEL-X IN3  K3
 #define LeftMotorDirPin2B 8     //Rear left Motor direction pin 2 to Back MODEL-X IN4  k3
+
+Adafruit_MPU6050 mpu;
+
+long time1;
+long time2;
 
 int code=0;
 
@@ -97,11 +106,29 @@ void backLeft(int speed){
 void setup() {
   Serial1.begin(9600);  // bluetooth serial
   Serial.begin(9600);   // USB serial
+
+  while (!Serial)
+  delay(10); // will pause Zero, Leonardo, etc until serial console opens
+
+  // Try to initialize!
+  if (!mpu.begin()) {
+    Serial.println("Failed to find MPU6050 chip");
+    while (1) {
+      delay(10);
+    }
+  }
+  
+  time1=micros();
+  time2=micros();
 }
 
 void loop() {
-   Serial1.println(" test ");
+  readMPU();
+  controlMotors();
+}
+  
 
+void controlMotors(){
   char character='a';
   int donneesALire = Serial1.available(); // detect characters in buffer
   
@@ -185,4 +212,66 @@ void loop() {
     backRight(speedR2);
     backLeft(speedL2);
   }
+}
+
+
+void readMPU( ) { /* function readMPU */
+  ////Read acceleromter data
+  sensors_event_t a, g, temp;
+  mpu.getEvent(&a, &g, &temp);
+
+  time1=micros();
+
+  Serial1.print((char)255);  // start message sequence
+
+  // time interval
+  int val=time1-time2;
+  int val1=val/254;
+  int val2=val%254;
+  Serial1.print(char(val1));
+  Serial1.print(char(val2));
+
+  // accel X
+  val=(int)( (a.acceleration.x)*100)+32258;
+  val1=val/254;
+  val2=val%254;
+  Serial1.print(char(val1));
+  Serial1.print(char(val2));
+  
+  // accel Y
+  val=(int)( (a.acceleration.y)*100)+32258;
+  val1=val/254;
+  val2=val%254;
+  Serial1.print(char(val1));
+  Serial1.print(char(val2));
+
+  // accel Z
+  val=(int)( (a.acceleration.z)*100)+32258;
+  val1=val/254;
+  val2=val%254;
+  Serial1.print(char(val1));
+  Serial1.print(char(val2));
+
+  // rot x
+  val=(int)(g.gyro.x*100)+32258;
+  val1=val/254;
+  val2=val%254;
+  Serial1.print(char(val1));
+  Serial1.print(char(val2));
+
+  // rot y
+  val=(int)(g.gyro.y*100)+32258;
+  val1=val/254;
+  val2=val%254;
+  Serial1.print(char(val1));
+  Serial1.print(char(val2));
+
+  // rot Z
+  val=(int)(g.gyro.z*100)+32258;
+  val1=val/254;
+  val2=val%254;
+  Serial1.print(char(val1));
+  Serial1.print(char(val2));
+
+  time2=time1;
 }
