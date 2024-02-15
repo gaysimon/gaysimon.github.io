@@ -101,7 +101,41 @@
 
 				- Arduino code: <a href="/robot/robot_control_bluetooth.ino">robot_control_bluetooth.ino</a> <br>
 
-				- Java interface:  <br>
+				- Java interface: <br>
+				&emsp; Mouse control: <a href="/robot/robot_control_mouse.zip">robot_control_mouse.zip</a> <br>
+				&emsp; Gamepad control : <a href="/robot/robot_control_gamepad.zip">robot_control_gamepad.zip</a> <br>
+			</p>
+
+			<p>
+				Instructions :<br>
+				
+				- Connect the robot to your PC, following the <a href="https://osoyoo.com/2022/07/05/v2-metal-chasiss-mecanum-wheel-robotic-for-arduino-mega2560-lesson-4-bluetooth-imitation-driving/">Osoyoo tutorial</a> <br>
+				- Upload the .ino code to the robot's Arduino<br>
+				- Créer un nouveau projet Java, et importer les fichiers d'une des deux archives<br>
+				- Using the Arduino IDE, determine which port the Bluetooth dongle is connected to: the program sends the word "test" continuously, which you can read using the serial monitor. Then select the port for connecting to the Arduino throught USB to release the Bluetooth port.<br>
+				- In the Main class, indicate the port used by the Bluetooth dongle (line 6)<br>
+				- Run the java program. A window should open<br>
+				- Click in the window to start a virtual joystick. Without releasing the button, move the cursor around the initial point to control the robot: left button for forward/backward/translations and right button for forward/backward/rotations. The robot stops when you release the button.<br>
+
+				<figure style="text-align:center">
+					<img src="/robot/virtual_joystick.png" alt="Virtual Joystick" width="250" />
+				</figure>
+
+
+				For gamepad control:<br>
+				- Determine the name of the device from the list displayed in the terminal
+
+				<figure style="text-align:center">
+					<img src="/robot/omni_gamepad1.png" alt="Device list" width="600" />
+				</figure>
+
+				- Copy the device name to the Main class, line 7
+				<figure style="text-align:center">
+					<img src="/robot/omni_gamepad2.png" alt="Gamepad’s name" width="600" />
+				</figure>
+
+				- Restart the Java application
+
 			</p>
 
 <br />
