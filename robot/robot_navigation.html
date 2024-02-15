@@ -100,6 +100,40 @@
 				- Code Arduino : <a href="/robot/robot_control_bluetooth.ino">robot_control_bluetooth.ino</a> <br>
 
 				- Interface Java : <br>
+				&emsp; Contrôle avec souris : <a href="/robot/robot_control_mouse.zip">robot_control_mouse.zip</a> <br>
+				&emsp; Contrôle avec manette : <a href="/robot/robot_control_gamepad.zip">robot_control_gamepad.zip</a> <br>
+			</p>
+
+			<p>
+				Instructions :<br>
+				
+				- Connecter le robot avec votre PC, en suivant le <a href="https://osoyoo.com/2022/07/05/v2-metal-chasiss-mecanum-wheel-robotic-for-arduino-mega2560-lesson-4-bluetooth-imitation-driving/">tutoriel d'Osoyoo</a> <br>
+				- Téléverser le code .ino dans l'Arduino du robot<br>
+				- Créer un nouveau projet Java, et importer les fichiers d'une des deux archives<br>
+				- A l'aide de l'IDE Arduino, déterminer sur quel port le dongle Bluetooth est connecté : le programme envoie le mot "test" en boucle, que vous pouvez lire avec le moniteur série. Sélectionner ensuite le port permettant de se connecter à l'Arduino par USB pour libérer le port Bluetooth<br>
+				- Dans la classe Main, indiquer le port utilisé par le dongle Bluetooth (ligne 6)<br>
+				- Lancer le programme java. Une fenêtre doit s'ouvrir<br>
+				- Cliquer dans la fenêtre pour faire apparaître un joystick virtuel. Sans relâcher le bouton, de déplacer le curseur autour du point initial pour contrôler le robot : bouton gauche pour avant/arrière/translations et bouton droit pour avant/arrière/rotations. Le robot s'arrête quand on relâche le bouton.<br><br>
+
+				<figure style="text-align:center">
+					<img src="/robot/virtual_joystick.png" alt="Joystick virtuel" width="300" />
+				</figure>
+
+
+				Pour utiliser la manette :<br>
+				- Déterminer le nom du périphérique dans la liste qui s'affiche dans le terminal<br>
+
+				<figure style="text-align:center">
+					<img src="/robot/omni_gamepad1.png" alt="liste périphériques" width="600" />
+				</figure>
+
+				- Copier le nom du périphérique dans la classe Main, ligne 7<br>
+				<figure style="text-align:center">
+					<img src="/robot/omni_gamepad2.png" alt="Nom de la manette" width="600" />
+				</figure>
+
+				- Relancer l'application Java
+
 			</p>
 
 <br />
