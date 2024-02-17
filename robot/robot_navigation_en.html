@@ -141,8 +141,61 @@
 				- Restart the Java application
 
 			</p>
-			<br />
 			</section>
+
+			<section class="listsection">
+			
+			<p>	
+				Integration of a GY-87 inertial measurement unit (IMU) :
+				
+				<figure style="text-align:center">
+					<img src="/robot/IMU.jpg" alt="IMU GY-87" width="250" />
+				</figure>
+				<p style="text-align: center">
+					 A GY-87 inertial measurement unit board.
+				</p>
+			</p>
+			
+			
+			<p>	
+				
+				The GY-87 inertial measurement unit is a development board equipped with an MPU6050 accelerometer and gyroscope for measuring accelerations and rotations on 3-axis, a HMC5883L magnetometer that can be used as a compass, and a BMP180 barometric pressure sensor. The card can be powered from either 5V or 3.3V. These sensors provide a relatively accurate estimation of the robot's movements in its environment.
+			</p>
+			
+			<p>
+				Connecting the IMU board to the Arduino is simple:<br>
+				- the power pins are connected to the 5V and Gnd pins on the Arduino.  <br>
+				- sensor data is transmitted through the SCL and SDA pins, connected to the corresponding pins on the Arduino ('SCL 21' and 'SDA 20' pins on the robot's Arduino Mega).
+			
+				<figure style="text-align:center">
+					<img src="/robot/IMU_connect.svg" alt="connection of the IMU board" width="600" />
+				</figure>
+				<p style="text-align: center">
+					Connection of the GY-87 board to the robot's Arduino Mega.
+				</p>
+			
+			</p>
+			
+			<p>
+				You can find out more about how to integrate this IMU card on <a href="https://github.com/OlivierGeorgeon/osoyoo/">Olivier Georgeon</a>'s website.
+			</p>
+							
+			<p>
+				The IMU board is held in a 3D-printed support and positioned on the front of the robot. You will find below the model of the support and the Arduino and Java codes for reading the information from the board.
+			</p>
+			<p>	
+				Code source :<br>
+
+				- Support model: <a href="/robot/IMU.stl">IMU.stl</a> <br>
+				- Arduino code: <a href="/robot/robot_control_bluetooth_IMU.ino">robot_control_bluetooth_IMU.ino</a> <br>
+
+				- Java interface: <br>
+				&emsp; Mouse control: <a href="/robot/robot_control_mouse_IMU.zip">robot_control_mouse_IMU.zip</a> (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> library) <br>
+				&emsp; Gamepad control: <a href="/robot/robot_control_gamepad_IMU.zip">robot_control_gamepad_IMU.zip</a>  (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> and <a href="https://jar-download.com/artifacts/net.java.jinput/jinput/">jinput</a> libraries) <br>
+			</p>
+			
+			</section>
+			
 		</section>
 
 		<section class="subsection">
