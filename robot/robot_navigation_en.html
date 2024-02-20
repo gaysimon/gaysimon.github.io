@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html >
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="/style1.css" type="text/css" />
-	<title>Simon GAY</title>
-</head>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="/style1.css" type="text/css" />
+		<title>Simon GAY</title>
+	</head>
 
-<body>
+	<body>
 	
 	
-	<header>
-		<div id="banniere_image"> </div>
-	</header>
+		<header>
+			<div id="banniere_image"> </div>
+		</header>
 	
-	<div class="main">
-		<nav>
+		<div class="main">
+			<nav>
                 	<a href="/index_en.html">Home</a><br />
 			<a href="/recherches_en.html">Recherches</a><br />
 			<a href="/postdoc_en.html">My PostDoc</a><br />
@@ -25,334 +25,285 @@
 			<br />
 			<a href="/robot/robot_navigation.html"><img src="/img/fr.png" alt="fr" /> </a>
 			<a href="/robot/robot_navigation_en.html"><img src="/img/en.png" alt="en" /> </a>
-		</nav>
+			</nav>
 
-		<section class="subsection">
-			<p>
-				<center style="text-align: center;font-size: xx-large;">Omni-directional robotic platform</center><br /><br />
-			</p>
-			
-
-			<figure style="text-align:center">
-				<img src="/projects/robot.jpg" alt="robotic platform" width="600" />
-			</figure>
-			<p style="text-align: center">
-				An omni-directional platform for studying autonomous navigation models.
-			</p>
-
-			<p>
-				<br/>
-				<br/>
-				
-
-				This robot was designed to test and validate our <a href="https://gaysimon.github.io/postdoc/navig2_en.html">bio-inspired navigation models</a> in a real environment. The choice of platform was dictated by various constraints: omni-directional movements to simulate the movements of a person, affordable to be able to equip with a swarm of robots, and of sufficient size to be equipped with a nanocomputer and a binocular camera. We chose the Mecanuum Wheel platform produced by Osoyoo. This platform was then equipped with an additional stage to support additional components.
-
-			
-		</section>
-
-		<section class="subsection">
-			<section class="listsection">
-
-			<p>
-				<center style="text-align: center;font-size: xx-large;">The Mecanum Wheel platform</center><br /><br />
-			</p>
-
-			<p>
-
-				The Osoyoo Mecanuum Wheel platform provides an interesting base for our test platform: it is relatively simple to assemble and offers omni-directional movement. Its architecture, based on common components (Arduino and L293 motor control board), makes it easy to interface with additional components.
-			</p>
-
-
-			<figure style="text-align:center">
-				<img src="/robot/mecanuum_platform.jpg" alt="mecanuum platform" width="400" />
-			</figure>
-			<p style="text-align: center">
-				The Mecanuum Wheel platform, once assembled. The Arduino is equipped with a Wifi/Bluetooth shield. The kit also includes a sonar mounted on a servomotor and a line sensor. 
-			</p>
-
-			<p>
-				
-
-				The platform is equipped with four 'mecanum' wheels, that are wheels with small internal rollers. Unlike omni-directional wheels (or holonomic wheels), whose rollers are perpendicular to the wheel axis, mecanum wheels have rollers inclined at 45° to the axis. This particular configuration means that a robot equipped with four of these wheels can move in all directions, with one particular direction (forwards/backwards) generating no additional friction due to the rolling of the internal rollers, unlike three-wheeled holonomic robots, whose rollers generate additional friction in all directions.
-			</p>
-
-
-			<figure style="text-align:center">
-				<img src="/robot/Mecanum_wheel_control_principle.png" alt="mecanuum wheels" width="600" />
-			</figure>
-			<p style="text-align: center">
-				Movement of a robot equipped with four mecanum wheels. When two wheels on the same side turn in opposite directions, the forward or backward movement is cancelled out, while the rolling of the rollers causes the robot to move sideways. By adjusting the speed of the four wheels, the robot can move in any direction. (<a href="https://en.wikipedia.org/wiki/Mecanum_wheel">source</a>).
-			</p>
-
-			</section>
-
-			<section class="listsection">
-
-			<p>	
-				Demonstration of the platform's movement capabilities, here controlled with a gamepad:
-			</p>
-			
-			<p style="text-align: center">
- 				<video width="400" controls >
-  					<source src="/robot/robot_control.mp4" type="video/mp4">
-					Your browser does not support the video tag.
-				</video> 
-
-			</p>
-
-			<p>	
-				Source code:<br>
-
-				- Arduino code: <a href="/robot/robot_control_bluetooth.ino">robot_control_bluetooth.ino</a> <br>
-
-				- Java interface: <br>
-				&emsp; Mouse control: <a href="/robot/robot_control_mouse.zip">robot_control_mouse.zip</a> (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> library) <br>
-				&emsp; Gamepad control : <a href="/robot/robot_control_gamepad.zip">robot_control_gamepad.zip</a>  (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> and <a href="https://jar-download.com/artifacts/net.java.jinput/jinput/">jinput</a> libraries) <br>
-			</p>
-
-			<p>
-				Instructions :<br>
-				
-				- Connect the robot to your PC, following the <a href="https://osoyoo.com/2022/07/05/v2-metal-chasiss-mecanum-wheel-robotic-for-arduino-mega2560-lesson-4-bluetooth-imitation-driving/">Osoyoo tutorial</a> <br>
-				- Upload the .ino code to the robot's Arduino<br>
-				- Create a new Java project, and import files from one of the two archives<br>
-				- Using the Arduino IDE, determine which port the Bluetooth dongle is connected to: the program sends the word "test" continuously, which you can read using the serial monitor. Then select the port for connecting to the Arduino throught USB to release the Bluetooth port.<br>
-				- In the Main class, indicate the port used by the Bluetooth dongle (line 6)<br>
-				- Run the java program. A window should open<br>
-				- Click in the window to start a virtual joystick. Without releasing the button, move the cursor around the initial point to control the robot: left button for forward/backward/translations and right button for forward/backward/rotations. The robot stops when you release the button.<br>
-
-				<figure style="text-align:center">
-					<img src="/robot/virtual_joystick.png" alt="Virtual Joystick" width="250" />
-				</figure>
-
-
-				For gamepad control:<br>
-				- Find the name of the device in the list displayed in the terminal
-
-				<figure style="text-align:center">
-					<img src="/robot/omni_gamepad1.png" alt="Device list" width="600" />
-				</figure>
-
-				- Copy the device name to the Main class, line 7
-				<figure style="text-align:center">
-					<img src="/robot/omni_gamepad2.png" alt="Gamepad’s name" width="600" />
-				</figure>
-
-				- Restart the Java application
-
-			</p>
-			</section>
-
-			<section class="listsection">
-			
-			<p>	
-				Integration of a GY-87 inertial measurement unit (IMU) :
-				
-				<figure style="text-align:center">
-					<img src="/robot/IMU.jpg" alt="IMU GY-87" width="250" />
-				</figure>
-				<p style="text-align: center">
-					 A GY-87 inertial measurement unit board.
-				</p>
-			</p>
-			
-			
-			<p>	
-				
-				The GY-87 inertial measurement unit is a development board equipped with an MPU6050 accelerometer and gyroscope for measuring accelerations and rotations on 3-axis, a HMC5883L magnetometer that can be used as a compass, and a BMP180 barometric pressure sensor. The card can be powered from either 5V or 3.3V. These sensors provide a relatively accurate estimation of the robot's movements in its environment.
-			</p>
-			
-			<p>
-				Connecting the IMU board to the Arduino is simple:<br>
-				- the power pins are connected to the 5V and Gnd pins on the Arduino.  <br>
-				- sensor data is transmitted through the SCL and SDA pins, connected to the corresponding pins on the Arduino ('SCL 21' and 'SDA 20' pins on the robot's Arduino Mega).
-			
-				<figure style="text-align:center">
-					<img src="/robot/IMU_connect.svg" alt="connection of the IMU board" width="600" />
-				</figure>
-				<p style="text-align: center">
-					Connection of the GY-87 board to the robot's Arduino Mega.
+			<section class="subsection">
+				<p>
+					<center style="text-align: center;font-size: xx-large;">Omni-directional robotic platform</center><br />
+					<br />
 				</p>
 			
-			</p>
+
+				<figure style="text-align:center">
+					<img src="/projects/robot.jpg" alt="robotic platform" width="600" />
+					<figcaption>An omni-directional platform for studying autonomous navigation models.</figcaption>
+				</figure>
+
+				<br/>
+				<br/>
+				<p>
+					This robot was designed to test and validate our <a href="https://gaysimon.github.io/postdoc/navig2_en.html">bio-inspired navigation models</a> in a real environment. The choice of platform was dictated by various constraints: omni-directional movements to simulate the movements of a person, affordable to be able to equip with a swarm of robots, and of sufficient size to be equipped with a nanocomputer and a binocular camera. We chose the Mecanuum Wheel platform produced by Osoyoo. This platform was then equipped with an additional stage to support additional components.
+				</p>
 			
-			<p>
-				You can find out more about how to integrate this IMU card on <a href="https://github.com/OlivierGeorgeon/osoyoo/">Olivier Georgeon</a>'s website.
-			</p>
+			</section>
+
+			
+			<section class="subsection">
+				<section class="listsection">
+
+					<p>
+						<center style="text-align: center;font-size: xx-large;">The Mecanum Wheel platform</center><br />
+					</p>
+					<br />
+	
+					<p>
+						The <a href=https://osoyoo.com/2022/07/05/v2-metal-chassis-mecanum-wheel-robotic-for-arduino-mega2560-introduction-model-2021006600/>Osoyoo Mecanuum Wheel platform</a> provides an interesting base for our test platform: it is relatively simple to assemble and offers omni-directional movement. Its architecture, based on common components (Arduino and L293 motor control board), makes it easy to interface with additional components.
+					</p>
+	
+					<figure style="text-align:center">
+						<img src="/robot/mecanuum_platform.jpg" alt="mecanuum platform" width="400" />
+						<figcaption>The Mecanuum Wheel platform, once assembled. The Arduino is equipped with a Wifi/Bluetooth shield. The kit also includes a sonar mounted on a servomotor and a line sensor.</figcaption>
+					</figure>
+	
+					<p>
+						The platform is equipped with four 'mecanum' wheels, that are wheels with small internal rollers. Unlike omni-directional wheels (or holonomic wheels), whose rollers are perpendicular to the wheel axis, mecanum wheels have rollers inclined at 45° to the axis. This particular configuration means that a robot equipped with four of these wheels can move in all directions, with one particular direction (forwards/backwards) generating no additional friction due to the rolling of the internal rollers, unlike three-wheeled holonomic robots, whose rollers generate additional friction in all directions.
+					</p>
+	
+					<figure style="text-align:center">
+						<img src="/robot/Mecanum_wheel_control_principle.png" alt="mecanuum wheels" width="600" />
+						<figcaption>Movement of a robot equipped with four mecanum wheels. When two wheels on the same side turn in opposite directions, the forward or backward movement is cancelled out, while the rolling of the rollers causes the robot to move sideways. By adjusting the speed of the four wheels, the robot can move in any direction. (<a href="https://en.wikipedia.org/wiki/Mecanum_wheel">source</a>).</figcaption>
+					</figure>
+
+				</section>
+
+				
+				<section class="listsection">
+
+					<p>	
+						Demonstration of the platform's movement capabilities, here controlled with a gamepad:
+					</p>
+				
+					<p style="text-align: center">
+	 					<video width="400" controls >
+	  						<source src="/robot/robot_control.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+	
+					<p>	
+						Source code:<br>
+						- Arduino code: <a href="/robot/robot_control_bluetooth.ino">robot_control_bluetooth.ino</a> <br>
+						- Java interface: <br>
+						&emsp; Mouse control: <a href="/robot/robot_control_mouse.zip">robot_control_mouse.zip</a> (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> library) <br>
+						&emsp; Gamepad control : <a href="/robot/robot_control_gamepad.zip">robot_control_gamepad.zip</a>  (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> and <a href="https://jar-download.com/artifacts/net.java.jinput/jinput/">jinput</a> libraries) <br>
+					</p>
+	
+					<p>
+						Instructions :<br>
+					
+						- Connect the robot to your PC, following the <a href="https://osoyoo.com/2022/07/05/v2-metal-chasiss-mecanum-wheel-robotic-for-arduino-mega2560-lesson-4-bluetooth-imitation-driving/">Osoyoo tutorial</a> <br>
+						- Upload the .ino code to the robot's Arduino<br>
+						- Create a new Java project, and import files from one of the two archives<br>
+						- Using the Arduino IDE, determine which port the Bluetooth dongle is connected to: the program sends the word "test" continuously, which you can read using the serial monitor. Then select the port for connecting to the Arduino throught USB to release the Bluetooth port.<br>
+						- In the Main class, indicate the port used by the Bluetooth dongle (line 6)<br>
+						- Run the java program. A window should open<br>
+						- Click in the window to start a virtual joystick. Without releasing the button, move the cursor around the initial point to control the robot: left button for forward/backward/translations and right button for forward/backward/rotations. The robot stops when you release the button.<br>
+	
+						<figure style="text-align:center">
+							<img src="/robot/virtual_joystick.png" alt="Virtual Joystick" width="250" />
+						</figure>
+	
+	
+						For gamepad control:<br>
+						- Find the name of the device in the list displayed in the terminal
+	
+						<figure style="text-align:center">
+							<img src="/robot/omni_gamepad1.png" alt="Device list" width="600" />
+						</figure>
+	
+						- Copy the device name to the Main class, line 7
+						<figure style="text-align:center">
+							<img src="/robot/omni_gamepad2.png" alt="Gamepad’s name" width="600" />
+						</figure>
+	
+						- Restart the Java application
+					</p>
+				</section>
+
+				
+				<section class="listsection">
+			
+					<p>	
+						Integration of a GY-87 inertial measurement unit (IMU) :
+				
+						<figure style="text-align:center">
+							<img src="/robot/IMU.jpg" alt="IMU GY-87" width="250" />
+							<figcaption>A GY-87 inertial measurement unit board.</figcaption>
+						</figure>
+					</p>
+			
+					<p>		
+						The GY-87 inertial measurement unit is a development board equipped with an MPU6050 accelerometer and gyroscope for measuring accelerations and rotations on 3-axis, a HMC5883L magnetometer that can be used as a compass, and a BMP180 barometric pressure sensor. The card can be powered from either 5V or 3.3V. These sensors provide a relatively accurate estimation of the robot's movements in its environment.
+					</p>
+			
+					<p>
+						Connecting the IMU board to the Arduino is simple:<br>
+						- the power pins are connected to the 5V and Gnd pins on the Arduino.  <br>
+						- sensor data is transmitted through the SCL and SDA pins, connected to the corresponding pins on the Arduino ('SCL 21' and 'SDA 20' pins on the robot's Arduino Mega).
+			
+						<figure style="text-align:center">
+							<img src="/robot/IMU_connect.svg" alt="connection of the IMU board" width="600" />
+							<figcaption>Connection of the GY-87 board to the robot's Arduino Mega.</figcaption>
+						</figure>
+					</p>
+			
+					<p>
+						You can find out more about how to integrate this IMU card on <a href="https://github.com/OlivierGeorgeon/osoyoo/">Olivier Georgeon</a>'s website.
+					</p>
 							
-			<p>
-				The IMU board is held in a 3D-printed support and positioned on the front of the robot. You will find below the model of the support and the Arduino and Java codes for reading the information from the board.
-			</p>
-			<p>	
-				Code source :<br>
-
-				- Support model: <a href="/robot/IMU.stl">IMU.stl</a> <br>
-				- Arduino code: <a href="/robot/robot_control_bluetooth_IMU.ino">robot_control_bluetooth_IMU.ino</a> <br>
-
-				- Java interface: <br>
-				&emsp; Mouse control: <a href="/robot/robot_control_mouse_IMU.zip">robot_control_mouse_IMU.zip</a> (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> library) <br>
-				&emsp; Gamepad control: <a href="/robot/robot_control_gamepad_IMU.zip">robot_control_gamepad_IMU.zip</a>  (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> and <a href="https://jar-download.com/artifacts/net.java.jinput/jinput/">jinput</a> libraries) <br>
-			</p>
-			
-			</section>
-			
-		</section>
-
-		<section class="subsection">
-			<section class="listsection">
-
-			<p>
-				<center style="text-align: center;font-size: xx-large;">A platform for studying navigation models</center><br /><br />
-			</p>
-
-			<p>
-				In order to make the robot autonomous, while enabling image processing and localisation, the platform is equipped with a nanocomputer. As the famous Raspberry Pi 4 was out of stock at this time, we chose an equivalent model: the <a href="https://wiki.banana-pi.org/Banana_Pi_BPI-M5">Banana Pi M5</a>. This computer doesn't have a Wi-Fi connection, so a Wifi dongle has to be added. The nanocomputer runs under Raspbian, a Debian system adapted for Raspberry Pi and compatible boards.
-The binocular camera is a Playstation 4 (PS4 eye) camera modified to plug into a USB3 port (tutorial available <a href="https://www.instructables.com/HACK-PlayStation-4-Cam-Into-Cheap-3D-Depth-Camera-/">here</a>).
-The system is powered by a 20Ah powerbank, independent of the motor battery. The system communicates with the robotic platform via a USB connection with the Arduino board of the robot.
-
-
-<br/>
-
-			</p>
-		
-			<figure style="text-align:center">
-				<img src="/robot/platform_components.jpg" alt="robot components" width="600" />
-			</figure>
-			<p style="text-align: center">
-				Additional components of the platform. From left to right: the Banana Pi M5 on-board computer (fitted with a WiFi dongle), the modified PS4 eye binocular camera, and the Powerbank battery.
-			</p>
-<br/>
-
-			<p>
-The additional components are placed on a 5mm-thick plexiglass plate held to the chassis by spacers, and held in place by 3D-printed mounts. The Banana Pi case is based on <a href="https://www.thingiverse.com/thing:5147307">this model</a>. The battery support is designed for an Intenso XS20000 powerbank. This support also holds the WiFi dongle, connected to the Banana Pi by a 10cm USB extension cable. The camera mounts are designed for version 1 of the PS4 eye. Two must be printed, one of which must be reversed (symmetrical mounts).
-
-<br />
-
-			- Battery support: <a href="/robot/batterie_support.stl">batterie_support.stl</a><br />
-			- Camera support: <a href="/robot/camera_support.stl">camera_support.stl</a><br />
-
-
-			</p>
-
-<br />
-			<figure style="text-align:center">
-				<img src="/robot/architecture_robot.svg" alt="robot components" width="500" />
-			</figure>
-			<p style="text-align: center">
-
-Platform architecture: on the left, the on-board computer, equipped with a binocular camera and a WiFi dongle, and powered by a powerbank. It communicates via USB with the platform's Arduino, which drives the motors via control boards. The motors are powered by their own battery.
-			</p>
-
-<br />
-	
-			<p>
-				The computer communicates with the Arduino through USB serial port. Here is the source code for the Arduino and a Java class used as an interface:<br />
-
-				- Arduino code: <a href="/robot/robot_control_usb.ino">robot_control_usb.ino</a> <br>
-				- Java interface: <a href="/robot/Robot.java">Robot.java</a> (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> library) <br>
-
-<br />
-
-			</p>
-			
-			</section>
-		</section>
-
-		<section class="subsection">
-			<section class="listsection">
-			<p>
-				<center style="text-align: center;font-size: xx-large;">Location system for a swarm of robots</center><br /><br />
-			</p>
-
-			<p>
-
-The study of our navigation models also focuses on the distribution of the model over several robots. This distribution is designed to spread resource requirements, and therefore the individual resources needed for each robot. This principle implies that, while one robot is guiding the group, the others can be assigned other tasks, while following the guide robot. We have developed a very simple but effective tracking system based on a vertical barcode inscribed on a paper tube placed at the top of each robot. This barcode contains a 4-bits code and provides an approximation of the orientation (see figure below).
-
-<br/>
-
-			</p>
-		
-			<figure style="text-align:center">
-				<img src="/robot/robot_barcode.jpg" alt="robot with barcode" width="300" />
-			</figure>
-			<p style="text-align: center">
-The robot with its vertical barcode. The top two lines and the bottom line act as markers to identify the barcode. Four lines can appear on the code, providing a 4-bit code (here, code 1001=9). The variable-height line provides an approximation of the robot's orientation, by comparing the height of the observed line with the height of the barcode.
-			</p>
-
-			<p>
-				Barcode template (must be printed on a A4 page): <a href="/robot/barcode.svg">barcode.svg</a>
-			</p>
-			<br/>
-			<p>
-
-Exploration with two robots. One robot, here remotely controlled, maps the environment. The second robot follows the first one, then, they exchange their positions at regular intervals. Each robot records only part of the map. Our <a href="https://gaysimon.github.io/projects/navig_swarm1_en.html">bio-inspired navigation model</a> allows such a distribution, but also an exploitation of the distributed model.
-
-
-
-			</p>
-
-			<p style="text-align: center">
- 				<video width="300" controls >
-  					<source src="/robot/multi_robots.mp4" type="video/mp4">
-					Your browser does not support the video tag.
-				</video> 
-
-			</p>
-
-<br />
-			<p>
-				Source code of the barcode detection system:<br />
-				- Java class: <br />
-			</p>
+					<p>
+						The IMU board is held in a 3D-printed support and positioned on the front of the robot. You will find below the model of the support and the Arduino and Java codes for reading the information from the board.
+					</p>
 				
+					<p>	
+						Code source :<br>
+						- Support model: <a href="/robot/IMU.stl">IMU.stl</a> <br>
+						- Arduino code: <a href="/robot/robot_control_bluetooth_IMU.ino">robot_control_bluetooth_IMU.ino</a> <br>
+						- Java interface: <br>
+						&emsp; Mouse control: <a href="/robot/robot_control_mouse_IMU.zip">robot_control_mouse_IMU.zip</a> (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> library) <br>
+						&emsp; Gamepad control: <a href="/robot/robot_control_gamepad_IMU.zip">robot_control_gamepad_IMU.zip</a>  (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> and <a href="https://jar-download.com/artifacts/net.java.jinput/jinput/">jinput</a> libraries) <br>
+					</p>
+			
+				</section>	
 			</section>
-		</section>
 
-	</div>
+			
+			<section class="subsection">
+				<section class="listsection">
+
+					<p>
+						<center style="text-align: center;font-size: xx-large;">A platform for studying navigation models</center><br /><br />
+					</p>
+
+					<p>
+						In order to make the robot autonomous, while enabling image processing and localisation, the platform is equipped with a nanocomputer. As the famous Raspberry Pi 4 was out of stock at this time, we chose an equivalent model: the <a href="https://wiki.banana-pi.org/Banana_Pi_BPI-M5">Banana Pi M5</a>. This computer doesn't have a Wi-Fi connection, so a Wifi dongle has to be added. The nanocomputer runs under Raspbian, a Debian system adapted for Raspberry Pi and compatible boards. The binocular camera is a Playstation 4 (PS4 eye) camera modified to plug into a USB3 port (tutorial available <a href="https://www.instructables.com/HACK-PlayStation-4-Cam-Into-Cheap-3D-Depth-Camera-/">here</a>). The system is powered by a 20Ah powerbank, independent of the motor battery. The system communicates with the robotic platform via a USB connection with the Arduino board of the robot.
+					</p>
+					<br/>
+		
+					<figure style="text-align:center">
+						<img src="/robot/platform_components.jpg" alt="Additionnal components" width="600" />
+						<figcaption>Additional components of the platform. From left to right: the Banana Pi M5 on-board computer (fitted with a WiFi dongle), the modified PS4 eye binocular camera, and the Powerbank battery.</figcaption>
+					</figure>
+					<br/>
+
+					<p>
+						The additional components are placed on a 5mm-thick plexiglass plate held to the chassis by spacers, and held in place by 3D-printed mounts. The Banana Pi case is based on <a href="https://www.thingiverse.com/thing:5147307">this model</a>. The battery support is designed for an Intenso XS20000 powerbank. This support also holds the WiFi dongle, connected to the Banana Pi by a 10cm USB extension cable. The camera mounts are designed for version 1 of the PS4 eye. Two must be printed, one of which must be reversed (symmetrical mounts).<br />
+						- Battery support: <a href="/robot/batterie_support.stl">batterie_support.stl</a><br />
+						- Camera support: <a href="/robot/camera_support.stl">camera_support.stl</a><br />
+					</p>
+					<br />
+					
+					<figure style="text-align:center">
+						<img src="/robot/architecture_robot.svg" alt="Platform architecture" width="500" />
+						<figcaption>Platform architecture: on the left, the on-board computer, equipped with a binocular camera and a WiFi dongle, and powered by a powerbank. It communicates via USB with the platform's Arduino, which drives the motors via control boards. The motors are powered by their own battery.</figcaption>
+					</figure>
+					<br />
+
+					<figure style="text-align:center">
+						<a href="/robot/platform_details.jpg"><img src="/robot/platform_details.jpg" style="border: 2px blue solid" alt="details of additional components" width="500" /></a>
+						<figcaption>Details of the upper plate supporting the additional components</figcaption>
+					</figure>
+					<br />
+				
+					<p>
+						The computer communicates with the Arduino through USB serial port. Here is the source code for the Arduino and a Java class used as an interface:<br />
+						- Arduino code: <a href="/robot/robot_control_usb.ino">robot_control_usb.ino</a> <br>
+						- Java interface: <a href="/robot/Robot.java">Robot.java</a> (requires the <a href="https://github.com/java-native/jssc/releases">JSSC</a> library) <br>
+					</p>
+					<br />
+					
+				</section>
+			</section>
+
+			
+			<section class="subsection">
+				<section class="listsection">
+					<p>
+						<center style="text-align: center;font-size: xx-large;">Location system for a swarm of robots</center><br /><br />
+					</p>
+
+					<p>
+						The study of our navigation models also focuses on the distribution of the model over several robots. This distribution is designed to spread resource requirements, and therefore the individual resources needed for each robot. This principle implies that, while one robot is guiding the group, the others can be assigned other tasks, while following the guide robot. We have developed a very simple but effective tracking system based on a vertical barcode inscribed on a paper tube placed at the top of each robot. This barcode contains a 4-bits code and provides an approximation of the orientation (see figure below).<br/>
+					</p>
+		
+					<figure style="text-align:center">
+						<img src="/robot/robot_barcode.jpg" alt="robot with barcode" width="300" />
+						<figcaption>The robot with its vertical barcode. The top two lines and the bottom line act as markers to identify the barcode. Four lines can appear on the code, providing a 4-bit code (here, code 1001=9). The variable-height line provides an approximation of the robot's orientation, by comparing the height of the observed line with the height of the barcode.</figcaption>
+					</figure>
+
+					<p>
+						Barcode template (must be printed on a A4 page): <a href="/robot/barcode.svg">barcode.svg</a>
+					</p>
+					<br/>
+					
+					<p>
+						Exploration with two robots. One robot, here remotely controlled, maps the environment. The second robot follows the first one, then, they exchange their positions at regular intervals. Each robot records only part of the map. Our <a href="https://gaysimon.github.io/projects/navig_swarm1_en.html">bio-inspired navigation model</a> allows such a distribution, but also an exploitation of the distributed model.
+					</p>
+
+					<p style="text-align: center">
+ 						<video width="300" controls >
+  							<source src="/robot/multi_robots.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					<br />
+			
+					<p>
+						Source code of the barcode detection system:<br />
+						- Java class: <br />
+					</p>
+				
+				</section>
+			</section>
+
+		</div>
+
+		
+		<footer>
+			<p>
+	   			Last updates
+			</p>
+
+			<div class="footsection">
+				<p>
+					&nbsp;ROBOTS :<br />
+					&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
 	
-	<footer>
-		<p>
-	   		
+				</p>
+			</div>
 
-			Last updates
-		</p>
+			<div class="footsection">
+				<p>
+					&nbsp;SOFTWARES :<br />
+					&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+				</p>
+			</div>
 
-		<div class="footsection">
-			<p>
-				&nbsp;ROBOTS :<br />
-				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			<div class="footsection">
+				<p>
+					&nbsp;Le projet Ernest
+				</p>
+			</div>
+		</footer>
 
-			</p>
-
-
-		</div>
-
-		<div class="footsection">
-			<p>
-				&nbsp;SOFTWARES :<br />
-				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
-				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
-			</p>
-
-
-		</div>
-
-		<div class="footsection">
-		<p>
-			&nbsp;Le projet Ernest
-		</p>
-
-
-		</div>
-	</footer>
-
-</body>
+	</body>
 </html>
