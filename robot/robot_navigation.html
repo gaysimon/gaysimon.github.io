@@ -35,10 +35,8 @@
 
 			<figure style="text-align:center">
 				<img src="/projects/robot.jpg" alt="robotic platform" width="600" />
+				<figcaption>Une plateforme omni-directionnelle pour étudier des modèles de navigation autonome.</figcaption>
 			</figure>
-			<p style="text-align: center">
-				Une plateforme omni-directionnelle pour étudier des modèles de navigation autonome.
-			</p>
 
 			<p>
 				<br/>
@@ -65,26 +63,21 @@
 
 			<figure style="text-align:center">
 				<img src="/robot/mecanuum_platform.jpg" alt="mecanuum platform" width="400" />
+				<figcaption>La plateforme Mecanuum Wheel assemblée. L'Arduino est équipé d'un shield Wifi/Bluetooth. Le kit comprend également un sonar monté sur un servomoteur ainsi qu'un capteur de ligne au sol. </figcaption>
 			</figure>
-			<p style="text-align: center">
-				La plateforme Mecanuum Wheel assemblée. L'Arduino est équipé d'un shield Wifi/Bluetooth. Le kit comprend également un sonar monté sur un servomoteur ainsi qu'un capteur de ligne au sol. 
-			</p>
 
 			<p>
 				La plateforme est équipée de quatre roues dite "mecanum", c'est à dire dotées de petites roulettes internes. Contrairement aux roues omni-directionnelles (ou roues holonomes), dont les roulettes sont perpendiculaires à l'axe de la roue, les roues mecanum ont des roulettes inclinées de 45° par rapport à l'axe. Cette configuration particulière permet, avec un robot équipé de quatre de ces roues, de pouvoir se déplacer dans toutes les directions, avec une direction particulière (avant/arrière) ne générant pas de frottement supplémentaire à cause du roulement des roulettes internes, contrairement aux robots holonomes à trois roues, dont les roulettes génèrent un frottement supplémentaire quelle que soit la direction.
 			</p>
 
-
 			<figure style="text-align:center">
 				<img src="/robot/Mecanum_wheel_control_principle.png" alt="mecanuum wheels" width="600" />
+				<figcaption>Déplacements d'un robot équipé de quatre roues mecanum. Lorsque deux roues du même côté tournent en sens inverse, le déplacement vers l'avant ou l'arrière s'annule, tandis que le roulement des roulettes provoque un déplacement sur le côté. En jouant sur la vitesse des quatre roues, le robot peut se déplacer dans toutes les directions (<a href="https://en.wikipedia.org/wiki/Mecanum_wheel">source</a>).</figcaption>
 			</figure>
-			<p style="text-align: center">
-				Déplacements d'un robot équipé de quatre roues mecanum. Lorsque deux roues du même côté tournent en sens inverse, le déplacement vers l'avant ou l'arrière s'annule, tandis que le roulement des roulettes provoque un déplacement sur le côté. En jouant sur la vitesse des quatre roues, le robot peut se déplacer dans toutes les directions (<a href="https://en.wikipedia.org/wiki/Mecanum_wheel">source</a>).
-			</p>
 
-			</section>
+		</section>
 
-			<section class="listsection">
+		<section class="listsection">
 
 			<p>	
 				Démonstration des possibilités de déplacement de la plateforme, ici contrôlé avec une manette de jeux :
@@ -139,26 +132,21 @@
 				- Relancer l'application Java
 
 			</p>
-			</section>
+		</section>
 
-			<section class="listsection">
+		<section class="listsection">
 			
 			<p>	
 				Intégration d'une centrale inertielle (IMU) GY-87 :
 				
 				<figure style="text-align:center">
 					<img src="/robot/IMU.jpg" alt="IMU GY-87" width="250" />
+					<figcaption>Centrale inertielle GY-87.</figcaption>
 				</figure>
-				<p style="text-align: center">
-					Centrale inertielle GY-87.
-				</p>
 			</p>
 			
-			
-			<p>	
-				
+			<p>		
 				La centrale inertielle GY-87 est une carte de développement munie d'un accéléromètre et gyroscope MPU6050 permettant de mesurer les accélérations et les rotations sur 3 axes, d'un magnétomètre HMC5883L pouvant servir de boussole, et d'un capteur de pression barométrique BMP180. La carte peut être alimenté en 5V ou en 3.3V. Ces capteurs permettent une estimation relativement précise des déplacements du robot dans son environnement.
-				
 			</p>
 			
 			<p>
@@ -168,11 +156,8 @@
 			
 				<figure style="text-align:center">
 					<img src="/robot/IMU_connect.svg" alt="connexion de la carte IMU" width="600" />
+					<figcaption>Connexion de la carte GY-87 à l'Arduino Mega du robot.</figcaption>
 				</figure>
-				<p style="text-align: center">
-					Connexion de la carte GY-87 à l'Arduino Mega du robot.
-				</p>
-			
 			</p>
 			
 			<p>
@@ -213,40 +198,38 @@ L'ensemble est alimenté par une batterie de type powerbank de 20Ah, indépendan
 		
 			<figure style="text-align:center">
 				<img src="/robot/platform_components.jpg" alt="robot components" width="600" />
+				<figcaption>Composants additionnels de la plateforme. De gauche à droite : l'ordinateur de bord Banana Pi M5 (équipé d'un dongle Wifi), La caméra binoculaire PS4 eye modifiée, et la batterie Powerbank.</figcaption>
 			</figure>
-			<p style="text-align: center">
-				Composants additionnels de la plateforme. De gauche à droite : l'ordinateur de bord Banana Pi M5 (équipé d'un dongle Wifi), La caméra binoculaire PS4 eye modifiée, et la batterie Powerbank.
-			</p>
-<br/>
+			<br/>
 
 			<p>
 				Les composants additionnels sont placés sur une plaque de plexi de 5mm d'épaisseur maintenue au châssis par des entretoises, et tenu par des supports imprimés en 3D. Le boîtier du Banana Pi est basé sur <a href="https://www.thingiverse.com/thing:5147307">ce modèle</a>. Le support de la batterie est conçue pour une powerbank modèle Intenso XS20000. Ce support maintien également le dongle Wifi, relié au Banana Pi par une rallonge USB de 10cm. Les supports de la caméra sont conçus pour la version 1 de la PS4 eye. Il faut en imprimer deux, dont un qui doit être inversé (supports symétriques).<br />
 
 			- Support batterie : <a href="/robot/batterie_support.stl">batterie_support.stl</a><br />
 			- Support caméra : <a href="/robot/camera_support.stl">camera_support.stl</a><br />
-
-
 			</p>
 
-<br />
+			<br />
 			<figure style="text-align:center">
 				<img src="/robot/architecture_robot.svg" alt="robot components" width="500" />
+				<figcaption>Architecture de la plateforme : à gauche, l'ordinateur de bord, équipé d'une caméra binoculaire et d'un dongle Wifi, et alimenté par une powerbank. Il communique par USB avec l'Arduino de la plateforme, qui pilote les moteurs via des cartes de contrôle. Les moteurs sont alimentés par leur propre batterie.</figcaption>
 			</figure>
-			<p style="text-align: center">
-				Architecture de la plateforme : à gauche, l'ordinateur de bord, équipé d'une caméra binoculaire et d'un dongle Wifi, et alimenté par une powerbank. Il communique par USB avec l'Arduino de la plateforme, qui pilote les moteurs via des cartes de contrôle. Les moteurs sont alimentés par leur propre batterie.
-			</p>
+			<br />
 
-<br />
+			<figure style="text-align:center">
+				<a href="/robot/platform_details.jpg"><img src="/robot/platform_details.jpg" alt="détails composants additionnels" width="500" /></a>
+				<figcaption>Détails de la plaque supérieure supportant les composants additionnels.</figcaption>
+			</figure>
+			<br />
 	
 			<p>
 				La communication s'effectue par le port série USB. Voici le code source pour l'Arduino et une classe Java servant d'interface :<br />
-
 
 				- code arduino : <a href="/robot/robot_control_usb.ino">robot_control_usb.ino</a> <br>
 
 				- interface Java : <a href="/robot/Robot.java">Robot.java</a> (nécessite la librairie <a href="https://github.com/java-native/jssc/releases">JSSC</a>) <br>
 
-<br />
+				<br />
 
 			</p>
 			
@@ -269,10 +252,8 @@ L'ensemble est alimenté par une batterie de type powerbank de 20Ah, indépendan
 		
 			<figure style="text-align:center">
 				<img src="/robot/robot_barcode.jpg" alt="robot with barcode" width="300" />
+				<figcaption>Le robot équipé de son code-barre vertical. Les deux lignes du haut et la ligne du bas constituent des marqueurs pour reconnaitre le code-barre. Quatre lignes peuvent ensuite figurer sur le code, fournissant un code à 4 bits (ici, le code 1001=9). La ligne de hauteur variable permet une approximation de l'orientation du robot, en comparant la hauteur de la ligne observée et la hauteur du code-barre.</figcaption>
 			</figure>
-			<p style="text-align: center">
-				Le robot équipé de son code-barre vertical. Les deux lignes du haut et la ligne du bas constituent des marqueurs pour reconnaitre le code-barre. Quatre lignes peuvent ensuite figurer sur le code, fournissant un code à 4 bits (ici, le code 1001=9). La ligne de hauteur variable permet une approximation de l'orientation du robot, en comparant la hauteur de la ligne observée et la hauteur du code-barre.
-			</p>
 
 			<p>
 				Template du code-barre (doit être imprimé sur une page A4) : <a href="/robot/barcode.svg">barcode.svg</a>
