@@ -149,7 +149,7 @@
 						- les données sont transmises par les broches SCL et SDA, connectées aux broches correspondantes sur l'Arduino (broches 'SCL 21' et 'SDA 20' de l'Arduino Mega du robot).
 			
 						<figure style="text-align:center">
-							<img src="/robot/IMU_connect.svg" alt="connexion de la carte IMU" width="600" />
+							<img src="/robot/IMU_connect.png" alt="connexion de la carte IMU" width="600" />
 							<figcaption>Connexion de la carte GY-87 à l'Arduino Mega du robot.</figcaption>
 						</figure>
 					</p>
@@ -183,7 +183,7 @@
 					</p>
 
 					<p>
-						Afin de rendre le robot autonome, tout en permettant du traitement d'image et la localisation, la plateforme a été équipée d'un nano-ordinateur. Les célèbres Raspberry Pi 4 étant en rupture de stock en cette période, notre choix s'est porté sur un modèle équivalent : le <a href="https://wiki.banana-pi.org/Banana_Pi_BPI-M5">Banana Pi M5</a>. Celui-ci n'étant pas équipé d'une connexion Wifi, un dongle doit être ajouté. Le nano-ordinateur tourne sous Raspbian, un dérivé de Debian adapté pour les Raspberry Pi et cartes compatibles. La caméra binoculaire est une caméra de Playstation 4 (PS4 eye) modifiée pour pouvoir être branchée sur un port USB3 (tutoriel disponible <a href="https://www.instructables.com/HACK-PlayStation-4-Cam-Into-Cheap-3D-Depth-Camera-/">ici</a>). L'ensemble est alimenté par une batterie de type powerbank de 20Ah, indépendante de la batterie des moteurs. Le système communique avec la plateforme robotique par une connexion USB avec l'Arduino du robot.<br/>
+						Afin de rendre le robot autonome, tout en permettant du traitement d'image et la localisation, la plateforme a été équipée d'un nano-ordinateur. Les célèbres Raspberry Pi 4 étant en rupture de stock en cette période, notre choix s'est porté sur un modèle équivalent : le <a href="https://wiki.banana-pi.org/Banana_Pi_BPI-M5">Banana Pi M5</a>. Celui-ci n'étant pas équipé d'une connexion Wifi, un dongle doit être ajouté. Nous avons utilisé un dongle basé sur un chipset Ralink RT5370-MT7601 (attention, le chipset RT5370-MTK7601 ne fonctionne pas avec la version de Raspbian utilisée). La caméra binoculaire est une caméra de Playstation 4 (PS4Eye) modifiée pour pouvoir être branchée sur un port USB3 (tutoriel disponible <a href="https://www.instructables.com/HACK-PlayStation-4-Cam-Into-Cheap-3D-Depth-Camera-/">ici</a>). L'ensemble est alimenté par une batterie de type powerbank de 20Ah, indépendante de la batterie des moteurs. Nous utilisons un cable USB avec interrupteur pour ne pas avoir à débrancher le câble pour couper l'alimentation. Le système communique avec la plateforme robotique par une connexion USB avec l'Arduino du robot.<br/>
 					</p>
 		
 					<figure style="text-align:center">
@@ -193,7 +193,7 @@
 					<br/>
 
 					<p>
-						Les composants additionnels sont placés sur une plaque de plexi de 5mm d'épaisseur maintenue au châssis par des entretoises, et tenu par des supports imprimés en 3D. Le boîtier du Banana Pi est basé sur <a href="https://www.thingiverse.com/thing:5147307">ce modèle</a>. Le support de la batterie est conçue pour une powerbank modèle Intenso XS20000. Ce support maintien également le dongle Wifi, relié au Banana Pi par une rallonge USB de 10cm. Les supports de la caméra sont conçus pour la version 1 de la PS4 eye. Il faut en imprimer deux, dont un qui doit être inversé (supports symétriques).<br />
+						Les composants additionnels sont placés sur une plaque de plexi de 5mm d'épaisseur maintenue au châssis par des entretoises, et tenu par des supports imprimés en 3D. Le boîtier du Banana Pi est basé sur <a href="https://www.thingiverse.com/thing:5147307">ce modèle</a>. Le support de la batterie est conçue pour une powerbank modèle Intenso XS20000, de dimensions 128 x 70 x 25,2 mm. Ce support maintien également le dongle Wifi, relié au Banana Pi par une rallonge USB de 10cm. Les supports de la caméra sont conçus pour la version 1 de la PS4 eye. Il faut en imprimer deux, dont un qui doit être inversé (supports symétriques).<br />
 						- Support batterie : <a href="/robot/batterie_support.stl">batterie_support.stl</a><br />
 						- Support caméra : <a href="/robot/camera_support.stl">camera_support.stl</a><br />
 					</p>
@@ -210,14 +210,88 @@
 						<figcaption>Détails de la plaque supérieure supportant les composants additionnels.</figcaption>
 					</figure>
 					<br />
-	
+
+					<p>	
+						D'un point de vue logiciel, le Banana Pi du robot tourne sous une version de Raspbian adaptée à cette carte (version 2023-05-03, avec un noyau 5.17.2-meson64) disponible sur ce <a href="https://wiki.banana-pi.org/Banana_Pi_BPI-M5#Raspbian">wiki</a>. Il est conseillé d'installer les logiciels suivants :<br/>
+						- openssh-server : pour se connecter en ssh depuis un autre poste,<br/>
+						- xrdp : pour se connecter à distance sur une session graphique (e.g. Remmina),<br/>
+						- OpenJDK : pour utiliser le code fourni sur cette page. Le robot utilise la version 17,<br/>
+						- Eclipse : une IDE pour développer en Java directement sur le robot,<br/>
+						- Python3 : pour utiliser le programme qui transfère le firmware dans la caméra,<br/>
+						- guvcview : pour tester la caméra,<br/>
+						- libjssc-java : une librairie Java pour utilsier le port série.<br/>
+					</p>
+					
 					<p>
 						La communication s'effectue par le port série USB. Voici le code source pour l'Arduino et une classe Java servant d'interface :<br />
 						- code arduino : <a href="/robot/robot_control_usb.ino">robot_control_usb.ino</a> <br>
-						- interface Java : <a href="/robot/Robot.java">Robot.java</a> (nécessite la librairie <a href="https://github.com/java-native/jssc/releases">JSSC</a>) <br>
+						- interface Java : <a href="/robot/Robot.java">Robot.java</a> (nécessite la librairie <a href="https://github.com/java-native/jssc/releases">JSSC</a>, sur le robot, il faudra utiliser le .jar disponible dans /usr/share/java/ après avoir installé libjssc-java) <br>
 					</p>
-					<br />
+
+					<p>
+						Il faut ensuite installer OpenCV pour Java. Vous pouvez suivre ce <a href="https://qengineering.eu/install-opencv-4.4-on-raspberry-pi-4.html>tutoriel"</a>. Il faut toutefois s'assurer, après la commande <code>CMake</code>, que le compilateur a bien trouvé les exécutables ANT et JNI. Il faut également sauter la commande <code>make clean</code> pour ne pas supprimer le fichier .jar généré. Si tout s'est bien déroulé, après une longue compilation, le fichier .jar doit être présent dans le dossier /home/pi/opencv/build/bin, et les librairies .so dans le dossier /home/pi/opencv/build/lib.
+					</p>
 					
+				</section>
+
+
+				<section class="listsection">
+
+					<p>
+						Utilisation de la caméra PS4Eye :
+					</p>
+
+					<p>
+						La PS4Eye necessite de transférer un firmware avant utilisation. Il faut dans un premier temps débrancher puis rebrancher la caméra. Il est possible de tester si la caméra est reconnue avec un <code>lsusb</code> dont le résultat doit faire apparaître la caméra :<br/>
+						<br/>
+					
+						<code>&emsp;ID 05a9:0580 OmniVision Technologies</code> <br/>
+						<br/>
+					
+						Dans le cas contraire, il faut vérifier les connexions.<br/><br/>
+						On transfère ensuite le firmware à l'aide du code fourni <a href="https://github.com/sieuwe1/PS4-eye-camera-for-linux-with-python-and-OpenCV">ici</a> :<br/><br/>
+					
+						<code>
+						&emsp;cd Firmware_loader<br/>
+						&emsp;sudo python3 ps4eye_init.py<br/>
+						</code><br/>
+				
+						Si tout se passe bien, le message suivant doit s'afficher :<br/><br/>
+					
+						<code>&emsp;PS4 camera firmware uploaded and device reset</code><br/><br/>
+					
+						La caméra peut ensuite être utilisée comme une simple webcam (ici, avec guvcview) :
+					
+						<figure style="text-align:center">
+							<img src="/robot/camera_view1.jpg" alt="vue de la caméra" width="700" />
+							<figcaption>Image issue de la caméra : la caméra fournie des images de 3748x808 pixels, comprenant les images des deux caméras et des versions compressées de ces images.</figcaption>
+						</figure>
+						<br/>
+					
+						Les images fournies par la caméra ont une taille de 3748x808 pixels, et comprennent les images issues des deux caméras, de taille 1280x800 pixels chacunes, ainsi que des versions réduites de ces images. Le code suivant permet d'obtenir deux images à partir du flux de la caméra :<br/>
+					
+						- <a href="/robot/camera.zip">camera.zip</a>
+						<br/>
+						<br/>
+					
+						Pour utiliser ce code, créez un nouveau projet (par exemple dans Eclipse), et importez les fichiers de l'archive ci-dessus. Associez la librairie opencv.jar (Build path->Configure build path->Libraries->add external JAR) obtenue après la compilation, puis spécifiez l'emplacement des librairies natives :<br/>
+					
+						<figure style="text-align:center">
+							<img src="/robot/dependancies_opencv.png" alt="librairies OpenCV" width="300" />
+						</figure>
+						<br/>
+					
+						Dans la classe Main, il est possible de spécifier le numéro de la caméra, le framerate (si l'image est trop sombre, baisser à 30fps pour augmenter le temps d'exposition), et activer le réglage automatique de la luminosité (uniquement sous Linux).<br/>
+						L'exécution du programme ouvre une fenêtre affichant les deux images gauche et droite séparées :
+					
+						<figure style="text-align:center">
+							<img src="/robot/camera_view2.jpg" alt="deux images issues de la caméra" width="600" />
+							<figcaption>Images gauche et droite séparées.</figcaption>
+						</figure>
+				
+						A noter : ce programme fonctionne aussi sur un PC Linux ou Windows.
+					</p>
+							
 				</section>
 			</section>
 
