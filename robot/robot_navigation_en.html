@@ -298,6 +298,67 @@
 						Note that this program can also run on a Linux or Windows PC.
 					</p>
 				</section>
+
+				
+				<section class="listsection">
+				
+					<p>
+						A simplified stereoscopic vision system:
+					</p>
+
+					<p>
+						Stereo matching algorithms compare two stereoscopic images of a scene, then determine the position of each pixel of the first image in the second image. The difference in position, or disparity, is used to compute the distance of this point. Stereo matching algorithms can be used to obtain a depth map of the scene. 
+					</p>
+
+					<figure style="text-align:center">
+						<img src="/robot/cones_disparity.jpg" alt="stereo matching between two images" width="600" />
+						<figcaption>Stereo matching algorithm: we use two images from two different points of view (here, the 'cones' images from the <a href="https://vision.middlebury.edu/stereo/data/">Middlebury dataset</a> of 2003). By estimating the disparity of each pixel, we obtain the depth map of the scene (right image).</figcaption>
+					</figure>
+
+					<p>
+						However, stereo matching algorithms are particularly heavy, especially for a nanocomputer. As we are focusing on two-dimensional navigation, the disparity map is not necessary: only the position of points of interest in the plane is required. We propose to use the vertical lines visible in the scene: they are easy to detect, omnipresent in the environment, and localisable using stereo images. In a 'top view' map, these vertical lines become points of interest that can be used to define the position.<br/>
+					</p>
+
+										<p>
+						The algorithm uses the following steps:<br/>
+						- detection of vertical edges,<br/>
+						- detection of main vertical lines, by accumulating des principales lignes verticales, by accumulating the edges of the same column of pixels,<br/>
+						- filter lines to keep only the most pronounced ones,<br/>
+						- get the edge points that are on these lines,<br/>
+						- use an optic flow algorithm on these points, between left and right images,<br/>
+						- compute the points' positions from disparity,<br/>
+						- get the median distance of each vertical line,<br/>
+						- project the lines on the navigation map.<br/>
+					</p>
+
+					<p>
+						We can note the use of an optical flow algorithm (here, the calcOpticalFlowPyrLK function of OpenCV library), diverted from its usual use: rather than measuring the movement of points between two consecutive images, we measure the disparity of these points between the left and right images. Also, the points are separated according to the direction of the contour gradient, giving two types of points of interest.
+					</p>
+
+					<figure style="text-align:center">
+						<img src="/projects/stereo_vision.png" alt="Stereo image processing stages" width="350" />
+						<figcaption>Processing steps: left: vertical edges are detected in an image. The edges are accumulated by column (bottom histogram), allowing the detection of most pronounced lines. The color of lines indicates the gradient direction (dark to light or light to dark). On the right, an optical flow algorithm is applied to the contour points of these lines to obtain the disparity, and then the distances of the lines. Below, these lines are projected on a 'top view' map.</figcaption>
+					</figure>
+
+					<p>
+						This algorithm allowed tests of our bio-inspired navigation system in a <a href="https://gaysimon.github.io/projects/navig_camera_en.html">real environment</a>, initially on a laptop PC, then on the robotic platform.
+					</p>
+
+					<p>
+						The following code can be used to obtain the navigation map from the images from a PS4Eye. It runs at around 40-50 fps on a PC with an i5-10210U CPU, and at around 8-12 fps on a Banana Pi M5.<br/>
+						- <a href="/robot/stereo.zip">stereo.zip</a>
+					</p>
+
+					<p>
+						Like before, you will need to associate the OpenCV libraries with your project, and possibly modify the parameters in the Main class. For greater efficiency, you will also need to change the maximum and minimum height (in cm) of considered points according to the height of the camera, in the StereoVision class, line 277.
+					</p>
+
+					<figure style="text-align:center">
+						<img src="/robot/stereo_camera.png" alt="Obtaining the navigation map" width="600" />
+						<figcaption>Left: the left image from the camera, with the detected vertical lines. Right: the navigation map with points of interest located in space.</figcaption>
+					</figure>
+				
+				</section>
 			</section>
 
 			
