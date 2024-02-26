@@ -293,6 +293,67 @@
 					</p>
 							
 				</section>
+
+				<section class="listsection">
+				
+					<p>
+						Un système de vision stéréoscopique simplifié :
+					</p>
+					
+					<p>
+						Les algorithmes de correspondance stéréoscopiques consistent à comparer deux images stéréoscopiques d'une scène, puis de déterminer la position de chaque pixel de la première image dans la seconde. La différence de position, ou disparité, permet de calculer la distance de ce point. Les algorithmes de concordance stéréoscopiques permettent ainsi d'obtenir la carte de profondeur de la scène. 
+					</p>
+				
+					<figure style="text-align:center">
+						<img src="/robot/cones_disparity.jpg" alt="concordance stéréoscopique entre deux images" width="700" />
+						<figcaption>Algorithme de concordance stéréoscopique : on utilise deux images prises à deux positions différentes (ici, les images 'cônes' du <a href="https://vision.middlebury.edu/stereo/data/">dataset Middlebury</a> de 2003). En estimant la disparité de chaque pixel, on obtient la carte de profondeur de la scène (à droite).</figcaption>
+					</figure>
+					
+					<p>
+						Cependant, les algorithmes de concordance stéréoscopiques sont particulièrement lourd, surtout pour un nano-ordinateur. Comme nous visons une navigation à deux dimensions, la carte de disparité n'est pas nécessaire : seule la position de points d'intérêts dans le plan est nécessaire. Nous avons choisi d'utiliser les lignes verticales visibles dans la scène : elles sont en effet facilement identifiables, omniprésentes dans l'environnement, et localisable à l'aide d'images stéréoscopiques. Dans une carte 'vue du dessus', ces lignes verticales deviennent des points d'intérêt exploitables pour se localiser.<br/>
+					</p>
+					
+					<p>
+						L'algorithme utilise les étapes suivantes :<br/>
+						- détection de contours verticaux,<br/>
+						- détection des principales lignes verticales, par accumulation des contours d'une même colonne de pixels,<br/>
+						- filtrage des lignes pour ne garder que les plus marquées,<br/>
+						- récupérations des points de contours situés sur ces lignes,<br/>
+						- utilisation d'un algorithme de flux optique sur ces points, utilisés entre les deux images,<br/>
+						- calcul de la position des points à partir de la disparité,<br/>
+						- récupération de la distance médiane de chaque ligne verticale,<br/>
+						- projections des lignes sur la carte de navigation.<br/>
+					</p>
+					
+					<p>
+						On notera l'utilisation d'un algorithme de flux optique (ici, la fonction calcOpticalFlowPyrLK d'OpenCV), détourné de son utilisation usuelle : plutôt que de déterminer le mouvement de points entre deux images consécutives, on détermine la disparité de ces points entre les images gauche et droite. D'autre part, on sépare les points selon le sens du gradient du contours, permettant d'obtenir deux types de points d'intérêt.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/stereo_vision.png" alt="Les étapes du traitement des images stéréoscopiques" width="350" />
+						<figcaption>Etapes du traitement : à gauche : des contours verticaux sont détectés dans une image. Les contours sont accumulés par colonne (histogramme en bas), permettant de récupérer les lignes les plus marquées. La couleur de la ligne indique le gradient (foncé vers clair ou clairs vers foncé). A droite, on applique un algorithme de flux optique sur les points de contours de ces lignes pour obtenir leur disparité, et donc la distance de ces lignes. En bas, ces lignes sont projetés sur une carte en 'vue du dessus'.</figcaption>
+					</figure>
+					
+					<p>
+						Cet algorithme nous a permis de tester notre système de navigation bio-inspiré en <a href="https://gaysimon.github.io/projects/navig_camera_en.html">environnement réel</a>, dans un premier temps avec un PC portable, puis sur la plateforme robotique.
+					</p>
+					
+					<p>
+						Le code suivant permet d'obtenir la carte de navigation à partir de l'image issue d'une PS4Eye. Il fonctionne à environ 40-50 images/s sur un PC avec un CPU  i5-10210U, et à environ 8-12 images/s sur le Banana Pi M5.<br/>
+						- <a href="/robot/stereo.zip">stereo.zip</a>
+					</p>
+					
+					<p>
+						Comme précédemment, il faudra associer les librairies OpenCV à votre projet, et éventuellement modifier les paramètres dans la classe Main. Pour plus d'efficacité, il faudra également changer la hauteur maximale et minimale (en cm) des points considérés en fonction de la hauteur de la camera, dans la classe StereoVision, ligne 311.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/stereo_camera.png" alt="Obtention de la carte de navigation" width="350" />
+						<figcaption>A gauche : l'image de gauche issue de la caméra, avec les lignes verticales détectées. A droite : la carte de navigation avec les points d'intérêt localisés dans l'espace.</figcaption>
+					</figure>
+				
+				</section>
+				
 			</section>
 
 			
