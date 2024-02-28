@@ -126,7 +126,7 @@ void loop() {
       //Serial1.print(" ");
       //Serial1.println(((int)character+256)%256);
 
-      // if character is '+', start a new code
+      // if character is 255, start a new code
       if (((int)character+256)%256==255){
         code=1;
         //frontLeft(100);
