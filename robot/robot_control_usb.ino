@@ -99,21 +99,16 @@ void backLeft(int speed){
 
 
 void setup() {
-  // put your setup code here, to run once:
-  //Serial1.begin(9600);//In order to fit the Bluetooth module's default baud rate, only 9600
-  Serial.begin(9600);
+
+  Serial.begin(9600);   // USB serial
 
 }
 
 void loop() {
-   //Serial.println(" test0 ");
-   //Serial1.println(" test1 ");
 
   char character='a';
-  int donneesALire = Serial.available(); //lecture du nombre de caractères disponibles dans le buffer
+  int donneesALire = Serial.available(); // detect characters in buffer
   
-
-
   int complete=0;
 
   if(donneesALire > 0){
@@ -122,15 +117,9 @@ void loop() {
       character = Serial.read();
       if (character<0) character+=256;
       donneesALire = Serial.available();
-      //Serial1.print(character);
-      //Serial1.print(" ");
-      //Serial1.println(((int)character+256)%256);
 
-      // if character is 255, start a new code
       if (((int)character+256)%256==255){
         code=1;
-        //frontLeft(100);
-        //Serial.println("test");
       }
       else{
         if (code==0){
@@ -154,23 +143,12 @@ void loop() {
   }
 
 
-  if (complete==1){
+  if (complete==1){ // once a command is complete, set motor speed
     complete=0;
-    //Serial1.print(vx);
-    //Serial1.print(", ");
-    //Serial1.print(vy);
-    //Serial1.print(", ");
-    //Serial1.println(rz);
 
-    /*int speedR1=(-vx-vy)*4;
-    int speedL1=(vx-vy)*4;
-    int speedR2=(vx-vy)*4;
-    int speedL2=(-vx-vy)*4;*/
-
-    /*int speedR1=(-vx-vy)*4;
-    int speedL1=(vx-vy)*4;
-    int speedR2=(-vx-vy)*4;
-    int speedL2=(vx-vy)*4;*/
+    vx=vx/4;
+    vy=vy/4;
+    rz=rz/10;
 
     int speedR1=(-vx-vy+rz)*4;
     int speedL1=(vx-vy-rz)*4;
@@ -182,18 +160,15 @@ void loop() {
     if (speedR1> 250) speedR1=250;
     if (speedR1<-250) speedR1=-250;
 
-
     if (speedL1>0) speedL1+=50;
     if (speedL1<0) speedL1-=50;
     if (speedL1> 250) speedL1=250;
     if (speedL1<-250) speedL1=-250;
 
-
     if (speedR2>0) speedR2+=50;
     if (speedR2<0) speedR2-=50;
     if (speedR2> 250) speedR2=250;
     if (speedR2<-250) speedR2=-250;
-
  
     if (speedL2>0) speedL2+=50;
     if (speedL2<0) speedL2-=50;
