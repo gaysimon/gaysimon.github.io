@@ -359,6 +359,84 @@
 					</figure>
 				
 				</section>
+
+				<section class="listsection">
+					
+					<p>
+						A web interface control:
+					</p>
+					
+					<p>
+						In order to perform tests on the robot without using a remote graphics session, we developed a web interface based on a minimalist web server. This server provides a single web page with functions for interpreting the information from the robot and drawing the contents of the displays in a web browser. The server also connects to the client using a Java websocket allowing a communication between the client and the server.
+					</p>
+					
+					<p>
+						This server has three components:<br/>
+						- Server.java:  this is the Web server itself. It receives requests from the client and returns the HTML page. It also initialises the next two modules.<br/>
+						- DataWebSocket.java: a class initialising a websocket between the client and the server. The onMessage function is used to process messages from the client. The broadcast function is used to send a message (in the form of strings of characters) to the client.<br/>
+						- VideoSocket.java:  a socket dedicated to sending a video stream. This module runs on a separate thread, and sends the image from the left camera every 100ms.
+					</p>
+						
+					<p>
+						To communicate with the client, the protocol consists of a keyword followed by arguments separated by spaces.<br/>
+						<br/>
+						
+						On the server side, messages are processed in the onMessage function of the DataWebSocket class: <br/>
+						- 'robot' is used to send direction commands to the robot (e.g. 'robot forward'),<br/>
+						- 'system' is used to control the application. The 'system stop' command stops the application.,<br/>
+						- 'message' displays a message on the console.<br/>
+						<br/>
+						
+						On the client side, processing takes place in a JavaScript function associated with an eventListener.<br/>
+						- 'framerate' sets the current framerate in the interface,<br/>
+						- 'context' provides the point context's content as a set of triplets 'type posx distance'.<br/>
+					</p>
+					
+					<p>	
+						The interface with the robot's Arduino is similar to the interface used for joystick control, with messages sent to control the motors, and a Listener to receive movement information, if an IMU is connected to the Arduino.
+					</p>
+					
+					<p>
+						Source code: <br/>
+						- <a href="/robot/robot_control_usb.ino">robot_control_usb.ino</a><br/>
+						- <a href="/robot/robot_control_usb_IMU.ino">robot_control_usb_IMU.ino</a><br/>
+						- <a href="/robot/stereo_server.zip">stereo_server.zip</a>
+						<br/>
+						<br/>
+
+						To use this code, you will need to associate the project not only with the OpenCV libraries, but also with the JSSC.jar library located in the /usr/share/java/ folder (install the package if the library is not there) to communicate with the robot's Arduino, and with the Java-WebSocket.jar, slf4j-api.jar and slf4j-simple.jar libraries used by the server. In the Main class, you will need to specify, if necessary, the port used by the Arduino and the location of the HTML page. It is also possible to enable/disable the window displaying the camera image and the context.<br/>
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/dependancies_server.png" alt="librairies for OpenCV and communication" width="300" />
+					</figure>
+					
+					<p>	
+						The nanocomputer and the client PC must be connected to an open WiFi network. Once the Java application has been launched on the robot, the client PC must simply connect with a Web browser to the robot's address, using port 8080 (for example 192.168.1.100:8080). The Web interface displays the framerate, the image from the left camera and the context reconstructed from data coming from the robot.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/interface1.png" alt="Web interface" width="600" />
+						<figcaption>Interface to control the robot: top part displays the robot's frame rate. Below: points context and view from the left camera. At the bottom: the control buttons, used to control the robot and stop the application. Three buttons illustrate the possibility of sending messages and commands to the robot.</figcaption>
+					</figure>
+					
+					<p>
+						The robot can be controlled using the six buttons. Three buttons have been added to illustrate the possibility to send messages to the server. The content of the messages can be modified in the index.html file, in the 'sendMsg' JavaScript function, and their processing, in the onMessage function of the DataWebSocket class. If an IMU is connected to the Arduino, the robot corrects its trajectory as it moves forward to keep its orientation.
+					</p>
+					
+					
+					<p style="text-align: center">
+						<video width="500" controls >
+							<source src="/robot/robot_web_control.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+					<p>
+						If the application works correctly, it is possible to export an executable JAR, which can be launched from a simple SSH session.
+					</p>
+					
+				</section>
 			</section>
 
 			
