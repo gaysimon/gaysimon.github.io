@@ -145,7 +145,7 @@ void controlMotors(){
       if (character<0) character+=256;
       donneesALire = Serial1.available();
 
-      // if character is '+', start a new code
+      // if character is 255, start a new code
       if (((int)character+256)%256==255){
         code=1;
       }
