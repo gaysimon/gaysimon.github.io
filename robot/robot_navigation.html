@@ -361,27 +361,27 @@
 					</p>
 					
 					<p>
-						Afin d'effectuer des tests sur le robot sans forcément utiliser une session graphique à distance, nous avons développé une interface web reposant sur un serveur web minimaliste. Ce serveur propose une unique page web comportant des fonctions pour interpréter les informations issues du roots et dessiner le contenu des afficheurs dans le navigateur. Le serveur se connecte également au client à l'aide d'un websocket Java autorisant l'échange d'informations entre le client et le serveur.
+						Afin d'effectuer des tests sur le robot sans forcément utiliser une session graphique à distance, nous avons développé une interface web reposant sur un serveur web minimaliste. Ce serveur propose une unique page web comportant des fonctions pour interpréter les informations issues du robot et dessiner le contenu des afficheurs dans le navigateur. Le serveur se connecte également au client à l'aide d'un websocket Java autorisant l'échange d'informations entre le client et le serveur.
 					</p>
 					
 					<p>
 						Ce serveur est constitué de trois éléments :<br/>
-						- Server.java : il s'agit du serveur Web à propement parler. Il reçois les requêtes du client et retourne la page HTML. C'est également lui qui initialise les deux modules suivants.<br/>
-						- DataWebSocket.java : une classe initialisant un websocket entre le client et le serveur. La fonction onMessage permet de traiter les messages issus du client. La fonction broadcast permet d'envoyer un message (sous forme de chaine de catactères) au client.<br/>
+						- Server.java : il s'agit du serveur Web à propement parler. Il reçois les requêtes du client et retourne la page HTML. C'est également lui qui initialise les deux modules suivants,<br/>
+						- DataWebSocket.java : une classe initialisant un websocket entre le client et le serveur. La fonction onMessage permet de traiter les messages issus du client. La fonction broadcast permet d'envoyer un message (sous forme de chaine de catactères) au client,<br/>
 						- VideoSocket.java : un socket dédié à l'envoi d'un flux vidéo. Ce module fonctionne sur un thread séparé, et envoie l'image de la caméra gauche toute les 100ms.
 					</p>
 						
 					<p>
-						Pour la communication avec le client, le protocole consiste en un mot-clé suivi d'éventuels arguments séparés par des espaces.<br/>
+						Pour la communication avec le client, le protocole consiste en un mot-clé suivi d'éventuels arguments séparés par des espaces :<br/>
 						<br/>
 						
-						Côté serveur, le traitement des messages a lieu dans la fonction onMessage de la classe DataWebSocket. <br/>
+						Côté serveur, le traitement des messages a lieu dans la fonction onMessage de la classe DataWebSocket,<br/>
 						- 'robot' permet d'envoyer des commandes de direction au robot (par exemple 'robot forward'),<br/>
 						- 'system' permet de contrôler l'application. La commande 'system stop' permet d'arrêter l'application,<br/>
 						- 'message' permet d'afficher un message sur la console.<br/>
 						<br/>
 						
-						Côté client, le traitement a lieu sans une fonction JavaScript associée à un eventListener.<br/>
+						Côté client, le traitement a lieu dans une fonction JavaScript associée à un eventListener.<br/>
 						- 'framerate' permet d'afficher le nombre d'images/s actuel,<br/>
 						- 'context' fourni le contenu du contexte de points sous forme de triplet 'type posx distance'.<br/>
 					</p>
