@@ -404,7 +404,7 @@
 						<br/>
 						<br/>
 
-						To use this code, you will need to associate the project not only with the OpenCV libraries, but also with the JSSC.jar library located in the /usr/share/java/ folder (install the package if the library is not there) to communicate with the robot's Arduino, and with the Java-WebSocket.jar, slf4j-api.jar and slf4j-simple.jar libraries used by the server. In the Main class, you will need to specify, if necessary, the port used by the Arduino and the location of the HTML page. It is also possible to enable/disable the window displaying the camera image and the context.<br/>
+						To use this code, you will need to associate the project not only with the OpenCV libraries, but also with the JSSC.jar library located in the /usr/share/java/ folder (install the package if the library is not there) to communicate with the robot's Arduino, and with the <a href="https://github.com/TooTallNate/Java-WebSocket/releases">Java-WebSocket.jar</a>, <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-api">slf4j-api.jar</a> and <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-simple">slf4j-simple.jar</a> libraries used by the server. In the Main class, you will need to specify, if necessary, the port used by the Arduino (by default: "/dev/ttyACM0") and the location of the HTML page (by default: "./"). It is also possible to enable/disable the window displaying the camera image and the context.<br/>
 					</p>
 					
 					<figure style="text-align:center">
@@ -478,6 +478,99 @@
 					</p>
 				
 				</section>
+
+				<section class="listsection">
+				
+					<p>
+						A visual localization system:
+					</p>
+				
+					<p>
+						This localisation system allows robots to locate each other, but can also be used as a beacon for navigation-related projects. It uses vertical barcodes inscribed on paper tubes so that they can be seen from any direction, unlike AR markers (or ARtags). However, to measure distances, the barcode must be at the same height as the camera.
+					</p>
+				
+					<p>
+						These barcodes have a header and footer allowing their detection, but also to estimate their distance through their apparent size. The content includes a 4-bit code, allowing to identify the bearer of this code. A band of variable height can also be used to estimate the orientation of the barcode, the height of the visible part being dependent of the point of view.
+					</p>
+				
+					<figure style="text-align:center">
+						<img src="/robot/barcode.png" alt="barcode" width="300" />
+						<figcaption>The barcode consists of horizontal lines. The first two correspond to the header, and the last to the footer, allowing the detection of the barcode. The four lines below the header can be white or black, forming a 4-bit code. The next line has a variable height, allowing to define the orientation of the tube.</figcaption>
+					</figure>
+				
+					<p>
+						The algorithm scans each column of the image, from top to bottom, and looks for horizontal edges. When a strong negative gradient (change from white to black) is detected, the algorithm then looks for a strong positive gradient (change from black to white), enabling a black band to be detected.<br/> When two bands are detected, their heights and spacing are compared: the first band must be twice as high as the second, and the spacing must be equivalent to the height of the second band. If these ratios are respected, a header is detected.<br/>
+						Based on the height of the header, the algorithm determines a search window for the footer. If a black band is detected in this window, a barcode is considered as present.  
+					</p>
+				
+					<p>
+						The algorithm then determines the position of the four bands of the binary code, and reads the colour on these four positions. The obtained binary code gives the barcode identifier.<br/>
+						A search window for the variable band is then defined. The relative height of this band in relation to the height of the code is measured.<br/>
+						Once the image has been scanned, the columns with identical codes are merged to obtain the horizontal position and orientation of the barcode.
+					</p>
+					<br/>
+				
+					<p>
+						This sensor was integrated into the robotic platform application, which now offers three operating modes:<br/>
+						- the mapping mode, which generates a context of points of interest using stereoscopic vision,<br/>
+						- the scanner mode, which detects and displays visible barcodes,<br/>
+						- the tracking mode, which makes the robot following a barcode. 
+					</p>
+				
+					<p>
+						These different modes can be selected via three buttons on the web interface. New keywords have been added to the communication protocol: on the client side, 'changemode' is used to change the application's operating mode. On the server side, 'mode' is used to display the current mode in the web interface.
+					</p>
+				
+					<p style="text-align: center">
+						<video width="400" controls >
+							<source src="/robot/robot_scanner.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+						<br/>
+						The scanner mode displays visible barcodes, showing the identifier, estimated orientation, horizontal position and distance (given here by the apparent height). This mode disables the stereoscopic vision system, allowing the application to run at 25 to 30 fps.
+					</p>
+				
+					<p>
+						The tracking mode makes the robot following a specific barcode. The identifier of the barcode to be tracked must be specified in the parameters of the Main class ('CODE' parameter). The tracking system simply maintains the position of the barcode at a certain distance and orientation from the robot.
+					</p>
+				
+					<p>
+						Tracking mode through interface view:
+					</p>
+				
+					<p style="text-align: center">
+						<video width="400" controls >
+							<source src="/robot/robot_tracking1.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+				
+					<p>
+						Tracking mode through observer view:
+					</p>
+				
+					<p style="text-align: center">
+						<video width="300" controls >
+							<source src="/robot/robot_tracking2.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+
+					<p>
+						Source code :<br/>
+						- <a href="/robot/robot_control_usb.ino">robot_control_usb.ino</a><br/>
+						- <a href="/robot/robot_control_usb_IMU.ino">robot_control_usb_IMU.ino</a><br/>
+						- <a href="/robot/stereo_server_scanner.zip">stereo_server_scanner.zip</a>
+						<br/>
+						<br/>
+					</p>
+				
+					<p>
+						The code is used in the same way as for the server version: the project must be associated with the OpenCV, JSSC.jar, <a href="https://github.com/TooTallNate/Java-WebSocket/releases">Java-WebSocket.jar</a>, <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-api">slf4j-api.jar</a> and <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-simple">slf4j-simple.jar</a>. The port used by the Arduino and the location of the HTML page must then be specified in the Main class. The application can be exported as an executable JAR for use with an SSH connection.
+					</p>
+				
+				</section>
+				
 			</section>
 
 		</div>
