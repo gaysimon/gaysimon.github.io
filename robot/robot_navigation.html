@@ -398,7 +398,7 @@
 						<br/>
 						<br/>
 						
-						Pour utiliser ce code, Il faudra associer au projet non seulement les librairies OpenCV, mais également la librairie JSSC.jar se trouvant dans le dossier /usr/share/java/ (installer le package si la librairie n'y est pas) pour la communication avec l'Arduino du robot, et les librairies Java-WebSocket.jar, slf4j-api.jar et slf4j-simple.jar pour le serveur. Dans la classe Main, il faudra spécifier, si nécessaire, le port utilisé par l'Arduino et l'emplacement de la page HTML. Il est aussi possible d'activer/désactiver la fenêtre affichant l'image de la caméra et le contexte.<br/>
+						Pour utiliser ce code, Il faudra associer au projet non seulement les librairies OpenCV, mais également la librairie JSSC.jar se trouvant dans le dossier /usr/share/java/ (installer le package si la librairie n'y est pas) pour la communication avec l'Arduino du robot, et les librairies <a href="https://github.com/TooTallNate/Java-WebSocket/releases">Java-WebSocket.jar</a>, <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-api">slf4j-api.jar</a> et <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-simple">slf4j-simple.jar</a> pour le serveur. Dans la classe Main, il faudra spécifier, si nécessaire, le port utilisé par l'Arduino et l'emplacement de la page HTML. Il est aussi possible d'activer/désactiver la fenêtre affichant l'image de la caméra et le contexte.<br/>
 					</p>
 					
 					<figure style="text-align:center">
@@ -474,6 +474,98 @@
 						- Classe java : <br />
 					</p>
 			
+				</section>
+
+				<section class="listsection">
+				
+					<p>
+						Un système de localisation visuel :
+					</p>
+				
+					<p>
+						Ce système de localisation permet aux robots de se localiser mutuellement, mais peut également servir de balise pour des projets liés à la navigation. Il repose sur l'utilisations de codes-barres verticaux inscrits sur des tubes de papiers permettant d'être visibles depuis n'importe quelle direction, contrairements aux marqueurs AR (ou ARtags). Cependant, il est nécessaire, pour mesurer les distances, que le code-barre soit à la même hauteur que la caméra.
+					</p>
+				
+					<p>
+						Ces codes-barres comportent un en-tête et un pied-de-page permettant de les reconnaitre, mais également d'en estimer la distance à partir de leur taille apparente. Le contenu comprend un code binaire sur 4 bits, permettant d'identifier le porteur de ce code. Une bande de hauteur variable permet également d'estimer l'orientation du code-barre, la hauteur de la partie visible étant dépendante du point de vue.
+					</p>
+				
+					<figure style="text-align:center">
+						<img src="/robot/barcode.png" alt="code barre" width="300" />
+						<figcaption>Le code-barre est constitué de lignes horizontales. Les deux premières correspondent à l'en-tête, et la dernière, au pied-de-page, permettant la détection du code. Les quatre lignes sous l'en-tête peuvent être blanches ou noires, formant un code sur 4 bits. La ligne suivante a une hauteur variable, permettant de déterminer l'orientation du tube.</figcaption>
+					</figure>
+				
+					<p>
+						L'algorithme scanne chaque colonne de l'image, de haut en bas, et recherche les bordures horizontales. Lorsqu'un fort gradient négatif (passage du blanc au noir) est détecté, l'algorithme cherche ensuite un fort gradient positif (passage du noir au blanc), permettant la détection d'une bande noire.<br/> Lorsque deux bandes sont détectées, leur hauteurs et espacement sont comparés : la première bande doit être deux fois plus haute que la seconde, et l'espacement doit être équivalent à la hauteur de la seconde bande. Si ces rapports sont respectés, un en-tête est detecté.<br/>
+						L'algorithme détermine, à partir de la hauteur de l'en-tête, une fenêtre de recherche pour le pied-de-page. Si une bande noire est détectée dans cette fenêtre, un code-barre est considéré comme présent.  
+					</p>
+				
+					<p>
+						L'algorithme détermine ensuite la position des quatre bandes du code binaire, et lit la couleur sur ces quatre positions. Le code binaire obtenu donne l'identifiant du code-barre.<br/>
+						Puis, une fenêtre de recherche pour la bande variable est définie. La hauteur relative de cette bande par rapport à la heuteur du code est mesurée.<br/>
+						Une fois l'image scannée, les codes identiques sont fusionnés pour obtenir la position horizontale et l'orientation du code-barre.
+					</p>
+					<br/>
+				
+					<p>
+						Ce détecteur a été intégré dans l'application de la plateforme robotique, qui propose désormais trois modes de fonctionnement :<br/>
+						- le mode mapping, qui génère un contexte de points d'intérêts par vision stéréoscopique,<br/>
+						- le mode scanner, qui détecte et affiche le ou les codes-barres visibles,<br/>
+						- le mode suivi, qui permet au robot de suivre un code-barre. 
+					</p>
+				
+					<p>
+						Ces différents modes peuvent être sélectionnés via trois boutons de l'interface web. Le protocole de communication s'enrichit de nouveaux mots-clés : côté client, 'changemode' permet de changer le mode de fonctionnement de l'application. Côté serveur, 'mode' permet d'afficher le mode actuel dans l'interface web. 
+					</p>
+				
+					<p style="text-align: center">
+						<video width="400" controls >
+							<source src="/robot/robot_scanner.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+						<br/>
+						Le mode scanner affiche le ou les codes-barres visibles, en affichant l'identifiant, l'estimation de l'orientation, la position horizontale et la distance (donnée ici par la hauteur apparente). Le mode scanner désactive le système de vision stéréoscopique, permettant à l'application d'attendre entre 25 et 30 images/s.
+					</p>
+				
+					<p>
+						Le mode suivi permet au robot de suivre un code-barre particulier. L'identifiant du code-barre à suivre doit être spécifié dans les paramètres de la classe Main (paramêtre CODE). Le système de suivi cherche simplement à maintenir la position du code-barre à une certaine distance et orientation du robot.
+					</p>
+				
+					<p>
+						Mode suivi vue interface :
+					</p>
+				
+					<p style="text-align: center">
+						<video width="400" controls >
+							<source src="/robot/robot_tracking1.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+				
+					<p>
+						Mode suivi vue observateur :
+					</p>
+				
+					<p style="text-align: center">
+						<video width="300" controls >
+							<source src="/robot/robot_tracking2.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+
+					<p>
+						Code source :<br/>
+						- <a href="/robot/robot_control_usb.ino">robot_control_usb.ino</a><br/>
+						- <a href="/robot/robot_control_usb_IMU.ino">robot_control_usb_IMU.ino</a><br/>
+						- <a href="/robot/stereo_server_scanner.zip">stereo_server_scanner.zip</a>
+						<br/>
+						<br/>
+					</p>
+				
+					<p>
+						L'utilisation du code est identique à la version serveur : le projet doit être associé aux librairies OpenCV, JSSC.jar, <a href="https://github.com/TooTallNate/Java-WebSocket/releases">Java-WebSocket.jar</a>, <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-api">slf4j-api.jar</a> et <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-simple">slf4j-simple.jar</a>. Il faut ensuite spécifier dans la classe Main le port utilisé par l'Arduino et l'emplacement de la page HTML. L'application peut être exportée en exécutable JAR pour une utilisation depuis une connection SSH.
+					</p>
+				
 				</section>
 			</section>
 
