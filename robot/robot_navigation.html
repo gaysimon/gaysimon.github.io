@@ -40,7 +40,7 @@
 				<br/>
 				<br/>
 				<p>
-					Ce robot a été conçu pour tester et valider nos <a href="https://gaysimon.github.io/postdoc/navig2.html">modèles de navigation bio-inspirés</a> en environnement réel. Le choix de la plateforme a été dictée par différentes contraintes : déplacements omni-directionnels pour simuler les déplacements d'une personne, abordable pour pouvoir s'équiper d'une flottille de robot, et d'une taille suffisante pour pouvoir être équipé d'un nano-ordinateur et d'une caméra binoculaire. Notre choix s'est porté sur la plateforme Mecanuum Wheel produit par Osoyoo. Cette plateforme a ensuite été équipée d'un étage supplémentaire pour accueillir de nouveaux composants.
+					Ce robot a été conçu pour tester et valider nos <a href="https://gaysimon.github.io/postdoc/navig2.html">modèles de navigation bio-inspirés</a> en environnement réel. Le choix de la plateforme a été dictée par différentes contraintes : déplacements omni-directionnels pour simuler les déplacements d'une personne, abordable pour pouvoir s'équiper d'une flottille de robot, et d'une taille suffisante pour pouvoir être équipé d'un nano-ordinateur et d'une caméra binoculaire. Notre choix s'est porté sur la plateforme Mecanum Wheel produit par Osoyoo. Cette plateforme a ensuite été équipée d'un étage supplémentaire pour accueillir de nouveaux composants.
 				</p>
 			
 			</section>
@@ -54,13 +54,13 @@
 					</p>
 
 					<p>
-						La plateforme <a href=https://osoyoo.com/2022/07/05/v2-metal-chassis-mecanum-wheel-robotic-for-arduino-mega2560-introduction-model-2021006600/>Mecanuum Wheel de Osoyoo</a> constitue une base intéressante pour notre plateforme de test : elle est relativement simple à assembler et propose des déplacements omni-directionnel. Son architecture, reposant sur des composants répandus (Arduino et carte de contrôle moteur L293), facilite l'interface avec des composants additionnels.
+						La plateforme <a href=https://osoyoo.com/2022/07/05/v2-metal-chassis-mecanum-wheel-robotic-for-arduino-mega2560-introduction-model-2021006600/>Mecanum Wheel de Osoyoo</a> constitue une base intéressante pour notre plateforme de test : elle est relativement simple à assembler et propose des déplacements omni-directionnel. Son architecture, reposant sur des composants répandus (Arduino et carte de contrôle moteur L293), facilite l'interface avec des composants additionnels.
 					</p>
 
 
 					<figure style="text-align:center">
-						<img src="/robot/mecanuum_platform.jpg" alt="mecanuum platform" width="400" />
-						<figcaption>La plateforme Mecanuum Wheel assemblée. L'Arduino est équipé d'un shield Wifi/Bluetooth. Le kit comprend également un sonar monté sur un servomoteur ainsi qu'un capteur de ligne au sol. </figcaption>
+						<img src="/robot/mecanuum_platform.jpg" alt="mecanum platform" width="400" />
+						<figcaption>La plateforme Mecanum Wheel assemblée. L'Arduino est équipé d'un shield Wifi/Bluetooth. Le kit comprend également un sonar monté sur un servomoteur ainsi qu'un capteur de ligne au sol. </figcaption>
 					</figure>
 
 					<p>
@@ -68,7 +68,7 @@
 					</p>
 
 					<figure style="text-align:center">
-						<img src="/robot/Mecanum_wheel_control_principle.png" alt="mecanuum wheels" width="600" />
+						<img src="/robot/Mecanum_wheel_control_principle.png" alt="mecanum wheels" width="600" />
 						<figcaption>Déplacements d'un robot équipé de quatre roues mecanum. Lorsque deux roues du même côté tournent en sens inverse, le déplacement vers l'avant ou l'arrière s'annule, tandis que le roulement des roulettes provoque un déplacement sur le côté. En jouant sur la vitesse des quatre roues, le robot peut se déplacer dans toutes les directions (<a href="https://en.wikipedia.org/wiki/Mecanum_wheel">source</a>).</figcaption>
 					</figure>
 
@@ -326,7 +326,7 @@
 					</p>
 					
 					<p>
-						On notera l'utilisation d'un algorithme de flux optique (ici, la fonction calcOpticalFlowPyrLK d'OpenCV), détourné de son utilisation usuelle : plutôt que de déterminer le mouvement de points entre deux images consécutives, on détermine la disparité de ces points entre les images gauche et droite. D'autre part, on sépare les points selon le sens du gradient du contours, permettant d'obtenir deux types de points d'intérêt.
+						On notera l'utilisation d'un algorithme de flux optique (ici, la fonction <code>calcOpticalFlowPyrLK</code> d'OpenCV), détourné de son utilisation usuelle : plutôt que de déterminer le mouvement de points entre deux images consécutives, on détermine la disparité de ces points entre les images gauche et droite. D'autre part, on sépare les points selon le sens du gradient du contours, permettant d'obtenir deux types de points d'intérêt.
 					</p>
 					
 					<figure style="text-align:center">
@@ -367,7 +367,7 @@
 					<p>
 						Ce serveur est constitué de trois éléments :<br/>
 						- Server.java : il s'agit du serveur Web à propement parler. Il reçois les requêtes du client et retourne la page HTML. C'est également lui qui initialise les deux modules suivants,<br/>
-						- DataWebSocket.java : une classe initialisant un websocket entre le client et le serveur. La fonction onMessage permet de traiter les messages issus du client. La fonction broadcast permet d'envoyer un message (sous forme de chaine de catactères) au client,<br/>
+						- DataWebSocket.java : une classe initialisant un websocket entre le client et le serveur. La fonction <code>onMessage</code> permet de traiter les messages issus du client. La fonction broadcast permet d'envoyer un message (sous forme de chaine de catactères) au client,<br/>
 						- VideoSocket.java : un socket dédié à l'envoi d'un flux vidéo. Ce module fonctionne sur un thread séparé, et envoie l'image de la caméra gauche toute les 100ms.
 					</p>
 						
@@ -451,28 +451,6 @@
 						<img src="/robot/robot_barcode.jpg" alt="robot with barcode" width="300" />
 						<figcaption>Le robot équipé de son code-barre vertical. Les deux lignes du haut et la ligne du bas constituent des marqueurs pour reconnaitre le code-barre. Quatre lignes peuvent ensuite figurer sur le code, fournissant un code à 4 bits (ici, le code 1001=9). La ligne de hauteur variable permet une approximation de l'orientation du robot, en comparant la hauteur de la ligne observée et la hauteur du code-barre.</figcaption>
 					</figure>
-
-					<p>
-						Template du code-barre (doit être imprimé sur une page A4) : <a href="/robot/barcode.svg">barcode.svg</a>
-					</p>
-					<br/>
-					
-					<p>
-						Exploration avec deux robots. Un robot, ici piloté à distance, cartographie l'environnement. Le second robot suit le premier, puis, à intervalles réguliers, échangent leurs positions. Chaque robot n'enregistre qu'une partie de la carte. Notre <a href="https://gaysimon.github.io/projects/navig_swarm1_en.html">modèle de navigation bio-inspiré</a> autorise cette distribution, mais aussi une exploitation d'un tel modèle distribué.
-					</p>
-
-					<p style="text-align: center">
- 						<video width="300" controls >
-  							<source src="/robot/multi_robots.mp4" type="video/mp4">
-							Your browser does not support the video tag.
-						</video> 
-					</p>
-					<br />
-					
-					<p>
-						Code source du système de détection de code-barre :<br />
-						- Classe java : <br />
-					</p>
 			
 				</section>
 
@@ -563,12 +541,73 @@
 					</p>
 				
 					<p>
-						L'utilisation du code est identique à la version serveur : le projet doit être associé aux librairies OpenCV, JSSC.jar, <a href="https://github.com/TooTallNate/Java-WebSocket/releases">Java-WebSocket.jar</a>, <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-api">slf4j-api.jar</a> et <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-simple">slf4j-simple.jar</a>. Il faut ensuite spécifier dans la classe Main le port utilisé par l'Arduino et l'emplacement de la page HTML. L'application peut être exportée en exécutable JAR pour une utilisation depuis une connection SSH.
+						L'utilisation du code est identique à la version serveur : le projet doit être associé aux librairies OpenCV, JSSC.jar, <a href="https://github.com/TooTallNate/Java-WebSocket/releases">Java-WebSocket.jar</a>, <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-api">slf4j-api.jar</a> et <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-simple">slf4j-simple.jar</a>. Il faut ensuite spécifier dans la classe Main le port utilisé par l'Arduino et l'emplacement de la page HTML. L'application peut être exportée en exécutable JAR pour une utilisation depuis une connexion SSH.
+					</p>
+				
+				</section>
+
+
+				<section class="listsection">
+				
+					<p>
+						Un système de communication entre robots :
+					</p>
+				
+					<p>
+						Pour permettre aux différents robots de la flotte de communiquer entre eux, nous avons ajouté un système de communication. Ce système repose sur le serveur déjà développé, et utilise les requêtes de type POST pour tranmettre des messages.
+					</p>
+				
+					<p>
+						Les robots sont identifiés par un numéro d'identification défini comme le quatrième nombre de son adresse IP sur le réseau. Ainsi, un robot avec une adresse IP de 192.168.1.120 aura l'identifiant 120. Le protocole de communication retenu est le suivant : une communication est constituée du numéro de l'expéditeur et du message à envoyer sous forme d'une chaine de caractère, séparés par un point-virgule. Ce message est constitué soit d'un mot-clé seul, soit d'un mot-clé suivi de paramètres. Dans ce second cas, le mot-clé et ses paramètres sont séparés par un point-virgule, et les paramètres sont séparés entre eux par des virgules. L'exemple suivant montre une syntaxe valide, avec 120 l'adresse de l'expéditeur, "control" le mot-clé et "wait" et "5000" des paramètres :
+					</p>
+				
+					<div  style="text-align: center">
+						<code>
+							"120;control;wait,5000"
+						</code>
+					</div>
+				
+					<p>
+						La classe Serveur est modifiée pour traiter les requêtes de type POST : un message reçu est décomposé en identifiant, mot-clé et liste de paramètres. Le serveur stocke les informations liées au dernier message reçu pour un traitement ultérieur (le message peut ensuite être effacé avec la procédure <code>clear()</code>). Il est également possible de traiter directement le message dans la procédure <code>PostHandler</code> de la classe Serveur.
+					</p>
+				
+					<p>
+						Pour l'envoi de message, une nouvelle classe a été ajouté : la classe Talky. Celle-ci définit l'identifiant du robot à partir de son adresse IP et fournit une procédure <code>sendMsg</code> permettant d'envoyer un message à un autre robot. La procédure prend en argument l'identifiant du destinataire et le message (la procédure ajoute automatiquement l'identifiant expéditeur au message avant l'envoi).
+					</p>
+				
+					<p>
+						L'interface Web se voit ajouter un champ et un bouton illustrant l'envoi d'un message à un robot dont l'identifiant est spécifié. Ce message s'affichera dans le terminal du robot destinataire. Notons l'ajout du mot-clé 'message' dans l'interface Web pour demander au serveur d'envoyer un message via la procédure <code>sendMsg</code>.
+					</p>
+				
+					<figure style="text-align:center">
+						<img src="/robot/interface3.png" alt="Interface Web avec communication entre robots" width="600" />
+						<figcaption>Interface améliorée : le champ texte permet d'indiquer l'identifiant d'un robot de la flotte. En cliquant sur le bouton associé, un message est envoyé à ce robot, qui s'affichera dans son terminal.</figcaption>
+					</figure>
+				
+					<p>
+						Code source :<br/>
+						- <a href="/robot/robot_control_usb.ino">robot_control_usb.ino</a><br/>
+						- <a href="/robot/robot_control_usb_IMU.ino">robot_control_usb_IMU.ino</a><br/>
+						- <a href="/robot/stereo_server_scanner_talky.zip">stereo_server_scanner_talky.zip</a>
+					</p>
+				
+					<p>
+						L'utilisation du code est identique à la version précédente, et nécessite l'association des mêmes librairies et la spécification des mêmes paramètres.
+					</p>
+				
+					<p>
+						Ce système de communication a été utilisé pour étudier les possibilités de cartographie et de guidage sur plusieurs robots. Ici, un robot est piloté à distance et cartographie l'environnement. Le second robot suit le premier, puis, à intervalles réguliers, échangent leurs positions. Le système de communication permet aux robots de se synchroniser pendant l'échange. Chaque robot n'enregistre qu'une partie de la carte. Notre <a href="https://gaysimon.github.io/projects/navig_swarm1_en.html">modèle de navigation bio-inspiré</a> autorise cette distribution, mais aussi une exploitation d'un tel modèle distribué.
+					</p>
+
+					<p style="text-align: center">
+ 						<video width="300" controls >
+  							<source src="/robot/multi_robots.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
 					</p>
 				
 				</section>
 			</section>
-
 		</div>
 
 		
