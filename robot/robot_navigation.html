@@ -398,7 +398,7 @@
 						<br/>
 						<br/>
 						
-						Pour utiliser ce code, Il faudra associer au projet non seulement les librairies OpenCV, mais également la librairie JSSC.jar se trouvant dans le dossier /usr/share/java/ (installer le package si la librairie n'y est pas) pour la communication avec l'Arduino du robot, et les librairies <a href="https://github.com/TooTallNate/Java-WebSocket/releases">Java-WebSocket.jar</a>, <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-api">slf4j-api.jar</a> et <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-simple">slf4j-simple.jar</a> pour le serveur. Dans la classe Main, il faudra spécifier, si nécessaire, le port utilisé par l'Arduino et l'emplacement de la page HTML. Il est aussi possible d'activer/désactiver la fenêtre affichant l'image de la caméra et le contexte.<br/>
+						Pour utiliser ce code, Il faudra associer au projet non seulement les librairies OpenCV, mais également la librairie JSSC.jar se trouvant dans le dossier /usr/share/java/ (installer le package si la librairie n'y est pas) pour la communication avec l'Arduino du robot, et les librairies <a href="https://github.com/TooTallNate/Java-WebSocket/releases">Java-WebSocket.jar</a>, <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-api">slf4j-api.jar</a> et <a href="https://jar-download.com/artifacts/org.slf4j/slf4j-simple">slf4j-simple.jar</a> pour le serveur. Dans la classe Main, il faudra spécifier, si nécessaire, le port utilisé par l'Arduino (par défaut "/dev/ttyACM0") et l'emplacement de la page HTML (par défaut "./"). Il est aussi possible d'activer/désactiver la fenêtre affichant l'image de la caméra et le contexte.<br/>
 					</p>
 					
 					<figure style="text-align:center">
@@ -483,7 +483,7 @@
 					</p>
 				
 					<p>
-						Ce système de localisation permet aux robots de se localiser mutuellement, mais peut également servir de balise pour des projets liés à la navigation. Il repose sur l'utilisations de codes-barres verticaux inscrits sur des tubes de papiers permettant d'être visibles depuis n'importe quelle direction, contrairements aux marqueurs AR (ou ARtags). Cependant, il est nécessaire, pour mesurer les distances, que le code-barre soit à la même hauteur que la caméra.
+						Ce système de localisation permet aux robots de se localiser mutuellement, mais peut également servir de balise pour des projets liés à la navigation. Il repose sur l'utilisation de codes-barres verticaux inscrits sur des tubes de papiers permettant d'être visibles depuis n'importe quelle direction, contrairement aux marqueurs AR (ou ARtags). Cependant, il est nécessaire, pour mesurer les distances, que le code-barre soit à la même hauteur que la caméra.
 					</p>
 				
 					<p>
@@ -496,7 +496,7 @@
 					</figure>
 				
 					<p>
-						L'algorithme scanne chaque colonne de l'image, de haut en bas, et recherche les bordures horizontales. Lorsqu'un fort gradient négatif (passage du blanc au noir) est détecté, l'algorithme cherche ensuite un fort gradient positif (passage du noir au blanc), permettant la détection d'une bande noire.<br/> Lorsque deux bandes sont détectées, leur hauteurs et espacement sont comparés : la première bande doit être deux fois plus haute que la seconde, et l'espacement doit être équivalent à la hauteur de la seconde bande. Si ces rapports sont respectés, un en-tête est detecté.<br/>
+						L'algorithme scanne chaque colonne de l'image, de haut en bas, et recherche les bordures horizontales. Lorsqu'un fort gradient négatif (passage du blanc au noir) est détecté, l'algorithme cherche ensuite un fort gradient positif (passage du noir au blanc), permettant la détection d'une bande noire.<br/> Lorsque deux bandes sont détectées, leur hauteurs et espacement sont comparés : la première bande doit être deux fois plus haute que la seconde, et l'espacement doit être équivalent à la hauteur de la seconde bande. Si ces rapports sont respectés, un en-tête est détecté.<br/>
 						L'algorithme détermine, à partir de la hauteur de l'en-tête, une fenêtre de recherche pour le pied-de-page. Si une bande noire est détectée dans cette fenêtre, un code-barre est considéré comme présent.  
 					</p>
 				
@@ -528,7 +528,7 @@
 					</p>
 				
 					<p>
-						Le mode suivi permet au robot de suivre un code-barre particulier. L'identifiant du code-barre à suivre doit être spécifié dans les paramètres de la classe Main (paramêtre CODE). Le système de suivi cherche simplement à maintenir la position du code-barre à une certaine distance et orientation du robot.
+						Le mode suivi permet au robot de suivre un code-barre particulier. L'identifiant du code-barre à suivre doit être spécifié dans les paramètres de la classe Main (paramètre 'CODE'). Le système de suivi cherche simplement à maintenir la position du code-barre à une certaine distance et orientation du robot.
 					</p>
 				
 					<p>
