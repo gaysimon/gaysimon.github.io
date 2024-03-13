@@ -7,6 +7,13 @@
 	<body>
 		<p id="clock">heure</p>
 		
+		<br/>
+		
+		<p id="crenau"></p>
+		
+		<div id="timer">
+			<canvas id="timercanvas"  height="60"></canvas>
+		</div>
 		
 		<script>
 		
@@ -14,6 +21,30 @@
 			var heure   = now.getHours();
 			var minute  = now.getMinutes();
 			var seconde = now.getSeconds();
+		
+			var timerBar   = document.getElementById("timercanvas");
+			var timerCanvas = timerBar.getContext("2d");
+		
+			var delay=0;
+			var period=60;
+		
+			var width=window.innerWidth;
+			var width2=width-50;
+		
+			timerBar.width  = width;
+			
+			function drawTimer(){
+				// clear canevas
+				
+				width=window.innerWidth;
+				width2=width-90;
+				
+				timerCanvas.fillStyle = "rgb(42,46,70)";
+				timerCanvas.fillRect(20, 0, width-80, 60);
+		
+				timerCanvas.fillStyle="rgb(232,78,15)";
+				timerCanvas.fillRect(20, 0, width2*((delay+1)/period), 60);
+			}
 		
 		
 			function getTime(){
@@ -24,7 +55,13 @@
 				
 				document.getElementById("clock").innerHTML = "heure : "+heure+":"+minute+":"+seconde;
 				
-				console.log("test : "+heure+":"+minute+":"+seconde);
+				delay=minute*60+seconde;
+				
+				delay=delay%period;
+				
+				document.getElementById("crenau").innerHTML = "temps restant : "+(period-delay);
+				
+				drawTimer();
 
 				setTimeout(getTime, 250);
 			}
