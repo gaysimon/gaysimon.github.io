@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang=en>
+	<head>
+		<meta charset=utf-8>
+		<title>timer</title>
+	</head>
+	<body>
+		<p id="clock">heure</p>
+		
+		
+		<script>
+		
+			var now = new Date();
+			var heure   = now.getHours();
+			var minute  = now.getMinutes();
+			var seconde = now.getSeconds();
+		
+		
+			function getTime(){
+				now = new Date();
+				heure   = now.getHours();
+				minute  = now.getMinutes();
+				seconde = now.getSeconds();
+				
+				document.getElementById("clock").innerHTML = "heure : "+heure+":"+minute+":"+seconde;
+				
+				console.log("test : "+heure+":"+minute+":"+seconde);
+
+				setTimeout(getTime, 250);
+			}
+			
+			getTime();
+		
+			
+		
+		</script>
+		
+		
+	</body>
+</html>
