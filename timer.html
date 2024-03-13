@@ -29,8 +29,7 @@
 			var period=60;
 		
 			var width=window.innerWidth;
-			var width2=width-50;
-		
+			var width2=width-90;
 			timerBar.width  = width;
 			
 			function drawTimer(){
@@ -38,9 +37,10 @@
 				
 				width=window.innerWidth;
 				width2=width-90;
+				timerBar.width  = width;
 				
 				timerCanvas.fillStyle = "rgb(42,46,70)";
-				timerCanvas.fillRect(20, 0, width-80, 60);
+				timerCanvas.fillRect(20, 0, width2, 60);
 		
 				timerCanvas.fillStyle="rgb(232,78,15)";
 				timerCanvas.fillRect(20, 0, width2*((delay+1)/period), 60);
