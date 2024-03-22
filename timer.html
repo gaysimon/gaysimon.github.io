@@ -56,29 +56,34 @@
 		
 		<script>
 		
-			const period=5*60;
+			const period=15*60;
 			
+			// sound's time
 			const soundDepartTime=0;
-			const soundChangerTime=4*60;
-			const soundMoitieTime=3*60;
+			const soundChangerTime=1*60;
+			const soundMoitieTime=7*60;
 		
+			// get current time
 			var now = new Date();
 			var heure   = now.getHours();
 			var minute  = now.getMinutes();
 			var seconde = now.getSeconds();
+			var millisec = now.getMilliseconds();
 			
 			var clicked=0;
 			document.addEventListener("click", clickOnPage);
-		
+			
 			var timerBar   = document.getElementById("timercanvas");
 			var timerCanvas = timerBar.getContext("2d");
 		
+			var time=0;
+			var previous=-1;
+			
 			var delay=0;
 			var delayRemain=0;
 			var delayMin=0;
 			var delaySec=0;
 			
-		
 			var width=window.innerWidth;
 			var width2=width-90;
 			
@@ -87,29 +92,32 @@
 		
 			timerBar.width  = width;
 			
+			// load sounds
 			var soundDepart = new Audio("depart.mp3");
 			soundDepart.loop = false;
-			
 			var soundChanger = new Audio("changer.mp3");
 			soundChanger.loop = false;
-			
 			var soundMoitie = new Audio("moitie.mp3");
 			soundMoitie.loop = false;
 			
+			
+			// draw progression bar
 			function drawTimer(){
-				// clear canevas
 				
 				width=window.innerWidth;
 				width2=width-90;
 				timerBar.width  = width;
 				
+				// background
 				timerCanvas.fillStyle = "rgb(42,46,70)";
 				timerCanvas.fillRect(20, 0, width2, 60);
-		
+				
+				// main bar
 				timerCanvas.fillStyle="rgb(232,78,15)";
-				timerCanvas.fillRect(20, 0, width2*((delay+1)/period), 60);
+				timerCanvas.fillRect(20, 0, width2*((delay+1+(millisec/1000))/period), 60);
 			}
 		
+			// detect an interaction in the page
 			function clickOnPage(){
 				if (clicked==0){
 					 document.getElementById("activation").remove();
@@ -117,48 +125,58 @@
 				}
 			}
 		
+			// manage the interface
 			function getTime(){
+				
+				// get current time
 				now = new Date();
-				heure   = now.getHours();
-				minute  = now.getMinutes();
 				seconde = now.getSeconds();
+				millisec = now.getMilliseconds();
 				
-				horloge=""+heure;
 				
-				if (minute<10) horloge+=":0"+minute;
-				else 		   horloge+=":"+minute;
+				if (seconde!=previous){	// compute only when seconds change
+					previous=seconde;
+					
+					heure   = now.getHours();
+					minute  = now.getMinutes();
+					
+					time=minute*60+seconde;		// get time in seconds
+					
+					delay=time%period;			// get time slot progression
+					delayRemain=period-delay;	// slot's remaining seconds
 				
-				if (seconde<10) horloge+=":0"+seconde;
-				else 		     horloge+=":"+seconde;
+					delayMin=Math.floor(delayRemain/60);	// time in minutes
+					delaySec=delayRemain%60;				// and seconds
 				
-				document.getElementById("clock").innerHTML = "heure : "+horloge;
+					// display time
+					horloge=""+heure;
+					if (minute<10) horloge+=":0"+minute;
+					else 		   horloge+=":"+minute;
+					if (seconde<10) horloge+=":0"+seconde;
+					else 		     horloge+=":"+seconde;
+					document.getElementById("clock").innerHTML = "heure : "+horloge;
 				
-				delay=minute*60+seconde;
+					// play sound when needed
+					if (delay>=soundDepartTime  && delay<soundDepartTime+2 ) soundDepart.play();
+					if (delay>=soundMoitieTime  && delay<soundMoitieTime+2 ) soundMoitie.play();
+					if (delay>=soundChangerTime && delay<soundChangerTime+2) soundChanger.play();
 				
-				delay=delay%period;
+					// display remaining time
+					message="temps restant : ";
+					if (delayRemain>=210) message+=(delayMin+1)+" minutes";
+					else if (delayRemain>59) message+=delayMin+" mins "+delaySec+" sec";
+					else message+=delaySec+" secondes";
+					document.getElementById("crenau").innerHTML = message;
+				}
 				
-				delayRemain=period-delay;
 				
-				delayMin=Math.floor(delayRemain/60);
-				delaySec=delayRemain%60;
-				
-				if (delay>=soundDepartTime  && delay<soundDepartTime+2 ) soundDepart.play();
-				if (delay>=soundMoitieTime  && delay<soundMoitieTime+2 ) soundMoitie.play();
-				if (delay>=soundChangerTime && delay<soundChangerTime+2) soundChanger.play();
-				
-				message="temps restant : ";
-				
-				if (delayRemain>=150) message+=(delayMin+1)+" minutes";
-				else if (delayRemain>59) message+=delayMin+" mins "+delaySec+" sec";
-				else message+=delaySec+" secondes";
-				
-				document.getElementById("crenau").innerHTML = message;
-				
-				drawTimer();
+				drawTimer();				// draw progression bar
 
-				setTimeout(getTime, 250);
+				setTimeout(getTime, 200);	// repeat function
 			}
 			
+			
+			// start timer's main function
 			getTime();
 		
 			
