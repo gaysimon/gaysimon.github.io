@@ -3,34 +3,98 @@
 	<head>
 		<meta charset=utf-8>
 		<title>timer</title>
+		
+		<style>
+		
+			.container {
+				margin-bottom: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+			}
+
+			.bouton{
+				display: inline-block;
+				margin-left: auto;
+				margin-right: auto;
+				border:solid;
+				border-color:rgb(142,146,170) rgb(21,23,35) rgb(21,23,35) rgb(142,146,170);
+				background-color: rgb(42,46,70);
+				color:rgb(232,78,15);
+				padding: 15px;
+			}
+		
+		</style>
+
 	</head>
 	<body>
-		<p id="clock">heure</p>
+		<p id="clock" style="font-size:24px;">heure</p>
+		
+		<div id="activation" class="container">
+			<div class="bouton">
+				cliquez ici pour activer le son
+			</div>
+		</div>
 		
 		<br/>
 		
-		<p id="crenau"></p>
+		<div style="display: flex;justify-content: center; margin-bottom:30px">
+			<img src="Logo_speedmeeting.png" style="width:80%;max-width:380px"/>
+		</div>
 		
 		<div id="timer">
 			<canvas id="timercanvas"  height="60"></canvas>
 		</div>
 		
+		<div style="display: flex;justify-content: center;font-size:24px">
+			<p id="crenau"></p>
+		</div>
+		
+
+		
+		
 		<script>
+		
+			const period=5*60;
+			
+			const soundDepartTime=0;
+			const soundChangerTime=4*60;
+			const soundMoitieTime=3*60;
 		
 			var now = new Date();
 			var heure   = now.getHours();
 			var minute  = now.getMinutes();
 			var seconde = now.getSeconds();
+			
+			var clicked=0;
+			document.addEventListener("click", clickOnPage);
 		
 			var timerBar   = document.getElementById("timercanvas");
 			var timerCanvas = timerBar.getContext("2d");
 		
 			var delay=0;
-			var period=60;
+			var delayRemain=0;
+			var delayMin=0;
+			var delaySec=0;
+			
 		
 			var width=window.innerWidth;
 			var width2=width-90;
+			
+			var message="";
+			var horloge="";
+		
 			timerBar.width  = width;
+			
+			var soundDepart = new Audio("depart.mp3");
+			soundDepart.loop = false;
+			
+			var soundChanger = new Audio("changer.mp3");
+			soundChanger.loop = false;
+			
+			var soundMoitie = new Audio("moitie.mp3");
+			soundMoitie.loop = false;
 			
 			function drawTimer(){
 				// clear canevas
@@ -46,6 +110,12 @@
 				timerCanvas.fillRect(20, 0, width2*((delay+1)/period), 60);
 			}
 		
+			function clickOnPage(){
+				if (clicked==0){
+					 document.getElementById("activation").remove();
+					 clicked=1;
+				}
+			}
 		
 			function getTime(){
 				now = new Date();
@@ -53,13 +123,36 @@
 				minute  = now.getMinutes();
 				seconde = now.getSeconds();
 				
-				document.getElementById("clock").innerHTML = "heure : "+heure+":"+minute+":"+seconde;
+				horloge=""+heure;
+				
+				if (minute<10) horloge+=":0"+minute;
+				else 		   horloge+=":"+minute;
+				
+				if (seconde<10) horloge+=":0"+seconde;
+				else 		     horloge+=":"+seconde;
+				
+				document.getElementById("clock").innerHTML = "heure : "+horloge;
 				
 				delay=minute*60+seconde;
 				
 				delay=delay%period;
 				
-				document.getElementById("crenau").innerHTML = "temps restant : "+(period-delay);
+				delayRemain=period-delay;
+				
+				delayMin=Math.floor(delayRemain/60);
+				delaySec=delayRemain%60;
+				
+				if (delay>=soundDepartTime  && delay<soundDepartTime+2 ) soundDepart.play();
+				if (delay>=soundMoitieTime  && delay<soundMoitieTime+2 ) soundMoitie.play();
+				if (delay>=soundChangerTime && delay<soundChangerTime+2) soundChanger.play();
+				
+				message="temps restant : ";
+				
+				if (delayRemain>=150) message+=(delayMin+1)+" minutes";
+				else if (delayRemain>59) message+=delayMin+" mins "+delaySec+" sec";
+				else message+=delaySec+" secondes";
+				
+				document.getElementById("crenau").innerHTML = message;
 				
 				drawTimer();
 
