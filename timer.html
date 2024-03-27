@@ -29,39 +29,49 @@
 
 	</head>
 	<body>
-		<p id="clock" style="font-size:24px;">heure</p>
 		
-		<div id="activation" class="container">
-			<div class="bouton">
-				cliquez ici pour activer le son
-			</div>
-		</div>
+		<p style="float:right;">
+			<img style="width:150px;" src="2020-signature IUT-Passerelle vertical.jpg" />
+		</p>
+		
+		<p id="clock" style="font-size:24px;">Heure actuelle</p>
+		
+		<img id="soundIcon" src="sound2.svg" style="width:25px"/>
+		
+		
 		
 		<br/>
 		
 		<div style="display: flex;justify-content: center; margin-bottom:30px">
-			<img src="Logo_speedmeeting.png" style="width:80%;max-width:380px"/>
+			<img src="Logo_speedmeeting.png" style="margin-left:150px;width:80%;max-width:380px"/>
 		</div>
 		
 		<div id="timer">
 			<canvas id="timercanvas"  height="60"></canvas>
 		</div>
 		
-		<div style="display: flex;justify-content: center;font-size:24px">
-			<p id="crenau"></p>
+		<div style="display: flex;justify-content: center;font-size:42px">
+			<p id="crenau" style="text-align:center"></p>
 		</div>
 		
-
+		<div  class="container">
+			<div id="activation" class="bouton" style="font-size:36px">
+				Cliquez ici pour activer le son
+			</div>
+		</div>
 		
 		
 		<script>
 		
 			const period=15*60;
 			
+			var sound=0;
+			
 			// sound's time
 			const soundDepartTime=0;
-			const soundChangerTime=1*60;
-			const soundMoitieTime=7*60;
+			const soundMoitie1Time=7*60;
+			const soundMoitie2Time=12*60;
+			const soundChangerTime=14*60;
 		
 			// get current time
 			var now = new Date();
@@ -70,8 +80,7 @@
 			var seconde = now.getSeconds();
 			var millisec = now.getMilliseconds();
 			
-			var clicked=0;
-			document.addEventListener("click", clickOnPage);
+			document.getElementById("activation").addEventListener("click", clickOnSoundButton);
 			
 			var timerBar   = document.getElementById("timercanvas");
 			var timerCanvas = timerBar.getContext("2d");
@@ -97,9 +106,10 @@
 			soundDepart.loop = false;
 			var soundChanger = new Audio("changer.mp3");
 			soundChanger.loop = false;
-			var soundMoitie = new Audio("moitie.mp3");
-			soundMoitie.loop = false;
-			
+			var soundMoitie1 = new Audio("moitie1.mp3");
+			soundMoitie1.loop = false;
+			var soundMoitie2 = new Audio("moitie2.mp3");
+			soundMoitie2.loop = false;
 			
 			// draw progression bar
 			function drawTimer(){
@@ -118,10 +128,16 @@
 			}
 		
 			// detect an interaction in the page
-			function clickOnPage(){
-				if (clicked==0){
-					 document.getElementById("activation").remove();
-					 clicked=1;
+			function clickOnSoundButton(){
+				if (sound==0){
+					 document.getElementById("activation").innerHTML ="cliquez ici pour désactiver le son";
+					 document.getElementById("soundIcon").src="sound1.svg";
+					 sound=1;
+				}
+				else{
+					 document.getElementById("activation").innerHTML ="cliquez ici pour activer le son";
+					 document.getElementById("soundIcon").src="sound2.svg";
+					 sound=0;
 				}
 			}
 		
@@ -154,16 +170,20 @@
 					else 		   horloge+=":"+minute;
 					if (seconde<10) horloge+=":0"+seconde;
 					else 		     horloge+=":"+seconde;
-					document.getElementById("clock").innerHTML = "heure : "+horloge;
+					document.getElementById("clock").innerHTML = "Heure actuelle : "+horloge;
 				
 					// play sound when needed
-					if (delay>=soundDepartTime  && delay<soundDepartTime+2 ) soundDepart.play();
-					if (delay>=soundMoitieTime  && delay<soundMoitieTime+2 ) soundMoitie.play();
-					if (delay>=soundChangerTime && delay<soundChangerTime+2) soundChanger.play();
+					if (sound==1){
+						if (delay>=soundDepartTime  && delay<soundDepartTime+2 ) soundDepart.play();
+						if (delay>=soundMoitie1Time  && delay<soundMoitie1Time+2 ) soundMoitie1.play();
+						if (delay>=soundMoitie2Time  && delay<soundMoitie2Time+2 ) soundMoitie2.play();
+						if (delay>=soundChangerTime && delay<soundChangerTime+2) soundChanger.play();
+					}
 				
 					// display remaining time
-					message="temps restant : ";
-					if (delayRemain>=210) message+=(delayMin+1)+" minutes";
+					message="Temps restant : <br>";
+					if (delayMin==16) message+="15 minutes";
+					else if (delayRemain>=210) message+=(delayMin+1)+" minutes";
 					else if (delayRemain>59) message+=delayMin+" mins "+delaySec+" sec";
 					else message+=delaySec+" secondes";
 					document.getElementById("crenau").innerHTML = message;
