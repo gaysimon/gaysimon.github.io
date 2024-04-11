@@ -175,7 +175,14 @@
 					 document.getElementById("soundIcon").src="sound1.svg";
 					 sound=1;
 					document.getElementById("video").play();
-					document.getElementById("video").exitFullscreen();
+
+					if (document.getElementById("video").exitFullscreen) {
+						document.getElementById("video").exitFullscreen();
+					} else if (document.getElementById("video").webkitExitFullscreen) { /* Safari */
+						document.getElementById("video").webkitExitFullscreen();
+					} else if (document.getElementById("video").msExitFullscreen) { /* IE11 */
+						document.getElementById("video").msExitFullscreen();
+					}
 				}
 				else{
 					 document.getElementById("activation").innerHTML ="Activer le son";
