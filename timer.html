@@ -84,10 +84,12 @@
 			</a>
 		</div>
 
-		<video width="16" height="16" autoplay loop>
-			<source src="video.mp4" type="video/mp4" />
-			  
-		</video>
+		<div>
+			<video  id="video" width="16" loop>
+				<source src="video.mp4" type="video/mp4" />
+				video
+			</video>
+		</div>
 		
 		<script>
 		
@@ -172,6 +174,7 @@
 					 document.getElementById("activation").innerHTML ="Désactiver le son";
 					 document.getElementById("soundIcon").src="sound1.svg";
 					 sound=1;
+					document.getElementById("video").play();
 				}
 				else{
 					 document.getElementById("activation").innerHTML ="Activer le son";
