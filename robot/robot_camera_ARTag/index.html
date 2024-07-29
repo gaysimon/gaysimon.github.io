@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <title>robot view</title>
+	    
+	   	<style>
+	   	
+			.column {
+			  width: 100%;
+			  min-height:210px;
+			}
+	    
+	    </style>
+	    
+	</head>
+
+	<body>
+
+		<div>
+			<p id='framerate'>framerate: </p>
+			<p id='control_mode'>mode: manual</p>
+			<p id='target_code'>target:</p>
+		</div>
+
+
+		<div class="column">
+			<div><img id="viewer" src='http://192.168.1.1:8001/' width=300px></div>
+		</div>
+		
+		
+		<div>
+			<div style='margin-top:10px;width:300px;'>
+				<div align="center">
+					<button type="button" style="height:50px;width:50px" onmousedown="forward()" ontouchstart="forward()" onmouseout="release()" onmouseup="release()" ontouchend="release()">^</button>
+				</div>
+				
+				<div align="center" style="display: flex;align-items: center;justify-content: center;flex-direction: row;">
+					<button type="button" style="height:50px;width:50px" onmousedown="turnLeft()" ontouchstart="turnLeft()" onmouseout="release()" onmouseup="release()" ontouchend="release()"><</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" style="height:50px;width:50px" onmousedown="turnRight()" ontouchstart="turnRight()" onmouseout="release()" onmouseup="release()" ontouchend="release()">></button>
+				</div>
+				
+				<div align="center">
+					<button type="button" style="height:50px;width:50px" onmousedown="backward()" ontouchstart="backward()" onmouseout="release()" onmouseup="release()" ontouchend="release()">v</button>
+				</div>
+			</div>
+		</div>
+		
+		<br/>
+		<div>
+			<button type="button" style="height:30px;width:100px" onclick="changeMode();">change mode</button>
+		</div>
+		<br/>
+		<div>
+			<button type="button" style="height:30px;width:100px" onclick="initialize();">initialize</button>
+		</div>
+		<br/>
+		
+		<div>
+			<button type="button" style="height:30px;width:100px" onclick="stop();">Stop system</button>
+		</div>
+
+		<script>
+		
+			// get IP address
+			const url = window.location.href;
+			var IP=(url.split("/")[2]).split(":")[0];
+			const ws = new WebSocket('ws://'+IP+':8002/');
+			document.getElementById("viewer").src='http://'+IP+':8001/';
+			
+			var message;
+			
+			
+			ws.addEventListener('open', () => {
+				console.log('connected');
+			});
+			
+			
+			///////////////////////////////////////////////////////////////////////////////////
+			// read received messages
+			ws.addEventListener('message', (event) => {
+				//console.log('received ', event.data);
+				
+				message=event.data.split(" ");
+				
+				if (message[0]=='framerate'){
+					document.getElementById("framerate").innerHTML = "framerate: "+Math.round((1000/message[1])*100)/100+" fps";
+				}
+				else if (message[0]=='mode'){
+					document.getElementById("control_mode").innerHTML = "mode: "+message[1];
+				}
+				else if (message[0]=='target'){
+					document.getElementById("target_code").innerHTML = "target: "+message[1];
+				}
+				
+			});
+			
+			
+		
+			function forward() {
+				ws.send('robot forward');
+			}
+			function turnLeft() {
+				ws.send('robot turnleft');
+			}
+			function turnRight() {
+				ws.send('robot turnright');
+			}
+			function backward() {
+				ws.send('robot backward');
+			}
+			function release() {
+				ws.send('robot stop');
+			}
+			
+			function stop(){
+				ws.send('system stop');
+			}
+			function initialize(){
+				ws.send('system initialize');
+			}
+		
+			function changeMode(){
+				ws.send('changemode');
+			}
+			
+		</script>
+
+	</body>
+</html>
