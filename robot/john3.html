@@ -113,7 +113,7 @@
 						
 						- Fixer le bloc Raspberry/batterie dans l'emplacement prévu du chassis à l'aide de ruban adhésif double-face. Le câble USB d'alimentation doit sortir par l'encoche à l'avant-gauche du chassis, et doit pouvoir se connecter sans difficulté dans le port d'alimentation du Raspberry. On connecte ensuite le dongle Wifi sur un des ports USB du Raspberry Pi.<br/>
 						
-						- Insèrer la carte moteur dans son support. Les borniers doivent être alignés avec l'encoche. Le support est ensuite fixé par riban adhésif double-face sur le boitier du Raspberry Pi, sans masquer l'ouverture du GPIO, et les deux tiges vers l'arrière, dépassant du boîtier. <br/>
+						- Insèrer la carte moteur dans son support. Les borniers doivent être alignés avec l'encoche. Le support est ensuite fixé par ruban adhésif double-face sur le boitier du Raspberry Pi, sans masquer l'ouverture du GPIO, et les deux tiges vers l'arrière, dépassant du boîtier. <br/>
 						
 						- Connecter les câbles des moteurs sur la carte driver, et les huits cables reliant le Raspberry Pi et la carte driver (vois schéma ci-dessous).<br/>
 						
@@ -121,7 +121,7 @@
 							<a href="/robot/raspberry_connections.png"><img src="/robot/raspberry_connections.png" alt="connexions entre composants" width="400" /></a>
 							<a href="/robot/johnny3_wires.jpg"><img src="/robot/johnny3_wires.jpg" alt="connexions entre le raspberry pi et la carte moteur" width="500" /></a>
 							<a href="/robot/johnny3_wires2.jpg"><img src="/robot/johnny3_wires2.jpg" alt="connexion avec les moteurs" width="500" /></a>
-							<figcaption>Câblage des composants. Les câbles reliés aux broches ENABLE doivent être reliées à des port PWM du Raspberry Pi. Si le driver n'a pas été modifié, on peut ajouter un câble entre le second connecteur 5V du Raspberry Pi et le Vin du driver moteur</figcaption>
+							<figcaption>Câblage des composants. Les câbles reliés aux broches ENABLE doivent être reliées à des port PWM du Raspberry Pi. Si le driver n'a pas été modifié, on peut ajouter un câble entre le second connecteur 5V du Raspberry Pi et le Vin du driver moteur.</figcaption>
 						</figure>
 						
 						- fixer la webcam à l'avant du robot avec du ruban adhésif double-face. Enrouler le câble USB autours des deux tiges du support driver, puis brancher la prise sur un port USB du Raspberry PI.<br/>
@@ -156,7 +156,7 @@
 						- xrdp : pour se connecter à distance sur une session graphique (e.g. Remmina),<br/>
 						- OpenJDK : pour utiliser le code fourni sur cette page. Le robot utilise la version 17,<br/>
 						- Python3 : pour programmer en Python,<br/>
-						- guvcview : pour tester la caméra,<br/>
+						- guvcview : pour tester la caméra.<br/>
 						<br/>
 						
 						On installe ensuite OpenCV en suivant ce <a href="https://qengineering.eu/install-opencv-on-raspberry-pi.html">tutoriel</a>.  Il faut toutefois s'assurer, après la commande <code>CMake</code>, que le compilateur a bien trouvé les exécutables ANT et JNI. Il faut également sauter la commande <code>make clean</code> pour ne pas supprimer le fichier .jar généré. Si tout s'est bien déroulé, après une longue compilation, le fichier .jar doit être présent dans le dossier /home/pi/opencv/build/bin, et les librairies .so dans le dossier /home/pi/opencv/build/lib.<br/>
@@ -169,7 +169,7 @@
 						</code>
 						<br/>
 						
-						Ceci ouvre une session en ligne de commande sur le Raspberry Pi. Pour une session graphique, utilisez le logiciel Remmina sous Linux ou Bureau à distance sous Windows, puis entrer l'adress IP, l'identifiant et le mot de passe, pour ouvrir une session depuis votre PC.
+						Ceci ouvre une session en ligne de commande sur le Raspberry Pi. Pour une session graphique, utilisez le logiciel Remmina sous Linux ou Bureau à distance sous Windows, puis entrer l'adress IP, l'identifiant et le mot de passe, pour ouvrir une session graphique distante depuis votre PC.
 					</p>
 			
 			
@@ -205,7 +205,7 @@
 						Le mot de passe du Raspberry Pi est demandé pour permettre le transfert. Il faut l'écrire dans la console (celui-ci ne s'affiche pas). Avec une interface graphique, il est également possible de transférer les programmes à l'aide d'une clé USB, en copiant les programmes sur la clé depuis le PC puis en les collant dans les dossiers sur le raspberry pi.<br/>
 						<br/>
 						
-						On exécute ensuite les programmes en ligne de commande. Sur une console en SSH depuis le PC, ou sur le bureau raspbian depuis un bureau à distance, on utilise :<br/>
+						On exécute ensuite les programmes en ligne de commande. Sur une console en SSH depuis le PC, ou sur une console ouverte depuis le bureau à distance raspbian, on utilise :<br/>
 						<br/>
 						<code>
 							cd ~/Java<br/>
@@ -271,7 +271,7 @@
 					</p>
 			
 					<p>
-						Pour utiliser le fichier JAR, on ouvre une console dans le dossier où il se trouve, puis on entre dans une nouvelle console la commande suivante (il faut utiliser l'adresse du Raspberry Pi) :<br/>
+						Pour utiliser le fichier JAR, il faut dans un premier temps l'envoyer sur le robot. Sur le PC, on ouvre une console dans le dossier où il se trouve, puis on entre dans une nouvelle console la commande suivante (il faut utiliser l'adresse du Raspberry Pi) :<br/>
 						
 						<br/>
 						<code>
@@ -328,7 +328,7 @@
 					</p>
 			
 					<p>
-						Pour utiliser le fichier JAR, on ouvre une console dans le dossier où il se trouve, puis on entre dans une nouvelle console la commande suivante :<br/>
+						Pour utiliser le fichier JAR, on ouvre, sur le PC, une console dans le dossier où il se trouve, puis on entre dans une nouvelle console la commande suivante :<br/>
 						
 						<br/>
 						<code>
@@ -441,14 +441,14 @@
 						- Le package <i>main</i>: <br/><br/>
 						
 						Ce package contient les classes <i>Main</i> et C<i>amera</i> :<br/>
-						&nbsp;- La classe <i>Main</i> initialise les différents modules du programme et organise son déroulement. Au démarrage, la donction <i>main</i> détecte automatiquement si le programme s'exécute sur le Raspberry Pi ou un PC, afin d'activer ou non les fonctionnalités liées au port GPIO. elle contient également une fonction pour traiter les commandes utilisateur issues de l'interface Web, <i>clientCommand(String command)</i>, et pour envoyer des messages vers l'interface Web, <i>broadcast(String msg)</i>.<br/>
+						&nbsp;- La classe <i>Main</i> initialise les différents modules du programme et organise son déroulement. Au démarrage, la fonction <i>main</i> détecte automatiquement si le programme s'exécute sur le Raspberry Pi ou un PC, afin d'activer ou non les fonctionnalités liées au port GPIO. elle contient également une fonction pour traiter les commandes utilisateur issues de l'interface Web, <i>clientCommand(String command)</i>, et pour envoyer des messages vers l'interface Web, <i>broadcast(String msg)</i>.<br/>
 						&nbsp;- La classe <i>Camera</i> initialise les paramètres de la webcam et charge les librairies OpenCV. Sur un Raspberry Pi, les librairies seront chargées depuis le chemin indiqué par la variable 'path' dans la classe Main. Sur un PC, les librairies seront chargées depuis le chemin par défaut défini pendant l'installation d'OpenCV. La fonction <i>read()</i> permet de récupérer une nouvelle image de la webcam, et la fonction <i>Mat2bufferedImage()</i> convertit l'image au format Mat d'OpenCV en format BufferedImage. <br/>
 						<br/>
 						
 						- Le package <i>robot</i>: <br/><br/>
 						Ce package contient les classes dédiées au contrôle des moteurs via le port GPIO : <i>Robot</i> et <i>MotorControl</i>. Ces classes sont similaires à celles du programme <i>robot_motor_test</i>.<br/>
 						
-						&nbsp;- La classe <i>Robot</i> contient des fonctions permettant de piloter le robot : <i>setMotors(int l, int r)</i> permet de définir la vitesse de chaque moteur (l=left, r=right) avec une vitesse entre -100 et +100. La fonction <i>stop()</i> arrête les deux moteurs. La fonction <i>move(int l, int r, int time)</i> contrôle le robot pendant une durée définie en millisecondes.<br/>
+						&nbsp;- La classe <i>Robot</i> contient des fonctions permettant de piloter le robot : <i>setMotors(int l, int r)</i> permet de définir la vitesse et la direction de chaque moteur (l=left, r=right) avec une vitesse entre -100 et +100. La fonction <i>stop()</i> arrête les deux moteurs. La fonction <i>move(int l, int r, int time)</i> contrôle le robot pendant une durée définie en millisecondes.<br/>
 						&nbsp;- La classe <i>MotorControl</i> initialise et gère le port GPIO. À l'initialisation, les pins connectés à la carte moteur sont définis comme des sorties, et les signaux utlisés pour les commandes PWM sont définis. La fonction <i>setMotor(int vg, int vd)</i> permet de piloter les deux moteurs (valeur entre -100 et +100) et la fonction <i>stop()</i> arrète les deux moteurs.<br/>
 						<br/>
 						
@@ -559,7 +559,7 @@
 						<br/>
 						- Le package <i>main</i>: <br/><br/>
 						
-						Ce package contient les classes <i>Main</i> et C<i>amera</i> :<br/>
+						Ce package contient les classes <i>Main</i> et <i>Camera</i> :<br/>
 						&nbsp;- La classe <i>Main</i> : par rapport au projet <i>robot_camera_server</i>, cette classe ajoute le sous-module de détection de couleur, et définit le mode de fonctionnement du robot (manuel ou automatique). L'image envoyée au socket vidéo est ici l'image générée par le module de détection de la couleur. La fonction <i>clientCommand(String command)</i> définit un ensemble de nouvelles commandes pour changer le mode de fonctionnement et la couleur à détecter.<br/>
 						&nbsp;- La classe <i>Camera</i> : pas de différence avec le projet <i>robot_camera_server</i>. <br/>
 						<br/>
@@ -691,7 +691,7 @@
 						<br/>
 						- Le package <i>main</i>: <br/><br/>
 						
-						Ce package contient les classes <i>Main</i> et C<i>amera</i> :<br/>
+						Ce package contient les classes <i>Main</i> et <i>Camera</i> :<br/>
 						&nbsp;- La classe <i>Main</i> : par rapport au projet <i>robot_camera_server</i>, cette classe ajoute le sous-module de détection de code-barre, et définit le mode de fonctionnement du robot (manuel ou automatique). L'image envoyée au socket vidéo est ici l'image générée par le module de détection de code-barre. La fonction <i>clientCommand(String command)</i> définit un ensemble de nouvelles commandes pour changer le mode de fonctionnement du robot.<br/>
 						&nbsp;- La classe <i>Camera</i> : pas de différence avec le projet <i>robot_camera_server</i>. <br/>
 						<br/>
@@ -716,7 +716,7 @@
 						Page HTML :<br><br>
 						
 						La page 'index.html' de ce projet ajoute dans la partie haute l'affichage du mode de fonctionnement du robot (manuel ou automatique). L'image reçue est celle générée par le module de détection de code-barres. La partie basse ajoute un bouton pour changer le mode de fonctionnement du robot.<br/>
-						La section javascript ajoute des fonctions pour les boutons additionnels et permet la réception de deux nouvelles commandes.
+						La section javascript ajoute des fonctions pour les boutons additionnels et permet la réception d'une nouvelle commande.
 						Le protocole de communication définit les commandes suivantes :<br/>
 						<br/>
 						
@@ -754,7 +754,7 @@
 								Your browser does not support the video tag.
 							</video> 
 							<br/>
-							Le robot suit une séquence de deux ARTags de code 404 et 33. Il se dirige vers le prochain ARTag jusqu'à ce que sa talle apparente dépasse 110 pixels, puis passe à l'ARTag suivant. Une fois la séquence terminée, le robot suit le premier ARTag distant qu'il détecte. Le détecteur d'ARTags binarise l'image avec un seuil qui varie aléatoirement jusqu'à ce qu'il détecte le marqueur qu'il recherche.
+							Le robot suit une séquence de deux ARTags de code 404 et 33. Il se dirige vers un ARTag jusqu'à ce que sa talle apparente dépasse 110 pixels, puis passe à l'ARTag suivant. Une fois la séquence terminée, le robot suit le premier ARTag distant qu'il détecte. Le détecteur d'ARTags binarise l'image avec un seuil qui varie aléatoirement jusqu'à ce qu'il détecte le marqueur qu'il recherche.
 						</p>
 					</p>
 					
@@ -805,7 +805,7 @@
 						<br/>
 						
 						
-						Le serveur web démarre, puis affiche son adresse dans la console SSH, que l'on peut entrer dans la barre d'adresse d'un navigateur Web. On peut alors piloter le robot à l'aide des touches directionnelles. Le flux vidéo montre la détection du ou des marqueurs ARTags, avec leur code et heuteur apparente. Le bouton 'change mode' permet de passer du mode manuel au mode automatique et inversement. En mode automatique, le robot pivote sur lui-même jusqu'à trouver le prochain marqueur ARTag de la séquence, puis se dirige vers lui. quand le marqueur est assez proche, il recherche le marquer suivant, et ainsi de suite. Quand la séquenc est terminée (ou lorsque aucune séquence n'est définie); le robot se dirige vers le premier marqueur qu'il détecte. On peut redémarrer la séquence en cliquant sur le bouton 'initialize', et arrêter le programme en cliquant sur le bouton 'stop system'.
+						Le serveur web démarre, puis affiche son adresse dans la console SSH, que l'on peut entrer dans la barre d'adresse d'un navigateur Web. On peut alors piloter le robot à l'aide des touches directionnelles. Le flux vidéo montre la détection du ou des marqueurs ARTags, avec leur code et hauteur apparente. Le bouton 'change mode' permet de passer du mode manuel au mode automatique et inversement. En mode automatique, le robot pivote sur lui-même jusqu'à trouver le prochain marqueur ARTag de la séquence, puis se dirige vers lui. quand le marqueur est assez proche, il recherche le marquer suivant, et ainsi de suite. Quand la séquence est terminée (ou lorsque aucune séquence n'est définie); le robot se dirige vers le premier marqueur qu'il détecte. On peut redémarrer la séquence en cliquant sur le bouton 'initialize', et arrêter le programme en cliquant sur le bouton 'stop system'.
 					
 					</p>
 					
@@ -862,7 +862,7 @@
 						
 						Page HTML :<br><br>
 						
-						La page 'index.html' de ce projet ajoute dans la partie haute l'affichage du mode de fonctionnement du robot (manuel ou automatique) et le code du marqueur actuellement suivi (-1 si aucun). L'image reçue est celle générée par le module de détection de code-barres. La partie basse ajoute un bouton pour changer le mode de fonctionnement du robot, ainsi qu'un bouton pour réinitialiser la séquence de marqueurs ARTags.<br/>
+						La page 'index.html' de ce projet ajoute dans la partie haute l'affichage du mode de fonctionnement du robot (manuel ou automatique) et le code du marqueur actuellement suivi (-1 si aucun). L'image reçue est celle générée par le module de détection d'ARTags. La partie basse ajoute un bouton pour changer le mode de fonctionnement du robot, ainsi qu'un bouton pour réinitialiser la séquence de marqueurs ARTags.<br/>
 						La section javascript ajoute des fonctions pour les boutons additionnels et permet la réception de deux nouvelles commandes.
 						Le protocole de communication définit les commandes suivantes :<br/>
 						<br/>
