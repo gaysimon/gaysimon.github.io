@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="/style1.css" type="text/css" />
+		<title>Simon GAY</title>
+	</head>
+
+
+	<body>
+		
+		<header>
+			<div id="banniere_image"> </div>
+		</header>
+	
+		<div class="main">
+			<nav>
+				<a href="/index_en.html">Home</a><br />
+				<a href="/recherches_en.html">Recherches</a><br />
+				<a href="/postdoc_en.html">My PostDoc</a><br />
+				<a href="/these_en.html">My PhD</a><br />
+				<a href="/publi_en.html">Publications</a><br />
+				<a href="/robot_en.html">Robots</a><br />
+				<a href="/software_en.html">Softwares</a><br />
+				<br />
+				<a href="/robot/john3.html"><img src="/img/fr.png" alt="fr" /> </a>
+				<a href="/robot/john3_en.html"><img src="/img/en.png" alt="en" /> </a>
+			</nav>
+
+			<section class="subsection">
+				<p>
+					<center style="text-align: center;font-size: xx-large;">Johnny 3</center><br /><br />
+				</p>
+			
+				<figure style="text-align:center">
+					<a href="/robot/johnny3.jpg"><img src="/robot/johnny3.jpg" alt="robot Johnny 3" width="400" /></a>
+				</figure>
+
+				<p>
+			
+			</section>
+
+			<section class="subsection">
+				<section class="listsection">
+
+					<p>
+						Description:<br />
+					</p>
+
+					<p>
+						The robot Johnny 3 is a small Raspberry Pi-based robotic platform designed to test computer vision algorithms, while remaining as affordable as possible.
+					</p>
+					<br />
+					<p>
+						List of components:<br/>
+					</p>
+
+					<p>
+						- Raspberry Pi with case<br/>
+						- SD card of at least 8GB<br/>
+						- webcam usb<br/>
+						- Wifi Dongle<br/>
+						- Powerbank ables to provide 2A<br/>
+						- motor driver board<br/>
+						- two 3-6V DC motors with gearbox<br/>
+						- Dupont wires<br/>
+						- 3D-printed chassis<br/>
+						- 2 rubber bands<br/>
+						- felt pad<br/>
+					</p>
+			
+					<p>
+						For the Raspberry Pi, I used my Raspberry Pi 2B, running Raspbian 32-bit. A Raspberry Pi 3 can also be used. For version 4, you'll need a battery capable of supplying at least 3A.
+						
+						The Wifi dongle is a <a href="https://www.tp-link.com/fr/home-networking/adapter/tl-wn725n/">TP-Link-WN725N Nano</a>, with 150Mbps bandwidth, chosen mainly for its low price and compact size.
+						Installing the dongle's drivers on Raspbian is quite complex, but possible  by following this <a href="https://gist.github.com/MBing/de297a8ae5e8a191c55a67a568d20d31">tutorial</a>. Note that the Raspberry PI 3B has a built-in wifi antenna.
+						The battery used is a <a href="https://www.re-volt.fr/produit/batterie-de-secours-format-carte-bancaire-a-2-ports-usb-5000mah-24a-12w/">Revolt PB-160</a> with a capacity of 5000mAH and able to provide a 2,4A current. It also has the distinctive feature of being comparable in size to the Raspberry PI board.
+						The robot can use any commercially available USB webcam. However, it is recommended to use a model with a flat support.
+						The motor driver board includes an L293D to drive 2 small 3-6V DC motors with gearbox. The board must be modified by connecting the electronic power supply with the motor power supply (otherwise, you can connect the Vin on the motor connector to the VCC on the control connector with a wire). 
+						<br/>
+						
+						<figure style="text-align:center">
+							<img src="/robot/driver_modif.png" alt="Modification du driver" width="250" />
+							<figcaption>You need to modify the motor driver board by soldering these two pins together.</figcaption>
+						</figure>
+					
+					</p>
+
+					<p>
+						The chassis and wheels are printed from the following models. These models can be printed by low-volume printers (10x10x10cm) and do not require supports. However, a raft is recommended.<br/>
+						- Chassis: <a href="/robot/robot_base5.stl">robot_base5.stl</a><br/>
+						- Wheel: <a href="/robot/robot_wheel5.stl">robot_wheel5.stl</a><br/>
+						- Driver holder: <a href="/robot/driver_support.stl">driver_support.stl</a><br/>
+						
+						<figure style="text-align:center">
+							<img src="/robot/johnny3_chassis.png" alt="Pieces to print" width="550" />
+							<figcaption>Pieces of the chassis.</figcaption>
+						</figure>
+					</p>
+					<br />
+			
+				</section>
+			
+				<section class="listsection">
+			
+					<p>
+						Robot assembly:<br/>
+					</p>
+			
+					<p>
+						- We start by integrating the two motors into the chassis. If the motors don't fit tightly, one or more layers of adhesive tape can be added to slightly increase the thickness of the motor. The cables must pass through the opening at the rear.<br/>
+						
+						- Stack and attach the Raspberry Pi case and battery using double-sided tape. The Raspberry Pi's USB ports and the battery ports should be on the rear of the robot. The USB cable should exit the battery, then run along the edge of the battery to the Raspberry PI power port.<br/>
+						
+						- Secure the Raspberry/battery unit in the slot on the chassis using double-sided tape. The USB power cable should exit through the notch in the front-left of the chassis, and plug easily into the Raspberry's power port. Next, connect the Wifi dongle to one of the Raspberry Pi's USB ports.<br/>
+						
+						- Insert the motor board into its holder. The terminals must be aligned with the notch. The holder is then attached to the Raspberry Pi case using double-sided tape, without masking the GPIO opening, and with the two rods protruding from the case towards the rear. <br/>
+						
+						- Connect the motor cables to the driver board, and the eight cables between the Raspberry Pi and the driver board (see diagram below).<br/>
+						
+						<figure style="text-align:center">
+							<a href="/robot/raspberry_connections.png"><img src="/robot/raspberry_connections.png" alt="connections between components" width="400" /></a>
+							<a href="/robot/johnny3_wires.jpg"><img src="/robot/johnny3_wires.jpg" alt="connections between the raspberry pi and motor board" width="500" /></a>
+							<a href="/robot/johnny3_wires2.jpg"><img src="/robot/johnny3_wires2.jpg" alt="connection with motors" width="500" /></a>
+							<figcaption>Wiring components. The wires connected to the ENABLE pins must be connected to PWM ports on the Raspberry Pi. If the driver has not been modified, a wire can be added between the Raspberry Pi's second 5V connector and the Vin of the motor driver.</figcaption>
+						</figure>
+						
+						- Secure the webcam to the front of the robot with double-sided tape. Wrap the USB cable around the two rods of the driver holder, then plug the connector into a USB port on the Raspberry PI.<br/>
+						
+						- Add the wheels to the motor axles, then place the rubber bands to act as tires. Finally, add the felt pad to the notch in the front, below the chassis.<br/> 
+						
+						<figure style="text-align:center">
+							<a href="/robot/johnny3_camera.jpg"><img src="/robot/johnny3_camera.jpg" alt="adding the camera and pad" width="500" /></a>
+							<figcaption>We add the camera and the felt pad.</figcaption>
+						</figure>
+					</p>
+					<br/>
+			
+				</section>
+			
+				<section class="listsection">
+			
+					<p>
+						Software installation:<br/>
+					</p>
+
+
+					<p>
+						From a software perspective, the robot's Raspberry Pi 2 runs Raspbian 11 Bullseye 32-bit version, installed on an SD card. Once the SD card is inserted in the Raspberry Pi, connect a monitor to the HDMI port, a mouse and keyboard, and connect an Ethernet cable to access network. During installation, it's best to use the Raspberry Pi's mains charger (to avoid running out of battery during installation).<br/>
+						<br/>
+						
+						Once on the Raspbian desktop, start by installing the Wifi dongle driver (only on Rapberry Pi that don't have their own antenna) by following this <a href="https://gist.github.com/MBing/de297a8ae5e8a191c55a67a568d20d31">tutorial</a>. 
+						Unplug the Ethernet cable, then connect to your Wifi network. Open a terminal, then enter the <code>ifconfig</code> command to obtain the Raspberry Pi's IP address in the network.<br/>
+						<br/>
+						
+						The necessary software is then installed. We recommend installing the following software:<br/>
+						- openssh-server: to connect via ssh from another computer,<br/>
+						- xrdp : to connect remotely with a graphics session (e.g. Remmina),<br/>
+						- OpenJDK : to use the programs provided on this page. The robot uses version 17,<br/>
+						- Python3 : to program in Python,<br/>
+						- guvcview : to test the camera.<br/>
+						<br/>
+						
+						Then install OpenCV by following this <a href="https://qengineering.eu/install-opencv-on-raspberry-pi.html">tutorial</a>.  
+						However, after the <code>CMake</code> command, make sure that the compiler has found the ANT and JNI. You should also skip the <code>make clean</code> command to avoid deleting the generated .jar file. If all has gone well, after a long compilation, the .jar file should be found in the /home/pi/opencv/build/bin folder, and the .so libraries in the /home/pi/opencv/build/lib folder.<br/>
+						<br/>
+						
+						Turn off the Raspberry Pi, then unplug the screen, mouse and keyboard. Restart it, then wait for the dongle to flash. You can now connect to the Raspberry Pi from another PC connected to the same local network, either via SSH or a remote desktop program (such as Remmina). To connect via SSH, enter the following command, using the Raspbeery Pi's IP address (in this example 192.168.1.10), then enter your password (password is not displayed in the console, this is normal).<br/>
+						<br/>
+						<code>
+							ssh -X pi@192.168.1.10<br/>
+						</code>
+						<br/>
+						
+						This opens a command-line session on the Raspberry Pi. For a graphical session, use Remmina under Linux or Remote Desktop under Windows, then enter the IP address, login and password, to open a remote graphical session from your PC.
+					</p>
+			
+			
+				</section>
+			
+				<section class="listsection">	
+				
+					<p>
+						How to use the robot:<br/>
+					</p>
+
+
+					<p>
+						We can now send and execute Java and Python programs. To keep things organized, we can create two folders, 'Java' and 'Python', in the User folder, using the graphical interface or the command lines: <br/>
+						<br/>
+						<code>
+							mkdir Java<br/>
+							mkdir Python<br/>
+						</code>
+						<br/>
+						
+						You can then send .jar or .py programs using the SCP command on the command line. To do this, on the PC, open another console in the folder where the program is located, then enter the following command line:<br/>
+						<br/>
+						<code>
+							scp my_program.jar pi@192.168.1.10:/Java<br/>
+						</code>
+						&ensp;&ensp;ou<br/>
+						<code>
+							scp my_program.py pi@192.168.1.10:/Python<br/>
+						</code>
+						<br/>
+						
+						The Raspberry Pi password is requested to enable the transfer. This must be entered in the console (it is not displayed). With a graphical interface, it is also possible to transfer programs using a USB key, by copying the programs to the key from the PC and then pasting them into the folders on the Raspberry Pi.<br/>
+						<br/>
+						
+						The programs are then run with a command line. On an SSH console from the PC, or on a console from a remote raspbian desktop, we use:<br/>
+						<br/>
+						<code>
+							cd ~/Java<br/>
+							sudo java -jar my_program.jar<br/>
+						</code>
+						&ensp;&ensp;or<br/>
+						<code>
+							cd ~/Python<br/>
+							sudo python3 my_program.py<br/>
+						</code>
+						<br/>
+						
+						The 'sudo' command is only required if the program requires an access to the Raspberry PI's GPIO port. If the program uses X11 forwarding, the following error may occur :
+						<br/>
+										
+						<figure style="text-align:center">
+							<img src="/robot/x11_error.png" alt="X11 connection rejected" width="500" />
+						</figure>
+						
+						<br/>
+						The problem is easily solved with the following command:<br/>
+						
+						<br/>
+						<code>
+							export XAUTHORITY=$HOME/.Xauthority<br/>
+						</code>
+						<br/>
+						
+						To turn off the robot, use the following command, then, when the Raspberry Pi LEDs stop flashing, disconnect the USB power cable.<br/>
+						<br/>
+						<code>
+							sudo halt<br/>
+						</code>
+						
+					</p>
+
+				</section>
+			</section>
+
+
+			<section class="subsection">
+				
+				<section class="listsection">
+					
+					<p>	
+						Test programs:
+					</p>
+			
+					<p>	
+						The following programs can be used to test the robot's motors and camera. The <i>robot_motor_test</i> program displays a window with buttons for controlling the motors. The square buttons can be used to move the robot forward, backward and rotate, while the round buttons can be used to control the motors independently.
+						
+						<figure style="text-align:center">
+							<img src="/robot/motor_test_panel.png" alt="panel motor" width="250" />
+							<figcaption>Motor control panel.</figcaption>
+						</figure>
+					</p>
+			
+					<p>	
+						Source code:<br>
+
+						- JAR file: <a href="/robot/robot_motor_test.jar">robot_motor_test.jar</a> <br>
+						- Java code: <a href="/robot/robot_motor_test.zip">robot_motor_test.zip</a> <br>
+					</p>
+			
+					<p>
+						To use the JAR file, first send it to the robot. On the PC, open a console in the folder where the file is located, then enter the following command in a new console (using the Raspberry Pi address):<br/>
+						
+						<br/>
+						<code>
+							scp robot_motor_test.jar pi@192.168.1.10:/home/pi/Java<br/>
+						</code>
+						<br/>
+						
+						Then, on the console connected via SSH, run the program with:<br/>
+						
+						<br/>
+						<code>
+							cd ~/Java<br/>
+							sudo java -jar robot_motor_test.jar<br/>
+						</code>
+						
+					</p>
+			
+					<p>
+						To use Java code, it is recommended to use an IDE (Eclipse, IntelliJ...), then create a new project. The .java files are then imported into the project. This program requires the <a href="https://mvnrepository.com/artifact/com.pi4j/pi4j-core">pi4j</a> library (with Eclipse: right-clic on the project->Build Path->Configure Build Path, then in the libraries tab, clic on 'Add External Jars...').
+						
+						<figure style="text-align:center">
+							<a href="/robot/libraries_motor_test.png"><img src="/robot/libraries_motor_test.png" alt="libraries required for robot_motor_test project" width="500" /></a>
+						</figure>
+
+						The program automatically detects whether it is running on a Raspberry Pi. If this is not the case, the GPIO is not used, instead, motor commands are displayed in the console.
+					</p>
+			
+					<p>
+						The class <i>MotorControl</i> initializes the GPIO ports used to control the motors, and provides a low-level function to control speed and direction of the two motors: the function <i>setMotor(int vg,int vd)</i> allows defining the speed and direction with values between -100 and +100. the function <i>stop()</i> stops the two motors.
+						<br/>
+						The class <i>Robot</i> provides higher-level functions to control the robot, in particular <i>move(int g, int d, int time)</i> that makes the robot moving for a defined time (in milliseconds).
+					</p>
+			
+					<p>
+						The program can then be exported in JAR format and uploaded on the robot (with Eclipse: right-click on the project->Export...->Java->Runnable JAR File->Next, then select the correct Main file, the destination location, and the 'package required libraries into generated JAR' option, before finalizing by clicking on 'Finish').
+					</p>
+			
+					<br/>
+			
+					<p>	
+						the program <i>robot_camera_test</i> opens a window displaying the robot's camera image.
+						
+						<figure style="text-align:center">
+							<img src="/robot/camera_test_panel.png" alt="panel camera" width="250" />
+							<figcaption>Camera view.</figcaption>
+						</figure>
+					</p>
+			
+					<p>	
+						Source code:<br>
+
+						- JAR File: <a href="/robot/robot_camera_test.jar">robot_camera_test.jar</a> <br>
+						- Java code: <a href="/robot/robot_camera_test.zip">robot_camera_test.zip</a> <br>
+					</p>
+			
+					<p>
+						To use the JAR file, open a console, on the PC, in the folder where it is located, then enter the following command in a new console :<br/>
+						
+						<br/>
+						<code>
+						scp robot_camera_test.jar pi@192.168.1.10:/home/pi/Java<br/>
+						</code>
+						<br/>
+						
+						Then, on the console connected via SSH, run the program with :<br/>
+						
+						<br/>
+						<code>
+						cd ~/Java<br/>
+						java -jar robot_camera_test.jar<br/>
+						</code>
+						
+					</p>
+			
+					<p>
+						To use the Java code, you need to associate this program with the OpenCV library (you'll need to install it on your PC first), and specify the location of the native libraries (.so under Linux, .dll under Windows).
+						
+						<figure style="text-align:center">
+							<a href="/robot/libraries_camera_test.png"><img src="/robot/libraries_camera_test.png" alt="libraries for the robot_motor_test project" width="500" /></a>
+						</figure>
+						
+					</p>
+			
+					<p>
+						The class <i>Camera</i> initializes the robot's camera and loads OpenCV libraries. The function <i>read()</i> grab a new frame from the camera, and the function <i>setBufferedImage</i> converts the image from <i>Mat</i> format (OpenCV) to <i>BufferenImage</i> to be displayed.
+					</p>
+			
+				</section>
+				
+		
+				<section class="listsection">
+					
+					<p>	
+						A Web interface:
+					</p>
+			
+					<p>	
+						This program enables the robot to be controlled from a web browser (Firefox, Chrome, Opera...) while receiving the camera's video stream. The program contains a simple web server hosting an Html page, and communicates with the client using websockets to receive user commands, send information for display, and send the camera's video stream.
+					</p>
+			
+					<p style="text-align: center">
+						<video width="500" controls >
+							<source src="/robot/robot_camera_server.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+						<br/>
+						The web interface (left) is used to control the robot using the four buttons. The display shows the camera's video stream (note that the number of images per second is low due to the low light conditions, with the camera increasing the exposure time for each image).
+					</p>
+					
+					<p>	
+						Source code:<br>
+						- HTML page:  <a href="/robot/robot_camera_server/index.html">index.html</a> (right-click -> Save link as)<br> 
+						- JAR file: <a href="/robot/robot_camera_server/robot_camera_server.jar">robot_camera_server.jar</a> <br>
+						- Java code: <a href="/robot/robot_camera_server/robot_camera_server.zip">robot_camera_server.zip</a> <br>
+					</p>
+					
+					<p>
+						As the program requires a specific document (the HTML page), it is advisable to create a specific subfolder for this project. On the SSH console (or directly on a remote desktop), for example, you can create the folder with the following commands:<br/>
+						
+						<br/>
+						<code>
+						cd ~/Java<br/>
+						mkdir robot_camera_server<br/>
+						cd robot_camera_server <br/>
+						</code>
+						<br/>
+						
+						Then, from the PC, we open a new console in the folder containing the JAR and HTML files, and enter the following SCP commands, using the Raspberry Pi's IP address and password:<br/>
+						<br/>
+						<code>
+						scp robot_camera_server.jar pi@192.168.1.10:/home/pi/Java/robot_camera_server<br/>
+						scp index.html pi@192.168.1.10:/home/pi/Java/robot_camera_server<br/>
+						</code>
+						<br/>
+						
+						From the SSH console (or from a console on a remote desktop), run the program with the following command:<br/>
+						<br/>
+						<code>
+						sudo java -jar robot_camera_server.jar<br/>
+						</code>
+						<br/>
+						
+						The web server starts, then displays its address in the SSH console. From any PC, tablet or smartphone connected to the same network, you can open a web browser and enter this address in the address bar, to display the interface page. You can then control the robot using the arrow keys. Stop the program by clicking on the 'stop system' button (or, from the SSH console, by pressing Ctrl+C).
+						
+						<figure style="text-align:center">
+							<a href="/robot/server_start.png"><img src="/robot/server_start.png" alt="address of the server" width="500" /></a>
+							<figcaption>On startup, the server displays the address for connecting to the Web interface.</figcaption>
+						</figure>
+						
+					</p>
+					
+					<p>
+						To use the Java code, you need to associate this program with the OpenCV libraries (and indicate the location of the native libraries) for the camera, <a href="https://mvnrepository.com/artifact/com.pi4j/pi4j-core">pi4j</a> to access GPIO port, <a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket">Java-Websocket</a>, <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-api">slf4j-api</a> et <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-simple">slf4j-simple</a> for the Web serveur. You also need to import the 'index.html' page.
+						
+						<figure style="text-align:center">
+							<a href="/robot/libraries_server.png"><img src="/robot/libraries_server.png" alt="libraries for the robot_camera_server project" width="500" /></a>
+						</figure>
+					</p>
+					
+					<p>
+						The source code is divided into three packages:<br/>
+						<figure style="text-align:center">
+							<img src="/robot/camera_server_classes.png" alt="classes of the robot_camera_server project" width="200" />
+						</figure>
+						
+						<br/>
+						- Package <i>main</i>: <br/><br/>
+						
+						This package contains classes <i>Main</i> and C<i>amera</i>:<br/>
+						&nbsp;- class <i>Main</i> initializes the different modules of the program and  les différents modules du programme and organizes the whole process. At start up, the function <i>main</i>  automatically detects whether the program is running on the Raspberry Pi or a PC, in order to enable or disable GPIO port functionalities. It also contains a function for processing user commands from the Web interface, <i>clientCommand(String command)</i>, and to send messages to the Web interface, <i>broadcast(String msg)</i>.<br/>
+						&nbsp;- class <i>Camera</i> initializes webcam parameters and loads OpenCV libraries. On a Raspberry Pi, the libraries will be loaded from the path indicated by the 'path' variable in the Main class. On a PC, the libraries will be loaded from the system's default path defined during OpenCV installation. the function <i>read()</i> grabs a new webcam image, and the function <i>Mat2bufferedImage()</i> converts the image from OpenCV's Mat format to BufferedImage format. <br/>
+						<br/>
+						
+						- Package <i>robot</i>: <br/><br/>
+						This package contains classes dedicated to motor control via the GPIO port: <i>Robot</i> and <i>MotorControl</i>. These classes are similar to those in the <i>robot_motor_test</i> program.<br/>
+						
+						&nbsp;- classe <i>Robot</i> contains functions to control the robot: <i>setMotors(int l, int r)</i> defines the speed and direction for ech motor (l=left, r=right) with a speed between -100 et +100. The function <i>stop()</i> stops the two motors. The function <i>move(int l, int r, int time)</i> makes the robot moving for a defined time (in milliseconds).<br/>
+						&nbsp;- classe <i>MotorControl</i> initializes and manage the GPIO port. On initialization, the pins connected to the motor board are defined as outputs, and the signals used for PWM commands are defined. The function <i>setMotor(int vg, int vd)</i> controls the two motors (values between -100 and +100) and the function <i>stop()</i> stops the two motors.<br/>
+						<br/>
+						
+						- Package <i>servers</i>: <br/><br/>
+						This package manages the Web server hosting the HTML page and handles communication with the client. It contains the following classes:<br/>
+						&nbsp;- class <i>Serveur</i> manage the Web server itself. On initialization, it detects the system's IP address (displayed on the console) and initializes websockets to communicate with the client. An internal class, <i>ServerHandler</i>, receives client requests and sends the 'index.html' page. The function <i>stop()</i> allows to properly shut down the server and its modules. The function <i>broadcast(String msg)</i> allows sending messages and commands to the Web interface.<br/>
+						&nbsp;- class <i>DataWebSocket</i> defines and manages a websocket to communicate with the Web interface. The function <i>onMessage(WebSocket conn, String message)</i> receives commands from the Web interface and forwards them to the class <i>Main</i> for processing.<br/>
+						&nbsp;- class <i>VideoSocket</i> defines a socket to send a video stream. the function <i>pushImage(BufferedImage img)</i> send an image with format BufferedImage to the Web interface. This class runs a separate thread that executes this function every 50 milliseconds, enabling a constant video stream.<br/>
+						<br/>
+						<br/>
+						
+						HTML page:<br><br>
+						
+						The 'index.html' page describes the web page as it should be displayed in the Web browser. The top part displays the framerate. The central part is an image that takes the Java program's video socket as its source, enabling continuous display of the camera's video stream. The lower part contains a set of buttons for controlling the robot and stopping the program remotely. In the header, a block of CSS code provides the layout.<br/>
+						The page also includes a javascript section. When the page is opened, this code retrieves the server's IP address to connect to the video stream. A function enables commands from the server to be received and processed, as well as functions associated with the page's buttons. The communication protocol defines the following commands:<br/>
+						<br/>
+						
+						- commands from server:<br>
+						<i>framerate 20</i> : displays the program's frame rate (in this case, 20fps) at the top of the page.<br/>
+						<br/>
+						- commands from client to the serveur:<br>
+						<i>robot forward</i> : command to move the robot forward<br>
+						<i>robot backward</i> : command to move the robot backward<br>
+						<i>robot turnleft</i> : rotate the robot to the left<br>
+						<i>robot turnright</i> : rotate the robot to the right<br>
+						<i>robot stop</i> : command to stop the robot<br>
+						<i>system stop</i> : command to remotely stop the program
+						
+						
+					</p>
+					
+			
+				</section>
+
+		
+				<section class="listsection">
+					
+					<p>	
+						Tracking a colored object:
+					</p>
+
+					<p>	
+						This program is based on the previous project, but adds a simple primary color detection algorithm to enable the robot to orient itself towards a colored object.
+						
+						<figure style="text-align:center">
+							<img src="/robot/robot_camera_color.png" alt="color detection interface" width="300" />
+							<figcaption>Detection of red mushroom. The red line indicates the column where the most red was detected.</figcaption>
+						</figure>
+					</p>
+					<br/>
+					
+					<p style="text-align: center">
+						<video width="500" controls >
+							<source src="/robot/robot_camera_color.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+						<br/>
+						Automatic mode: the robot orients itself towards a colored object (in this case, red).
+					</p>
+					<br/>
+					
+					<p>	
+						Source code:<br>
+						- HTML page:  <a href="/robot/robot_camera_color/index.html">index.html</a> (right-click -> Save link as)<br> 
+						- Jar file: <a href="/robot/robot_camera_color/robot_camera_color.jar">robot_camera_color.jar</a> <br>
+						- Java code: <a href="/robot/robot_camera_color/robot_camera_color.zip">robot_camera_color.zip</a> <br>
+					</p>
+					
+					<p>
+						As before, it is advisable to create a specific subfolder for this project. On the SSH console (or directly on a remote desktop), for example, you can create the folder with the following commands:<br/>
+						
+						<br/>
+						<code>
+						cd ~/Java<br/>
+						mkdir robot_camera_color<br/>
+						cd robot_camera_color <br/>
+						</code>
+						<br/>
+						
+						Then, from the PC, we open a new console in the folder where the JAR and HTML files are located, and enter the following SCP commands, with the Raspberry Pi's IP address and password:<br/>
+						<br/>
+						<code>
+						scp robot_camera_color.jar pi@192.168.1.10:/home/pi/Java/robot_camera_color<br/>
+						scp index.html pi@192.168.1.10:/home/pi/Java/robot_camera_color<br/>
+						</code>
+						<br/>
+						
+						From the SSH console (or from a console on a remote desktop), run the program with the following command:<br/>
+						<br/>
+						<code>
+						sudo java -jar robot_camera_color.jar<br/>
+						</code>
+						<br/>
+						
+						The web server starts up, then displays its address in the SSH console, which you can enter in the address bar of a web browser. The robot can then be controlled using the arrow keys. The video stream shows color detection. You can select the color to be searched for (red, green or blue) using the three buttons below the video stream. The 'change mode' button is used to switch from manual to automatic mode and vice versa (the top display shows the current mode and color). In automatic mode, the robot turns towards the most important colored object in its field of vision. Stop the program by clicking on the 'stop system' button (or, from the SSH console, by pressing Ctrl+C).
+					</p>
+					
+					<p>
+						To use the Java code, this program must be linked to the same libraries as the <i>robot_camera_server</i> project: OpenCV, <a href="https://mvnrepository.com/artifact/com.pi4j/pi4j-core">pi4j</a>, <a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket">Java-Websocket</a>, <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-api">slf4j-api</a> and <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-simple">slf4j-simple</a>. Do not forget the 'index.html' page.
+					</p>
+					
+					<p>
+						The source code is divided into four packages:<br/>
+						<figure style="text-align:center">
+							<img src="/robot/camera_color_classes.png" alt="classes of the robot_camera_color project" width="250" />
+						</figure>
+						
+						<br/>
+						- Package <i>main</i>: <br/><br/>
+						
+						This package contains classes <i>Main</i> and <i>Camera</i> :<br/>
+						&nbsp;- class <i>Main</i>: compared to the <i>robot_camera_server</i> project, this class adds the color detection sub-module, and defines the robot's operating mode (manual or automatic). The image sent to the video socket is here the image generated by the color detection module. the function <i>clientCommand(String command)</i> defines a set of new commands to change the operating mode and the color to be detected.<br/>
+						&nbsp;- class <i>Camera</i>: no difference with the project <i>robot_camera_server</i>. <br/>
+						<br/>
+						
+						- Package <i>robot</i>: <br/><br/>
+						This package contains the classes <i>Robot</i> and <i>MotorControl</i> :<br/>
+						
+						&nbsp;- class <i>Robot</i> adds a function <i>action(int px)</i> allowing to autonomously control the robot according to the position of on aobject on the image (px).<br/>
+						&nbsp;- class <i>MotorControl</i>: no difference with the project <i>robot_camera_server</i>. <br/>
+						<br/>
+						
+						- Package <i>servers</i>: <br/><br/>
+						This package contains the classes <i>Serveur</i>, <i>DataWebSocket</i> and <i>VideoSocket</i>, all three are identical to the project <i>robot_camera_server</i>.<br/>
+						<br/>
+						
+						- Package <i>color</i>: <br/><br/>
+						This package contains the class <i>Detector</i>, which detects pixels of a certain primary color in the image. The function <i>detect(Mat img)</i> detects the position of a colored object on the image, and the function <i>Matrix2bufferedImage()</i> generates the output image with format BufferedImage that is sent to the Web interface.<br/>
+						
+						Color is detected by comparing the values of a pixel's three color channels. For example, to detect the color red, the pixel value will be: <i>val=max(0,rouge - vert - bleu)</i>. In this way, only pixels with a strong red dominance will be detected. <br/>
+						To detect the horizontal position of a colored object, we accumulate the pixel values of the same column, The column <i>px</i> with the greatest value gives the object's orientation.<br/>
+						
+						<br/>
+						<br/>
+						
+						HTML Page:<br><br>
+						
+						The 'index.html' page of this project adds, at the top, a line about the robot's operating mode (manual or automatic) and on the selected color (red, green or blue). The image received is the one generated by the color detection module. Below the image, three buttons allow selecting the primary color to be searched. At the bottom, a button is added to change the robot's operating mode.<br/>
+						The javascript section adds functions for additional buttons and enables the reception of two new commands.
+						The communication protocol defines the following commands :<br/>
+						<br/>
+						
+						- commands from server:<br/>
+						<i>framerate 20</i> : displays the program's frame rate (in this case, 20fps) at the top of the page.<br/>
+						<i>mode automatic</i> : displays the operating mode ('automatic' or 'manual') at the top of the page.<br/>
+						<i>color red</i> : displays the selected color ('red', 'green' or 'blue') at the top of the page.<br/>
+						<br/>
+						- commands from client to the serveur:<br/>
+						<i>robot forward</i> : command to move the robot forward<br>
+						<i>robot backward</i> : command to move the robot backward<br>
+						<i>robot turnleft</i> : rotate the robot to the left<br>
+						<i>robot turnright</i> : rotate the robot to the right<br>
+						<i>robot stop</i> : command to stop the robot<br>
+						<i>changemode</i> : change the robot's operating mode<br/>
+						<i>system red</i> : change the desired color ('red', 'green' or 'blue')<br/>
+						<i>system stop</i> : command to remotely stop the program
+						
+						
+					</p>
+
+
+				</section>
+				
+				
+				
+				<section class="listsection">
+					
+					<p>	
+						Tracking of a vertical barcode:
+					</p>
+
+					<p>	
+						This program is based on the <i>robot_camera_server</i> project, but adds an algorithm for detecting vertical barcodes. By knowing the size of the barcode, it is possible to define its distance, and therefore its position relative to the robot. 
+						
+						<figure style="text-align:center">
+							<img src="/robot/robot_camera_barcode.png" alt="barcode detection interface" width="300" />
+							<figcaption>Detection of vertical barcodes.</figcaption>
+						</figure>
+					</p>
+					
+					<br/>
+					
+					<p>	
+						source code:<br>
+						- HTML page:  <a href="/robot/robot_camera_barcode/index.html">index.html</a> (right-click -> Save link as)<br> 
+						- Barcode template: <a href="/robot/barcode.svg">barcode.svg</a> (right-click -> Save link as)<br> 
+						- JAR file: <a href="/robot/robot_camera_barcode/robot_camera_barcode.jar">robot_camera_barcode.jar</a> <br>
+						- Java code: <a href="/robot/robot_camera_barcode/robot_camera_barcode.zip">robot_camera_barcode.zip</a> <br>
+					</p>
+					
+					<p>
+						As before, it is advisable to create a specific subfolder for this project. On the SSH console (or directly on a remote desktop), for example, you can create the folder with the following commands:<br/>
+						
+						<br/>
+						<code>
+						cd ~/Java<br/>
+						mkdir robot_camera_barcode<br/>
+						cd robot_camera_barcode<br/>
+						</code>
+						<br/>
+						
+						Then, from the PC, we open a new console in the folder where the JAR and HTML files are located, and enter the following SCP commands, with the Raspberry Pi's IP address and password:<br/>
+						<br/>
+						<code>
+						scp robot_camera_barcode.jar pi@192.168.1.10:/home/pi/Java/robot_camera_barcode<br/>
+						scp index.html pi@192.168.1.10:/home/pi/Java/robot_camera_barcode<br/>
+						</code>
+						<br/>
+						
+						From the SSH console, run the program with the following command:<br/>
+						<br/>
+						<code>
+						sudo java -jar robot_camera_barcode.jar<br/>
+						</code>
+						<br/>
+						
+						By default, in automatic mode, the robot follows the first barcode detected in the image. To specify a particular barcode, enter its code as a parameter (number between 0 and 15):<br/>
+						
+						<br/>
+						<code>
+						sudo java -jar robot_camera_barcode.jar 9<br/>
+						</code>
+						<br/>
+						
+						
+						
+						The web server starts up, then displays its address in the SSH console, which you can enter in the address bar of a web browser. The robot can then be controlled using the arrow keys. The video stream shows the detection of the barcode(s). The 'change mode' button is used to switch from manual to automatic mode and vice versa (the display at the top indicates the mode). In automatic mode, the robot orients itself towards the specified code (or, by default, the first barcode detected). Stop the program by clicking on the 'stop system' button (or, from the SSH console, by pressing Ctrl+C).
+					</p>
+					
+					<p>
+						To use the Java code, this program must be linked to the same libraries as the <i>robot_camera_server</i> project: OpenCV, <a href="https://mvnrepository.com/artifact/com.pi4j/pi4j-core">pi4j</a>, <a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket">Java-Websocket</a>, <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-api">slf4j-api</a> and <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-simple">slf4j-simple</a>. Do not forget the 'index.html' page.
+					</p>
+					
+					<p>
+						The source code is divided into four packages:<br/>
+						<figure style="text-align:center">
+							<img src="/robot/camera_barcode_classes.png" alt="classes du projet robot_camera_barcode" width="250" />
+						</figure>
+						
+						<br/>
+						- Package <i>main</i>: <br/><br/>
+						
+						This package contains classes <i>Main</i> and <i>Camera</i> :<br/>
+						&nbsp;- class <i>Main</i>: compared to the <i>robot_camera_server</i> project, this class adds the barcode detection sub-module, and defines the robot's operating mode (manual or automatic). The image sent to the video socket is here the image generated by the barcode detection module. The function <i>clientCommand(String command)</i> defines a set of new commands to change the robot's operating mode.<br/>
+						&nbsp;- class <i>Camera</i>: no difference with the project <i>robot_camera_server</i>. <br/>
+						<br/>
+						
+						- Package <i>robot</i>: <br/><br/>
+						This package contains classes <i>Robot</i> and <i>MotorControl</i> :<br/>
+						
+						&nbsp;- class <i>Robot</i> adds a function <i>action(int px, int height)</i> allowing autonomous robot control based on the position and apparent size of a barcode on the image.<br/>
+						&nbsp;- class <i>MotorControl</i>: no difference with the project <i>robot_camera_server</i>. <br/>
+						<br/>
+						
+						- Package <i>servers</i>: <br/><br/>
+						This package contains classes <i>Serveur</i>, <i>DataWebSocket</i> and <i>VideoSocket</i>, all three are identical to the project <i>robot_camera_server</i>.<br/>
+						<br/>
+						
+						- Package <i>barcode</i>: <br/><br/>
+						This package contains classes <i>Detector</i> and <i>Code</i>, which enable barcode detection. The class <i>Detector</i> contains the detection algorithm. It scans the image column by column and detects the barcode markers. When a barcode is detected, it is registered using a  <i>code</i> object instance containing its size and position properties. Instances with the same identification code are merged. The instance is used to define the barcode's center, apparent height and position. The class <i>Code</i> contains functions for reading the barcode, including its bianary identification code and orientation. The function <i>Matrix2bufferedImage()</i> generates the BufferedImage format image that is sent to the Web interface.<br/>
+						
+						<br/>
+						<br/>
+						
+						HTML page:<br><br>
+						
+						The 'index.html' page of this project adds a line on the robot's operating mode (manual or automatic) at the top. The image received is that generated by the barcode detection module. The lower part adds a button to change the robot's operating mode.<br/>
+						The javascript section adds functions for additional buttons and enables the reception of a new command.
+						The communication protocol defines the following commands :<br/>
+						<br/>
+
+						
+						- commands from server:<br/>
+						<i>framerate 20</i> : displays the program's frame rate (in this case, 20fps) at the top of the page.<br/>
+						<i>mode automatic</i> : displays the operating mode ('automatic' or 'manual') at the top of the page.<br/>
+						<br/>
+						- commands from client to the serveur:<br/>
+						<i>robot forward</i> : command to move the robot forward<br>
+						<i>robot backward</i> : command to move the robot backward<br>
+						<i>robot turnleft</i> : rotate the robot to the left<br>
+						<i>robot turnright</i> : rotate the robot to the right<br>
+						<i>robot stop</i> : command to stop the robot<br>
+						<i>changemode</i> : change the robot's operating mode<br/>
+						<i>system stop</i> : command to remotely stop the program
+						
+					</p>
+
+
+				</section>
+				
+				<section class="listsection">
+					
+					<p>	
+						ARTags tracking:
+					</p>
+					
+					<p>	
+						This program takes the <i>robot_camera_server</i> project, but adds an algorithm for detecting and following ARTags markers. The robot can then follow a predefined sequence of markers to follow a path. 
+						
+						<p style="text-align: center">
+							<video width="500" controls >
+								<source src="/robot/robot_camera_ARTag.mp4" type="video/mp4">
+								Your browser does not support the video tag.
+							</video> 
+							<br/>
+							The robot follows a sequence of two ARTags, with code 404 and 33, moving towards an ARTag until its apparent height exceeds 110 pixels, then moving toward the next ARTag. Once the sequence is complete, the robot follows the first distant ARTag it detects. The ARTag detector binarizes the image with a randomly varying threshold until it detects the marker it's looking for.
+						</p>
+					</p>
+					
+					<p>	
+						Source code:<br>
+						- Page HTML :  <a href="/robot/robot_camera_ARTag/index.html">index.html</a> (right-click -> Save link as)<br> 
+						- tag template: <a href="/robot/ARTag.svg">ARTag.svg</a> (right-click -> Save link as)<br> 
+						- JAR file: <a href="/robot/robot_camera_ARTag/robot_camera_ARTag.jar">robot_camera_ARTag.jar</a> <br>
+						- Java code: <a href="/robot/robot_camera_ARTag/robot_camera_ARTag.zip">robot_camera_ARTag.zip</a> <br>
+					</p>
+					
+					<p>
+						Note: the ARTag marker must have an even number of black squares: the detector uses the parity bit principle to eliminate certain false positives.
+					</p>
+					
+					<p>
+						As before, it is advisable to create a specific subfolder for this project. On the SSH console (or directly on a remote desktop), for example, you can create the folder with the following commands:<br/>
+						
+						<br/>
+						<code>
+						cd ~/Java<br/>
+						mkdir robot_camera_ARTag<br/>
+						cd robot_camera_ARTag<br/>
+						</code>
+						<br/>
+						
+						Then, from the PC, we open a new console in the folder where the JAR and HTML files are located, and enter the following SCP commands, with the Raspberry Pi's IP address and password:<br/>
+						<br/>
+						<code>
+						scp robot_camera_ARTag.jar pi@192.168.1.10:/home/pi/Java/robot_camera_ARTag<br/>
+						scp index.html pi@192.168.1.10:/home/pi/Java/robot_camera_ARTag<br/>
+						</code>
+						<br/>
+						
+						From the SSH console, run the program with the following command:<br/>
+						<br/>
+						<code>
+						sudo java -jar robot_camera_ARTag.jar<br/>
+						</code>
+						<br/>
+						
+						By default, in automatic mode, the robot follows the first 'distant' marker (smaller than 110 pixels in height) it detects in the image. To specify a sequence of markers to follow, specify them as parameters:<br/>
+						
+						<br/>
+						<code>
+						sudo java -jar robot_camera_ARTag.jar 404 33<br/>
+						</code>
+						<br/>
+						
+						
+						The web server starts up, then displays its address in the SSH console, which you can enter in the address bar of a web browser. The robot can then be controlled using the arrow keys. The video stream shows the detection of the ARTags marker(s), with their code and apparent height. The 'change mode' button switches from manual to automatic mode and vice versa. In automatic mode, the robot rotates on itself until it finds the next ARTag marker in the sequence, then moves towards it. When the marker is close enough, it searches for the next marker, and so on. When the sequence is complete (or when no sequence is defined), the robot heads for the first marker it detects. You can restart the sequence by clicking on the 'initialize' button, and stop the program by clicking on the 'stop system' button.
+					
+					</p>
+					
+					<p>
+						To use the Java code, this program must be linked to the same libraries as the <i>robot_camera_server</i> project: OpenCV, <a href="https://mvnrepository.com/artifact/com.pi4j/pi4j-core">pi4j</a>, <a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket">Java-Websocket</a>, <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-api">slf4j-api</a> and <a href="https://mvnrepository.com/artifact/org.slf4j/slf4j-simple">slf4j-simple</a>. Do not forget the 'index.html' page.
+					</p>
+					
+					<p>
+						The source code is divided into four packages:<br/>
+						<figure style="text-align:center">
+							<img src="/robot/camera_ARTag_classes.png" alt="classes of the robot_camera_ARTag project" width="250" />
+						</figure>
+						
+						<br/>
+						- Package <i>main</i>: <br/><br/>
+						
+						This package contains classes <i>Main</i> and C<i>amera</i> :<br/>
+						&nbsp;- class <i>Main</i>:  compared to the <i>robot_camera_server</i> project, this class adds an ARTag detection sub-module,  and defines the robot's operating mode (manual or automatic). The image sent to the video socket is the image generated by the ARTags detection module. The function <i>clientCommand(String command)</i> defines a set of new commands to change the robot's operating mode.<br/>
+						&nbsp;- class <i>Camera</i>: no difference with the project <i>robot_camera_server</i>. <br/>
+						<br/>
+						
+						- Package <i>robot</i>: <br/><br/>
+						This package contains classes <i>Robot</i> and <i>MotorControl</i> :<br/>
+						
+						&nbsp;- class <i>Robot</i> adds the function <i>action(int px, int pz, boolean search)</i> allowing the robot to be controlled autonomously according to the position and apparent size of a marker on the image, and whether the robot is searching for a marker or not.<br/>
+						&nbsp;- class <i>MotorControl</i>: no difference with the project <i>robot_camera_server</i>. <br/>
+						<br/>
+						
+						- Package <i>servers</i>: <br/><br/>
+						This package contains classes <i>Serveur</i>, <i>DataWebSocket</i> and <i>VideoSocket</i>, all three are identical to the project <i>robot_camera_server</i>.<br/>
+						<br/>
+						
+						- Package <i>ARTag</i>: <br/><br/>
+						This package contains classes <i>Detector</i> and <i>Edges</i>, which enable the detection of ARTags markers. <br/>
+						&nbsp;- class <i>Detector</i> contains a contour detection algorithm and a function <i>Matrix2bufferedImage()</i> that generates the image with format BufferedImage that is sent to the Web interface.<br/>. The algorithm performs the following steps:<br/>
+						&nbsp;&nbsp;&nbsp;- Image binarization<br/>
+						&nbsp;&nbsp;&nbsp;- Detection of edge points<br/>
+						&nbsp;&nbsp;&nbsp;- Detection of edges<br/>
+						The detector filters edges that are too small to be exploited, the remaining adges are recorded as instances of object <i>Edge</i>.<br/>
+						
+						&nbsp;- class <i>Edge</i> detects whether an edge is actually an ARTag, and, if so, decodes its  binary identifier. The algorithm performs the following steps:<br/>
+						&nbsp;&nbsp;&nbsp;- Corner detections (<a href="https://en.wikipedia.org/wiki/Features_from_accelerated_segment_test">FAST</a> Algorithm)<br/>
+						&nbsp;&nbsp;&nbsp;- Elimination of edges with more or less than 4 corners<br/>
+						&nbsp;&nbsp;&nbsp;- Elimination of quadrilateral that are not squares<br/>
+						&nbsp;&nbsp;&nbsp;- Rectification of tag's image<br/>
+						&nbsp;&nbsp;&nbsp;- Reading color of the 9 inner squares<br/>
+						&nbsp;&nbsp;&nbsp;- Elimination of tags with odd number of black squares<br/>
+						&nbsp;&nbsp;&nbsp;- Decoding the binary code of the tag<br/>
+						
+						
+						
+						<br/>
+						<br/>
+						
+						HTML page:<br><br>
+						
+						The 'index.html' page of this project adds a line on the robot's operating mode (manual or automatic) and on the code of the currently tracked ARTag (-1 if none).  The image received is that generated by the ARTag detection module.The lower part adds a button to change the robot's operating mode, and a button to reinitialize the sequence of ARTags.<br/>
+						The javascript section adds functions for additional buttons and enables the reception of two new commands.
+						The communication protocol defines the following commands :<br/>
+						<br/>
+						
+						
+						- commands from server:<br/>
+						<i>framerate 20</i> : displays the program's frame rate (in this case, 20fps) at the top of the page.<br/>
+						<i>mode automatic</i> : displays the operating mode ('automatic' or 'manual') at the top of the page.<br/>
+						<i>target 33</i> : displays the code of the currently tracked ARTag (here, tag 33) at the top of the page.<br/>
+						<br/>
+						- commands from client to the serveur:<br/>
+						<i>robot forward</i> : command to move the robot forward<br>
+						<i>robot backward</i> : command to move the robot backward<br>
+						<i>robot turnleft</i> : rotate the robot to the left<br>
+						<i>robot turnright</i> : rotate the robot to the right<br>
+						<i>robot stop</i> : command to stop the robot<br>
+						<i>changemode</i> : change the robot's operating mode<br/>
+						<i>system initialize</i> : réinitialize the sequence of ARTags<br/>
+						<i>system stop</i> : command to remotely stop the program
+						
+					</p>
+
+
+				</section>
+
+			</section>
+			
+
+
+	</div>
+	
+	<footer>
+		<p>
+	   			Last updates
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
