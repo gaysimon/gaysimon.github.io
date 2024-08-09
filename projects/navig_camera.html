@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="/style1.css" type="text/css" />
+	<title>Simon GAY</title>
+</head>
+
+<body>
+	
+	
+	<header>
+		<div id="banniere_image"> </div>
+	</header>
+	
+	<div class="main">
+		<nav>
+            <a href="/index.html">Accueil</a><br />
+			<a href="/recherches.html">Recherches</a><br />
+			<a href="/postdoc.html">Mon PostDoc</a><br />
+			<a href="/these.html">Ma These</a><br />
+			<a href="/publi.html">Publications</a><br />
+			<a href="/robot.html">Les Robots</a><br />
+			<a href="/software.html">logiciels</a><br />
+			<br />
+			<a href="/robot/john3.html"><img src="/img/fr.png" alt="fr" /> </a>
+			<a href="/robot/john3_en.html"><img src="/img/en.png" alt="en" /> </a>
+		</nav>
+
+		<section class="subsection">
+			<p>
+				<center style="text-align: center;font-size: xx-large;">Une implémentation en environnement réel d'un système de navigation bio-inspiré</center><br /><br />
+			</p>
+			
+			<p>
+				
+				<br/>
+				<br/>
+				
+				Ce système est une implémentation en environnement réel du <a href="/postdoc/navig2.html">modèle de navigation bio-inspiré<a/> développé durant mon postdoc au laboratoire LITIS. Nous utilisons une caméra binoculaire pour générer le contexte environnemental (Figure 1).<br/>
+				<br/>
+				Le fonctionnement de ce système est décrit en détail dans notre article <a href="https://www.sciencedirect.com/science/article/pii/S2352648324000400">'A bio-inspired model for robust navigation assistive devices'</a>
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/projects/stereo_camera.jpg" alt="Stereo camera" width="350" />
+			</figure>
+			<p style="text-align: center">
+				Figure 1 : La caméra utilisée est une caméra Sony PS4 model 1 modifiée.
+			</p>
+			
+			<p>
+				Le système visuel utilise la disparité entre les deux images et localise des lignes verticales dans la scène. Ces lignes sont ensuite projetées sur le plan de navigation poour générer le contexte environnemental (Figure 2). Le système différencie les lignes avec un gradient positif et négatif, ce qui aide dans la reconnaissance du contexte.
+			</p>
+			
+			<figure style="text-align:center">
+				<img src="/projects/stereo_vision.png" alt="Stereo vision" width="350" />
+			</figure>
+			<p style="text-align: center">
+				Figure 2 : Le système visuel détecte les lignes verticales dans la scène (en haut à gauche) et utilise la disparité entre les deux images (en haut à droite) pour détecter et localiser ces lignes verticales dans l'espace. Les lignes sont projetées sur le plan de navigation (en bas à droite) pour définir le contexte environnemental.
+			</p>
+			<br/>
+			
+		</section>
+
+		<section class="subsection">
+			
+			<br/>
+			<p>
+				Avec la caméra fixée sur un chariot, il devient possible de cartographier un environnement inconnu. Le système a été testé dans deux environnements.
+			</p>
+			
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/construction_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Construction d'un chemin dans l'environnement 'couloir'. Les cellules de grille et de direction de la tête indiquent la position et l'orientation autours de la cellule de lieu actuelle. Les cellules de lieux sont placées sur la grille globale (outil de visualisation) permettant d'observer le graphe de navigation (points bleus) et la trajectoire (ligne couleur cyan).
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/construction_floor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Construction d'un chemin dand l'environement 'boucle'
+			</p>
+			<br/>
+
+		</section>
+
+		<section class="subsection">
+			<br/>
+			<p>
+				Il est alors possible de reproduire le chemin enregistré en suivant les instructions du système de navigation : chaque cellule de lieu indique la position de la prochaine cellule de lieu. En alignant la direction du chariot sur la direction de la prochaine cellule, on peut suivre le chemin enregistré.
+			</p>
+			
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/exploitation_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				suivi du chemin dans l'environnement 'couloir'.
+			</p>
+			<br/>
+
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/exploitation_floor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				suivi du chemin dans l'environnement 'boucle'.
+			</p>
+			<br/>
+			
+			
+		</section>
+
+		<section class="subsection">
+			
+			<br/>
+			<p>
+			L'utilisation d'un graphe décentralisé de modèles locaux rend le système robuste aux changements d'environnement : le système ne prend en compte que les points d'intérêt qui sont proches de leur position attendue dans un modèle local. Ainsi, si un nombre suffisant de points d'intérêt est reconnu, le système est capable d'estimer la position. Dans la vidéo suivante, plusieurs éléments ont été ajoutés ou déplacés par rapport au chemin précédemment enregistré. 
+			</p>
+			
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/robustness_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Robustesse du modèle de navigation dans un environnement modifié. Des tables, chaises, porte-manteaux ont étés ajoutés ou dépacés, et certaines portes ont été ouvertes.
+			</p>
+			<br/>
+			
+			<p>
+			Le système de localisation locale, utilisant les cellules de grille et de direction de la tête, peut suivre les mouvements de la caméra dans toutes les directions, tant que celle-ci reste à porté du module de cellules de grille (ici, le module couvre un carré de 220x220cm). Cette caractéristique permet de suivre une personne dans l'espace.
+			</p>
+			<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/lateral_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Suivi des mouvements dans l'espace : mouvement latéral de 60cm à gauche par rapport à la position de la cellule de lieu (3 cellules de grille) puis de 40 cm à froite (2 cellules de grille).
+			</p>
+			<br/>
+			
+		</section>
+
+		<section class="subsection">
+			<br/>
+			
+			<p>
+				Nous avons également testé le système avec la caméra portée au niveau du torse. Malgré une faible tolérance du système à l'inclinaison et au roulis de la caméra, il reste capable de suivre la position de la personne le long du couloir. 
+			</p>
+			
+			<figure style="text-align:center">
+				<img src="/projects/camera_chest.png" alt="Chest camera" width="350" />
+			</figure>
+			<p style="text-align: center">
+				Figure 3 : caméra attachée sur la sangle frontale d'un sac à dos.
+			</p>
+			
+			<br/>
+			
+				<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/walk_corridor.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Suivi d'une personne avec la caméra portée au niveau du torse.
+			</p>
+			
+			<br/>
+		</section>
+
+		<section class="subsection">
+			<br/>
+			
+			<p>
+				Le système de navigation a aussi été testé sur une <a href="https://gaysimon.github.io/robot/robot_navigation.html">plateforme robotique</a>, équipée d'un nano-ordinateur Banana Pi M5. Ce test démontre la possibilité de concevoir un dispositif compact et portatif, mais également les possibilités de guidage offertes par ce modèle de navigation. En effet, le robot se déplace vers la prochaine cellule de lieu du graphe, permettant de suivre le chemin enregistré de façon autonome.
+			</p>
+
+			<figure style="text-align:center">
+				<img src="/projects/robot.jpg" alt="robotic platform" width="600" />
+			</figure>
+			<p style="text-align: center">
+				Figure 4 : La plateforme robotique est basée sur la base <a href="https://osoyoo.com/2019/11/08/omni-direction-mecanum-wheel-robotic-kit-v1/">Osoyoo Mecanumm Wheel</a>. L'étage supérieur supporte la caméra binoculaire, une powerbank, un Banana Pi M5 et un dongle Wifi. L'étage inférieur supporte un Arduino Mega et deux carte de contrôle moteur pilotant les quatre moteurs cc.
+			</p>
+			
+			<br/>
+			
+				<p style="text-align: center">
+ 				<video width="640" controls >
+  					<source src="/projects/robot_navig.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video> 
+				<br>
+				Le robot suit le chemin précédemment enregistré dans l'environnement 'couloir' avec le chariot. Malgré la différence de hauteur, le robot est toujours capable de se déplacer le long du chemin. Il perd cependant le suivi en arrivant vers le milieu du couloir, où le point de vue depuis le sol est trop différent pour pouvoir reconnaitre l'environnement.
+			</p>
+			
+			<br/>
+		</section>
+	</div>
+	
+	<footer>
+		<p>
+			Derniers ajouts par section
+		</p>
+
+		<div class="footsection">
+			<p>
+				&nbsp;ROBOTS :<br />
+				&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+			</p>
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;SOFTWARES :<br />
+				&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+				&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+			</p>
+
+
+		</div>
+
+		<div class="footsection">
+			<p>
+				&nbsp;Le projet Ernest
+			</p>
+		</div>
+	</footer>
+
+</body>
+</html>
