@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="/style1.css" type="text/css" />
+		<title>Simon GAY</title>
+	</head>
+
+	<body>
+		
+		
+		<header>
+			<div id="banniere_image"> </div>
+		</header>
+		
+		<div class="main">
+			<nav>
+                <a href="/index_en.html">Home</a><br />
+				<a href="/recherches_en.html">Recherches</a><br />
+				<a href="/postdoc_en.html">My PostDoc</a><br />
+				<a href="/these_en.html">My PhD</a><br />
+				<a href="/publi_en.html">Publications</a><br />
+				<a href="/robot_en.html">Robots</a><br />
+				<a href="/software_en.html">Softwares</a><br />
+				<br />
+				<a href="/robot/espbot.html"><img src="/img/fr.png" alt="fr" /> </a>
+				<a href="/robot/espbot_en.html"><img src="/img/en.png" alt="en" /> </a>
+			</nav>
+
+			<section class="subsection">
+				<p>
+					<center style="text-align: center;font-size: xx-large;">ESP-Bot</center><br /><br />
+				</p>
+				
+
+				<figure style="text-align:center">
+					<a href="/robot/espbot.jpg"><img src="/robot/espbot.jpg" alt="robot ESP-Bot" width="300" /></a>
+				</figure>
+
+				<p>
+				
+			</section>
+
+			<section class="subsection">
+				<section class="listsection">
+
+					<p>
+						Description:<br />
+					</p>
+
+					<p>
+						The ESP-Bot robot is a small mobile platform equipped with an ESP32-cam card, allowing to test computer vision algorithms on a microcontroller !<br/><br/>
+					</p>
+					
+					<p>
+						List of components:<br/>
+					</p>
+
+					<p>
+						- ESP32-cam board<br/>
+						- ESP32-cam-MB board<br/>
+						- motor driver board<br/>
+						- two 3-6V DC motors with gearbox<br/>
+						- Powerbank<br/>
+						- Padded prototype PCB Boards<br/>
+						- 2 female pin header 8x1<br/>
+						- male bent pin header 8x1<br/>
+						- jumper wires<br/>
+						- 3D-printed chassis<br/>
+						- 2 rubber bands<br/>
+						- 2 felt pad<br/>
+					</p>
+					
+					<p>
+						The brain of this robot is an ESP32-cam board which, as its name suggests, contains an ESP32 microcontroller and a small camera. It also includes WiFi and Bluetooth chip and antenna. The ESP32 is a microcontroller clocked at 240Mhz, powerful enough for simple image processing. The ESP32-cam-MB is a small extension board with a USB connection, facilitating programming (via the Arduino IDE) and communication with a PC. The battery is a second-hand TechCharge T2200 powerbank, capable of delivering a current of 1A, and measuring 30x22x94mm. The motor driver board is based on a L293D to drive 2 small 3-6V DC motors with gearbox. It has the advantage of having pins and terminal blocks already soldered. The board must be modified by connecting the component power supply with the motor power supply (otherwise, link the + on the terminal block with the VCC on the connector with a jumper wire).  
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/driver_modif.png" alt="Modification of driver board" width="250" />
+						<figcaption>The motor driver must be modified by soldering these two pins together.</figcaption>
+					</figure>
+					
+					<p>
+						The chassis and wheels are printed from the following models. These models can be printed by low-volume printers (10x10x10cm) and do not require supports. If you're using another powerbank model, you'll certainly need to modify the model (for example with <a href="https://www.blender.org/">Blender</a>).<br/>
+						- Chassis: <a href="/robot/robot_vertical_base.stl">robot_vertical_base.stl</a><br/>
+						- Wheel: <a href="/robot/robot_vertical_wheel.stl">robot_vertical_wheel.stl</a><br/>
+					</p>
+					<figure style="text-align:center">
+						<img src="/robot/ESPbot_chassis.png" alt="Pieces to print" width="400" />
+						<figcaption>Monobloc chassis and wheel (must be printed twice).</figcaption>
+					</figure>
+					<br />
+					
+				</section>
+				
+				
+				<section class="listsection">
+			
+					<p>
+						Robot assembly:<br/>
+					</p>
+			
+					<p>
+						Since the connectors on the ESP32-cam-MB board make the connectors on the ESP32-cam board unusable, it was necessary to create an interface board to fit between the two. For this version of the ESP-bot, a padded test board was used (with size of 10x12 pads). This board uses long-leg pins headers, allowing to connect directly the ESP32-cam-MB. A bent strip "recovers" the ESP32-cam pins. This board can also be used to power the robot with the powerbank without using the USB port, with a printed connector (for example, according to this <a href="https://www.thingiverse.com/thing:5191739">model</a>). Of course, it's still possible to power the robot with a short USB cable via the ESP32-cam-MB.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/ESPbot_board1.jpg" alt="connector board" width="500" />
+						<figcaption>Connector board, here made with a padded test board. The USB connecter was 3D-printed.</figcaption>
+					</figure>
+					
+					<figure style="text-align:center">
+						<img src="/robot/ESPbot_board2.jpg" alt="connections with other boards" width="500" />
+						<figcaption>The long legs of pin headers allow to connect with both ESP32-cam and ESP32-cam-MB boards.</figcaption>
+					</figure>
+					<br/>
+					
+					<figure style="text-align:center">
+						<a href="/robot/ESPbot_typon.svg"><img  src="/robot/ESPbot_typon.svg" alt="Typon of connector board" width="200" /></a>
+						<figcaption>Typon to engrave on PCB board. This model allows to recover pins on both sides of the ESP32-cam board. (Right-click then "Save target as...").</figcaption>
+					</figure>
+					<br/>
+					
+					<p>
+						We can then assemble the robot:<br/>
+						- We start by integrating the two motors into the chassis. If the motors don't fit tightly, one or more layers of adhesive tape can be added to slightly increase the thickness of the motor. .<br/>
+						
+						- Insert the motor driver into the slot at the rear of the chassis. The motor terminal block must be aligned with the notch.<br/>
+						
+						- The ESP32-cam board, the connectors board and the ESP32-cam-MB board are then slotted together. The ESP32-cam-MB board is inserted into the front slot with the USB port facing upwards (the ESP32-cam board is thus upside down).<br/>
+						
+						- Insert the battery in the housing in the center of the robot.<br/>
+						
+						- Connect the motor cables to the driver board, and the six wires between the ESP32-cam board and the motor driver board (see diagram below). Leave the jumpers on the ENABLE pins of the driver board. To enable easy connection and disconnection of the wires, we recommend taping them together with adhesive tape to form a connector.<br/>
+						
+						<figure style="text-align:center">
+							<a href="/robot/ESP32_connections.png"><img src="/robot/ESP32_connections.png" alt="connections between components" width="300" /></a>
+							<a href="/robot/ESP32_wires.jpg"><img src="/robot/ESP32_wires.jpg" alt="connections between boards and motors" width="500" /></a>
+							<a href="/robot/ESP32_motor_driver.jpg"><img src="/robot/ESP32_motor_driver.jpg" alt="close-up on the motor driver" width="300" /></a>
+							<figcaption>Wiring of components. Cables that are too long can be wrapped around the battery. If the driver has not been modified, connect the Vin plug of the motor driver to the 5V power supply.</figcaption>
+						</figure>
+						
+						- Add the wheels to the motor axles, then place the rubber bands to act as tires. Finally, add the felt pads in the notches at the front and rear, under the robot. If the robot is wobbly, you'll need to add some additional layers.<br/> 
+						
+						<figure style="text-align:center">
+							<a href="/robot/ESP32_below.jpg"><img src="/robot/ESP32_below.jpg" alt="Adding the wheels on axles and felt pads under the robot" width="300" /></a>
+							<figcaption>Adding the wheels and felt pads.</figcaption>
+						</figure>
+					</p>
+					<br/>
+			
+				</section>
+				
+				<section class="listsection">	
+				
+					<p>
+						How to use the robot:<br/>
+					</p>
+					
+					<p>
+						Programming the ESP32 requires installating several extensions to the Arduino IDE. First of all, we need to add the ESP32 microcontrollers to the IDE board manager:<br/>
+						- Access parameters of the IDE (File->Preferences), then, in the field 'Additional Boards Manager URLs', add the following link:<br/><br/>
+						<code>
+							https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+						</code>
+						<br/>
+						
+						<figure style="text-align:center">
+							<img  src="/robot/ESP32_parameters.png" alt="field of the additional boards manager" width="400" />
+						</figure>
+						<br/>
+						- Download the board models: open the boards manager (Tools->Boards->Boards Managers...). Then, search and install 'ESP32 by Expressif Systems' board models.<br/>
+						
+						<figure style="text-align:center">
+							<img  src="/robot/ESP32_cards.png" alt="installation of ESP32 boards" width="500" />
+						</figure>
+						<br/>
+						
+						- You can now select the 'AI thinker ESP32-CAM' board model. Several properties, such as the microcontroller frequency, can be changed.<br/><br/>
+						
+						To upload an .ino sketch, first make sure that the battery is not connected. It is also advisable to disconnect the motor board (the current drawn by the motors could damage the PC's USB port). We then connect the ESP32-cam-MB board to a USB port on the PC, and select the serial port corresponding to the board in the IDE (Tools->Port). Click on the upload button to compile and upload the sketch.
+						<br/><br/>
+						
+						Once the sketch has been uploaded, disconnect the USB cable and reconnect the motor board. To turn the robot on, simply connect the power cable to the battery. To switch off, disconnect the battery.
+					</p>
+					
+				</section>
+				
+				<section class="listsection">
+					
+					<p>
+						Motor control:
+					</p>
+					
+					<p>
+						The motors are connected to pins 12, 13, 14 and 15 of the board: pins 12 and 13 control the left motor, pins 14 and 15 the right motor. To control a motor, activate the pin of the corresponding direction. To control motor speed, we use the  <code>analogWrite</code> function to send a PWM signal to the corresponding pin.
+					</p>
+					
+					<p>
+						The pins associated with the motors are first declared in the global variables:<br/><br/>
+						
+						<code>
+							extern int leftmotor1 =  12;<br/>
+							extern int leftmotor2 = 13;<br/>
+							extern int rightmotor1 = 15;<br/>
+							extern int rightmotor2 = 14;
+						</code>
+					</p>
+					
+					<p>
+						In the Setup function, we declare the motor pins as output and set them to the low state (0):<br/><br/>
+						
+						<code>
+							pinMode(leftmotor1, OUTPUT);<br/>
+							pinMode(leftmotor2, OUTPUT);<br/>
+							pinMode(rightmotor1, OUTPUT);<br/>
+							pinMode(rightmotor2, OUTPUT);<br/>
+							<br/>
+							digitalWrite(leftmotor1, LOW);<br/>
+							digitalWrite(leftmotor2, LOW);<br/>
+							digitalWrite(rightmotor1, LOW);<br/>
+							digitalWrite(rightmotor2, LOW);<br/>
+						</code>
+					</p>
+					
+					<p>
+						To control the motor, we use the function <code>analogWrite(pin, valeur)</code> with a speed value between 0 (stop) and 255 (maximum speed). In the following examples, we use a variable <code>int speed</code> to define mottor speed:<br/><br/>
+						
+						<code>
+							// move forward<br/>
+							analogWrite(leftmotor1, 0);<br/>
+							analogWrite(leftmotor2, speed);<br/>
+							analogWrite(rightmotor1, 0);<br/>
+							analogWrite(rightmotor2, speed);<br/>
+							<br/>
+							// move backward<br/>
+							analogWrite(leftmotor1, speed);<br/>
+							analogWrite(leftmotor2, 0);<br/>
+							analogWrite(rightmotor1, speed);<br/>
+							analogWrite(rightmotor2, 0);<br/>
+							<br/>
+							// turn left<br/>
+							analogWrite(leftmotor1, speed);<br/>
+							analogWrite(leftmotor2, 0);<br/>
+							analogWrite(rightmotor1, 0);<br/>
+							analogWrite(rightmotor2, speed);<br/>
+							<br/>
+							// turn right<br/>
+							analogWrite(leftmotor1, 0);<br/>
+							analogWrite(leftmotor2, speed);<br/>
+							analogWrite(rightmotor1, speed);<br/>
+							analogWrite(rightmotor2, 0);<br/>
+							<br/>
+							// stop<br/>
+							analogWrite(leftmotor1, 0);<br/>
+							analogWrite(leftmotor2, 0);<br/>
+							analogWrite(rightmotor1, 0);<br/>
+							analogWrite(rightmotor2, 0);<br/>
+						</code>
+						
+					</p>
+
+				</section>
+				
+			</section>
+
+			<section class="subsection">
+				
+				<section class="listsection">
+					
+					<p>
+						Vertical barcode detector:
+					</p>
+					
+					<p>
+						This program uses an algorithm to detect remote vertical barcodes. It is a version of the <a href="https://gaysimon.github.io/robot/robot_navigation_en.html">omnidirectional platform</a> detection system, simplified to run on an ESP32. The algorithm detects the position and apparent size of the barcode, allowing the estimation of its distance, and decodes its identifier. However, there is no detection of barcode orientation. The program detects a barcode with a predefined identifier, and enables the robot to follow it.
+					</p>
+					
+					
+					<p style="text-align: center">
+ 						<video width="500" controls >
+  							<source src="/robot//ESPbot_barcode.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+					<p>	
+						This type of algorithm allows localization and navigation algorithms using multiple barcodes in the environment. 
+					</p>
+					
+					<p>
+						sketch: <a href="/robot/ESPbot_barcode_QVGA.ino">ESPbot_barcode_QVGA.ino</a><br/>
+						barcode pattern: <a href="/robot/barcode_mini.svg">barcode_mini.svg</a> or <a href="/robot/barcode_mini.png">barcode_mini.png</a>
+						<br/>
+						(to download these files, do a right-click then 'Save target as...')
+						<br/><br/>
+						The barcode identifier to follow is specified on line 4, the motor speed on line 7. The sketch can operate at 240Mhz or 160Mhz (useful for saving battery). To create a barcode, color the gray stripes in black or white to create a 4-bits binary code. The document must be printed without margins. The printed document can be rolled up to form a tube, so that the code is visible from any direction.
+					</p>
+					
+					<figure style="text-align:center">
+						<img  src="/robot/barcode_mini_tube.jpg" alt="barcode rolled up to form a tube" width="200" /></a>
+						<figcaption>Vertical barcode forming a tube. The header, at the top, consists of two black bands of different widths. It allows the barcode to be detected. The lower part has four slots for a binary code, here with a value of 5 (0101b).</figcaption>
+					</figure>
+					<br/>
+					
+					<p>
+						The algorithm scans each column of the image, from top to bottom:<br/>
+						- It looks for a strong negative gradient (from white to black), then for a strong positive gradient (from black to white), recording the vertical positions p1 and p2 of these gradients. In this case, a black band is detected as band 1.<br/>
+						-   If this is the first band in the column, or if the code has not been detected, band 1 becomes band 2 (p3&lsaquo;-p1 and p4&lsaquo;-p2)<br/>
+						- In this case, the positions of the four bands of the code are estimated from the height of the detected header, and the pixel values compared with a threshold, enabling the band's being to be read (0 if white, 1 if black).<br/>
+						- The digital code is obtained from the four bits. If it is the predefined code, the horizontal position of the column and the header size are recorded.<br/><br/>
+						
+						Once the whole image has been processed, if the number of detected barcode columns is sufficient, the position and height are defined as the average of the obtained values. Depending on the position (left, center or right) and distance (too far, right distance, too close), the robot moves to keep the barcode in the right place.<br/><br/>
+						
+						The program defines the brightness threshold by measuring the maximum and minimum values of the previous column, allowing a certain tolerance to light conditions. In addition, when a barcode is detected on a column, its properties (horizontal position, height of header and bits, identifier) are sent through the serial port, with a rate of 115200 bauds. The message starts with a header composed of a triplet of bytes with values of 255-0-255, this sequence being highly unlikely in normal circumstances. The following section presents a program for displaying barcodes detected by the ESP32.<br/><br/>
+						
+					</p>
+					
+				</section>
+				
+				<section class="listsection">
+					
+					<p>
+						Barcode display:
+					</p>
+					
+					<p>
+						This small Java program displays the barcodes detected by the robot. It can be used for debugging and evaluating lighting conditions.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/ESP32_barcode_display.png" alt="barcode display" width="300" />
+						<figcaption>Display of detected barcodes (here, codes 9 and 5).</figcaption>
+					</figure>
+					
+					<p>	
+						Source code (Java) : <a href="/robot/ESPbot_barcode_display.zip">ESPbot_barcode_display.zip</a> (require the <a href="https://github.com/java-native/jssc/releases">JSSC</a> library) <br>
+					</p>
+					
+					<p>
+						To use this program, first create a new Java project with your favorite IDE (Eclipse, IntelliJ..., under Eclipse, 'File'->'New'->'Java Project', give a name then 'Ok'). Then import the three .java files from the above archive into the 'src' folder (under Eclipse, right-click on folder 'src'->'Import...'->'General'->'File System'->'next', then indicate the location of the source files, tick them, then validate).
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/ESPbot_barcode_project.png" alt="import of source files into the project" width="250" />
+					</figure>
+					
+					<p>
+						Then associate the jssc.jar file with the project (under Eclipse: right-click on the project->'Build path'->'Configure Build Path...', then 'Add External Jar' and select the file.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/libraries_espbot_barcode.png" alt="adding the jssc.jar library" width="500" />
+					</figure>
+					
+					<p>
+						On the robot, disconnect the battery and motor board from the ESP32 board, and connect it to the PC via USB. Then use the Arduino IDE to define the serial port number to be used. You'll need to use the Arduino console at least once, and specify a 115200 baud rate (otherwise, the link with the Java program won't work). Next, enter the port number on line 11 of main.java (the name 'ttyUSB' will be automatically changed to 'COM' on Windows systems). Present one or more barcodes to the robot, they should appear in the display.
+					</p>
+					
+				</section>
+				
+			</section>
+
+			
+			
+
+		</div>
+		
+		<footer>
+			<p>
+				Derniers ajouts par section
+			</p>
+
+			<div class="footsection">
+				<p>
+					&nbsp;ROBOTS :<br />
+					&nbsp;&nbsp;<a href="index.php?page=john1">Johnny </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=john2">Johnny 2.0 </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=eirl">ErnestIRL </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=psik">PsikHarpax </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=ecce">EcceRobot </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=epuck">ePuck </a> <br />
+				</p>
+			</div>
+
+			<div class="footsection">
+				<p>
+					&nbsp;SOFTWARES :<br />
+					&nbsp;&nbsp;<a href="index.html">SMA </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=vacu">vacuumSG </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=littleai">Java LittleAI </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=mvac">Microvacuum </a> <br />
+					&nbsp;&nbsp;<a href="index.php?page=esimu">ErnestIRL simulator </a> <br />
+				</p>
+
+
+			</div>
+
+			<div class="footsection">
+				<p>
+					&nbsp;Le projet Ernest
+				</p>
+			</div>
+		</footer>
+
+	</body>
+</html>
