@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="/style1.css" type="text/css" />
+		<title>Simon GAY</title>
+	</head>
+
+	<body>
+		
+		
+		<header>
+			<div id="banniere_image"> </div>
+		</header>
+		
+		<div class="main">
+			<nav>
+				<a href="/index_en.html">Home</a><br />
+				<a href="/recherches_en.html">Recherches</a><br />
+				<a href="/postdoc_en.html">My PostDoc</a><br />
+				<a href="/these_en.html">My PhD</a><br />
+				<a href="/publi_en.html">Publications</a><br />
+				<a href="/robot_en.html">Robots</a><br />
+				<a href="/software_en.html">Softwares</a><br />
+				<br />
+				<a href="/robot/merwol.html"><img src="/img/fr.png" alt="fr" /> </a>
+				<a href="/robot/merwol_en.html"><img src="/img/en.png" alt="en" /> </a>
+			</nav>
+
+			<section class="subsection">
+				<p>
+					<center style="text-align: center;font-size: xx-large;">MERWOL and MERWIL</center><br /><br />
+				</p>
+				
+
+				<figure style="text-align:center">
+					<a href="/robot/merwol.jpg"><img src="/robot/merwol.jpg" alt="MERWOL robot" width="400" /></a>
+				</figure>
+
+				<p>
+				
+			</section>
+
+			<section class="subsection">
+				<section class="listsection">
+
+					<p>
+						Description:<br />
+					</p>
+
+					<p>
+						MERWOL and MERWIL are two small, minimalist robots designed to illustrate the principle of <i>enactivism</i>, which enables a robot or artificial agent to actively perceive its environment. These two robots are identical, differing only in their programming. MERWOL stands for 'Minimal Enactivist Robot WithOut Learning', and illustrates the principle of enactivism, but does not use learning mechanism. MERWIL stands for 'Minimal Enactivist Robot WIth Learning', and as its name suggests, uses a learning mechanism. These robots are equipped with a small board based on a ATTiny85 microcontroller, and a single light sensor to move towards the strongest light source.<br/><br/>
+					</p>
+					
+					<p>
+						List of components:<br/>
+					</p>
+
+					<p>
+						- Digispark ATTiny85 micro USB bard<br/>
+						- 2 servomotors SG90<br/>
+						- Battery 18650 with plug<br/>
+						- screw terminal<br/>
+						- photoresistor (LDR)<br/>
+						- resistor of 2000Ω<br/>
+						- jumper wires<br/>
+						- 3D-printed chassis<br/>
+						- 2 rubber bands<br/>
+						- felt pad<br/>
+					</p>
+					
+					<p>
+						The robots use a Digispark board based on an ATTiny85 microcontroller. This microcontroller has 5 inputs and outputs (6 using the RESET port with a trick), which is sufficient for this robot, which uses only three of them. It can operate with a voltage range from 2.7V to 5.5V, allowing to power it directly from the 18650 battery, which has a nominal voltage of 3.7V and a maximum voltage (full charge) of 4.2V.<br/>
+						Propulsion is provided by two SG90 servomotors, modified for continuous rotation. This trick makes possible to control speed and direction of rotation with a single pin, with the control electronics fully integrated in the servomotor case. 
+					</p>
+					
+				</section>
+				
+				
+				<section class="listsection">
+					
+					<p>
+						Robot assembly:
+					</p>
+					
+					<p>
+						We start by modifying the two servomotors for a continuous rotation:
+					</p>
+					
+					<figure style="text-align:center">
+						<a href="/robot/servomotor/servo_mod1.jpg"><img src="/robot/servomotor/servo_mod1.jpg" alt="disassembling the servomotor" width="500" /></a>
+						<figcaption>Dismantle the servomotor housing by unscrewing the four screws on the underside, then carefully remove the upper shell. Then remove the plastic gears.</figcaption>
+					</figure>
+					
+					<figure style="text-align:center">
+						<a href="/robot/servomotor/servo_mod2.jpg"><img src="/robot/servomotor/servo_mod2.jpg" alt="modifying the servomotor" width="500" /></a>
+						<figcaption>Position feedback is obtained through a potentiometer connected to the output gear. The modification consists in cutting this coupling. In this servomotor model, the potentiometer's metal shaft fits into the output gear. In some models, the gear's plastic shaft fits into a variable resistor. In all cases, the part of the axle that connects the two parts must be cut off with a pair of cutting pliers. The next, more delicate step, is to find the servomotor's neutral position. You can use the sketch below to send the servomotor a command for the 90° position. Using flat-nose pliers, rotate the potentiometer shaft until the motor stops. Then secure the moving part of the potentiometer with a drop of glue.</figcaption>
+					</figure>
+					
+					<p>
+						Sketch for servomotor calibration. The shaft turns in one direction, then the other, and stops in the neutral position (90°).<br/>
+						- sketch for ATTiny85 : <a href="/robot/servo_test_AT85.ino">servo_test_AT85.ino</a> (see next section for uploading)<br/>
+						- sketch for Arduino  : <a href="/robot/servo_test_Arduino.ino">servo_test_Arduino.ino</a><br/>
+					</p>
+					<br/>
+					
+					<figure style="text-align:center">
+						<a href="/robot/servomotor/servo_mod3.jpg"><img src="/robot/servomotor/servo_mod3.jpg" alt="suppression de la butée" width="300" /></a>
+						<figcaption>A last step consists in removing the small stop on the shaft gear, using wire cutters and a small file. All that remains is to reassemble the gears and close the case.</figcaption>
+					</figure>
+					
+					<p>
+						The chassis and wheels are printed from the following models. These models can be printed by low-volume printers (10x10x10cm) and do not require supports. However, a raft is recommended.<br/>
+						- Chassis: <a href="/robot/merwol_base.stl">merwol_base.stl</a><br/>
+						- Wheel: <a href="/robot/merwol_wheel.stl">merwol_wheel.stl</a><br/>
+					</p>
+					<figure style="text-align:center">
+						<img src="/robot/merwol_chassis.png" alt="Pieces to print" width="400" />
+						<figcaption>Monobloc chassis and wheel (must be printed twice).</figcaption>
+					</figure>
+					<br />
+					
+					<p>
+						The robot can then be assembled:<br/>
+						- First, insert the battery into the battery slot in the center of the robot.<br/>
+						- The two servomotors are inserted into their slots, with the cables facing forward. If the servomotors don't fit properly, one or more layers of adhesive tape can be added to slightly increase their thickness.<br/>
+						- The connector for the left servomotor is brought out through the left opening, and the connectors for the right servomotor and battery through the right opening. Servomotor cables must be coiled in the space inside the chassis.<br/>
+						- The connectors are soldered to the ATTiny85 board, then the board is inserted into its slot on top of the robot, with the USB connector facing forward.<br/>
+						- The components are then wired around the screw terminal. Some jumper wires can be cut in half for power and ground lines.<br/>
+						- Add the wheels to the motor axles, screw them in place with shaft screws, then fit the rubber bands to act as tires. Finally, add a felt pad to the front, under the robot.
+					</p>
+					
+					<figure style="text-align:center">
+							<a href="/robot/merwol_schema.png"><img src="/robot/merwol_schema.png" alt="connections between components" width="300" /></a>
+							<a href="/robot/merwol_wires.jpg"><img src="/robot/merwol_wires.jpg" alt="assembling the robot" width="500" /></a>
+							<a href="/robot/merwol_wires2.jpg"><img src="/robot/merwol_wires2.jpg" alt="finalization of the robot" width="400" /></a>
+							<figcaption>Assembling the robot. The use of a screw terminal avoids the use of soldering, and serves as a support for the photoresistor.</figcaption>
+					</figure>
+					
+					
+					
+				</section>
+				
+				
+				<section class="listsection">	
+				
+					<p>
+						How to use the robot:<br/>
+					</p>
+					
+					<p>
+						Programming the ATTiny85 requires the installation of a few extensions to the Arduino IDE. First of all, you need to add this microcontroller to the IDE's board manager:<br/>
+						- access the IDE parameters (File->Preferences), then, in the 'URL for additional map manager' field, add the following link :<br/><br/>
+						<code>
+							https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
+						</code>
+						<br/>
+						
+						<figure style="text-align:center">
+							<img  src="/robot/merwol_parameters.png" alt="field of the additional board manager" width="400" />
+						</figure>
+						<br/>
+						- Next, download the board templates: open the Board Manager (Tools->Board type->Board Manager). Then search for and install the 'ESP32 by Expressif Systems' boards. <br/>
+						
+						<figure style="text-align:center">
+							<img  src="/robot/merwol_cards.png" alt="installation of ATTiny85 board" width="500" />
+						</figure>
+						<br/>
+						
+						- We can now choose the 'Digispark' board model. The microcontroller can operate at frequencies from 1 to 16.5Mhz (the 16.5Mhz frequency enables communication with a PC via USB serial port).<br/><br/>
+						
+						Uploading an .ino sketch on ATTiny85 differs slightly from uploading on an Arduino. First, make sure the battery is not connected. To start uploading, first disconnect the board from USB port, then click on the upload button. Connect the board only when the message “Plug in device now...” appears.
+						<br/><br/>
+						
+						Once the sketch has been uploaded, disconnect the USB cable and simply connect the power cable to the battery. The program starts after a 5-second delay. To switch off the robot, disconnect the battery.
+					</p>
+					
+				</section>
+				
+			</section>
+
+			<section class="subsection">
+				
+				<section class="listsection">
+				
+					<p>
+						
+						An enactivist robot:
+					</p>
+					
+					<p>
+						Enactivism describes the perception we have of our environment as an active process that begins with an experience we perform on this environment, perception being the result of this experience. For example, to know whether an object is solid or soft, we squeeze it, the object's sotftness being obtained by the resistance felt when squeezing it. Considering action in the perception process increases the information we can obtain about the environment, even with a small number of sensors. 
+					</p>
+				
+					<p>
+						The MERWOL and MERWIL robots illustrate this principle: these robots use a single light sensor to find a light source. Simple perception via this sensor is insufficient to know whether the light source is to the right or left of the robot. However, if we consider the robot's movement, we can tell whether the light is increasing or decreasing, and thus whether we're turning the right way or not.
+					</p>
+				
+					<p>
+						With a classical perception, at least two light sensors are needed to know on which side the source is. The system starts with a perception, to retrieve values of the sensors. The robot analyzes these values ​​and makes a decision according to its program. Finally, it performs an action: turn to the right or turn to the left. So we have the decision cycle <i>perception->decision->action</i>
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/merwol_perception_en.svg" alt="robot with two sensors" width="450" />
+						<figcaption>'Classic' decision cycle: the robot reads the sensors (perception), makes a decision and performs the selected action.</figcaption>
+					</figure>
+					
+					<p>
+						MERWOL and MERWIL have just one sensor, but they integrate action into their perception. The robots start with a randomly chosen action (e.g. turn right). Then, they observe the result of their action on their sensor: brightness may increase or decrease. If the light increases, they continue to turn right; if it doesn't, they change direction and turn left. And the cycle starts all over again.<br/>
+						Since we can't separate an experiment from its result, we create action/perception couples, which we call <i>Interaction</i>. Here, we have two possible actions: moving forward by turning right or left (activating the right or left motor), and two possible results: luminosity increases or decreases. We can then create 4 interactions:<br/>
+						&emsp;- (right;increase), noted r+<br/>
+						&emsp;- (right;decrease), noted r-<br/>
+						&emsp;- (left;increase), noted l+<br/>
+						&emsp;- (left;decrease), noted l-
+					</p>
+					
+					<p>
+						When the robot performs an interaction, for example <i>d+</i>, it will move forward by turning to the right. If the light source is on the left, the value obtained by the sensor will decrease, which leads to the enactment of the interaction <i>d-</i>. The interaction <i>d+</i> is therefore a failure. The next decision takes into account the enacted interaction <i>d-</i>, which, from an external point of view, indicates that the light source is on the left, and attempts the interaction <i>g+</i>. This time, it is indeed this interaction that is enacted: the interaction is a success.
+					</p>
+
+					
+					<figure style="text-align:center">
+						<img src="/robot/merwol_enactivist_en.svg" alt="enactivist robot with a single sensor" width="570" />
+						<figcaption>Enactivist decision cycle: the robot starts with a action allowing to 'probe' its environment, the perception is constructed from the result of this action. This cycle experiment/result is called interaction.</figcaption>
+					</figure>
+					
+					<p>
+						We can then define, based on the observed interaction, which interaction can be attempted, either to perform a particular interaction, or simply obtain information about the environment. Learning models can be used to try to predict which interactions can be performed after previous interactions, such as the sequential models developed by <a href="http://www.little-ai.com/science.html">Olivier Georgeon</a>, or parallel models developed during <a href="https://gaysimon.github.io/these.html">my thesis</a>. 
+					</p>
+					
+					<p>
+						The decision cycle of the enactivist robot is thus different from that used with a classical perception. Here, the cycle is <i>decision->result->decision->result</i>, or, more simply, <i>interaction->interaction</i>.
+					</p>
+						
+				</section>
+				
+			</section>
+
+			<section class="subsection">
+				
+				<section class="listsection">
+					
+					<p>
+						The MERWOL robot:
+					</p>
+					
+					<p>
+						MERWOL is a robot that perceives its environment through its interactions. However, the selection of the next interaction is not based on a learning mechanism, but on simple decision rules. :<br/>
+						&emsp;- if r+ then r+ (continue to turn right)<br/>
+						&emsp;- if r- then l+ (change and turn left)<br/>
+						&emsp;- if l+ then l+ (continue to turn left)<br/>
+						&emsp;- if l- then r+ (change and turn right)
+					</p>
+					
+					<p>
+						The robot moves forward, turning in one direction as long as the brightness increases, then changes direction when it decreases. The robot thus moves in a zig-zag pattern towards the light source.
+					</p>
+					
+					<p style="text-align: center">
+ 						<video width="500" controls >
+  							<source src="/robot/merwol_video.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+					<p>
+						source code of MERWOL: <a href="/robot/MERWOL_AT85.ino">MERWOL_AT85.ino</a>
+					</p>
+					
+					<p>
+						In this program, each interaction is defined with a 2-bits binary code:<br/>
+						&emsp;r+ = 00<br/>
+						&emsp;r- = 01<br/>
+						&emsp;l+ = 10<br/>
+						&emsp;l- = 11
+					</p>
+					
+					<p>
+						This encoding simplifies interaction management: the action can be obtained, and the result can be written with bitwise operations:<br/>
+						<code>(intended & 0b10) == 0</code> to obtain the action, <br/>
+						<code>enacted = (intended & 0b10)</code> or <code>enacted = (intended | 0b01)</code> to get the enacted interaction according to enaction's result. 
+					</p>
+					
+					<p>
+						Enacted interactions are stored on a timeline consisting of a single byte. For each new interaction, a two-bits left shift is performed, then the two bits of the new interaction are written:<br/>
+						<code>
+							&emsp;timeline = timeline&lt;&lt;2; <br/>
+							&emsp;timeline = timeline | enacted;<br/>
+						</code>
+						The last four interactions enacted are thus stored.
+					</p>
+					
+					<p>
+						The photoresistor is read four times, the final value being the average of these four measurements. This reduces the noise measured by the microcontroller's analog-to-digital converter.
+					</p>
+				
+				</section>
+				
+				<section class="listsection">
+					
+					<p>
+						The MERWIL robot
+					</p>
+					
+					<p>
+						MERWIL is a robot identical to MERWOL, but adds a rudimentary learning mechanism to select the next interaction. This learning mechanism is derived from the <a href="https://projet.liris.cnrs.fr/ideal/index-fr.htm">IMOSHEM</a> learning mechanism developed by Olivier Georgeon. However, it has been simplified to the extreme to fit on the low memory of the ATTiny85.
+					</p>
+					
+					<p>
+						The IMOSHEM (Intrinsically MOtivated SHEma Mechanism) model is based on two principles:<br/>
+						- The principle of <i>sensorimotor schemes</i>: when a sequence of two interactions is often observed, we can consider that if the first interaction has been enacted, then the second has a strong chance of being enacted in turn. The learning mechanism will thus construct sequences of two interactions, called <i>schemes</i>. A scheme can then be enacted as an interaction, which allows the construction of higher-level schemes. The enacted and enacting schemes provide information on the current situation of the robot, defining an implicit model of the environment. The schemes whose first part has just been enacted can also propose the second part to the decision system, providing a list of candidate interactions or schemes that can probably be enacted.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/merwol_scheme_en.svg" alt="Construction and exploitation of schemes" width="500" />
+						<figcaption>Principle of Sensorimotor Schemes: on the left, the model records sequences of two interactions (here represented by letters) in the form of schemes. These shemes can then be used to build higher-level schemes, enabling the emergence of behaviors of increasing complexity. On the right, the schemes are used to characterize the current situation (scope). Schemes whose first part has been enacted can propose the second part to the decision mechanism.</figcaption>
+					</figure>
+					
+					<p>
+						- The principle of interactional motivation: as the IMOSHEM model aims at the emergence of behaviors without knowledge about the environment, we cannot define a reward according to a predefined goal, but only a form of internal (or <i>intrinsic</i>) motivation that depends only on the learning model. The IMOSHEM model introduces a new form of intrinsic motivation related to interactions: interactional motivation. This form of motivation associates to each interaction a numerical value, called <i>valence</i>, which defines inborn behavioral preferences, that the agent or robot 'feels' when it successfully enacts an interaction. The decision mechanism must then generate behaviors that lead to situations where high-valence interactions can be enacted.
+					</p>
+					<br/>
+					
+					<p>
+						MERWIL's decision mechanism simplifies this model to the bare minimum:
+					</p>
+						
+					<p>
+						- We first define the behavioral model of the robot with valences:<br/>
+						&emsp;d+ ->  1<br/>
+						&emsp;d- -> -1<br/>
+						&emsp;g+ ->  1<br/>
+						&emsp;g- -> -1<br/>
+						Thus, the robot 'likes' to move toward light and 'dislikes" moving away.
+					</p>
+					
+					<p>
+						- Schemes are here limited to a length of two interactions: we thus won't be able to build higher-level schemes. This limits the number of possible schemes to 16, which can be encoded with a 4-bit binary code, with the two most significant bits indicating the first interaction of the scheme, and the two least significant bits the second. Scheme properties can be stored in arrays of size 16, with the scheme's code providing index to the corresponding array cell. Scheme propositions are limited to the 4 interactions. Arrays of size 4 are used to store interactions' properties and to calculate propositions' values.
+					</p>
+					<br/>
+					<p>
+						source code of MERWIL: <a href="/robot/MERWIL_AT85.ino">MERWIL_AT85.ino</a>
+					</p>
+					
+					
+					<p>
+						Description of the algorithm:
+					</p>
+					
+					<p>
+						The first step is to count the number of times a scheme has been observed. We use an integer array <i>counters</i> of size 16. Each time an interaction has been enacted and recorded in the timeline (see MERWOL description), we use the four least significant bits of the timeline variable to identify the scheme, and increment the corresponding cell in <i>counters</i>:<br/>
+						<code>
+							&emsp;counters[ timeline & 0b1111 ]++;
+						</code>
+					</p>
+					
+					<p>
+						The value of a proposed interaction is defined as the sum of counters of the schemes that proposed this interaction, multiplied by the valence of the interaction. We then add the values ​​of the alternative interactions, that are interactions that can be enacted instead, in case of failure. Thus, for each interaction, the alternative interactions must be recorded. Here, we use the fact that each interaction has at most one alternative, allowing the use of a byte array <i>alternative</i> of size 4. An alternative is recorded in case of failure of the intended interaction:<br/>
+						<code>
+							&emsp;if (enacted!=intended) alternative[intended] = (enacted | 0b1000);
+						</code>
+						<br/>
+						We use here the fourth bit to indicate that an alternative interaction has been observed (as the code 00 usually defines interaction d+).
+					</p>
+					
+					<p>
+						We then collect the propositions of the schemes whose first interaction corresponds to the last enacted interaction. We must therefore make a right shift of two bits on the code <i>i</i> of a scheme to get the code of the first interaction:<br/>
+						<code>
+							&emsp;(timeline & 0b11) == ( i & 0b1100 )>>2
+						</code>
+						<br/>
+						<br/>
+						
+						We then compute the values of propositions, that are accumulated in an integer array <i>candidates</i> of size 4:<br/>
+						<code>
+							&emsp;for (i=0;i&lt;4;i++) candidates[i]=0;	// reinitialization<br/>
+							&emsp;for (i=0;i&lt;16;i++){	// read the 16 schèmes<br/>
+							&emsp;&emsp;&emsp;if ( (timeline & 0b11) == ( i & 0b1100 )>>2 ){	// detection of 'active' schemes<br/>
+							&emsp;&emsp;&emsp;&emsp;&emsp;if ( (i & 0b01) == 0 ) candidates[(i & 0b11)] += counters[i]; // valence = 1<br/>
+							&emsp;&emsp;&emsp;&emsp;&emsp;else &emsp;&emsp;candidates[(i & 0b11)] -= counters[i]; // valence = -1<br/>
+							&emsp;&emsp;&emsp;}<br/>
+							&emsp;}<br/>
+						</code>
+						<br/>
+						We add the values of alternatives (if any). We use a second integer array <i>candidates2</i> of size 4:<br/>
+						<code>
+							&emsp;for (i=0;i&lt;4;i++){ // read the 4 propositions<br/>
+							&emsp;&emsp;&emsp;candidates2[i]=candidates[i]; // get the proposition's value<br/>
+							&emsp;&emsp;&emsp;if ( (alternative[i] & 0b1000) !=0 ) <br/>
+							&emsp;&emsp;&emsp;&emsp;&emsp;candidates2[i]+=candidates[alternative[i] & 0b0011];<br/>
+							&emsp;}
+						</code>
+						<br/><br/>
+						
+						Finally, we select the proposition with the greatest value:<br/>
+						<code>
+							int maxVal=candidates2[0];<br/>
+							intended=0;<br/>
+							&emsp;for (i=0;i&lt;4;i++){<br/>
+							&emsp;&emsp;&emsp;if (candidates2[i]>maxVal){<br/>
+							&emsp;&emsp;&emsp;&emsp;&emsp;maxVal=candidates[2];<br/>
+							&emsp;&emsp;&emsp;&emsp;intended=i;<br/>
+							&emsp;&emsp;&emsp;}<br/>
+							&emsp;}<br/>
+						</code>
+					</p>
+					
+					<p>
+						A new enaction cycle can then begin with the new intention interaction.
+					</p>
+					
+					<p style="text-align: center">
+ 						<video width="500" controls >
+  							<source src="/robot/merwil_video.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+					<p>	
+						MERWIL 'gropes' a little at first, but quickly learns how to act to get closer to the light source.
+					</p>
+					
+				</section>
+				
+			</section>
+			
+			
+
+			<section class="subsection">
+				
+				<section class="listsection">
+					
+					<p>
+						Simulation of MERWOL and MERWIL robots
+					</p>
+				
+					<p>
+						These programs written in Java simulate the robots in a virtual environment. The robot is represented with a gray circle, the light source with a yellow disk. It is possible to move the light source by clicking in the frame limiting the environment. At the bottom, two buttons allow you to control the simulation: <i>play/pause</i> to play or pause the simulation, <i>step</i> to play the simulation interaction by interaction.
+					</p>
+					
+					<p>
+						The pane on the right displays the agent's properties. In the case of MERWOL, the window displays the timeline of the last two enacted interactions in binary format, which also corresponds to the code of the last enacted schema, and the last four interactions in the form of symbols. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/merwol_simu.png" alt="Simulation de MERWOL" width="350" />
+						<figcaption>Simulation of MERWOL robot.</figcaption>
+					</figure>
+					
+					<p>
+						executable JAR file: <a href="/robot/MERWOL_simu.jar">MERWOL_simu.jar</a><br/>
+						source code: <a href="/robot/MERWOL_simu.zip">MERWOL_simu.zip</a><br/>
+					</p>
+					
+					<p>
+						MERWIL's simulator also displays the timeline in binary and symbol format. Below, the 16 possible schemes are displayed: binary code, number of enactions, and, if available, the proposed interaction. Below, the 4 interactions are displayed: binary code, value of propositions, code of the discovered alternatives, and final value of propositions. This display makes it possible to follow the robot's learning process over time.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/merwil_simu.png" alt="Simulation de MERWOL" width="350" />
+						<figcaption>Simulation of MERWIL robot.</figcaption>
+					</figure>
+					
+					<p>
+						executable JAR file: <a href="/robot/MERWIL_simu.jar">MERWIL_simu.jar</a><br/>
+						source code: <a href="/robot/MERWIL_simu.zip">MERWIL_simu.zip</a><br/>
+					</p>
+				
+				</section>
+				
+			</section>
+
+		</div>
+		
+		<footer>
+			<p>
+				Last updates 
+			</p>
+
+			<div class="footsection">
+				<p>
+					&nbsp;ROBOTS :<br />
+					&nbsp;&nbsp;<a href="/robot/john2_en.html">Johnny 2.0 </a> <br />
+					&nbsp;&nbsp;<a href="/robot/john3_en.html">Johnny 3 </a> <br />
+					&nbsp;&nbsp;<a href="/robot/eirl_en.html">ErnestIRL </a> <br />
+					&nbsp;&nbsp;<a href="/robot/ecce_en.html">EcceRobot </a> <br />
+					&nbsp;&nbsp;<a href="/robot/epuck_en.html">ePuck </a> <br />
+					&nbsp;&nbsp;<a href="/robot/robot_navigation_en.html">Omni-directional platform </a> <br />
+				</p>
+			</div>
+
+			<div class="footsection">
+				<p>
+					&nbsp;SOFTWARES :<br />
+					&nbsp;&nbsp;<a href="/articles/sma_en.html">SMA </a> <br />
+					&nbsp;&nbsp;<a href="/articles/vacu_en.html">vacuumSG </a> <br />
+					&nbsp;&nbsp;<a href="/articles/littleai_en.html">Java LittleAI </a> <br />
+					&nbsp;&nbsp;<a href="/articles/mvac_en.html">Microvacuum </a> <br />
+					&nbsp;&nbsp;<a href="/articles/esimu_en.html">ErnestIRL simulator </a> <br />
+					&nbsp;&nbsp;<a href="/articles/jsimu_en.html">Johnny 2 simulator </a> <br />
+				</p>
+
+			</div>
+
+			<div class="footsection">
+				<p>
+					&nbsp;Ernest project
+				</p>
+			</div>
+		</footer>
+		
+	</body>
+</html>
