@@ -48,42 +48,21 @@
 
 	</div>
 	
-	<footer>
-		<p>
-			Derniers ajouts par section
-		</p>
-
-		<div class="footsection">
-			<p>
-				&nbsp;ROBOTS :<br />
-				&nbsp;&nbsp;<a href="/robot/john2.html">Johnny 2.0 </a> <br />
-				&nbsp;&nbsp;<a href="/robot/john3.html">Johnny 3 </a> <br />
-				&nbsp;&nbsp;<a href="/robot/eirl.html">ErnestIRL </a> <br />
-				&nbsp;&nbsp;<a href="/robot/ecce.html">EcceRobot </a> <br />
-				&nbsp;&nbsp;<a href="/robot/epuck.html">ePuck </a> <br />
-				&nbsp;&nbsp;<a href="/robot/robot_navigation.html">Plateforme omni-directionnelle </a> <br />
-			</p>
-		</div>
-
-		<div class="footsection">
-			<p>
-				&nbsp;SOFTWARES :<br />
-				&nbsp;&nbsp;<a href="/articles/sma.html">SMA </a> <br />
-				&nbsp;&nbsp;<a href="/articles/vacu.html">vacuumSG </a> <br />
-				&nbsp;&nbsp;<a href="/articles/littleai.html">Java LittleAI </a> <br />
-				&nbsp;&nbsp;<a href="/articles/mvac.html">Microvacuum </a> <br />
-				&nbsp;&nbsp;<a href="/articles/esimu.html">ErnestIRL simulator </a> <br />
-				&nbsp;&nbsp;<a href="/articles/jsimu.html">Johnny 2 simulator </a> <br />
-			</p>
-
-		</div>
-
-		<div class="footsection">
-			<p>
-				&nbsp;Le projet Ernest
-			</p>
-		</div>
-	</footer>
+		<footer id="footer">	
+		</footer>
+		
+		<script>
+			fetch("https://gaysimon.github.io/footer.html").then(
+				(response) => {
+					if (!response.ok) {throw new Error(`Erreur HTTP : ${response.status}`);}
+					return response.text();
+				}
+			).then(
+				(text) => {document.getElementById("footer").innerHTML = text;}
+			).catch(
+				(error) => {console.log( `Error: ${error}`);}
+			);
+		</script>
 	
-</body>
+	</body>
 </html>
