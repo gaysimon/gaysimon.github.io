@@ -53,7 +53,7 @@ void loop(void) {
   for (i=0;i<10;i++){
     if ( (intended & 0b10) !=0){
       digitalWrite(0, HIGH);
-      delayMicroseconds(1500);
+      delayMicroseconds(1450);
       digitalWrite(0, LOW);
 
       digitalWrite(1, HIGH);
@@ -64,7 +64,7 @@ void loop(void) {
     }
     else{
       digitalWrite(1, HIGH);
-      delayMicroseconds(1500);
+      delayMicroseconds(1420);
       digitalWrite(1, LOW);
 
       digitalWrite(0, HIGH);
@@ -124,7 +124,7 @@ void loop(void) {
       
   for (i=1;i<4;i++) {
     if (candidates2[i]>maxVal) {
-      maxVal=candidates[2];
+      maxVal=candidates2[i];
       intended=i;
     }
   }
