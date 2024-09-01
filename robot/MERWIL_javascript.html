@@ -329,10 +329,16 @@
     			var x = event.clientX;
     			var y = event.clientY;
 
-    			if (x>=25 && x<415 && y>=25 && y<415){
-					 lx=x/4-5;
-					 ly=100-y/4+24;
-					 drawEnvironment();
+    			if (x>=10 && x<430 && y>=70 && y<=510){
+					
+					if (x<26) x=26;
+					if (x>414) x=414;
+					if (y<101) y=101;
+					if (y>489) y=489;
+					
+					lx=x/4-5;
+					ly=100-y/4+24;
+					drawEnvironment();
 				} 
 			}
 
