@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <title>MERWIL simulation</title>
+	    
+	    <style>
+	    
+	    	#simulator{
+				width:650px;
+				height:420px;
+				float:left;
+				margin-bottom:10px;
+			}
+			
+			
+			.column {
+			  width: 100%;
+			  min-height:210px;
+			}
+	    
+	    </style>
+	    
+	</head>
+
+	<body>
+
+		<div>
+			<p id='step_count'>step : 0</p>
+		</div>
+		
+		<div>
+			<p id='enaction'>intended : &nbsp;&nbsp;  , enacted :</p>
+		</div>
+
+		
+		<div class="column">
+
+			<div id="simulator">
+				<canvas id="environment" width="650" height="420"></canvas>
+			</div>
+			
+		</div>
+		<br/>
+		
+		<div>
+			<div style='width:300px;'>
+				<div align="center" style="display: flex;align-items: center;justify-content: center;flex-direction: row;">
+					<button type="button" style="height:30px;width:100px" onclick="step_button();">step</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button type="button" id="play_button" style="height:30px;width:100px" onclick="play_button();">play</button>
+				</div>
+			</div>
+		</div>
+		
+
+
+		<script>
+		
+			document.getElementById("environment").addEventListener("click", getClickPosition, true);
+		
+			///////////////////////////////////////////////////////////////////////////////////
+			// simulation's variables
+			var step=false;
+			var play=false;
+			var stepCounter=0;
+			
+			var px=50;
+			var py=50;
+			var rz=0;
+			
+			var lx=20;
+			var ly=80;
+			
+			var LDR1=0;
+			var LDR2=0;
+			var delta=0;
+		
+			///////////////////////////////////////////////////////////////////////////////////
+			// agent's variables
+			var intended=0;
+			var enacted=0;
+			
+			var timeline=0;
+			
+			var counters=new Array(16).fill(0);
+			var propositions=new Array(16).fill(0);
+			
+			var candidates=new Array(4).fill(0);
+			var candidates2=new Array(4).fill(0);
+			
+			var alternative=new Array(4).fill(0);
+		
+			///////////////////////////////////////////////////////////////////////////////////
+			
+			
+			
+			///////////////////////////////////////////////////
+			// initialize simulator
+			var environment   = document.getElementById("environment");
+			var environmentCanvas = environment.getContext("2d");
+			drawEnvironment();
+			
+			///////////////////////////////////////////////////
+			// initialize agent: first intended interaction
+			var intended=0b00;
+			var enacted=0;
+			
+			// 00 -> r+
+			// 01 -> r-
+			// 10 -> l+
+			// 11 -> l-
+			
+			///////////////////////////////////////////////////
+			// initialize robot: get first sensor value
+			var angle=toDegrees(Math.atan2(py-ly, px-lx))+180;
+			angle=rz-angle;
+			if (angle>180) angle-=360;
+			if (angle<=-180) angle+=360;
+			LDR1=180-Math.abs(angle);
+			
+			
+					
+			///////////////////////////////////////////////////
+			// start simulator
+			var counter=0;									// count sub-cycle of simulation
+			var runSimulation = setInterval(runCycle,10);	// repeat simulation cycles
+			
+
+
+			function runCycle(){
+				
+				if (play || step){
+				
+					
+					// move robot
+					if ( (intended & 0b10) !=0) rz+=1;
+					else rz-=1;
+					if (rz>=360) rz-=360;
+					if (rz<0) rz+=360;
+					px+=0.1*Math.cos(toRadians(rz));
+					py+=0.1*Math.sin(toRadians(rz));
+					
+					// keep inside environment
+					if (px<2.5) px=2.5;
+					if (py<2.5) py=2.5;
+					if (px>97.5) px=97.5;
+					if (py>97.5) py=97.5;
+					
+					
+					if (counter>=20){
+						
+						step=false;
+						stepCounter+=1;
+						document.getElementById("step_count").innerHTML = "step : "+stepCounter;
+						
+						
+						///////////////////////////////////////////////////////
+						// measure variation
+						LDR2=LDR1;	// save previous measure
+						var angle=toDegrees(Math.atan2(py-ly, px-lx))+180;
+						angle=rz-angle;
+						if (angle>180) 	 angle-=360;
+						if (angle<=-180) angle+=360;
+						LDR1=180-Math.abs(angle);	// get new measure
+			
+						delta=LDR1-LDR2;			// get variation
+			
+						// generate enacted interaction
+						if (delta>0) 	enacted= (intended & 0b10);	// keep action bit and set result bit to 0
+						else			enacted= (intended | 0b01);	// keep action bit and set result bit to 1
+						
+						document.getElementById("enaction").innerHTML = "intended : "+ ("0"+dec2bin(intended & 0b11)).slice(-2)	 + " , enacted : "+("0"+dec2bin(enacted & 0b11)).slice(-2)	;			
+						///////////////////////////////////////////////////////
+						
+						
+						///////////////////////////////////////////////////////
+						// update agent
+						// record new interaction in timeline
+						timeline =  (timeline <<2);
+						timeline =  (timeline | enacted);
+						
+						// if failure, record alternative interaction
+						if (enacted!=intended) alternative[intended]= (enacted | 0b1000);
+						
+						// increment counter of observed shemes
+						counters[(timeline & 0b1111)]++;
+						
+						////////////////////////////////////////////////////////////////////////////////////////////
+						// propositions
+						for (var i=0;i<4;i++) candidates[i]=0;		// reset candidate values
+						
+						// get propositions' values
+						for (var i=0;i<16;i++) {
+							propositions[i]=0;
+					
+							if ( (timeline & 0b11) == (i & 0b1100)>>>2) {
+								propositions[i] = ( (i & 0b11) | 0b1000);
+							
+								if ( (i & 0b01) == 0 ) candidates[(i & 0b11)]+=counters[i];	// valence = 1
+								else 				   candidates[(i & 0b11)]-=counters[i]; // valence =-1
+							}
+						}
+						
+						// add alternatives' values
+						for (var i=0;i<4;i++) {
+							candidates2[i]=candidates[i];
+					
+							if ( (alternative[i] & 0b1000) !=0 ) candidates2[i]+=candidates[ (alternative[i] & 0b0011) ];
+						}
+						
+						// find best proposition
+						var maxi=candidates2[0];
+						intended=0;
+						
+						for (var i=1;i<4;i++) {
+							if (candidates2[i]>maxi) {
+								maxi=candidates2[i];
+								intended=i;
+							}
+						}
+						
+						///////////////////////////////////////////////////////
+						
+						counter=0;
+					}
+					
+					counter+=1;
+					
+				}
+				
+				drawEnvironment();
+			}
+			
+
+			///////////////////////////////////////////////////////////////////////////////////
+			// draw the context of points of interest		
+			function drawEnvironment(){
+				
+				environmentCanvas.beginPath();
+				environmentCanvas.fillStyle = "white";
+				environmentCanvas.rect(10, 10, 700, 450);
+				environmentCanvas.fill();
+				
+				// clear canevas
+				environmentCanvas.beginPath();
+				environmentCanvas.strokeStyle = "black";
+				environmentCanvas.fillStyle = "white";
+				environmentCanvas.rect(10, 10, 400, 400);
+				environmentCanvas.fill();
+				environmentCanvas.stroke();
+				
+				// draw robot
+				environmentCanvas.beginPath();
+				environmentCanvas.fillStyle = "lightGrey";
+				environmentCanvas.arc(10+4*px, 10+4*(100-py), 10, 0, 2 * Math.PI, false);
+				environmentCanvas.fill();
+				environmentCanvas.stroke();
+				
+				environmentCanvas.beginPath();
+				environmentCanvas.moveTo(10+4*px, 10+4*(100-py));
+				environmentCanvas.lineTo(10+4*px+10*Math.cos(toRadians(rz)), 10+4*(100-py)-10*Math.sin(toRadians(rz)));
+				environmentCanvas.stroke();
+				
+				// draw light
+				environmentCanvas.beginPath();
+				environmentCanvas.fillStyle = "yellow";
+				environmentCanvas.arc(10+4*lx, 10+4*(100-ly), 5, 0, 2 * Math.PI, false);
+				environmentCanvas.fill();
+				environmentCanvas.stroke();
+				
+				
+				
+				// write timeline
+				var msg
+				environmentCanvas.fillStyle = "black";
+				environmentCanvas.fillText("timeline : "+("000"+dec2bin(timeline & 0b1111)).slice(-4), 420, 20);
+				
+				
+				var comp= 0b10000000;
+				for (var i=0;i<4;i++) {
+					if ( (timeline & comp) !=0) msg="l";
+					else msg="r";
+					comp= (comp>>>1);
+		
+					if ( (timeline & comp) !=0) msg+="-";
+					else msg+="+";
+					comp= (comp>>>1);
+			
+					msg+=" ;";
+					environmentCanvas.fillText(msg, 420+i*25, 40);
+				}
+				
+				// draw the 16 composite shemes (codes, counters, and, if any, propositions)
+				environmentCanvas.fillText("schemes:", 415, 65);
+				environmentCanvas.fillText("nb:", 500, 65);
+				environmentCanvas.fillText("propositions:", 550, 65);
+				for (var i=0;i<16;i++) {
+					environmentCanvas.fillText( ("000"+dec2bin(i)).slice(-4), 420, 80+16*i);
+					environmentCanvas.fillText(""+counters[i], 500, 80+16*i);
+					if ( (propositions[i] & 0b1000)!=0)
+						environmentCanvas.fillText( ("0"+dec2bin(propositions[i] & 0b11)).slice(-2), 550, 80+16*i);
+				}
+		
+				// draw the 4 primitive interactions (codes, candidate values and alternatives)
+				environmentCanvas.fillText("proposed:", 415, 345);
+				environmentCanvas.fillText("val:", 500, 345);
+				environmentCanvas.fillText("alt:", 550, 345);
+				environmentCanvas.fillText("final:", 600, 345);
+				for (var i=0;i<4;i++) {
+					environmentCanvas.fillText( ("0"+dec2bin(i)).slice(-2), 420, 360+16*i);
+					environmentCanvas.fillText(""+candidates[i], 500, 360+16*i);
+					if ( (alternative[i] & 0b1000)!=0)
+						environmentCanvas.fillText( ("0"+dec2bin(alternative[i] & 0b11)).slice(-2), 550, 360+16*i);
+					environmentCanvas.fillText(""+candidates2[i], 600, 360+16*i);
+				}
+		
+				environmentCanvas.stroke();
+			}
+			
+			
+			
+			///////////////////////////////////////////////////////////////////////////////////
+			// control functions
+
+			
+			function getClickPosition(event) {
+    			var x = event.clientX;
+    			var y = event.clientY;
+
+    			if (x>=25 && x<415 && y>=25 && y<415){
+					 lx=x/4-5;
+					 ly=100-y/4+24;
+					 drawEnvironment();
+				} 
+			}
+
+			// stop the server
+			function play_button(){
+				if (play){
+					play=false;
+					document.getElementById("play_button").innerHTML = "play";
+				}
+				else{
+					play=true;
+					document.getElementById("play_button").innerHTML = "pause";
+				}
+				
+				
+			}
+			
+			function step_button(){
+				step=true;
+			}
+			
+			function dec2bin(dec) {
+				return (dec >>> 0).toString(2);
+			}
+			
+			function toRadians(angle) {
+				return angle * (Math.PI / 180);
+			}
+			
+			function toDegrees(angle) {
+				return angle * (180/Math.PI);
+			}
+			
+		</script>
+
+	</body>
+</html> 
