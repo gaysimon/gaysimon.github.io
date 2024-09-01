@@ -111,6 +111,7 @@
 					
 			///////////////////////////////////////////////////
 			// start simulator
+			var clicked=false;
 			var counter=0;									// count sub-cycle of simulation
 			var runSimulation = setInterval(runCycle,10);	// repeat simulation cycles
 			
@@ -220,6 +221,9 @@
 				environmentCanvas.stroke();
 				
 				
+				environmentCanvas.fillStyle = "black";
+				if (!clicked) environmentCanvas.fillText("Click in the environment to move the light source", 20, 30);
+				
 				
 				// write timeline
 				var msg
@@ -264,6 +268,8 @@
 					lx=x/4-5;
 					ly=100-y/4+15;
 					drawEnvironment();
+					
+					clicked=true;
 				} 
 			}
 
