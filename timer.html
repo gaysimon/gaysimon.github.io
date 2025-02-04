@@ -45,7 +45,7 @@
 		
 		<p id="clock" style="font-size:24px;font-family: Verdana;">Heure actuelle</p>
 		
-		<img id="soundIcon" src="sound2.svg" style="width:25px"/>
+		<img id="soundIcon" src="sound2.svg" style="width:80px"/>
 		
 		
 		
@@ -69,17 +69,18 @@
 			</div>
 		</div>
 		
-		<div  class="container"  style="margin-top:300px">
-			<div id="activation" class="bouton" style="font-size:36px;font-family: Verdana;">
-				Activer le son
-			</div>
-		</div>
 		
 		<br/><br/>
+
+		<div  class="container">
+			<div id="avis" style="font-size:24px;font-family: Verdana;">
+					Tous vos entretiens sont finis ?<br/>Donnez-nous votre avis
+				</div>
+		</div>
 		<div  class="container">
 			<a href="https://liens.contacts-univ-grenoble-alpes.fr/lt-2189351124-84ba367e5bae12e214189cc06f4cc27c6fab5f9b49fb675f">
 				<div id="avis" class="bouton" style="font-size:24px;font-family: Verdana;">
-					Questionnaire de satisfaction<br/>(1 min)
+					Questionnaire de satisfaction<br/>(temps de réponse : 1 min)
 				</div>
 			</a>
 		</div>
@@ -110,7 +111,7 @@
 			var seconde = now.getSeconds();
 			var millisec = now.getMilliseconds();
 			
-			document.getElementById("activation").addEventListener("click", clickOnSoundButton);
+			document.getElementById("soundIcon").addEventListener("click", clickOnSoundButton);
 			
 			var timerBar   = document.getElementById("timercanvas");
 			var timerCanvas = timerBar.getContext("2d");
