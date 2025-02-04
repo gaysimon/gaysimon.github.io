@@ -172,7 +172,7 @@
 			// detect an interaction in the page
 			function clickOnSoundButton(){
 				if (sound==0){
-					 document.getElementById("activation").innerHTML ="Désactiver le son";
+					 document.getElementById("soundIcon").innerHTML ="Désactiver le son";
 					 document.getElementById("soundIcon").src="sound1.svg";
 					 sound=1;
 					document.getElementById("video").play();
@@ -186,7 +186,7 @@
 					}
 				}
 				else{
-					 document.getElementById("activation").innerHTML ="Activer le son";
+					 document.getElementById("soundIcon").innerHTML ="Activer le son";
 					 document.getElementById("soundIcon").src="sound2.svg";
 					 sound=0;
 				}
