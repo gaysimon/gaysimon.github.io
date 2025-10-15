@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="/style1.css" type="text/css" />
+		<title>Simon GAY</title>
+	</head>
+
+	<body>
+		
+		
+		<header>
+			<div id="banniere_image"> </div>
+		</header>
+		
+		<div class="main">
+			<nav>
+				<a href="/index_en.html">Home</a><br />
+				<a href="/recherches_en.html">Research</a><br />
+				<a href="/postdoc_en.html">My PostDoc</a><br />
+				<a href="/these_en.html">My PhD</a><br />
+				<a href="/publi_en.html">Publications</a><br />
+				<a href="/robot_en.html">Robots</a><br />
+				<a href="/software_en.html">Softwares</a><br />
+				<br />
+				<a href="/projects/predict.html"><img src="/img/fr.png" alt="fr" /> </a>
+				<a href="/projects/predict_en.html"><img src="/img/en.png" alt="en" /> </a>
+			</nav>
+
+			<section class="subsection">
+				<p>
+					<center style="text-align: center;font-size: xx-large;">Integration of other agents in the emergent model of the environment.</center><br /><br />
+				</p>
+				
+				<p>
+				The developmental agents studied during <a href="/these_en.html">my thesis</a> showed that it was possible to construct a model of the environment based only on the regularities observed through the enaction of sensorimotor schemes. After a certain learning period, this model becomes capable of ‘representing’ the surrounding environment in an egocentric frame of reference, and of tracking and updating this representation as the agent moves, defining a form of object permanence. The agent then characterises its surrounding environment in the form of a context of affordances located in its extra-personal space, which can be exploited to generate behaviours that satisfy its motivational principles.
+				</p>
+				
+				<p>
+				However, this spatial memory mechanism has only been studied in static environments or, as in <a href="/these/ater1.html">this case</a>, in environments where movements are predictable. In order to interact with other agents, a developmental agent must develop the ability to detect these agents and predict the most probable behaviours in order to act accordingly. The work presented here concerns the study of the emergence of the ability to predict behaviours of another agent. The principle is as follows: an agent acts according to the affordances that surround it. Thus, if an agent can know the environmental context from the point of view of another agent, and if it knows its behavioural preferences, then it can predict the most probable movements of this other agent. This principle is therefore based on the assumption that the behavioural model of this other agent is based on principles similar to those of the developmental agent, that ‘projects’ its own functioning onto the other agent.
+				</p>
+				
+				
+				<figure style="text-align:center">
+						<img src="/projects/projection.svg" alt="being on other's position" width="250" />
+						<figcaption>Prediction principle: if the developmental agent (bottom left) can know the affordance context of another agent as well as its behavioural preferences, then it can predict what its possible next moves.</figcaption>
+				</figure>
+					
+				<p>
+					<br/>
+				This principle requires several processing steps: <br/>
+
+				- <a href="#step1">being able to detect an unpredictable moving object,</a><br/>
+				- <a href="#step2">being able to locate a moving object in space,</a><br/>
+				- <a href="#step3">being able to track a moving object over several consecutive steps,</a><br/>
+				- <a href="#step4">being able to infer the behavioural preferences of the moving object,</a><br/>
+				- <a href="#step5">predicting the probable behaviour(s) of the moving object,</a><br/>
+				- <a href="#step6">generating behaviours exploiting these predictions.</a>
+				</p>
+				
+				<p>
+				This work was described in a trilogy of papers presented at conferences ICDL2022, ICDL2023 and ICDL2025.
+				</p>
+				
+				<figure style="text-align:center">
+						<img src="/projects/diagram7.svg" alt="Model of the space memory" width="600" />
+						<figcaption>Model of the space memory adapted to dynamic and multi-agent environments. In black, the mechanisms from my thesis work. In green, the mechanisms presented at ICDL 2022, in blue, the mechanisms presented at ICDL 2023, and in red, the mechanisms presented at ICDL 2025.
+						</figcaption>
+					</figure>
+				
+			</section>
+			
+			<section class="subsection" id="step1">
+				<section class="listsection">
+					<p>
+					<b>I Detecting a mobile object in the environment (ICDL 2022)</b>
+					</p>
+					
+					<p>
+					Our learning mechanisms are based on the ability to predict the outcome of a sensorimotor scheme (success or failure) based on previously enacted sensorimotor schemes. From an external perspective, affordance can be defined as the element of the environment that enables the success (or failure) of an interaction <i>i</i>, with the prediction of the outcome of <i>i</i> being defined by the interactions whose enaction reveals the presence of this affordance. The interactions that enable the prediction of interaction <i>i</i> form the “Signature” of <i>i</i>. This signature makes it possible to define, based on the enacted interactions, the certainty of success or failure of the interaction as a value between 1 (absolute certainty of success) and -1 (absolute certainty of failure).
+					</p>
+					
+					<p>
+					Detecting a mobile object is more complex than it seems: the agent can detect the presence of an affordance, but if it moves, the interaction will still fail. Furthermore, the affordance may afford its interaction from several positions, depending on its movements. These particularities mean that the signature mechanisms used until now fail to integrate these objects in the agent's environment model. 
+					</p>
+					
+					<p>
+					The proposed solution came from an observation about the certainties measured by signatures of interactions: although these certainties were always negative and close to -1, because the presence of the affordance leads to a failure most of the time, the fact that the interaction can only succeed if the affordance is present allows for at least a partial construction of the signature. Thus, the certainty of success, although still negative, is systematically lower, in absolute value, when the affordance is present (typically between -0.8 and -0.9 when affordance is present and between -0.9 and -1 when it is absent).				
+					</p>
+					
+					<p>
+					The following principle was then proposed: we start with the classical learning process. After a certain number of interaction attempts, during which the average prediction is measured, we add the following rule: <br/>
+					- if the interaction succeeds, then the signature is reinforced as a success, <br/>
+					- if the interaction fails AND the prediction is below average, the signature is reinforced as a failure, <br/>
+					- if the interaction fails AND the prediction is above average, the signature is not modified.
+					</p>
+					
+					<p>
+					The elimination of cases of failure in the (supposed) presence of the affordance allows the emergence of signatures of interactions afforded by mobile objects. The figures below show the prediction profiles for interactions afforded by static and dynamic elements. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/profile2.png" alt="profile of an interaction afforded by a static object" width="500" />
+						<figcaption>Prediction profile of an interaction afforded by a static object over time. Each pixel column corresponds to 10 enactions of the interaction. Green dots correspond to a successful enaction, red dots to a failure. The height of the dot indicates its prediction before enaction, from 1 to -1. The figure shows a quick separation of success and failure cases, showing that the signature allows the detection of the affordance's presence.</figcaption>
+					</figure>
+					
+					<figure style="text-align:center">
+						<img src="/projects/profile3.png" alt="profile of an interaction afforded by a mobile object" width="500" />
+						<figcaption>Prediction profile of an interaction afforded by a moving object over time. Initially, the predictions quickly become negative, then, when the signature begins to emerge, allowing the recognition of cases where the affordance is likely to be present from cases where the affordance is assumed to be absent, a separation appears. The bottom (predictions of failure) contains the cases where affordance is assumed to be absent, consisting almost exclusively of failures. The top contains the cases where affordance is assumed to be present (prediction of success). The ratio between the number of successes and failures makes it possible to determine the probability of success offered by the affordance.</figcaption>
+					</figure>
+					
+					
+					<p>
+						Since the different movements of a moving object can have different probabilities, it became necessary to separate the different contexts affording an interaction, i.e. the different positions from which the interaction can be enacted. I therefore proposed a signature model defining several competing “sub-signatures”. After an initial learning phase in which the “sub-signatures” are reinforced identically, the competition system is activated: if the interaction is successful, only the sub-signature with the highest certainty is reinforced as a success. If it fails, all sub-signatures are reinforced as a failure. This principle leads each sub-signature to specialise in a certain context affording the interaction. In order to accelerate the specialisation process, a sub-signature whose predictions display a certain level of reliability will eliminate the context it characterises from the other sub-signatures. The following figure shows an implementation of this signature model based on formal neural networks. 
+
+					</p>
+
+					
+					<figure style="text-align:center">
+						<img src="/projects/signature_model2.svg" alt="model of signature of interaction" width="300" />
+						<figcaption>Implementation of signatures using formal neurons. Each neuron forms a sub-signature, encoded by the neuron's weights, which identifies interactions likely to predict the outcome of the interaction associated with the signature. Competition makes  possible to separate different contexts, unlike a multi-layer network, which will only define interdependent features. An output weight <i>W</i> allows the inversion of the value, allowing for signatures that characterise an affordance preventing the enaction of its interaction.</figcaption>
+					</figure>
+					
+					<p>
+						When a sub-signature shows a certain level of reliability, the success and failure ratio can be measured when affordance is assumed to be present. This makes possible to define the probability (information that is independent of the certainty) specific to each position of the moving object, and thus characterise the probability of each possible movement. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/environment1.svg" alt="Test environment" width="450" />
+						<figcaption>Test environment: the agent (grey shark) has a set of interactions that consist of moving forward one step, bumping, eating, sliding on a soft object, and turning 90° to the right and left. The interactions move forward, bump, eat and slide are mutually exclusive: the failure of one leads to success of one of the others. It is also equipped with a visual system that can detect red, green and blue objects at a particular (but unknown) position as the agent moves, forming a set of visual interactions. The environment is populated with different types of objects: green walls (solid), seaweed (soft, walkthroughable objects) and blue fish, which can move in any of four directions or remain stationary, with each possibility having a 20% chance of occurring. It should be noted that the fish are blocked by walls, making non-movement slightly more probable.</figcaption>
+					</figure>
+					
+					<p>
+						Initially, the agent is only guided by the learning mechanism, which seeks to test interactions with a low probability (in absolute value) of success/failure. When signatures begin to provide high certainty, the exploitation mechanisms gradually replace the learning mechanism (although the latter becomes active again if the environment changes sufficiently to make signatures obsolete).
+					</p>
+					
+					<p>
+						Signatures are implemented with sets of 7 competing formal neurons. The agent has a set of 6 interactions, called 'primitive interactions': move forward one step, bump, eat, slide on a soft object, turn left and right 90°. The visual system allows three colours (red, green and blue) to be observed at one of 15x9=135 positions in the visual system. These positions are unknown to the agent, and the regular grid distribution makes it easier to read the signatures. The visual system can thus generate 405 visual perceptions. This visual information cannot be dissociated from the movement that generate it, namely the movement generated by the enactment of a primary interaction. These visual perceptions are therefore associated with primary interactions (except for bumping, which does not generate movement) to form a set of 2025 secondary interactions. These interactions therefore take the form of ‘move forward and see a blue element in position #23’ or ‘turn right and see a green element in position #64’. These secondary visual interactions bring the number of interactions available to the agent to 2,031. 
+					</p>
+					
+					<p>
+						In order to make it easier to read and analyse the context of enacted interactions and signatures, the list of interactions is organized as follows: the six primary interactions are represented at the bottom with six small squares. Visual interactions are grouped according to their associated primary interaction to form five groups. Within each group, interactions are organised to match to their actual position in the field of vision and coloured according to their associated colour. These groups thus form a colour image representing the visual context in front of the agent.
+					</p>
+					
+					<p>	
+						We therefore initially allow the agent moving in its environment (figure above) to discover regularities in its interactions and construct signatures. The signatures of the interactions bump and slide, which are afforded by static objects, appear in the first 5,000 decision cycles, a duration similar to those observed in static environments. As these interactions are only afforded by a single context, only one of the signature's neurons is exploited, the others retaining weights close to 0. The bump interaction is afforded by the detection of a green object in front of the agent (regardless of the movement performed by the agent), but also by the previous enaction of bump interaction, both of which characterise the presence of a green wall in front of the agent. This example shows that signatures can gather all the sensory modalities that characterise an affordance. The sliding interaction is associated with the observation of a red object in front of the agent, characterising the presence of red algae. The two signatures define a context with a probability greater than 90%, confirming that the affordance does not move. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/signatures1_3.svg" alt="signatures of bump and slide" width="500" />
+						<figcaption>
+						The signature of bump interaction (left) characterises an element that can be detected by an interaction ‘see a green element in front of the agent’, regardless of the movement produced, but also by the previous enaction of bump (second square, green,  at the bottom). The signature of slide interaction characterises the presence of a red element in front of the agent. Only one of the seven neurons in the signature is used, indicating the unicity of the context affording these interactions. Furthermore, the probability of these contexts exceeds 90%, indicating that it is indeed a static object.
+						</figcaption>
+					</figure>
+					
+					<p>
+						The signatures of move forward and eat interactions take longer to emerge: approximately 50 000 decision cycles are required, mainly because the interaction can fail even when affordance is present. We can notice that the signature of move forward interaction has an output weight W close to -1: it is therefore an interaction whose affordance, designated by the signature, prevents its enactment. In the case of eat interaction, up to five contexts are defined, each corresponding to a position of the fish relative to the agent which, if the fish moves in the right direction, allows the interaction to succeed. Note that since the fish cannot be below the agent after taking a step forward, the ‘below’ context is not present in the first three lines of the signature (groups of interactions related to move forward, eat and slide). The contexts characterising the presence of a fish in front of the agent are defined with a probability of success of around 25%, while the peripheral positions are close to 19%, which is consistent with the fact that fish can be blocked by a wall. In the case of move forward interaction, up to seven contexts are defined. We find contexts linked to the presence of a green element and a red element in front of the agent, defined with a high probability indicating that these objects are static, and the five contexts linked to a blue object (the fish) with probabilities close to those defined by the eat interaction signature. It is therefore possible to distinguish between moving and static objects based on their probabilities.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/sig_forward.svg" alt="signatures of eat and move forward" width="600" />
+						<figcaption>
+						Signatures of move forward and eat interactions obtained after 100,000 decision cycles. Each column represents a neuron of the signature. The signature of eat (top) characterises an element that can be detected by a ‘see a blue element’ interaction at several positions in front of the agent, indicating that the object can move in several ways. The position in front of the agent (the object does not move) is slightly more probable than the others (approximately 25% versus approximately 19%), which can be explained by the fact that fish can be blocked by a wall. The signature of move forward interaction has an output weight close to -1: the contexts displayed are therefore those preventing the enaction of this interaction. These include contexts related to the presence of a blue fish, with probabilities close to those defined by the signature of eat, and contexts related to green walls and red algae, with a probability exceeding 90%, making it possible to distinguish between contexts made of static and moving objects.
+						</figcaption>
+					</figure>
+					
+					<p>
+						Visual interactions also have their own signatures. In the case of visual interactions involving green and red colours, a single neuron defines a context. This is because green and red objects in this environment are static. By analysing the difference between the position associated with a visual interaction and the position of the elements designated by its signature, we can observe that the signature encodes the movement produced by the primary interaction. Thus, for the forward interaction, the signature designates an element of the same colour, but located one step forward. For the 90° turn interactions, we observe a rotation of the field of vision centered on the agent. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/sig_visual_static.svg" alt="static visual signatures" width="400" />
+						<figcaption>
+						Signatures of visual interactions ‘seeing a green element while moving forward’ (left) and ‘seeing a red element while turning left’ (right) at a position indicated by the red square. We can observe that the difference in position between the position of the interaction and the element designated by the signature corresponds to the movement produced by the primary interaction. Signatures can thus encode the movements of primary interactions.
+						</figcaption>
+					</figure>
+					
+					<p>
+						The signatures of visual interactions related to the colour blue designate up to five contexts, corresponding to the five possible movements of blue objects. However, the movement generated by the primary interaction remains visible. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/sig_visual_dynamic.svg" alt="signatures visuelles statiques" width="600" />
+						<figcaption>
+						Signatures of visual interactions ‘seeing a blue element while moving forward’ (top) and ‘seeing a blue element while turning left’ (bottom) at a position indicated by the red square. Each signature indicates a set of contexts covering the various possible movements. Lines 2 and 3 of the signatures concern visual interactions associated with eating and sliding interactions. As these interactions are rarely enacted, the contexts based on these interactions take longer to emerge.
+						</figcaption>
+					</figure>
+					
+					<p>
+						The ability of signatures to encode the movement of a primary interaction is the basis of the mechanism for detecting distant affordances described below. 
+					</p>
+					
+				</section>
+			</section>
+
+			<section class="subsection" id="step2">
+				<section class="listsection">
+
+					<p>
+						<b>II locate a moving object in space (ICDL 2023)</b><br />
+					</p>
+
+					<p>
+						The localisation of distant affordances is based on a property of signatures of interactions: a signature refers to interactions enabling the detection of an affordance, interactions that may have their own signature. Thus, if we consider the interactions <i>{jk}</i> designated by a signature of an interaction <i>i</i>, associated with the same primary interaction <i>j</i>, then the set of signatures of these interactions designates an element which, after enacting <i>j</i>, is likely to afford interaction <i>i</i>. Thus, this ‘projection’ of the signature designates the affordance of <i>i</i>, but at a position that can be reached by enacting interaction <i>j</i>. By performing this projection recursively, it becomes possible to designate an affordance that can be reached by performing a certain sequence of interactions. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/projection_principle.svg" alt="principle of the projection of a signature" width="500" />
+						<figcaption> 
+							Projection of the signature of an interaction <i>i</i> (left). The signature of <i>i</i> refers to a set of interactions, each having its own signature. By considering only the interactions associated with the same primary interaction <i>j</i>, we can obtain a projection of the signature of <i>i</i> through interaction <i>j</i>, defining an object which, if the agent moves by enacting <i>j</i>, will be able to afford <i>i</i>.</figcaption>
+					</figure>
+
+					<p>
+						In the case of an interaction afforded by a mobile object, the signature consists of several sub-signatures. A projection would lead to an explosion in the number of projected contexts. We therefore proposed using the probabilities of the sub-contexts to filter and retain only the most probable projections. This principle of projection is illustrated below.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/projection_dynamic.svg" alt="principle of the projection of a signature afforded by a dynamic object." width="500" />
+						<figcaption>
+						Projection of a signature of interaction afforded by a dynamic object. a) Sub-contexts of a signature with their respective probabilities. b) To simplify, we only represent the sub-contexts ‘front’, ‘right’ and ‘left’, and give each sub-context a different colour. c) Let us now focus on a single interaction from each sub-signature. These interactions are secondary interactions associated with the same primary interaction (in this case, moving forward). d) Each of the three designated interactions has its own signature composed of several sub-signatures. Here, we will only represent three (front, left and right) with their respective probabilities, multiplied by the probabilities of the initial sub-signatures. d) Some sub-signatures designate the same interaction. In this case, only the most probable projection will be retained. If the projections come from different sub-contexts, the probabilities of the deleted projections are added to the remaining one. f) A final step consists of deleting projections with too low probabilities. This defines a threshold value below which a projection is not retained. Note that in this figure, the probabilities of the remaining ‘paths’ are lower because we have not represented all the sub-contexts. g) This projection principle is applied recursively. Here, we obtain the projections for the sequence [turn right, move forward, move forward, move forward]. At each step, competition between the interaction sequences allows only the most probable and shortest sequences to be retained, avoiding combinatorial explosion.
+						</figcaption>
+					</figure>
+					
+					<p>
+						Once the signature projections have been obtained, it becomes possible to detect distant affordances and locate them through sequences of interactions. Since each interaction can be ‘linked’ by multiple sequences, the same mobile affordance will be located by multiple sequences. These sequences make it possible to characterise the different possible positions of the mobile object at the next instant. The figure below shows an example of distant affordance detection. 
+					</p>
+					
+					
+					<figure style="text-align:center">
+						<img src="/projects/detection_dynamic_1.svg" alt="detection of distant affordances" width="450" />
+						<figcaption> 
+						Detection of distant affordances in extra-personal space. Each circle represents the position and orientation obtained by enacting a sequence of interactions where an affordance was detected. Green circles show affordances of bumping, red circles show affordances of slide, blue circles show affordances of eat, and black circles show the absence of moving forward. Static affordances are located with a small number of sequences, indicating that the position is certain, as the object is static. The affordance of eating is located by a large number of sequences, each indicating a possible position at the next moment. Static affordances are recorded by spatial memory in the form of lists of Places.</figcaption>
+					</figure>
+					
+					<p>
+						Static affordances, designated by sub-signatures with a high probability, are located by a small number of sequences (sometimes with a single one). These affordances are recorded by the agent's <a href="/these/these11.html">space memory</a>. The position of these affordances is then characterised by a list of structures called Places, giving the distance and the first interaction of the sequence leading to the affordance. Mobile affordances are detected by a set of sequences characterising the different possible movements. As the space memory has not yet been tested with mobile affordances, these affordances will not be recorded. 
+					</p>
+					
+				</section>
+			</section>
+
+
+			<section class="subsection" id="step3">
+				<section class="listsection">
+
+					<p>
+						<b>III Tracking a moving object over several consecutive steps (ICDL 2023)</b><br />
+					</p>
+					
+					<p>
+						In order to analyse the behaviour of another agent, it is important to be able to recognise an agent instance over several simulation steps and to be able to observe its movements, particularly in the reference frame of its immediate environment. The hypothesis is therefore that if the developmental agent can know the affordance context of another agent and can observe its movements, then it becomes possible to determine the behavioural preferences of that other agent, in particular which affordances it tends to move towards and which affordances it tends to avoid.
+					</p>
+					
+					<p>
+						This hypothesis implies two specific constraints. First, the agent must have interactions that allow it to detect the presence of all affordances likely to influence the behaviour of the other agent. Then, the other agent must use a behavioural model similar to those of the developmental agent, so that it can use its own behavioural model to compare what it would have done in similar situations and, by analysing the differences, deduce the behavioural preferences of the other agent. 
+					</p>
+					
+					<p>
+						To obtain the context from another agent's point of view, we will exploit the properties of the space memory: this structure can update the affordance context around the agent as it moves by enacting interactions. We will therefore be able to simulate a sequence leading to a mobile affordance and obtain the context of affordances ‘observable’ from this position. However, two problems must be solved:<br/>
+						- First, a mobile affordance is located by a set of interaction sequences. This problem is easily solved by the fact that we only need the distance of the affordances. Thus, we will compute the average of the distances of affordances obtained by simulating the different sequences.<br/>
+						- Next, the interaction sequences show the position from which the agent can interact with the affordance, rather than the position of the affordance itself. The solution chosen is based on interactions afforded by ‘negative’ affordances, i.e. those whose success is linked to the absence of the affordance. The hypothesis is that these negative affordances delimit a volume of space that must be empty, this volume having to be occupied, totally or partially, by the agent itself during or at the end of the enaction of this interaction. The interaction move forward illustrates this principle: the signature of this interaction indicates the volume in front of the agent that the agent will occupy during and after moving forward, with the presence of any object in this volume leading to the failure of the interaction. In continuous versions of the model, the signature designates a volume the size and shape of the agent's “hitbox” (the shape used by the environment's physics engine to manage collisions). We then exploit the fact that certain interactions are mutually alternative, i.e. the failure of one can lead to the success of another. In our example, the interactions move forward, bump, eat and slide are mutually alternative. If one of these interactions fails, one of the other three will be enacted instead. The fact that two interactions are mutually alternative implies that their affordances have a similar size and position. Thus, if the agent detects the presence of the bumping interaction, assuming that it can move forward, then it would occupy the same position as the object that affords bump. We therefore retain the following principle: if the agent detects a distant affordance of an interaction <i>i</i> located by a certain sequence <i>s</i>, if there is an interaction <i>j</i> afforded by a negative affordance and which is mutually alternative to <i>i</i>, then we can obtain the real position of the affordance of <i>i</i> by simulating the sequence <i>[s,j]</i>. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/detection_dynamic_2.svg" alt="detection of the affordance context of another agent" width="450" />
+						<figcaption> 
+						The context is defined from the perspective of mobile affordance: the interaction 'eat' is mutually alternative with an interaction afforded by a “negative” affordance: move forward. It is therefore possible to virtually move in the place of this affordance by adding ‘moving forward’ to the sequences of interactions localising it (here, only three are represented). These sequences are then simulated in spatial memory to obtain the distance of static affordances from this position. These distances are then averaged to obtain the affordance context of the mobile entity.
+						</figcaption>
+					</figure>
+
+					<p>
+						Now that the affordance context of the mobile entity is known, it is necessary to observe this entity over several simulation steps in order to study its behaviour. To do this, we use sequences allowing to locate the affordance: some of these sequences begin with the interaction performed by the agent. Thus, it is possible to obtain a set of sequences locating the new position at time <i>t+1</i> by filtering the sequences beginning with the enacted interaction and removing this first interaction from remaining sequences. A new detection allows the detection of mobile affordances. If certain sequences are common between those updated and those newly detected, then it is likely that the new entity is the same as the one detected at time <i>t</i>. Once the entity has been identified, any variations in distance that appear in the affordance context are observed. If at least one affordance has had a distance variation close to 1 (the displacement being in theory exactly of 1 interaction), then we can consider that the affordance has moved. It should be noted that the displacement is measured in an allocentric reference frame (since it is based on static elements in the environment), a first for our developmental agents, which until now have only used egocentric reference frames. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/recognition_1.svg" alt="observation d'un agent" width="550" />
+						<figcaption>
+						The recognition of a mobile entity relies on updating the sequences localising it. On the left, two affordances of eat are located by sets of interaction sequences (the figure shows three for each affordance). The agent then enacts the move forward interaction. Some sequences began with the move forward interaction. The first interaction in these sequences is therefore removed, and the other sequences are deleted. A new detection is performed. Two entities are detected. Some sequences are common with the updated sequences, enabling recognition of the two previously detected affordances. It then becomes possible to compare the affordance contexts at times <i>t</i> and <i>t+1</i>. In the case of the entity on the left, the static affordances have moved closer or further away by approximately one unit, indicating that it has indeed moved. In the case of the entity on the right, the variations are small, indicating that the entity has remained stationary. 
+						</figcaption>
+					</figure>
+
+				</section>
+			</section>
+			
+			
+			<section class="subsection" id="step4">
+				<section class="listsection">
+					<p>
+						<b>IV Infering the behavioural preferences of moving objects (ICDL 2023)</b><br />
+					</p>
+					
+					<p>					
+						This mechanism is based on the assumption that the behaviour of the mobile entity uses a mechanism that is similar to the developmental agent, so that this decision-making mechanism can be projected onto the entity. The model is therefore limited to understanding agents whose complexity does not exceed that of the developmental agent, otherwise the latter may not be able to understand the causes of the other agent's actions. The idea here is to apply the agent's decision-making model to the mobile entity and analyse its movements in order to adapt the satisfaction values of the interactions.
+					</p>
+					
+					<p>
+						The current decision models of our developmental agents are primarily reactive, and drive the agent to move closer to interaction affordances with a high satisfaction value, and stay away from interaction affordances with a negative satisfaction value. These model define a utility value to interactions allowing the agent to move closer to ‘interesting’ affordances, which determines the choice of the interaction to enact. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/agent_decision_system.svg" alt="Decision mechanism of the agent" width="450" />
+						<figcaption>
+							The agent is guided by a decision mechanism that reacts to the affordances around it. Affordances are stored in the space memory in the form of pairs indicating the afforded interaction <i>ak</i> and the Place where it is located in ego-centred space. This Place indicates an interaction <i>ik</i> allowing the agent to move closer to it (defining an orientation) and the minimum number of interactions <i>dk</i> required to reach it (defining its distance). The above equation defines a utility value that is added to the satisfaction values of the agent's interactions: if an interaction <i>i</i> allows to move closer to an affordance, then a utility is added that depends on the satisfaction value of the afforded interaction and its distance (the closer the affordance, the greater the utility). This mechanism drives the agent to choose interactions that bring it closer to affordances that afford interactions with a high satisfaction value and to move away from affordances with a negative satisfaction value.
+						</figcaption>
+					</figure>
+					
+					<p>
+						The developmental agent cannot know the interactions of the mobile entity. However, we can assume that, regardless of the movement made by this entity, its movement must bring it closer to ‘positive’ affordances or further away from ‘negative’ affordances. We can therefore define a utility value not for interactions, but for the change in position of the entity. Utility should normally always be positive, as the agent is assumed to follow its preferences. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/entity_decision_system.svg" alt="Decision mechanism projected onto the entity" width="450" />
+						<figcaption>
+						The agent projects its decision mechanism onto the mobile entity. As the agent cannot know the entity's interactions, the utility calculation will focus on its movement, and in particular the variations in distance to surrounding affordances that this movement produces. This utility is expected to always be positive; a negative value indicates that the satisfaction values that the agent assigned to the entity are incorrect. 
+						</figcaption>
+					</figure>
+					
+					<p>
+						Thus, if the utility value between two consecutive steps is negative, it means that the preferences are incorrect and must be modified. In the event of a correction, the following principle is applied: interactions of affordances that move closer have their satisfaction values increased, while interactions of affordances that move further have their satisfaction value decreased. The variation in value will depend on the distance of an affordance, as close affordances have more influence on the behaviour. In order to reduce the impact of incomplete observations of affordance contexts, the following rules are added:<br/>
+						- Values can only be corrected if the contexts before and after the movement contain the same affordances: the appearance or disappearance of an affordance can bias utility calculations.<br/>
+						- The correction will be inversely proportional to the distance of the entity: a distant entity will be more likely to perceive affordances that are not visible to the agent.<br/>
+						- The correction becomes weaker over time: this allows the satisfaction values to gradually stabilise and reduces the impact of incomplete observation of affordance contexts. 
+					</p>
+					
+					<p>
+						The test environment was modified to test the inference of satisfaction values. The fish are now controlled by a decision mechanism that depends on surrounding objects. As the current version of spatial memory does not include moving elements, we will only be able to test the inference of satisfaction values related to static objects. A fish is strongly attracted by algae (which it eats when it passes over them) and weakly repelled by walls. The satisfaction value of algae is set to 20 and that of walls to -2. The fact that fish react to algae motivated the addition of the “slide” interaction to the developmental agent's set of interactions. Without this interaction, algae, which can be passed through, is comparable to empty space for the agent. The agent would then have been unable to determine the causes of the fish's decisions. The fact that an agent needs to be able to detect the affordances of other agents is a strong constraint, but biologically plausible in the case of a predator evolving in the same environment as its prey. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/fish_decision_system.svg" alt="Decision mechanism of fish" width="350" />
+						<figcaption>
+							Fish are controlled by a decision mechanism similar to that of the agent, which reacts to the presence of algae and walls within a radius of 7 block-units (size of a wall block). A fish is strongly attracted to algae (satisfaction of 20) and weakly repelled by walls (satisfaction of -2). The closer the object is, the greater its influence. The equation is used to define a vector that gives the direction to take. The mechanism then selects the movement closest to this vector from {up, down, right, left}. Here, the upward movement is selected. The fish remains stationary if the movement is prevented by a wall or another fish (the algae are eaten) or if no nearby objects are present. 
+						</figcaption>
+					</figure>
+					
+					<p>
+						For this experiment, the agent is equipped with a hard-coded <a href="/these/these11.html">space memory</a> that reproduces the operating principles observed during my thesis work, in order to eliminate any bias related to an incomplete learning of this structure. A curiosity mechanism is implemented, which drive the agent to move towards the affordance, among those detected as mobile, that is the closest, increasing the chances of relevant and reliable observations. This mechanism exploits the sequences of interactions leading to these affordances by selecting the first interaction in these sequences. In the event of a negative utility observation with a consistent affordance context (same affordances), the satisfaction values of an affordance for a mobile element are updated as follows: 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/update_projected_valences.svg" alt="update equation of infered satisfaction values" width="350" />
+					</figure>
+					
+					<p>
+						The values stabilise quickly, requiring fewer than 500 observations and updates. The table below shows a representative sample of tests and the obtained values. Note that since we only use the sign of the utility value, and since the positions are compared with each other, the satisfaction values can be multiplied by any positive constant. Therefore, only the signs and the ratio between the satisfaction values are important. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/projected_valences.svg" alt="table of inferred values" width="450" />
+					</figure>
+					
+					<p>
+						We can observe that the agent systematically assigns a positive value to elements that afford the slide interaction and a negative value to elements that afford bump interaction. Furthermore, the ratio between these two values rarely exceeds the interval [-20,-5], showing that these mobile affordances (fish) are more strongly attracted to algae than they are repelled by walls. More significant variations may appear as a result of a large number of incorrect observations at the beginning of learning, when the learning coefficient is highest (case #5 in the table). These observations show that the agent is indeed capable of inferring the behavioural preferences of another agent. 
+					</p>
+					
+				</section>
+			</section>
+			
+			<section class="subsection" id="step5">
+				<section class="listsection">
+					<p>
+						<b>V Predicting the behaviours of a moving object (ICDL 2025)</b><br />
+					</p>
+					
+					<p>
+						Now that the agent can detect a mobile object and knows its behavioural preferences, it becomes possible to predict its most probable future movements. Here, we assume that this other agent will act in a way that maximises the satisfaction derived from its movements, i.e. it will select the movements that will bring it closest to the affordances it considers positive. The different sequences σ<sub>k</sub>, defined in step III, characterise the different future positions of the moving element. We will adapt the equation for the utility of movements (step IV) to define an absolute utility value for a given affordance context, which will be calculated for each future position. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/absolute_position_utility.svg" alt="absolute utility value of a context of affordances." width="450" />
+						<figcaption>
+						The absolute utility value defines a numerical value for each position (characterised by a sequence of interactions) based on the context of affordances that would be observed in that position. The utility value characterises how ‘interesting’ this position is for the other agent based on their motivational system.
+						</figcaption>
+					</figure>
+					
+					<p>
+						The agent can then determine the position that is most likely to be chosen by the mobile entity as the position with the highest utility. The current model considers only a single prediction. However, nothing prevents the use of more elaborate prediction models based on multiple assumptions.
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/max_detection.svg" alt="prediction of the most probable position." width="450" />
+						<figcaption>
+						The agent selects the sequence, from among those considered reliable, that produces the highest utility value. Here, the selected sequence indicates, from an external perspective, that the fish will move upwards (blue square). The presence of the green wall on the right has most likely reduced the utility of moving to the right.
+						</figcaption>
+					</figure>
+					
+					<p>
+						This prediction is limited to the next step. In order to make longer-term predictions, we propose to convert the sequence characterising the next position into the fictional interaction context that the agent would have observed if the mobile entity were at that predicted position. Since the mobile affordance has been confirmed as present, it will not need to project the whole signature or calculate its certainty of presence, which allows for several simplifications.
+					</p>
+					
+					<p>
+						The first simplification is based on the fact that we do not need the whole interaction context to characterise the presence of this affordance: a single ‘virtually enacted’ interaction will suffice to characterise its position. We must therefore define, based on a sequence characterising a position, an interaction that best characterises this position. The principle is to project, at each signature projection cycle, only the most probable sub-signature, and from this sub-signature, to project only the interaction with the highest weight (i.e. the interaction that has the greatest impact on the prediction of success or failure). The signature of the interaction related to the mobile affordance is thus projected recursively according to the interaction sequence defining the predicted position. The result is a single interaction whose supposed enaction would best characterise the presence of this affordance at the predicted position. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/max_projection.svg" alt="projection through the most probable interaction." width="550" />
+						<figcaption>
+						The signature of the eat interaction is projected using the sequence characterising the predicted position (here: move forward, move forward, turn right, move forward, move forward). The projection is performed backwards. We start with the signature: as the first interaction in the sequence is move forward, we only consider the sub-signatures based on secondary interactions associated with move forward. We select the most probable sub-context, then the interaction indicated by the highest weight, here a visual interaction associated with the colour blue, with index 208 in the list of interactions. The signature of interaction 208 is read and the process is repeated with the previous interaction in the sequence, continuing until reaching the beginning of the sequence. The last interaction obtained, here with index 124, is considered to best characterise the presence of the mobile entity at the predicted position.
+						</figcaption>
+					</figure>
+						
+					<p>
+						Once this interaction has been obtained, it can be used for a new detection cycle. The second simplification concerns the detection system: since the affordance is considered as present, it is not necessary to calculate the certainty given by a signature projection: we simply record the projections that contain this interaction, linked with a sufficiently high weight. This yields a new set of sequences, as obtained in step III, but centered on the predicted future position. The detection-prediction cycle can then be repeated recursively to obtain a probable trajectory for the moving entity. The trajectory may differ from the ground-truth trajectory of the moving entity due to differences in sensorimotor capabilities between the agent and the moving entity. However, it provides a general direction and therefore increases the chance of interacting with the entity. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/predicted_trajectory.svg" alt="predicted trajectory." width="350" />
+						<figcaption>
+						The recursive detection and prediction enable the construction of a plausible trajectory. In this figure, the steps of recursive prediction are represented by blue circles of decreasing size. Prediction stops when the moving entity gets close to the alga, as the current model can't integrate changes made by other moving entities (such as the alga disappearing when the fish eats it). The trajectory differs from the fish's actual behaviour, mainly due to differences in sensorimotor capabilities, but the agent correctly predicted that the fish would move towards the algae.
+						</figcaption>
+					</figure>
+					
+				</section>
+			</section>
+			
+			<section class="subsection" id="step6">
+				<section class="listsection">
+					<p>
+						<b>VI Generating behaviours incorporating mobile objects (ICDL 2025)</b><br />
+					</p>
+					
+					<p>
+						During the recursive detection-prediction process, the agent may detect a future position in the form of an interaction sequence whose length is the same as the prediction step. These sequences imply that if the agent enacts one of them, the mobile entity will, if the prediction is correct, be in the right position to enable the interaction it affords. These particular sequences are called interception sequences. 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/interception_sequences.svg" alt="Interception sequences." width="350" />
+						<figcaption>
+						During the prediction process, the agent may detect sequences of the same length as the prediction step. The figure shows an example of a sequence detected in step 5 and step 6. These sequences therefore allow the agent to be in the right position at the right time to interact with a mobile affordance, hence their name: interception sequences.</figcaption>
+					</figure>
+					
+					<p>
+						The interception sequences can play two roles in the decision model of the agent: <br/>
+						- First, they allow the agent to characterize the position of a mobile affordance without using spatial memory. Indeed, by recording these sequences, the agent can characterize the position of a mobile affordance in its internal model as the set of positions allowing interaction with it, rather than its current position. By updating these sequences, through deleting the first element when enacted, the agent can keep the position of the affordance in memory as long as it follows at least one of these interception sequences, even if it can no longer detect this affordance. It is therefore relevant to maintain a wide variety of interception sequences of different lengths to allow the agent to adapt its behavior according to other elements of the environment.<br/>
+						- Then, these sequences can play a role in decision-making. Decision mechanisms rely on the affordance context provided by the space memory. Each affordance is characterized by a set of Places giving an interaction allowing to get closer to it and a distance in number of minimal interactions to reach it. The sequences of interactions can define Places to characterize the position of a mobile affordance: we use the first interaction and the length of the shortest interception sequences of an affordance. It therefore becomes possible to directly use decision models based on the space memory.
+					</p>
+					
+					<p>
+						Interception sequences thus form a complement to spatial memory for mobile affordances, by allowing a form of object permanence and by providing information, in the form of Places, on positions allowing to interact with these affordances. The video below shows the agent's behaviors with and without the use of interception sequences (thanks to <a href="https://suro.lcis.fr/">François Suro</a> for his help in making the video). In this experiment, we define the following satisfaction values ​​for the agent's interactions: move forward: 2, bump: -5, eat: 50, slide: 0, turn right and left: -3. The agent will thus be strongly attracted by edible objects, and weakly repelled by solid objects. It will also be more likely to want to move forward than turn. The selection mechanism is the one described in Part IV.
+					</p>
+					
+					<p style="text-align: center">
+ 						<video width="500" controls >
+  							<source src="/projects/ICDL25_0022.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/projects/interception_listing.svg" alt="listing of interception behaviours." width="550" />
+						<figcaption>
+						Listing of the agent's memory. Left: Behavior without using interception sequences. After an initial interaction with the environment (step marked 0), the agent detects three static affordances: two associated with bump, one associated with slide. The figure represents the contents of the space memory with the three affordances localized by Places. A mobile affordance of eat is also detected. The figure shows only one of the shortest sequences, which played a role in the final decision. These sequences are converted into Places so that they can be used by the decision mechanism. We then observe the agent moving towards the current position of the affordance of eat (fish). However, since they have the same speed, the agent is simply following its prey and will only be able to eat it when it stops. Right: Behavior using interaction sequences. As before, the agent detects three static affordances after an initial interaction. The dynamic affordance is recorded as a list of interception sequences. The figure shows at most three of them. Step 0 shows two of the shortest sequences, and one slightly longer to illustrate their diversity. The shorter sequences are converted into Places and propose moving forward, a decision that will be enacted. In step 1, the figure shows two updated sequences, and one of the newly detected sequences. These sequences designate a position located ahead, and on the right side, which will push the agent to turn right in step 2. In steps 3 and 4, the agent can no longer see the mobile affordance. However, updating the interception sequences allows it to continue characterizing its future position, pushing the agent to turn left at the right time to find itself in a situation where it can interact with this affordance.
+						</figcaption>
+					</figure>
+					
+				</section>
+			</section>
+
+		</div>
+		
+		<footer id="footer">	
+		</footer>
+		
+		<script>
+			fetch("https://gaysimon.github.io/footer.html").then(
+				(response) => {
+					if (!response.ok) {throw new Error(`Erreur HTTP : ${response.status}`);}
+					return response.text();
+				}
+			).then(
+				(text) => {document.getElementById("footer").innerHTML = text;}
+			).catch(
+				(error) => {console.log( `Error: ${error}`);}
+			);
+		</script>
+
+
+	</body>
+</html>
