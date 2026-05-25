@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="/style1.css" type="text/css" />
+		<title>Quinze</title>
+	</head>
+
+	<body>
+		
+		
+		<header>
+			<div id="banniere_image"> </div>
+		</header>
+		
+		<div class="main">
+			<nav>
+				<a href="/index.html">Accueil</a><br />
+				<a href="/recherches.html">Recherches</a><br />
+				<a href="/postdoc.html">Mon PostDoc</a><br />
+				<a href="/these.html">Ma These</a><br />
+				<a href="/publi.html">Publications</a><br />
+				<a href="/robot.html">Les Robots</a><br />
+				<a href="/software.html">logiciels</a><br />
+				<br />
+				<a href="/robot/quinze.html"><img src="/img/fr.png" alt="fr" /> </a>
+				<a href="/robot/quinze_en.html"><img src="/img/en.png" alt="en" /> </a>
+			</nav>
+
+			<section class="subsection">
+				<p>
+					<center style="text-align: center;font-size: xx-large;">Quinze</center><br /><br />
+				</p>
+				
+
+				<figure style="text-align:center">
+					<a href="/robot/quinze.jpg"><img src="/robot/quinze.jpg" alt="robot Quinze" width="400" /></a>
+				</figure>
+
+				<p>
+				
+			</section>
+
+			<section class="subsection">
+				<section class="listsection">
+
+					<p>
+						Description :<br />
+					</p>
+
+					<p>
+						Un tout petit robot minimaliste, contrôlé par un unique composant : le célèbre NE555. Le nom est simplement la somme des trois chiffres.<br/><br/>
+					</p>
+					
+					<p>
+						Liste des composants :<br/>
+					</p>
+
+					<p>
+						- circuit intégré NE555 et son support<br/>
+						- deux LDR<br/>
+						- barrette male coudée 6 broches<br/>
+						- barrette femelle 6 broches<br/>
+						- plaquette pastillée 6 X 6<br/>
+						- deux moteurs dc de lecteur CD-Rom<br/>
+						- Batterie 14500 avec prise<br/>
+						- chassis imprimé en 3D<br/>
+						- gaine thermorétractable<br/>
+					</p>
+					
+					<p>
+						Ce robot détourne le fonctionnement du NE555 pour fonctionner comme un comparateur. Les deux LDR forment un pont diviseur de tension : la tension obtenue va dépendre de la différence d'éclairage entre les deux LDR. Lorsque la tension franchit un seuil logique du circuit, sa sortie change, permettant d'alimenter le moteur droit ou gauche permettant au robot de s'orienter vers une source de lumière.
+					</p>
+					
+					<figure style="text-align:center">
+						<a href="/robot/quinze_schema.png"><img src="/robot/quinze_schema.png" alt="Schema électronique" width="300" /></a>
+						<figcaption>Schema du robot, issu de ce <a href="http://grant.solarbotics.net/images/Circuits/555vore_AL.gif">robot BEAM</a>.</figcaption>
+					</figure>
+					
+				</section>
+				
+				
+				<section class="listsection">
+					
+					<p>
+						Réalisation :
+					</p>
+					
+					<p>
+						On commence par réaliser la carte électronique. On commence par souder la strap avant de souder le support du NE555. On ajoute le connecteur coudé, et enfin les deux LDR. On peut se servir des pattes des LDR pour former les pistes sur le côté pastillé.
+						On soude ensuite la partie connecteur. attention au sens de rotation des moteurs.
+					
+					<figure style="text-align:center">
+						<a href="/robot/quinze_circuit.png"><img src="/robot/quinze_circuit.png" alt="circuit électronique du robot" width="300" /></a>
+						<figcaption>À gauche : les pistes à réaliser. À droite, les composants.</figcaption>
+					</figure>
+					<br/>
+					
+					<figure style="text-align:center">
+						<a href="/robot/quinze_circuit2.jpg"><img src="/robot/quinze_circuit2.jpg" alt="circuit électronique du robot" width="500" /></a>
+						<figcaption>Carte réalisée sur plaquette pastillée.</figcaption>
+					</figure>
+					
+					<p>
+						typons pour gravure (versions avec et sans strap) au format SVG : <br/>
+						- <a href="/robot/quinze_typons.svg">quinze_typons.svg</a><br/>
+					</p>
+					
+					<figure style="text-align:center">
+						<a href="/robot/quinze_typons.png"><img src="/robot/quinze_typons.png" alt="typons" width="500" /></a>
+					</figure>
+					<br/>
+					
+					<p>
+						Le chassis est imprimées depuis le modèle suivant. Il n'est pas necessaire d'utiliser un support, un radeau est par contre conseillé.<br/>
+						- Chassis : <a href="/robot/quinze_base.stl">quinze_base.stl</a><br/>
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/quinze_chassis.png" alt="Pièce à imprimer" width="400" />
+					</figure>
+					<br />
+					
+					<p>
+						On peut ensuite assembler le robot :<br/>
+						- On commence par insérer la batterie dans son logement à l'avant du robot.<br/>
+						- On insère les deux moteurs dans leur logements.<br/>
+						- On colle le connecteur sur le dessus.<br/>
+						- On place les gaines thermoretractables sur les axes des moteurs pour améliorer l'adhérence.<br/>
+						- Il ne reste plus qu'à brancher la carte NE555 et brancher la batterie.<br/>
+					</p>
+					
+					<figure style="text-align:center">
+							<a href="/robot/quinze_3.jpg"><img src="/robot/quinze_3.jpg" alt="vue du dessus" width="400" /></a>
+							<a href="/robot/quinze_2.jpg"><img src="/robot/quinze_2.jpg" alt="vue de côté" width="400" /></a>
+							<a href="/robot/quinze_4.jpg"><img src="/robot/quinze_4.jpg" alt="robot sans carte" width="400" /></a>
+					</figure>
+					
+					
+					
+				</section>
+				
+
+
+				
+				<section class="listsection">
+					
+					<p>
+						Comportement photovore : <br/>
+					</p>
+					
+					
+					<p style="text-align: center">
+ 						<video width="500" controls >
+  							<source src="/robot/quinze_video1.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+										<p style="text-align: center">
+ 						<video width="500" controls >
+  							<source src="/robot/quinze_video2.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+				
+				</section>
+				
+	
+
+		</div>
+		
+		<footer id="footer">	
+		</footer>
+		
+		<script>
+			fetch("https://gaysimon.github.io/footer.html").then(
+				(response) => {
+					if (!response.ok) {throw new Error(`Erreur HTTP : ${response.status}`);}
+					return response.text();
+				}
+			).then(
+				(text) => {document.getElementById("footer").innerHTML = text;}
+			).catch(
+				(error) => {console.log( `Error: ${error}`);}
+			);
+		</script>
+
+		
+	</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="/style1.css" type="text/css" />
+		<title>Quinze</title>
+	</head>
+
+	<body>
+		
+		
+		<header>
+			<div id="banniere_image"> </div>
+		</header>
+		
+		<div class="main">
+			<nav>
+                <a href="/index_en.html">Home</a><br />
+				<a href="/recherches_en.html">Recherches</a><br />
+				<a href="/postdoc_en.html">My PostDoc</a><br />
+				<a href="/these_en.html">My PhD</a><br />
+				<a href="/publi_en.html">Publications</a><br />
+				<a href="/robot_en.html">Robots</a><br />
+				<a href="/software_en.html">Softwares</a><br />
+				<br />
+				<a href="/robot/ESPbot.html"><img src="/img/fr.png" alt="fr" /> </a>
+				<a href="/robot/ESPbot_en.html"><img src="/img/en.png" alt="en" /> </a>
+			</nav>
+
+			<section class="subsection">
+				<p>
+					<center style="text-align: center;font-size: xx-large;">Quinze</center><br /><br />
+				</p>
+				
+
+				<figure style="text-align:center">
+					<a href="/robot/quinze.jpg"><img src="/robot/quinze.jpg" alt="Quinze robot" width="400" /></a>
+				</figure>
+
+				<p>
+				
+			</section>
+
+			<section class="subsection">
+				<section class="listsection">
+
+					<p>
+						Description:<br />
+					</p>
+
+					<p>
+						A tiny, minimalist robot controlled by a single component: the famous NE555. The name is simply the sum of the three digits ('quinze' = fithteen).<br/><br/>
+					</p>
+					
+					<p>
+						List of components:<br/>
+					</p>
+
+					<p>
+						- NE555 integrated circuit and its socket<br/>
+						- two LDRs<br/>
+						- 6-pin right-angle male header<br/>
+						- 6-pin female header<br/>
+						- 6x6 perfboard<br/>
+						- two DC motors from a CD-ROM drive<br/>
+						- 14500 battery with connector<br/>
+						- 3D-printed chassis<br/>
+						- heat-shrink tubing<br/>
+					</p>
+					
+					<p>
+						This robot hijacks the NE555 to function as a comparator. The two LDRs form a voltage divider bridge: the resulting voltage depends on the light level difference between the two LDRs. When the voltage crosses a logic threshold in the circuit, the output changes, powering either the right or left motor, making the robot turning toward a light source.
+					</p>
+					
+					<figure style="text-align:center">
+						<a href="/robot/quinze_schema.png"><img src="/robot/quinze_schema.png" alt="Electronic schema" width="300" /></a>
+						<figcaption>Schema of the robot, from this <a href="http://grant.solarbotics.net/images/Circuits/555vore_AL.gif">BEAM robot</a>.</figcaption>
+					</figure>
+					
+				</section>
+				
+				
+				<section class="listsection">
+					
+					<p>
+						Robot assembly:
+					</p>
+					
+					<p>
+						We start by assembling the circuit board. First, solder the jumper wire before soldering the NE555 socket. Add the right-angle connector, and finally the two LDRs. You can use the LDR legs to form the traces on the pad side.
+                        Next, solder the connector section. Be careful to observe the correct rotation direction of the motors.
+                        
+					<figure style="text-align:center">
+						<a href="/robot/quinze_circuit.png"><img src="/robot/quinze_circuit.png" alt="Electronic circuit of the robot" width="300" /></a>
+						<figcaption>Left: traces to create. Right: the components.</figcaption>
+					</figure>
+					<br/>
+					
+					<figure style="text-align:center">
+						<a href="/robot/quinze_circuit2.jpg"><img src="/robot/quinze_circuit2.jpg" alt="Electronic circuit of the robot" width="500" /></a>
+						<figcaption>Card made on pefboard.</figcaption>
+					</figure>
+					
+					<p>
+						Typons for engraving (versions with and without a strap) in SVG format: <br/>
+						- <a href="/robot/quinze_typons.svg">quinze_typons.svg</a><br/>
+					</p>
+					
+					<figure style="text-align:center">
+						<a href="/robot/quinze_typons.png"><img src="/robot/quinze_typons.png" alt="typons" width="500" /></a>
+					</figure>
+					<br/>
+					
+					<p>
+						The robot frame is printed from the following model. Supports are not necessary, but a raft is recommended.<br/>
+						- frame: <a href="/robot/quinze_base.stl">quinze_base.stl</a><br/>
+					</p>
+					
+					<figure style="text-align:center">
+						<img src="/robot/quinze_chassis.png" alt="Parts to print" width="400" />
+					</figure>
+					<br />
+					
+					<p>
+						The robot can then be assembled:<br/>
+						- insert the battery in the holder in front of the robot.<br/>
+						- insert the dc motors in their holders.<br/>
+						- stick the header on the top part of the frame.<br/>
+						- add heat-shrinks on motor shaft to increase grip.<br/>
+						- All that's remaining is to connect the NE555 board and connect the battery.<br/>
+					</p>
+					
+					<figure style="text-align:center">
+							<a href="/robot/quinze_3.jpg"><img src="/robot/quinze_3.jpg" alt="top view" width="400" /></a>
+							<a href="/robot/quinze_2.jpg"><img src="/robot/quinze_2.jpg" alt="side view" width="400" /></a>
+							<a href="/robot/quinze_4.jpg"><img src="/robot/quinze_4.jpg" alt="robot without card" width="400" /></a>
+					</figure>
+					
+					
+					
+				</section>
+				
+
+
+				
+				<section class="listsection">
+					
+					<p>
+						Photovore behavior: <br/>
+					</p>
+					
+					
+					<p style="text-align: center">
+ 						<video width="500" controls >
+  							<source src="/robot/quinze_video1.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+										<p style="text-align: center">
+ 						<video width="500" controls >
+  							<source src="/robot/quinze_video2.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 
+					</p>
+					
+				
+				</section>
+				
+	
+
+		</div>
+		
+		<footer id="footer">	
+		</footer>
+		
+		<script>
+			fetch("https://gaysimon.github.io/footer_en.html").then(
+				(response) => {
+					if (!response.ok) {throw new Error(`Erreur HTTP : ${response.status}`);}
+					return response.text();
+				}
+			).then(
+				(text) => {document.getElementById("footer").innerHTML = text;}
+			).catch(
+				(error) => {console.log( `Error: ${error}`);}
+			);
+		</script>
+
+		
+	</body>
+</html>
